@@ -3,5 +3,5 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 out=$(mktemp -d)/selfcheck
-swiftc Sources/AitorTyper/{Typing,Session,Texts}.swift Tests/main.swift -o "$out"
+swiftc Sources/AitorTyper/{Typing,Session,HotKey}.swift Sources/AitorTyper/Texts*.swift Tests/main.swift -o "$out"
 "$out"

@@ -1,6 +1,6 @@
 // Self-check for the typing logic. These Command Line Tools lack swift-testing's macro plugin,
 // so run it with ./test.sh instead of `swift test`.
-import Foundation
+import AppKit
 
 func tempDir() -> URL {
     let dir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
@@ -40,5 +40,15 @@ try! Data("not json".utf8).write(to: corrupt)
 var history = History(url: corrupt)
 try! history.add(RoundResult(date: Date(), lang: .es, wpm: 50, accuracy: 1, seconds: 40))
 assert(try! FileManager.default.contentsOfDirectory(atPath: dir.path).count == 2)
+
+// HotKey: only combinations with ⌘, ⌥ or ⌃ are accepted, and the label lists the modifiers in macOS order.
+func keyEvent(_ chars: String, code: UInt16, _ flags: NSEvent.ModifierFlags) -> NSEvent {
+    NSEvent.keyEvent(with: .keyDown, location: .zero, modifierFlags: flags, timestamp: 0, windowNumber: 0, context: nil,
+                     characters: chars, charactersIgnoringModifiers: chars, isARepeat: false, keyCode: code)!
+}
+assert(HotKey(event: keyEvent("t", code: 17, [])) == nil && HotKey(event: keyEvent("T", code: 17, .shift)) == nil, "needs ⌘, ⌥ or ⌃")
+let recorded = HotKey(event: keyEvent("t", code: 17, [.option, .shift]))
+assert(recorded == .standard && recorded?.label == "⌥⇧T", "recorded \(String(describing: recorded))")
+assert(HotKey(event: keyEvent(" ", code: 49, [.command, .control]))?.label == "⌃⌘Espacio")
 
 print("self-check OK")

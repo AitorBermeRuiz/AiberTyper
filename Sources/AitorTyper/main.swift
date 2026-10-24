@@ -7,6 +7,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     var panel: NSPanel!
     var statusItem: NSStatusItem!
     var previousApp: NSRunningApplication?
+    var practice: NSMenuItem!
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         panel = NSPanel(contentRect: .zero, styleMask: [.titled, .fullSizeContentView], backing: .buffered, defer: false)
@@ -26,14 +27,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         host.safeAreaRegions = []
         panel.contentViewController = host
 
-        let hotKeyOK = registerHotKey { [weak self] in self?.toggle() }
 
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         statusItem.button?.image = NSImage(systemSymbolName: "keyboard", accessibilityDescription: "AitorTyper")
         let menu = NSMenu()
-        let practice = NSMenuItem(title: hotKeyOK ? "Practicar  ⌥⇧T" : "Practicar (⌥⇧T ocupado)", action: #selector(show), keyEquivalent: "")
+        practice = NSMenuItem(title: "Practicar", action: #selector(show), keyEquivalent: "")
         practice.target = self
         menu.addItem(practice)
+        menu.addItem(withTitle: "Cambiar atajo…", action: #selector(changeHotKey), keyEquivalent: "").target = self
+        apply(HotKey.saved)
         menu.addItem(.separator())
         menu.addItem(withTitle: "Salir", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
         statusItem.menu = menu
@@ -47,6 +49,54 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             default: return event
             }
             return nil
+        }
+    }
+
+    /// Registers `hotKey` and shows it in the menu; false if another app already owns it.
+    @discardableResult
+    func apply(_ hotKey: HotKey) -> Bool {
+        let ok = registerHotKey(hotKey) { [weak self] in self?.toggle() }
+        practice.title = ok ? "Practicar  \(hotKey.label)" : "Practicar (\(hotKey.label) ocupado)"
+        return ok
+    }
+
+    /// Records a new global shortcut: the next key pressed with ⌘, ⌥ or ⌃ while the dialog is open.
+    @objc func changeHotKey() {
+        let old = HotKey.saved
+        var recorded: HotKey?
+        let shown = NSTextField(labelWithString: old.label)
+        shown.font = .monospacedSystemFont(ofSize: 22, weight: .medium)
+        shown.alignment = .center
+        shown.frame.size = NSSize(width: 260, height: 32)
+        let alert = NSAlert()
+        alert.messageText = "Cambiar atajo"
+        alert.informativeText = "Pulsa la nueva combinación. Tiene que incluir ⌘, ⌥ o ⌃."
+        alert.icon = NSImage(systemSymbolName: "keyboard", accessibilityDescription: nil)?
+            .withSymbolConfiguration(.init(pointSize: 40, weight: .regular))
+        alert.accessoryView = shown
+        alert.addButton(withTitle: "Guardar")
+        alert.addButton(withTitle: "Cancelar")
+        alert.addButton(withTitle: "Restablecer \(HotKey.standard.label)")
+        // Free the current shortcut so pressing it again records it instead of opening the panel.
+        unregisterHotKey()
+        let monitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { event in
+            guard let hotKey = HotKey(event: event) else { return event }
+            recorded = hotKey
+            shown.stringValue = hotKey.label
+            return nil
+        }
+        NSApp.activate(ignoringOtherApps: true)
+        let answer = alert.runModal()
+        monitor.map(NSEvent.removeMonitor)
+        let chosen = answer == .alertFirstButtonReturn ? recorded ?? old : answer == .alertThirdButtonReturn ? .standard : old
+        if apply(chosen) {
+            HotKey.saved = chosen
+        } else {
+            apply(old)
+            let busy = NSAlert()
+            busy.messageText = "\(chosen.label) ya lo usa otra app"
+            busy.informativeText = "Se mantiene \(old.label). Prueba otra combinación."
+            busy.runModal()
         }
     }
 
@@ -67,21 +117,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         panel.orderOut(nil)
         previousApp?.activate()
     }
-}
-
-private var hotKeyAction: () -> Void = {}
-
-/// Registers ⌥⇧T system-wide. Carbon hot keys need no Accessibility permission.
-func registerHotKey(_ action: @escaping () -> Void) -> Bool {
-    hotKeyAction = action
-    var spec = EventTypeSpec(eventClass: OSType(kEventClassKeyboard), eventKind: UInt32(kEventHotKeyPressed))
-    InstallEventHandler(GetApplicationEventTarget(), { _, _, _ in
-        hotKeyAction()
-        return noErr
-    }, 1, &spec, nil, nil)
-    var ref: EventHotKeyRef?
-    let id = EventHotKeyID(signature: OSType(0x4154_5950), id: 1) // "ATYP"
-    return RegisterEventHotKey(UInt32(kVK_ANSI_T), UInt32(optionKey | shiftKey), id, GetApplicationEventTarget(), 0, &ref) == noErr
 }
 
 let app = NSApplication.shared
