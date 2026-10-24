@@ -1,0 +1,14 @@
+{
+  "name": "Programming",
+  "quotes": [
+    {"text": "Premature optimization is the root of all evil.", "source": "Donald Knuth"},
+    {"text": "Simplicity is prerequisite for reliability.", "source": "Edsger W. Dijkstra"},
+    {"text": "Program testing can be used to show the presence of bugs, but never to show their absence!", "source": "Edsger W. Dijkstra"},
+    {"text": "Programs must be written for people to read, and only incidentally for machines to execute.", "source": "Harold Abelson & Gerald Jay Sussman, SICP"},
+    {"text": "Talk is cheap. Show me the code.", "source": "Linus Torvalds"},
+    {"text": "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.", "source": "Martin Fowler, Refactoring"},
+    {"text": "Adding manpower to a late software project makes it later.", "source": "Fred Brooks, The Mythical Man-Month"},
+    {"text": "Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.", "source": "Brian Kernighan"},
+    {"text": "There are only two hard things in Computer Science: cache invalidation and naming things.", "source": "Phil Karlton"}
+  ]
+}

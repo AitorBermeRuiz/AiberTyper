@@ -4,7 +4,68 @@ enum Lang: String, Codable {
     case es, en
     var toggled: Lang { self == .es ? .en : .es }
     var label: String { self == .es ? "Español" : "English" }
-    var sentences: [String] { self == .es ? Texts.es : Texts.en }
+}
+
+/// A sentence to type; `source` names the work it is quoted from.
+struct Quote: Codable, Equatable {
+    var text: String
+    var source: String?
+}
+
+/// A set of sentences to practice with: built in, or loaded from a JSON file in `Collection.folder`.
+struct Collection: Equatable {
+    var id: String
+    var name: String
+    var es: [Quote]
+    var en: [Quote]
+
+    func quotes(_ lang: Lang) -> [Quote] { lang == .es ? es : en }
+
+    static let general = Collection(id: "general", name: "General", es: Texts.es.map { Quote(text: $0) }, en: Texts.en.map { Quote(text: $0) })
+    static let stoic = Collection(id: "stoic", name: "Estoicismo", es: Texts.stoicEs, en: Texts.stoicEn)
+    static let builtIn = [general, stoic]
+
+    static let folder = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+        .appendingPathComponent("AitorTyper/Colecciones")
+
+    /// Longest sentence kept from a file: 90 seconds at 40 wpm.
+    static let maxChars = charsFor(wpm: 40, seconds: 90)
+
+    /// The JSON format users write: `{"name": "…", "quotes": [{"text": "…", "source": "…"}]}`.
+    /// The sentences are used whatever language is selected.
+    static func parse(_ data: Data, id: String) throws -> (collection: Collection, skipped: Int) {
+        struct File: Decodable { var name: String; var quotes: [Quote] }
+        let file = try JSONDecoder().decode(File.self, from: data)
+        let name = file.name.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !name.isEmpty else { throw CollectionError("falta \"name\"") }
+        let quotes = file.quotes
+            .map { Quote(text: $0.text.trimmingCharacters(in: .whitespacesAndNewlines), source: $0.source) }
+            .filter { !$0.text.isEmpty && $0.text.count <= maxChars }
+        guard !quotes.isEmpty else { throw CollectionError("no tiene frases de hasta \(maxChars) caracteres") }
+        return (Collection(id: id, name: name, es: quotes, en: quotes), file.quotes.count - quotes.count)
+    }
+
+    /// Every `*.json` in `folder`, by file name, plus one message per file that could not be used.
+    static func load(from folder: URL = folder) -> (collections: [Collection], problems: [String]) {
+        let files = (try? FileManager.default.contentsOfDirectory(at: folder, includingPropertiesForKeys: nil)) ?? []
+        var collections: [Collection] = []
+        var problems: [String] = []
+        for url in files.filter({ $0.pathExtension.lowercased() == "json" }).sorted(by: { $0.lastPathComponent < $1.lastPathComponent }) {
+            do {
+                let parsed = try parse(Data(contentsOf: url), id: "file:" + url.lastPathComponent)
+                collections.append(parsed.collection)
+                if parsed.skipped > 0 { problems.append("\(url.lastPathComponent): \(parsed.skipped) frases vacías o de más de \(maxChars) caracteres") }
+            } catch {
+                problems.append("\(url.lastPathComponent): \(error is DecodingError ? "JSON no válido" : error.localizedDescription)")
+            }
+        }
+        return (collections, problems)
+    }
+}
+
+struct CollectionError: LocalizedError {
+    var errorDescription: String?
+    init(_ message: String) { errorDescription = message }
 }
 
 struct RoundResult: Codable, Equatable {
@@ -18,14 +79,47 @@ struct RoundResult: Codable, Equatable {
 /// Characters a typist at `wpm` covers in `seconds` (a "word" is 5 characters).
 func charsFor(wpm: Double, seconds: Double) -> Int { Int(wpm * 5 * seconds / 60) }
 
-/// Joins whole shuffled sentences until the text reaches `chars` characters.
-func makeText<R: RandomNumberGenerator>(from sentences: [String], chars: Int, using rng: inout R) -> String {
-    var pool = sentences.shuffled(using: &rng)
-    var picked: [String] = []
-    while picked.joined(separator: " ").count < chars, let next = pool.popLast() {
+/// Whole shuffled sentences whose space-joined text reaches `chars` characters without passing
+/// `maxChars` (the first sentence is always taken, even if it is longer).
+func pickSentences<R: RandomNumberGenerator>(from sentences: [Quote], chars: Int, maxChars: Int = .max, using rng: inout R) -> [Quote] {
+    var picked: [Quote] = []
+    var length = -1 // no separator before the first sentence
+    for next in sentences.shuffled(using: &rng) where length < chars {
+        guard picked.isEmpty || length + 1 + next.text.count <= maxChars else { continue }
         picked.append(next)
+        length += 1 + next.text.count
     }
-    return picked.joined(separator: " ")
+    return picked
+}
+
+/// Word-wraps `text` into lines of at most `width` characters. Each line keeps its trailing space,
+/// so the ranges are contiguous and cover the whole text.
+func wrapLines(_ text: String, width: Int) -> [Range<Int>] {
+    let chars = Array(text)
+    var lines: [Range<Int>] = []
+    var start = 0
+    while start < chars.count {
+        if chars.count - start <= width {
+            lines.append(start..<chars.count)
+            break
+        }
+        // A space right after `width` characters may hang at the end of the line.
+        let space = chars[start...(start + width)].lastIndex(of: " ").flatMap { $0 > start ? $0 : nil }
+        let end = space.map { $0 + 1 } ?? start + width
+        lines.append(start..<end)
+        start = end
+    }
+    return lines
+}
+
+/// Line indices to draw around the cursor: up to `focus` sharp lines, plus one dimmed before and after.
+func lineWindow(_ lines: [Range<Int>], cursor: Int, focus: Int = 3) -> (before: Int?, focus: Range<Int>, after: Int?) {
+    guard !lines.isEmpty else { return (nil, 0..<0, nil) }
+    let current = lines.lastIndex { $0.lowerBound <= cursor } ?? 0
+    // Keep the line before the cursor in focus once you are past the first one.
+    let first = max(0, min(current - 1, lines.count - focus))
+    let end = min(first + focus, lines.count)
+    return (first > 0 ? first - 1 : nil, first..<end, end < lines.count ? end : nil)
 }
 
 /// WPM counts only correct characters; accuracy counts every keystroke, including corrected mistakes.
