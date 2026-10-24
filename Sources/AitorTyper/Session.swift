@@ -20,6 +20,8 @@ import Observation
     private(set) var isRecord = false
     private(set) var note = ""
     private(set) var round = 0
+    /// The panel is on screen; the live stats only tick while it is.
+    var visible = false
 
     private var start: Date?
     private var keystrokes = 0

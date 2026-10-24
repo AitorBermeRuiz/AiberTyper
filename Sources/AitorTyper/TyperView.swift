@@ -19,9 +19,12 @@ enum G {
         return max(10, Int((584 - 2) / advance))
     }()
 
+    /// Looked up once, like `charsPerLine`: installing the font while the app runs needs a restart.
+    private static let hasFont = NSFont(name: fontName, size: textSize) != nil
+
     /// IosevkaTerm when installed, otherwise the system monospaced font.
     static func mono(_ size: CGFloat) -> Font {
-        NSFont(name: fontName, size: size) != nil ? .custom(fontName, size: size) : .system(size: size, design: .monospaced)
+        hasFont ? .custom(fontName, size: size) : .system(size: size, design: .monospaced)
     }
 
     /// Plum background with the soft pink glow from the top-left corner.
@@ -91,9 +94,13 @@ struct TyperView: View {
             if let source = session.source {
                 Text("— \(source)").font(.system(size: 12)).foregroundStyle(muted)
             }
-            // Redraw twice a second so WPM keeps moving while you pause.
-            TimelineView(.periodic(from: .now, by: 0.5)) { context in
-                liveStats(session.live(now: context.date))
+            // Redraw twice a second so WPM keeps moving while you pause; idle when hidden or not started.
+            if session.visible, session.live() != nil {
+                TimelineView(.periodic(from: .now, by: 0.5)) { context in
+                    liveStats(session.live(now: context.date))
+                }
+            } else {
+                liveStats(session.live())
             }
             progressBar
             Text("tab idioma · ⇧tab colección · ⏎ otra · esc cerrar").font(G.mono(12)).foregroundStyle(muted)

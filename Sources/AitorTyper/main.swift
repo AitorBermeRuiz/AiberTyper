@@ -3,7 +3,7 @@ import Carbon
 import SwiftUI
 import UniformTypeIdentifiers
 
-final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
+final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWindowDelegate {
     let session = Session()
     var panel: NSPanel!
     var statusItem: NSStatusItem!
@@ -26,6 +26,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         panel.hidesOnDeactivate = true
         panel.isReleasedWhenClosed = false
         panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
+        panel.delegate = self
         let host = NSHostingController(rootView: TyperView(session: session, onImport: { [weak self] in self?.importCollections() }))
         host.sizingOptions = [.preferredContentSize]
         // Under the transparent titlebar, safe-area changes on every resize loop the layout and AppKit aborts.
@@ -65,6 +66,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             }
             return nil
         }
+    }
+
+    /// Covers every way the panel leaves the screen, including hidesOnDeactivate, which skips hide().
+    func windowDidChangeOcclusionState(_ notification: Notification) {
+        session.visible = panel.occlusionState.contains(.visible)
     }
 
     /// While the picker is open every key goes to it, never to the hidden text field.
