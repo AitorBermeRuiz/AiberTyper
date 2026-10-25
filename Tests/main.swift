@@ -368,5 +368,23 @@ try! FileManager.default.createDirectory(at: legacyCols, withIntermediateDirecto
 try! valid.write(to: legacyCols.appendingPathComponent("prog.json"))
 let aiberCols = support.appendingPathComponent("AiberTyper/Colecciones")
 assert(Collection.load(from: aiberCols).collections.map(\.id) == ["file:prog.json"], "migrated collection")
+// The copy runs once: a collection deleted by hand stays deleted.
+try! FileManager.default.removeItem(at: aiberCols.appendingPathComponent("prog.json"))
+assert(Collection.load(from: aiberCols).collections.isEmpty, "deleted collection came back")
+
+// Settings saved under the old bundle id are copied once, without overwriting newer ones.
+let oldSuite = "aibertyper.selfcheck.old.\(UUID().uuidString)", newSuite = "aibertyper.selfcheck.new.\(UUID().uuidString)"
+let oldDefaults = UserDefaults(suiteName: oldSuite)!, newDefaults = UserDefaults(suiteName: newSuite)!
+oldDefaults.set("en", forKey: "lang")
+oldDefaults.set("stoic", forKey: "pack")
+oldDefaults.set(["cinema"], forKey: "favorites")
+oldDefaults.set(Data("k".utf8), forKey: "hotKey")
+oldDefaults.set(true, forKey: "hideImportHelp")
+newDefaults.set(["books"], forKey: "favorites")
+migrateDefaults(from: oldDefaults, to: newDefaults)
+assert(newDefaults.string(forKey: "lang") == "en" && newDefaults.string(forKey: "pack") == "stoic"
+    && newDefaults.data(forKey: "hotKey") == Data("k".utf8) && newDefaults.bool(forKey: "hideImportHelp"), "defaults copied")
+assert(newDefaults.stringArray(forKey: "favorites") == ["books"], "newer favorites kept")
+for suite in [oldSuite, newSuite] { UserDefaults.standard.removePersistentDomain(forName: suite) }
 
 print("self-check OK")

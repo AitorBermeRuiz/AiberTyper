@@ -61,15 +61,14 @@ struct Collection: Equatable {
 
     /// Every `*.json` in `folder`, by file name, plus one message per file that could not be used.
     static func load(from folder: URL = folder) -> (collections: [Collection], problems: [String]) {
-        if folder.lastPathComponent == "Colecciones", folder.deletingLastPathComponent().lastPathComponent == "AiberTyper" {
+        // One-time copy from the AitorTyper folder: once the new folder exists, files deleted by hand stay deleted.
+        if folder.lastPathComponent == "Colecciones", folder.deletingLastPathComponent().lastPathComponent == "AiberTyper",
+           !FileManager.default.fileExists(atPath: folder.path) {
             let legacy = folder.deletingLastPathComponent().deletingLastPathComponent().appendingPathComponent("AitorTyper/Colecciones")
             let legacyFiles = (try? FileManager.default.contentsOfDirectory(at: legacy, includingPropertiesForKeys: nil)) ?? []
             for src in legacyFiles where src.pathExtension.lowercased() == "json" {
-                let dst = folder.appendingPathComponent(src.lastPathComponent)
-                if !FileManager.default.fileExists(atPath: dst.path) {
-                    try? FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
-                    try? FileManager.default.copyItem(at: src, to: dst)
-                }
+                try? FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+                try? FileManager.default.copyItem(at: src, to: folder.appendingPathComponent(src.lastPathComponent))
             }
         }
         let files = (try? FileManager.default.contentsOfDirectory(at: folder, includingPropertiesForKeys: [.isRegularFileKey, .fileSizeKey])) ?? []
@@ -88,6 +87,14 @@ struct Collection: Equatable {
             }
         }
         return (collections, problems)
+    }
+}
+
+/// Copies the settings saved under the old bundle id (com.aitor.AitorTyper) that `new` does not have yet.
+func migrateDefaults(from old: UserDefaults?, to new: UserDefaults = .standard) {
+    guard let old else { return }
+    for key in ["lang", "pack", "favorites", "hotKey", "hideImportHelp"] where new.object(forKey: key) == nil {
+        if let value = old.object(forKey: key) { new.set(value, forKey: key) }
     }
 }
 

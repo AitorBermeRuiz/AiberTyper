@@ -40,6 +40,8 @@ cat <<'EOF'
   zap trash: [
     "~/Library/Application Support/AiberTyper",
     "~/Library/Preferences/com.aiber.AiberTyper.plist",
+    "~/Library/Application Support/AitorTyper",
+    "~/Library/Preferences/com.aitor.AitorTyper.plist",
   ]
 end
 EOF
