@@ -36,7 +36,8 @@ AiberTyper is a macOS menu bar app for typing practice. The user presses a globa
 
 - `./test.sh`: compiles `Typing`, `Round`, `Session`, `HotKey`, `Keys`, `Texts*` and `Tests/main.swift` with `swiftc` and runs the self-check. Must print `self-check OK`.
 - `./build.sh`: `swift build -c release` and assembles `build/AiberTyper.app` (ad-hoc signed). Optional env: `VERSION`, `UNIVERSAL=1` (arm64 + x86_64), `SIGN_IDENTITY` (Developer ID, hardened runtime).
-- `scripts/cask.sh <version> <sha256> [notarized 0|1, default 0]`: prints the Homebrew cask; `scripts/test-cask.sh` checks it (run in CI). Unnotarized casks strip the quarantine flag in `postflight`.
+- `scripts/cask.sh <version> <sha256> [notarized 0|1, default 0]`: prints the Homebrew cask; `scripts/test-cask.sh` checks it (run in CI). Unnotarized casks strip the quarantine flag in `postflight_steps`.
+- `scripts/install.sh`: one-line installer (`curl -fsSL https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/scripts/install.sh | bash`); downloads the latest release zip into `/Applications` and opens it. curl sets no quarantine flag, so unnotarized builds open too.
 - CI: `.github/workflows/ci.yml` (PRs and `main`: self-check, universal build, `scripts/test-cask.sh`). `.github/workflows/release.yml` (tags `v*`: build, optional sign and notarize, GitHub release, tap update). Secrets are listed in `README.md`.
 - `./designs.sh`: renders the mockups.
 - `scripts/readme-assets.sh`: renders `docs/assets` from the real `TyperView` with a temporary history and settings (about two minutes; each demo round is typed in real time). `scripts/readme-assets.sh banners` renders the banners only. Re-run it when the UI changes.

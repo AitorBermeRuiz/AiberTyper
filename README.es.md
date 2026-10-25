@@ -59,25 +59,32 @@ Las webs de mecanografía piden una pestaña, una cuenta y tu atención. **Aiber
 
 ## Instalación
 
-Con [Homebrew](https://brew.sh) (macOS 14 Sonoma o posterior):
+En el Terminal (macOS 14 Sonoma o posterior):
 
 ```sh
-brew install --cask aitorbermeruiz/tap/aibertyper
+curl -fsSL https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/scripts/install.sh | bash
 ```
+
+Descarga la última versión en Aplicaciones y la abre. Vuelve a ejecutarlo para actualizar.
 
 Después, pulsa <kbd>⌥⇧T</kbd>. La app vive en la barra de menús (el icono con el logo de Aiber), no en el Dock.
 
 <details>
-<summary><b>¿La instalaste antes como <code>aitortyper</code>?</b></summary>
+<summary><b>Con Homebrew</b></summary>
 
-`brew update` la pasa a `aibertyper`, y tu historial, tus colecciones y tus ajustes se conservan.
+```sh
+brew trust --cask aitorbermeruiz/tap/aibertyper
+brew install --cask aitorbermeruiz/tap/aibertyper
+```
+
+Desde Homebrew 6, los casks de taps de terceros solo se cargan después de confiar en ellos, una vez. Si la instalaste antes como `aitortyper`, `brew update` la pasa a `aibertyper`, y tu historial, tus colecciones y tus ajustes se conservan.
 
 </details>
 
 <details>
-<summary><b>Sin Homebrew</b></summary>
+<summary><b>A mano</b></summary>
 
-Descarga `AiberTyper-<versión>.zip` desde [Releases](https://github.com/AitorBermeRuiz/AitorTyper/releases), descomprímelo y mueve `AiberTyper.app` a Aplicaciones. Las compilaciones aún no están notarizadas por Apple, así que una app descargada necesita esto una vez antes de abrirse (Homebrew lo hace por ti):
+Descarga `AiberTyper-<versión>.zip` desde [Releases](https://github.com/AitorBermeRuiz/AitorTyper/releases), descomprímelo y mueve `AiberTyper.app` a Aplicaciones. Las compilaciones aún no están notarizadas por Apple, así que una app descargada con el navegador necesita esto una vez antes de abrirse (el script y Homebrew lo hacen por ti):
 
 ```sh
 xattr -dr com.apple.quarantine /Applications/AiberTyper.app
@@ -176,7 +183,7 @@ Todo se queda en tu Mac. La app no hace ninguna petición de red.
 | Tus colecciones | `~/Library/Application Support/AiberTyper/Colecciones/` |
 | Idioma, colección, favoritas, atajo | `defaults read com.aiber.AiberTyper` |
 
-`brew uninstall --zap aibertyper` lo borra todo.
+`brew uninstall --zap aibertyper` lo borra todo. Sin Homebrew, borra la app y las rutas de arriba.
 
 ## Compilar desde el código
 
