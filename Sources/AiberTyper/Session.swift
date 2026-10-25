@@ -8,7 +8,7 @@ import Observation
     private(set) var collections = Collection.builtIn
     /// Files in `folder` that could not be used, one message each.
     private(set) var problems: [String] = []
-    private(set) var favorites = Set(UserDefaults.standard.stringArray(forKey: "favorites") ?? [])
+    private(set) var favorites: Set<String>
     let folder: URL
     private(set) var round = Round()
     private(set) var result: RoundResult?
@@ -22,11 +22,15 @@ import Observation
     var visible = false
 
     private var history: History
+    /// Where `lang`, `pack` and `favorites` are saved.
+    private let defaults: UserDefaults
 
-    init(history: History = History(), folder: URL = Collection.folder) {
+    init(history: History = History(), folder: URL = Collection.folder, defaults: UserDefaults = .standard) {
         self.history = history
         self.folder = folder
-        lang = Lang(rawValue: UserDefaults.standard.string(forKey: "lang") ?? "") ?? .es
+        self.defaults = defaults
+        favorites = Set(defaults.stringArray(forKey: "favorites") ?? [])
+        lang = Lang(rawValue: defaults.string(forKey: "lang") ?? "") ?? .es
         collection = .general
         reloadCollections() // switches to the saved collection when it loads
         if roundNumber == 0 { newRound() }
@@ -45,14 +49,14 @@ import Observation
 
     func toggleLanguage() {
         lang = lang.toggled
-        UserDefaults.standard.set(lang.rawValue, forKey: "lang")
+        defaults.set(lang.rawValue, forKey: "lang")
         newRound()
     }
 
     func choose(_ collection: Collection) {
         self.collection = collection
         picking = false
-        UserDefaults.standard.set(collection.id, forKey: "pack")
+        defaults.set(collection.id, forKey: "pack")
         newRound()
     }
 
@@ -62,7 +66,7 @@ import Observation
         let loaded = Collection.load(from: folder)
         collections = Collection.builtIn + loaded.collections
         problems = loaded.problems
-        let saved = UserDefaults.standard.string(forKey: "pack")
+        let saved = defaults.string(forKey: "pack")
         if saved != collection.id, let wanted = collections.first(where: { $0.id == saved }) {
             collection = wanted
             newRound()
@@ -100,7 +104,7 @@ import Observation
         guard matches.indices.contains(selection) else { return }
         let picked = matches[selection]
         if favorites.remove(picked.id) == nil { favorites.insert(picked.id) }
-        UserDefaults.standard.set(Array(favorites), forKey: "favorites")
+        defaults.set(Array(favorites), forKey: "favorites")
         selection = matches.firstIndex { $0.id == picked.id } ?? 0
     }
 
