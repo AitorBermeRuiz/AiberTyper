@@ -191,7 +191,7 @@ import Observation
     /// WPM of the last 20 saved rounds, oldest first; after a round it ends with that round.
     var recentWPMs: [Double] { history.rounds.suffix(20).map(\.wpm) }
 
-    var correct: Int { zip(target, typed).filter { $0 == $1 }.count }
+    var correct: Int { correctChars(target: target, typed: typed) }
 
     private func finish(seconds: Double, now: Date) {
         let s = score(target: target, typed: typed, seconds: seconds, keystrokes: keystrokes, errors: errors)
