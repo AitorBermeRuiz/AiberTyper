@@ -18,7 +18,7 @@ func tempDir() -> URL {
 }
 
 extension Session {
-    /// Starts a round whose text is exactly `text`: a one-sentence collection always yields that sentence.
+    /// Starts a round whose text is exactly `text`: a one-quote collection always yields that quote.
     func practice(_ text: String) { choose(Collection(id: "test", name: "Test", es: [Quote(text: text)], en: [Quote(text: text)])) }
 }
 
@@ -54,24 +54,24 @@ nfd.type("mañana", now: t0)
 assert(nfd.correct == 6 && nfd.errors == 0, "nfd \(nfd.correct) \(nfd.errors)")
 assert(wrapLines(nfd.target, width: 10) == [0..<6])
 
-// The source follows the sentence under the cursor.
+// The source follows the quote under the cursor.
 var sourced = Round(quotes: Array(Collection.stoic.es.prefix(2)))
 assert(sourced.source == sourced.quotes[0].source, "first source")
 sourced.type(String(sourced.target.prefix(sourced.quotes[0].text.count + 1)), now: t0)
 assert(sourced.source == sourced.quotes[1].source, "second source")
 
-// pickSentences takes whole sentences until the joined text is long enough.
+// pickQuotes takes whole quotes until the joined text is long enough.
 let four = ["aaaa", "bbbb", "cccc"].map { Quote(text: $0) }
-let picked = pickSentences(from: four, chars: 6, maxChars: .max).map(\.text)
-assert(picked.joined(separator: " ").count == 9, "picked \(picked)") // two sentences and a space
-// maxChars skips sentences that would overflow it, but never leaves the round empty.
+let picked = pickQuotes(from: four, chars: 6, maxChars: .max).map(\.text)
+assert(picked.joined(separator: " ").count == 9, "picked \(picked)") // two quotes and a space
+// maxChars skips quotes that would overflow it, but never leaves the round empty.
 let long = String(repeating: "x", count: 20)
-// Sentences that fit come first: the oversize one is used only when nothing else fits.
+// Quotes that fit come first: the oversize one is used only when nothing else fits.
 for _ in 0..<50 {
-    let capped = pickSentences(from: four + [Quote(text: long)], chars: 12, maxChars: 14).map(\.text)
+    let capped = pickQuotes(from: four + [Quote(text: long)], chars: 12, maxChars: 14).map(\.text)
     assert(capped.sorted() == ["aaaa", "bbbb", "cccc"], "capped \(capped)")
 }
-assert(pickSentences(from: [Quote(text: long)], chars: 12, maxChars: 14).map(\.text) == [long], "only long")
+assert(pickQuotes(from: [Quote(text: long)], chars: 12, maxChars: 14).map(\.text) == [long], "only long")
 
 // Built-in collections: >=30 distinct quotes per language (25...300 chars, normalized, no wide chars),
 // with a non-empty source on every collection except General, and rounds within 30...90s at 40 wpm.
@@ -91,7 +91,7 @@ for c in Collection.builtIn {
             assert(quotes.allSatisfy { !($0.source?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true) }, "\(c.id) \(lang) source")
         }
         for _ in 0..<20 {
-            let round = pickSentences(from: quotes, chars: charsFor(wpm: 40, seconds: .random(in: 30...60)), maxChars: Collection.maxChars)
+            let round = pickQuotes(from: quotes, chars: charsFor(wpm: 40, seconds: .random(in: 30...60)), maxChars: Collection.maxChars)
             let len = round.map(\.text).joined(separator: " ").count
             assert((charsFor(wpm: 40, seconds: 30)...Collection.maxChars).contains(len), "\(c.id) \(lang) round \(len)")
         }
@@ -246,7 +246,7 @@ assert(picker.matches.map(\.id) == ["general"])
 picker.closePicker()
 assert(!picker.picking && picker.collection.id == "stoic", "esc keeps the collection")
 
-// User collections: a JSON file with a name and sentences, used whatever the language.
+// User collections: a JSON file with a name and quotes, used whatever the language.
 let valid = Data(#"{"name": " Programación ", "quotes": [{"text": " Talk is cheap. ", "source": "Linus Torvalds"}, {"text": "Sin fuente."}]}"#.utf8)
 let parsed = try! Collection.parse(valid, id: "file:p.json")
 assert(parsed.collection.name == "Programación" && parsed.skipped == 0, "parsed \(parsed)")

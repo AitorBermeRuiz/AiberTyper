@@ -2,7 +2,7 @@ import Foundation
 
 /// One attempt at a text: what was typed, every keystroke and the live score. Knows nothing of history or settings.
 struct Round {
-    /// The sentences that make up `target`, in order.
+    /// The quotes that make up `target`, in order.
     let quotes: [Quote]
     let target: String
     private(set) var typed = ""
@@ -56,7 +56,7 @@ struct Round {
     /// Typed characters that match the target at the same position.
     var correct: Int { zip(target, typed).filter { $0 == $1 }.count }
 
-    /// Source of the sentence under the cursor; nil for unattributed sentences.
+    /// Source of the quote under the cursor; nil for unattributed quotes.
     var source: String? {
         var end = 0
         for quote in quotes {

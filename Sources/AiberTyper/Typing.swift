@@ -6,13 +6,13 @@ enum Lang: String, Codable {
     var label: String { self == .es ? "Español" : "English" }
 }
 
-/// A sentence to type; `source` names the work it is quoted from.
+/// A quote to type: one or more sentences typed in a single go; `source` names the work it is quoted from.
 struct Quote: Codable, Equatable {
     var text: String
     var source: String?
 }
 
-/// A set of sentences to practice with: built in, or loaded from a JSON file in `Collection.folder`.
+/// A set of quotes to practice with: built in, or loaded from a JSON file in `Collection.folder`.
 struct Collection: Equatable {
     var id: String
     var name: String
@@ -32,12 +32,12 @@ struct Collection: Equatable {
     static let folder = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
         .appendingPathComponent("AiberTyper/Colecciones")
 
-    /// Longest sentence kept from a file: 90 seconds at 40 wpm.
+    /// Longest quote kept from a file: 90 seconds at 40 wpm.
     static let maxChars = charsFor(wpm: 40, seconds: 90)
     static let maxBytes = 1_000_000
 
     /// The JSON format users write: `{"name": "…", "quotes": [{"text": "…", "source": "…"}]}`.
-    /// The sentences are used whatever language is selected.
+    /// The quotes are used whatever language is selected.
     static func parse(_ data: Data, id: String) throws -> (collection: Collection, skipped: Int) {
         guard data.count <= maxBytes else { throw CollectionError("más de 1 MB") }
         struct File: Decodable { var name: String; var quotes: [Quote] }
@@ -135,13 +135,13 @@ struct RoundResult: Codable, Equatable {
 /// Characters a typist at `wpm` covers in `seconds` (a "word" is 5 characters).
 func charsFor(wpm: Double, seconds: Double) -> Int { Int(wpm * 5 * seconds / 60) }
 
-/// Whole shuffled sentences whose space-joined text reaches `chars` characters without passing
-/// `maxChars`. Sentences that fit come first; an oversize one is taken only when none fits,
+/// Whole shuffled quotes whose space-joined text reaches `chars` characters without passing
+/// `maxChars`. Quotes that fit come first; an oversize one is taken only when none fits,
 /// so the round is never empty.
-func pickSentences(from sentences: [Quote], chars: Int, maxChars: Int) -> [Quote] {
-    let shuffled = sentences.shuffled()
+func pickQuotes(from quotes: [Quote], chars: Int, maxChars: Int) -> [Quote] {
+    let shuffled = quotes.shuffled()
     var picked: [Quote] = []
-    var length = -1 // no separator before the first sentence
+    var length = -1 // no separator before the first quote
     for next in shuffled.filter({ $0.text.count <= maxChars }) + shuffled.filter({ $0.text.count > maxChars }) where length < chars {
         guard picked.isEmpty || length + 1 + next.text.count <= maxChars else { continue }
         picked.append(next)
