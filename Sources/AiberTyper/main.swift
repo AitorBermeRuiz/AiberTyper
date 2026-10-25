@@ -1,5 +1,4 @@
 import AppKit
-import Carbon
 import SwiftUI
 import UniformTypeIdentifiers
 
@@ -53,18 +52,20 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
 
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] event in
             guard let self, event.window === self.panel else { return event }
-            if self.session.picking {
-                self.pickerKey(event)
-                return nil
-            }
-            switch Int(event.keyCode) {
-            case kVK_Escape: self.hide()
-            case kVK_Tab where event.modifierFlags.contains(.shift): self.session.openPicker()
-            case kVK_Tab: self.session.toggleLanguage()
-            case kVK_Return, kVK_ANSI_KeypadEnter: self.session.newRound()
-            // Moving the caret inside the hidden field would desync it from the cursor drawn on screen.
-            case kVK_LeftArrow, kVK_RightArrow, kVK_UpArrow, kVK_DownArrow, kVK_Home, kVK_End, kVK_PageUp, kVK_PageDown, kVK_ForwardDelete: break
-            default: return event
+            switch PanelKey(event: event, picking: self.session.picking) {
+            case .pass: return event
+            case .ignore: break
+            case .hide: self.hide()
+            case .openPicker: self.session.openPicker()
+            case .toggleLanguage: self.session.toggleLanguage()
+            case .newRound: self.session.newRound()
+            case .closePicker: self.session.closePicker()
+            case .choose: self.session.choosePicked()
+            case .delete: self.session.deleteInPicker()
+            case .favorite: self.session.toggleFavoritePicked()
+            case .importCollections: self.importCollections()
+            case .move(let step): self.session.movePicker(step)
+            case .filter(let chars): self.session.typeInPicker(chars)
             }
             return nil
         }
@@ -73,25 +74,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
     /// Covers every way the panel leaves the screen, including hidesOnDeactivate, which skips hide().
     func windowDidChangeOcclusionState(_ notification: Notification) {
         session.visible = panel.occlusionState.contains(.visible)
-    }
-
-    /// While the picker is open every key goes to it, never to the hidden text field.
-    func pickerKey(_ event: NSEvent) {
-        let control = event.modifierFlags.contains(.control)
-        let key = event.charactersIgnoringModifiers ?? ""
-        switch Int(event.keyCode) {
-        case kVK_Escape, kVK_Tab: session.closePicker()
-        case kVK_Return, kVK_ANSI_KeypadEnter: session.choosePicked()
-        case kVK_DownArrow: session.movePicker(1)
-        case kVK_UpArrow: session.movePicker(-1)
-        case kVK_Delete: session.deleteInPicker()
-        case _ where control && key == "j": session.movePicker(1)
-        case _ where control && key == "k": session.movePicker(-1)
-        case _ where control && key == "f": session.toggleFavoritePicked()
-        case _ where control && key == "i": importCollections()
-        default:
-            if !control, !event.modifierFlags.contains(.command), let chars = event.characters { session.typeInPicker(chars) }
-        }
     }
 
     /// Rebuilt on every open so imported files and favorites show up.

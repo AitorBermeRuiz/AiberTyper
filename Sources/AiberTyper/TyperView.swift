@@ -212,7 +212,7 @@ struct TyperView: View {
             .overlay(RoundedRectangle(cornerRadius: 4).strokeBorder(color.opacity(0.7), lineWidth: 1))
     }
 
-    /// Filterable list of collections; the keys are handled in AppDelegate.pickerKey.
+    /// Filterable list of collections; the keys are mapped by PanelKey in Keys.swift.
     private var picker: some View {
         VStack(alignment: .leading, spacing: 16) {
             G.label("Colección")

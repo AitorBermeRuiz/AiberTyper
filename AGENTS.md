@@ -14,11 +14,12 @@ AiberTyper is a macOS menu bar app for typing practice. The user presses a globa
 
 | Path | Role |
 |------|------|
-| `Sources/AiberTyper/main.swift` | `AppDelegate`: status item and menu, the floating `NSPanel`, the local key monitor (`pickerKey`), the import dialogs, the shortcut dialog. |
+| `Sources/AiberTyper/main.swift` | `AppDelegate`: status item and menu, the floating `NSPanel`, the local key monitor (performs `PanelKey`), the import dialogs, the shortcut dialog. |
 | `Sources/AiberTyper/Session.swift` | `@Observable` state: round, typed text, live stats, result, collection picker, favorites, history. |
 | `Sources/AiberTyper/TyperView.swift` | SwiftUI views: typing, picker, results. Palette `G` lives here. |
 | `Sources/AiberTyper/Typing.swift` | Pure logic: `Lang`, `Quote`, `Collection` (JSON parse and load), `History`, `score`, `wrapLines`, `lineWindow`, `pickSentences`, `charsFor`. |
 | `Sources/AiberTyper/HotKey.swift` | `HotKey` model, Carbon hot key registration. |
+| `Sources/AiberTyper/Keys.swift` | `PanelKey(event:picking:)`: what each key does in the typing view and in the picker. |
 | `Sources/AiberTyper/Texts.swift`, `Texts+*.swift` | Built-in sentences: General, Stoicism, Programming, The Art of War, Cinema and Cult Books (es/en, each themed quote with its source). |
 | `Tests/main.swift` | Self-check with `assert`s. No XCTest. |
 | `Examples/Programming.json` | Example collection for users. |
@@ -29,7 +30,7 @@ AiberTyper is a macOS menu bar app for typing practice. The user presses a globa
 
 ## Commands
 
-- `./test.sh`: compiles `Typing`, `Session`, `HotKey`, `Texts*` and `Tests/main.swift` with `swiftc` and runs the self-check. Must print `self-check OK`.
+- `./test.sh`: compiles `Typing`, `Session`, `HotKey`, `Keys`, `Texts*` and `Tests/main.swift` with `swiftc` and runs the self-check. Must print `self-check OK`.
 - `./build.sh`: `swift build -c release` and assembles `build/AiberTyper.app` (ad-hoc signed). Optional env: `VERSION`, `UNIVERSAL=1` (arm64 + x86_64), `SIGN_IDENTITY` (Developer ID, hardened runtime).
 - `scripts/cask.sh <version> <sha256> [notarized 0|1, default 0]`: prints the Homebrew cask; `scripts/test-cask.sh` checks it (run in CI). Unnotarized casks strip the quarantine flag in `postflight`.
 - CI: `.github/workflows/ci.yml` (PRs and `main`: self-check, universal build, `scripts/test-cask.sh`). `.github/workflows/release.yml` (tags `v*`: build, optional sign and notarize, GitHub release, tap update). Secrets are listed in `README.md`.
@@ -51,7 +52,7 @@ Say in the report that the app was restarted and with which build. The user has 
 
 ## Architecture notes
 
-- **Keys**: `AppDelegate` installs a local `keyDown` monitor that only handles events from the panel. Escape, Tab, ⇧Tab and Return are handled there. Arrows, Home/End and PageUp/PageDown are swallowed there so they never reach the hidden field. When the picker is open, every key goes to `pickerKey`.
+- **Keys**: `AppDelegate` installs a local `keyDown` monitor that only handles events from the panel and performs what `PanelKey(event:picking:)` (`Keys.swift`) returns. That mapping holds every key rule: Escape, Tab, ⇧Tab and Return; arrows, Home/End and PageUp/PageDown swallowed so they never reach the hidden field; and, while the picker is open, every key goes to the picker. Change key behavior there and test it with `keyEvent()` in `Tests/main.swift`.
 - **Text input**: a hidden `TextField` (1×1, opacity 0.01) receives the keystrokes so accents and ñ compose like a normal field. The text is `session.typed`.
 - **Focus rule**: every click handler goes through `act()` in `TyperView`, which hands focus back to the hidden field. A button that skips `act()` breaks typing until the panel reopens.
 - **Picker**: state lives in `Session` (`picking`, `filter`, `selection`, `matches`). `matches` is the filtered list with favorites first. Filtering uses `localizedStandardContains` (case and accent insensitive).
@@ -71,7 +72,7 @@ Say in the report that the app was restarted and with which build. The user has 
 ## Rules for changes
 
 - **Hotkeys**: a shortcut must leave normal typing alone in every app. The accepted and refused combinations are documented once, in `README.md` ("Shortcuts"); the code is `HotKey(event:)`.
-- **Picker keys**: every plain letter goes to the filter; plain j/k never move. ⌃j/⌃k and the arrows move.
+- **Picker keys**: every plain letter goes to the filter; plain j/k never move. ⌃j/⌃k and the arrows move. The code is `PanelKey`.
 - **View state**: use `@StateObject` with an `ObservableObject` for view-local state, like `HoverState`. The `@State` macro does not compile with Command Line Tools (CI with Xcode does compile it), so `./test.sh` fails when `Sources/` uses it.
 - **Built-in collections (standard)**:
   - File: one `Sources/AiberTyper/Texts+<Name>.swift` per collection (`extension Texts`), registered as a `static let` on `Collection` and appended to `Collection.builtIn` in `Sources/AiberTyper/Typing.swift`. `test.sh` compiles `Texts*.swift` automatically.
