@@ -26,7 +26,8 @@ AiberTyper is a macOS menu bar app for typing practice. The user presses a globa
 | `Examples/Programming.json` | Example collection for users. |
 | `Brand/` | Official Aiber brand: `README.md` (palette, Logo 1B geometry), `logo.svg`, `menubar-template.svg`, `icon-1024.png` (source of `AppIcon.icns` in `build.sh`), `brand-sheet.png`. Keep it separate from `Designs/`. |
 | `Designs/main.swift` | Design mockups rendered to `Designs/out/` by `designs.sh`. Reference only, not shipped. |
-| `README.md` | User-facing docs: shortcuts, collection format. Keep it in sync with behavior. |
+| `README.md`, `README.es.md` | User-facing docs in English and Spanish: shortcuts, collection format. Keep both in sync with behavior and with each other. |
+| `docs/assets/` | README banner, screenshots and demo GIFs, rendered by `scripts/readme-assets.sh` (`scripts/readme-assets/`: the script and the banners). `banner-alt-*.png` is a spare header the owner may switch to. |
 | `ROADMAP.md` | Known limits and work planned for later. |
 | `GLOSSARY.md` | Domain terms (round, round result, collection). Use these names in code and docs. |
 
@@ -37,6 +38,7 @@ AiberTyper is a macOS menu bar app for typing practice. The user presses a globa
 - `scripts/cask.sh <version> <sha256> [notarized 0|1, default 0]`: prints the Homebrew cask; `scripts/test-cask.sh` checks it (run in CI). Unnotarized casks strip the quarantine flag in `postflight`.
 - CI: `.github/workflows/ci.yml` (PRs and `main`: self-check, universal build, `scripts/test-cask.sh`). `.github/workflows/release.yml` (tags `v*`: build, optional sign and notarize, GitHub release, tap update). Secrets are listed in `README.md`.
 - `./designs.sh`: renders the mockups.
+- `scripts/readme-assets.sh`: renders `docs/assets` from the real `TyperView` with a temporary history and settings (about two minutes; each demo round is typed in real time). `scripts/readme-assets.sh banners` renders the banners only. Re-run it when the UI changes.
 - `swift test` does not work here. Command Line Tools lack the swift-testing macro plugin. Do not add XCTest or `@Test` without checking that first.
 
 `test.sh` lists its sources explicitly. A new logic file (no UI or AppKit dependency that breaks `swiftc`) must be added there, or its tests will not compile.
@@ -86,7 +88,7 @@ Say in the report that the app was restarted and with which build. The user has 
 - **Window**: `safeAreaRegions = []` on the hosting controller is required. Without it, resizing the transparent titlebar panel crashes AppKit (constraint loop). Do not remove it.
 - **Import**: validate every file before copying it into the folder (`Collection.install`; `AppDelegate` only shows the dialogs). Show the format help once, with "No volver a mostrar este mensaje nunca más".
 - **Strings**: UI copy in Spanish, with the same register as existing strings (voseo is not used in UI). Keep keyboard hints in the footers in sync with the real keys.
-- **Docs**: when a shortcut, option or message changes, update `README.md` and the footer hints in `TyperView`.
+- **Docs**: when a shortcut, option or message changes, update `README.md`, `README.es.md` and the footer hints in `TyperView`; re-render `docs/assets` when the UI changes.
 
 ## Testing and verification
 
