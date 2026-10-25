@@ -283,47 +283,45 @@ struct TyperView: View {
 
     /// Three sharp lines around the cursor, the line before and after blurred, the rest hidden.
     private var textLines: some View {
+        let target = Array(session.round.target), typed = Array(session.round.typed)
         let lines = wrapLines(session.round.target, width: G.charsPerLine)
-        let window = lineWindow(lines, cursor: session.round.typed.count)
+        let window = lineWindow(lines, cursor: typed.count)
         return VStack(alignment: .leading, spacing: 8) {
-            if let before = window.before { dimmed(lines[before]) }
-            ForEach(window.focus, id: \.self) { text(lines[$0]) }
-            if let after = window.after { dimmed(lines[after]) }
+            if let before = window.before { dimmed(rendered(target, typed, lines[before])) }
+            ForEach(window.focus, id: \.self) { text(rendered(target, typed, lines[$0])) }
+            if let after = window.after { dimmed(rendered(target, typed, lines[after])) }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 
-    private func text(_ range: Range<Int>) -> some View {
-        Text(rendered(range))
+    private func text(_ line: AttributedString) -> some View {
+        Text(line)
             .font(G.mono(G.textSize))
             .lineLimit(1)
             .fixedSize()
     }
 
-    private func dimmed(_ range: Range<Int>) -> some View {
-        text(range)
+    private func dimmed(_ line: AttributedString) -> some View {
+        text(line)
             .blur(radius: 1.5)
             .opacity(contrast == .increased ? 0.7 : 0.45)
             .accessibilityHidden(true)
     }
 
-    private func rendered(_ range: Range<Int>) -> AttributedString {
-        let typed = Array(session.round.typed)
+    /// One styled string per run of characters drawn alike: building one per character cost most of a keystroke.
+    private func rendered(_ target: [Character], _ typed: [Character], _ range: Range<Int>) -> AttributedString {
         var out = AttributedString()
-        for (i, c) in session.round.target.enumerated() where range.contains(i) {
-            var a = AttributedString(String(c))
-            if i < typed.count {
-                if typed[i] == c {
-                    a.foregroundColor = G.fg
-                } else {
-                    a.foregroundColor = G.neon
-                    a.backgroundColor = G.neon.opacity(0.2)
-                }
-            } else if i == typed.count {
+        for run in markRuns(target, typed: typed, in: range) {
+            var a = AttributedString(String(target[run.range]))
+            switch run.mark {
+            case .correct: a.foregroundColor = G.fg
+            case .wrong:
+                a.foregroundColor = G.neon
+                a.backgroundColor = G.neon.opacity(0.2)
+            case .cursor:
                 a.foregroundColor = G.bg
                 a.backgroundColor = G.pink
-            } else {
-                a.foregroundColor = muted.opacity(contrast == .increased ? 0.8 : 0.5)
+            case .pending: a.foregroundColor = muted.opacity(contrast == .increased ? 0.8 : 0.5)
             }
             out += a
         }
