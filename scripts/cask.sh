@@ -24,8 +24,8 @@ if [[ "$notarized" != 1 ]]; then
 cat <<'EOF'
 
   # Not notarized by Apple yet: without this, Gatekeeper refuses to open the downloaded app.
-  postflight do
-    system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{appdir}/AitorTyper.app"]
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "{{appdir}}/AitorTyper.app"]
   end
 
   caveats <<~TEXT
