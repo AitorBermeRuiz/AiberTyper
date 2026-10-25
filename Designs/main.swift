@@ -212,7 +212,7 @@ struct T1Gentleman: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             HStack(spacing: 10) {
-                G.label("Gentle typer")
+                G.label("Aiber typer")
                 Spacer()
                 Text("Español").font(.system(size: 12, weight: .bold)).foregroundStyle(G.bg)
                     .padding(.horizontal, 10).padding(.vertical, 3).background(Capsule().fill(G.pink))
@@ -318,7 +318,7 @@ struct T4Y2K: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack(spacing: 6) {
-                Text("✦ AitorTyper 2000 ✦").font(.custom("Silom", size: 14)).foregroundStyle(.white).shadow(color: Color(0x6B2FBF), radius: 0, x: 1, y: 1)
+                Text("✦ AiberTyper 2000 ✦").font(.custom("Silom", size: 14)).foregroundStyle(.white).shadow(color: Color(0x6B2FBF), radius: 0, x: 1, y: 1)
                 Spacer()
                 ForEach(["_", "□", "×"], id: \.self) { s in
                     Text(s).font(.system(size: 11, weight: .black)).foregroundStyle(Color(0x6B2FBF))
@@ -742,6 +742,6 @@ MainActor.assumeIsolated {
         ("result-5-native", "E · Nativo macOS con medidores", AnyView(Framed(wall: daylight) { R5Native() })),
     ]
     for (file, _, view) in typing + results { save(view, file, to: out) }
-    save(Sheet(title: "AitorTyper · ventana de práctica", items: typing.map { ($0.1, $0.2) }), "overview-typing", to: out, scale: 1)
-    save(Sheet(title: "AitorTyper · ventana de resultados", items: results.map { ($0.1, $0.2) }), "overview-results", to: out, scale: 1)
+    save(Sheet(title: "AiberTyper · ventana de práctica", items: typing.map { ($0.1, $0.2) }), "overview-typing", to: out, scale: 1)
+    save(Sheet(title: "AiberTyper · ventana de resultados", items: results.map { ($0.1, $0.2) }), "overview-results", to: out, scale: 1)
 }

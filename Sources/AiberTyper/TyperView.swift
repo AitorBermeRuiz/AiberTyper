@@ -1,14 +1,14 @@
 import AppKit
 import SwiftUI
 
-/// Gentleman style: the Gentle-AI palette (see Designs/main.swift, T1Gentleman / R1Gentleman).
+/// Aiber Bermejo palette and brand mark (see Brand/README.md).
 enum G {
-    static let bg = Color(0x1A1217), fg = Color(0xF5EEF2), pink = Color(0xF19AC8), neon = Color(0xE8418C)
+    static let bg = Color(0x1B1113), fg = Color(0xF6EEF0), pink = Color(0xF497A9), neon = Color(0xE83A59)
     static let yellow = Color(0xF5D547)
     static let fontName = "IosevkaTerm Nerd Font"
 
-    static func muted(_ contrast: ColorSchemeContrast) -> Color { contrast == .increased ? Color(0xD8CDD3) : Color(0xA99AA3) }
-    static func border(_ contrast: ColorSchemeContrast) -> Color { contrast == .increased ? Color(0x7A6170) : Color(0x3A2A33) }
+    static func muted(_ contrast: ColorSchemeContrast) -> Color { contrast == .increased ? Color(0xD9CCD0) : Color(0xAA989C) }
+    static func border(_ contrast: ColorSchemeContrast) -> Color { contrast == .increased ? Color(0x7C5E66) : Color(0x3C262B) }
 
     static let textSize: CGFloat = 23
     /// We wrap the text ourselves (to show only a few lines), so count how many monospaced characters fit
@@ -37,6 +37,27 @@ enum G {
 
     static func label(_ s: String) -> some View {
         Text(s.uppercased()).font(mono(12)).tracking(2).foregroundStyle(pink)
+    }
+
+    /// Official Aiber Logo 1B (chevron A with shortened right leg + base cursor bar) and product header.
+    static var brand: some View {
+        HStack(spacing: 8) {
+            Canvas { ctx, size in
+                let w = size.width, h = size.height, s = min(w, h)
+                let stroke = s * 0.135
+                var chevron = Path()
+                chevron.move(to: CGPoint(x: w * 0.18, y: h * 0.77))
+                chevron.addLine(to: CGPoint(x: w * 0.48, y: h * 0.21))
+                chevron.addLine(to: CGPoint(x: w * 0.65, y: h * 0.53))
+                ctx.stroke(chevron, with: .color(pink), style: StrokeStyle(lineWidth: stroke, lineCap: .round, lineJoin: .round))
+                let barY = h * 0.77 + stroke * 0.5 - stroke
+                let cursor = CGRect(x: w * 0.56, y: barY, width: w * 0.30, height: stroke)
+                ctx.fill(Path(roundedRect: cursor, cornerRadius: stroke * 0.48), with: .color(neon))
+            }
+            .frame(width: 16, height: 16)
+            .accessibilityHidden(true)
+            label("Aiber typer")
+        }
     }
 }
 
@@ -119,7 +140,7 @@ struct TyperView: View {
     private var typing: some View {
         VStack(alignment: .leading, spacing: 20) {
             HStack(spacing: 10) {
-                G.label("Gentle typer")
+                G.brand
                 Spacer()
                 pills([session.collection.name + " ▾"], selected: session.collection.name + " ▾", spoken: "Colección") {
                     session.openPicker()

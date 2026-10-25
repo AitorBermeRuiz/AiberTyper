@@ -30,7 +30,7 @@ struct Collection: Equatable {
     static let builtIn = [general, stoic, programming, artOfWar, cinema, books]
 
     static let folder = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
-        .appendingPathComponent("AitorTyper/Colecciones")
+        .appendingPathComponent("AiberTyper/Colecciones")
 
     /// Longest sentence kept from a file: 90 seconds at 40 wpm.
     static let maxChars = charsFor(wpm: 40, seconds: 90)
@@ -61,6 +61,17 @@ struct Collection: Equatable {
 
     /// Every `*.json` in `folder`, by file name, plus one message per file that could not be used.
     static func load(from folder: URL = folder) -> (collections: [Collection], problems: [String]) {
+        if folder.lastPathComponent == "Colecciones", folder.deletingLastPathComponent().lastPathComponent == "AiberTyper" {
+            let legacy = folder.deletingLastPathComponent().deletingLastPathComponent().appendingPathComponent("AitorTyper/Colecciones")
+            let legacyFiles = (try? FileManager.default.contentsOfDirectory(at: legacy, includingPropertiesForKeys: nil)) ?? []
+            for src in legacyFiles where src.pathExtension.lowercased() == "json" {
+                let dst = folder.appendingPathComponent(src.lastPathComponent)
+                if !FileManager.default.fileExists(atPath: dst.path) {
+                    try? FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+                    try? FileManager.default.copyItem(at: src, to: dst)
+                }
+            }
+        }
         let files = (try? FileManager.default.contentsOfDirectory(at: folder, includingPropertiesForKeys: [.isRegularFileKey, .fileSizeKey])) ?? []
         var collections: [Collection] = []
         var problems: [String] = []
@@ -153,7 +164,7 @@ func correctChars(target: String, typed: String) -> Int { zip(target, typed).fil
 
 struct History {
     static let defaultURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
-        .appendingPathComponent("AitorTyper/history.json")
+        .appendingPathComponent("AiberTyper/history.json")
 
     let url: URL
     private(set) var rounds: [RoundResult] = []
@@ -161,9 +172,19 @@ struct History {
 
     init(url: URL = History.defaultURL) {
         self.url = url
-        guard FileManager.default.fileExists(atPath: url.path) else { return } // no history yet
-        // Any other read or decode error makes it read-only: the file is kept as is and add() reports it.
-        do { rounds = try Self.decoder.decode([RoundResult].self, from: Data(contentsOf: url)) } catch { writable = false }
+        if FileManager.default.fileExists(atPath: url.path) {
+            // Any read or decode error makes it read-only: the file is kept as is and add() reports it.
+            do { rounds = try Self.decoder.decode([RoundResult].self, from: Data(contentsOf: url)) } catch { writable = false }
+        }
+        if writable, url.deletingLastPathComponent().lastPathComponent == "AiberTyper" {
+            let legacy = url.deletingLastPathComponent().deletingLastPathComponent().appendingPathComponent("AitorTyper/history.json")
+            if let old = try? Self.decoder.decode([RoundResult].self, from: Data(contentsOf: legacy)),
+               old.contains(where: { !rounds.contains($0) }) {
+                rounds = (old + rounds.filter { !old.contains($0) }).sorted { $0.date < $1.date }
+                try? FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
+                try? Self.encoder.encode(rounds).write(to: url, options: .atomic)
+            }
+        }
     }
 
     var recentWPM: Double? {
