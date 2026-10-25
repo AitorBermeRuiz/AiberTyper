@@ -98,7 +98,11 @@ jobs:
           cd "$RUNNER_TEMP/tap"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add Casks/aibertyper.rb
+          # The cask was aitortyper until 0.1.0: brew moves existing installs to the new token through cask_renames.json.
+          { [ -f cask_renames.json ] && cat cask_renames.json || echo '{}'; } | jq '. + {"aitortyper": "aibertyper"}' > cask_renames.tmp
+          mv cask_renames.tmp cask_renames.json
+          git rm -q --ignore-unmatch Casks/aitortyper.rb
+          git add Casks/aibertyper.rb cask_renames.json
           git diff --cached --quiet && exit 0 # already up to date (re-run)
           git commit -m "aibertyper $VERSION"
           git push

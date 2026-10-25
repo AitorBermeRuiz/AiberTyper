@@ -10,6 +10,8 @@ With [Homebrew](https://brew.sh) (macOS 14 Sonoma or later):
 brew install --cask aitorbermeruiz/tap/aibertyper
 ```
 
+Installed it before as `aitortyper`? `brew update` moves it to `aibertyper`, and your history, collections and settings carry over.
+
 Or download `AiberTyper-<version>.zip` from [Releases](https://github.com/AitorBermeRuiz/AitorTyper/releases), unzip it and move `AiberTyper.app` to Applications. Builds are not notarized by Apple yet, so a downloaded app needs `xattr -dr com.apple.quarantine /Applications/AiberTyper.app` once before it opens (Homebrew does this for you).
 
 From source: `./build.sh` creates `build/AiberTyper.app`; `./test.sh` runs the self-check.
