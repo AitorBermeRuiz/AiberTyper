@@ -1,0 +1,91 @@
+name: Release
+
+# Push a tag like v0.2.0 to publish AitorTyper-0.2.0.zip on GitHub Releases and update the Homebrew tap.
+# Every secret is optional: without the Apple ones the app is ad-hoc signed and not notarized;
+# without HOMEBREW_TAP_TOKEN the tap is not updated.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: macos-latest
+    env:
+      CERT_P12: ${{ secrets.MACOS_CERT_P12 }}
+      CERT_PASSWORD: ${{ secrets.MACOS_CERT_PASSWORD }}
+      CERT_IDENTITY: ${{ secrets.MACOS_SIGN_IDENTITY }}
+      NOTARY_APPLE_ID: ${{ secrets.NOTARY_APPLE_ID }}
+      NOTARY_TEAM_ID: ${{ secrets.NOTARY_TEAM_ID }}
+      NOTARY_PASSWORD: ${{ secrets.NOTARY_PASSWORD }}
+      TAP_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Version from tag
+        run: |
+          version=${GITHUB_REF_NAME#v}
+          [[ "$version" =~ ^[0-9]+(\.[0-9]+)*$ ]] || { echo "Tag $GITHUB_REF_NAME is not vX.Y.Z"; exit 1; }
+          echo "VERSION=$version" >> "$GITHUB_ENV"
+          echo "ZIP=AitorTyper-$version.zip" >> "$GITHUB_ENV"
+
+      - name: Self-check
+        run: ./test.sh
+
+      - name: Import Developer ID certificate
+        if: env.CERT_P12 != ''
+        run: |
+          keychain="$RUNNER_TEMP/signing.keychain-db"
+          password=$(uuidgen)
+          echo "$CERT_P12" | base64 --decode > "$RUNNER_TEMP/cert.p12"
+          security create-keychain -p "$password" "$keychain"
+          security set-keychain-settings -lut 21600 "$keychain"
+          security unlock-keychain -p "$password" "$keychain"
+          security import "$RUNNER_TEMP/cert.p12" -P "$CERT_PASSWORD" -A -t cert -f pkcs12 -k "$keychain"
+          security set-key-partition-list -S apple-tool:,apple: -k "$password" "$keychain" > /dev/null
+          security list-keychains -d user -s "$keychain" $(security list-keychains -d user | tr -d '"')
+          rm "$RUNNER_TEMP/cert.p12"
+          echo "SIGN_IDENTITY=$CERT_IDENTITY" >> "$GITHUB_ENV"
+
+      - name: Build universal app
+        run: UNIVERSAL=1 ./build.sh
+
+      - name: Zip
+        run: ditto -c -k --keepParent build/AitorTyper.app "$ZIP"
+
+      - name: Notarize
+        if: env.CERT_P12 != '' && env.NOTARY_PASSWORD != ''
+        run: |
+          xcrun notarytool submit "$ZIP" --apple-id "$NOTARY_APPLE_ID" --team-id "$NOTARY_TEAM_ID" --password "$NOTARY_PASSWORD" --wait
+          # Stapling fails unless Apple accepted the submission, which stops the release.
+          xcrun stapler staple build/AitorTyper.app
+          rm "$ZIP"
+          ditto -c -k --keepParent build/AitorTyper.app "$ZIP"
+          echo "NOTARIZED=1" >> "$GITHUB_ENV"
+
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "SHA256=$(shasum -a 256 "$ZIP" | cut -d' ' -f1)" >> "$GITHUB_ENV"
+          if [[ "${NOTARIZED:-0}" == 1 ]]; then
+            notes="Install with \`brew install --cask aitorbermeruiz/tap/aitortyper\`, or unzip and move AitorTyper.app to Applications."
+          else
+            notes="Install with \`brew install --cask aitorbermeruiz/tap/aitortyper\`. This build is not notarized by Apple: if you download the zip by hand, run \`xattr -dr com.apple.quarantine /Applications/AitorTyper.app\` after moving it to Applications."
+          fi
+          gh release create "$GITHUB_REF_NAME" "$ZIP" --title "AitorTyper $VERSION" --notes "$notes" --generate-notes
+
+      - name: Update Homebrew tap
+        if: env.TAP_TOKEN != ''
+        run: |
+          git clone "https://x-access-token:$TAP_TOKEN@github.com/AitorBermeRuiz/homebrew-tap.git" "$RUNNER_TEMP/tap"
+          mkdir -p "$RUNNER_TEMP/tap/Casks"
+          scripts/cask.sh "$VERSION" "$SHA256" "${NOTARIZED:-0}" > "$RUNNER_TEMP/tap/Casks/aitortyper.rb"
+          cd "$RUNNER_TEMP/tap"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Casks/aitortyper.rb
+          git commit -m "aitortyper $VERSION"
+          git push
