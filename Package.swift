@@ -2,7 +2,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "AitorTyper",
+    name: "AiberTyper",
     platforms: [.macOS(.v14)],
-    targets: [.executableTarget(name: "AitorTyper")]
+    targets: [.executableTarget(name: "AiberTyper")]
 )

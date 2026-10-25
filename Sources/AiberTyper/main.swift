@@ -35,7 +35,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
 
 
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-        statusItem.button?.image = NSImage(systemSymbolName: "keyboard", accessibilityDescription: "AitorTyper")
+        statusItem.button?.image = Self.menuBarIcon()
         let menu = NSMenu()
         practice = NSMenuItem(title: "Practicar", action: #selector(show), keyEquivalent: "")
         practice.target = self
@@ -291,6 +291,31 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
         NSApp.activate(ignoringOtherApps: true)
         panel.makeKeyAndOrderFront(nil)
         panel.center()
+    }
+
+    /// Official Aiber Logo 1B drawn as a monochrome template image for the macOS menu bar.
+    private static func menuBarIcon() -> NSImage {
+        let size = NSSize(width: 18, height: 18)
+        let image = NSImage(size: size, flipped: true) { rect in
+            let w = rect.width, h = rect.height, s = min(w, h)
+            let stroke = s * 0.135
+            NSColor.black.set()
+            let chevron = NSBezierPath()
+            chevron.lineWidth = stroke
+            chevron.lineCapStyle = .round
+            chevron.lineJoinStyle = .round
+            chevron.move(to: NSPoint(x: w * 0.18, y: h * 0.77))
+            chevron.line(to: NSPoint(x: w * 0.48, y: h * 0.21))
+            chevron.line(to: NSPoint(x: w * 0.65, y: h * 0.53))
+            chevron.stroke()
+            let barY = h * 0.77 + stroke * 0.5 - stroke
+            let cursor = NSRect(x: w * 0.56, y: barY, width: w * 0.30, height: stroke)
+            NSBezierPath(roundedRect: cursor, xRadius: stroke * 0.48, yRadius: stroke * 0.48).fill()
+            return true
+        }
+        image.isTemplate = true
+        image.accessibilityDescription = "AiberTyper"
+        return image
     }
 
     func hide() {
