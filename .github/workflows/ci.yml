@@ -21,3 +21,14 @@ jobs:
         run: UNIVERSAL=1 ./build.sh
       - name: Cask template
         run: scripts/test-cask.sh
+
+  # Separate from `check` (the required check) until it proves stable on GitHub's virtual Macs.
+  bench:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - name: Benchmark (fails over budget)
+        shell: bash # with pipefail, so tee keeps the benchmark's exit code
+        run: scripts/bench.sh | tee -a "$GITHUB_STEP_SUMMARY"
