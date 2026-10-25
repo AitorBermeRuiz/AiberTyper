@@ -97,13 +97,15 @@ func finishedRound(seconds: Double) -> Session {
 assert(finishedRound(seconds: 0.5).isRecord, "48 wpm beats 24")
 assert(!finishedRound(seconds: 2).isRecord, "12 wpm is below the best")
 
-// A corrupt history file is kept aside instead of overwritten.
+// A history file corrupt at launch is read-only: add() throws (so the note shows) and the file stays as it is.
 let dir = tempDir()
 let corrupt = dir.appendingPathComponent("history.json")
 try! Data("not json".utf8).write(to: corrupt)
 var history = History(url: corrupt)
-try! history.add(RoundResult(date: Date(), lang: .es, wpm: 50, accuracy: 1, seconds: 40))
-assert(try! FileManager.default.contentsOfDirectory(atPath: dir.path).count == 2)
+var corruptThrew = false
+do { try history.add(RoundResult(date: Date(), lang: .es, wpm: 50, accuracy: 1, seconds: 40)) } catch { corruptThrew = true }
+assert(corruptThrew && (try! String(contentsOf: corrupt, encoding: .utf8)) == "not json"
+    && (try! FileManager.default.contentsOfDirectory(atPath: dir.path)) == ["history.json"], "corrupt history kept in place")
 
 // A history that cannot be read is read-only: add() throws (so the note shows) and touches nothing.
 let unreadable = tempDir()
