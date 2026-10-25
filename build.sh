@@ -2,7 +2,7 @@
 # Builds build/AitorTyper.app (menu bar app, no Dock icon).
 # Optional environment (used by the release workflow):
 #   VERSION=1.2.3          version written to Info.plist (default 0.1)
-#   UNIVERSAL=1            build for Apple Silicon and Intel (needs Xcode, not only Command Line Tools)
+#   UNIVERSAL=1            build for Apple Silicon and Intel
 #   SIGN_IDENTITY="Developer ID Application: …"  sign for distribution (hardened runtime) instead of ad-hoc
 set -euo pipefail
 cd "$(dirname "$0")"
