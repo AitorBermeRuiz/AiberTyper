@@ -160,15 +160,8 @@ struct History {
     init(url: URL = History.defaultURL) {
         self.url = url
         guard FileManager.default.fileExists(atPath: url.path) else { return } // no history yet
-        // Any other read error (permissions, a directory) makes it read-only, so the file is never replaced.
-        guard let data = try? Data(contentsOf: url) else { writable = false; return }
-        do {
-            rounds = try Self.decoder.decode([RoundResult].self, from: data)
-        } catch {
-            // Keep the unreadable file instead of overwriting it on the next save.
-            let aside = url.deletingPathExtension().appendingPathExtension("corrupt-\(Int(Date().timeIntervalSince1970)).json")
-            writable = (try? FileManager.default.moveItem(at: url, to: aside)) != nil
-        }
+        // Any other read or decode error makes it read-only: the file is kept as is and add() reports it.
+        do { rounds = try Self.decoder.decode([RoundResult].self, from: Data(contentsOf: url)) } catch { writable = false }
     }
 
     var recentWPM: Double? {
