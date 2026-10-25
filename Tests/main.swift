@@ -14,10 +14,43 @@ extension Session {
     func practice(_ text: String) { choose(Collection(id: "test", name: "Test", es: [Quote(text: text)], en: [Quote(text: text)])) }
 }
 
-// Score: WPM from correct characters, accuracy from keystrokes.
-let s = score(target: "hola mundo", typed: "hola mundx", seconds: 6, keystrokes: 10, errors: 1)
-assert(abs(s.wpm - 18) < 0.001, "wpm \(s.wpm)") // 9 correct chars / 5 / 0.1 min
-assert(abs(s.accuracy - 0.9) < 0.001, "accuracy \(s.accuracy)")
+let t0 = Date()
+
+// Round score: WPM from correct characters, accuracy from keystrokes; the completing keystroke returns it once.
+var scored = Round(quotes: [Quote(text: "hola mundo")])
+assert(scored.type("hola mund", now: t0) == nil, "not complete yet")
+let s = scored.type("hola mundx", now: t0.addingTimeInterval(6))!
+assert(abs(s.wpm - 18) < 0.001 && abs(s.accuracy - 0.9) < 0.001 && s.seconds == 6, "score \(s)") // 9 correct chars / 5 / 0.1 min
+assert(scored.type("hola mundo", now: t0.addingTimeInterval(7)) == nil && scored.typed == "hola mundx", "typing after the end is ignored")
+
+// Round counts corrected errors: a deleted wrong keystroke still costs accuracy.
+var corrected = Round(quotes: [Quote(text: "añ")])
+assert(corrected.live(now: t0) == nil, "no live stats before the first keystroke")
+corrected.type("x", now: t0)
+corrected.type("", now: t0)
+corrected.type("a", now: t0)
+let live = corrected.live(now: t0.addingTimeInterval(6))!
+assert(abs(live.wpm - 2) < 0.001 && abs(live.accuracy - 0.5) < 0.001, "live \(live)") // 1 correct char in 0.1 min; 1 of 2 keystrokes wrong
+let done = corrected.type("añ", now: t0.addingTimeInterval(1))!
+assert(abs(done.accuracy - 2.0 / 3) < 0.001 && corrected.correct == 2 && corrected.errors == 1, "corrected \(done) \(corrected.errors)")
+
+// A dead key (´ then á at the same length) is re-scored, and the round waits for the composed letter.
+var accent = Round(quotes: [Quote(text: "á")])
+assert(accent.type("´", now: t0) == nil, "pending accent does not finish")
+let composed = accent.type("á", now: t0.addingTimeInterval(1))
+assert(composed?.accuracy == 1 && accent.errors == 0, "composed \(String(describing: composed)) errors \(accent.errors)")
+
+// NFD and NFC spellings compare equal, one character each.
+var nfd = Round(quotes: [Quote(text: "man\u{0303}ana")])
+nfd.type("mañana", now: t0)
+assert(nfd.correct == 6 && nfd.errors == 0, "nfd \(nfd.correct) \(nfd.errors)")
+assert(wrapLines(nfd.target, width: 10) == [0..<6])
+
+// The source follows the sentence under the cursor.
+var sourced = Round(quotes: Array(Collection.stoic.es.prefix(2)))
+assert(sourced.source == sourced.quotes[0].source, "first source")
+sourced.type(String(sourced.target.prefix(sourced.quotes[0].text.count + 1)), now: t0)
+assert(sourced.source == sourced.quotes[1].source, "second source")
 
 // pickSentences takes whole sentences until the joined text is long enough.
 let four = ["aaaa", "bbbb", "cccc"].map { Quote(text: $0) }
@@ -73,21 +106,14 @@ assert(l5.before == 2 && l5.focus == 3..<6 && l5.after == nil, "end \(l5)")
 let two = lineWindow([0..<5, 5..<9], cursor: 6)
 assert(two.before == nil && two.focus == 0..<2 && two.after == nil, "short \(two)")
 
-// Session counts corrected errors and saves the finished round.
+// Session saves the finished round with its language.
 let historyURL = tempDir().appendingPathComponent("history.json")
 let session = Session(history: History(url: historyURL), folder: tempDir())
 session.practice("añ")
-let t0 = Date()
-assert(session.live(now: t0) == nil, "no live stats before the first keystroke")
-session.type("x", now: t0)
-session.type("", now: t0)
 session.type("a", now: t0)
-let live = session.live(now: t0.addingTimeInterval(6))!
-assert(abs(live.wpm - 2) < 0.001 && abs(live.accuracy - 0.5) < 0.001, "live \(live)") // 1 correct char in 0.1 min; 1 of 2 keystrokes wrong
 session.type("añ", now: t0.addingTimeInterval(1))
-assert(abs((session.result?.accuracy ?? 0) - 2.0 / 3) < 0.001, "accuracy \(String(describing: session.result))")
-assert(History(url: historyURL).rounds.count == 1)
-assert(session.correct == 2 && session.errors == 1, "correct \(session.correct) errors \(session.errors)")
+assert(session.result?.wpm == 24 && session.result?.lang == session.lang, "result \(String(describing: session.result))")
+assert(History(url: historyURL).rounds.map(\.wpm) == [24], "saved")
 assert(!session.isRecord, "no record on the very first round")
 
 // A round is a record only when it beats every saved round (the first one was 24 wpm).
@@ -155,27 +181,12 @@ chart.type("a", now: t0)
 chart.type("ab", now: t0.addingTimeInterval(6))
 assert(chart.recentWPMs.count == 20 && chart.recentWPMs.first == 6 && chart.recentWPMs.last == chart.result?.wpm, "chart \(chart.recentWPMs)")
 
-// A dead key (´ then á at the same length) is re-scored, and the round waits for the composed letter.
-let accent = Session(history: History(url: tempDir().appendingPathComponent("history.json")), folder: tempDir())
-accent.practice("á")
-accent.type("´", now: t0)
-assert(accent.result == nil, "pending accent does not finish")
-accent.type("á", now: t0.addingTimeInterval(1))
-assert(accent.result?.accuracy == 1 && accent.errors == 0, "composed \(String(describing: accent.result)) errors \(accent.errors)")
-
-// NFD and NFC spellings compare equal, one character each.
-let nfd = Session(history: History(url: tempDir().appendingPathComponent("history.json")), folder: tempDir())
-nfd.practice("man\u{0303}ana")
-nfd.type("mañana", now: t0)
-assert(nfd.correct == 6 && nfd.errors == 0, "nfd \(nfd.correct) \(nfd.errors)")
-assert(wrapLines(nfd.target, width: 10) == [0..<6])
-
 // toggleLanguage flips the language and starts a fresh round.
 let toggled = Session(history: History(url: tempDir().appendingPathComponent("history.json")), folder: tempDir())
-let langBefore = toggled.lang, roundBefore = toggled.round
+let langBefore = toggled.lang, roundBefore = toggled.roundNumber
 toggled.type("x", now: t0)
 toggled.toggleLanguage()
-assert(toggled.lang == langBefore.toggled && toggled.round == roundBefore + 1 && toggled.typed.isEmpty, "toggle")
+assert(toggled.lang == langBefore.toggled && toggled.roundNumber == roundBefore + 1 && toggled.round.typed.isEmpty, "toggle")
 toggled.toggleLanguage()
 
 // A round never passes 90 seconds at the recent WPM.
@@ -186,17 +197,8 @@ for c in Collection.builtIn {
     slow.choose(c)
     for _ in 0..<20 {
         slow.newRound()
-        assert(slow.target.count <= charsFor(wpm: 20, seconds: 90), "round \(c.id) \(slow.target.count)")
+        assert(slow.round.target.count <= charsFor(wpm: 20, seconds: 90), "round \(c.id) \(slow.round.target.count)")
     }
-}
-
-// The source follows the sentence under the cursor.
-let sourced = Session(history: History(url: tempDir().appendingPathComponent("history.json")), folder: tempDir())
-sourced.choose(.stoic)
-assert(sourced.quotes.count > 0 && sourced.source == sourced.quotes[0].source, "first source")
-if sourced.quotes.count > 1 {
-    sourced.type(String(sourced.target.prefix(sourced.quotes[0].text.count + 1)), now: t0)
-    assert(sourced.source == sourced.quotes[1].source, "second source")
 }
 
 // Picker: every letter filters (accent- and case-insensitive), moving is clamped, ⏎ chooses.
@@ -222,7 +224,7 @@ picker.choosePicked()
 assert(picker.picking && picker.collection.id == "general", "nothing to choose keeps the picker open")
 picker.deleteInPicker()
 picker.choosePicked()
-assert(!picker.picking && picker.collection.id == "stoic" && picker.quotes.allSatisfy { $0.source != nil }, "chose stoic")
+assert(!picker.picking && picker.collection.id == "stoic" && picker.round.quotes.allSatisfy { $0.source != nil }, "chose stoic")
 picker.openPicker()
 assert(picker.selection == 1, "opens on the current collection")
 picker.deleteInPicker()
@@ -271,7 +273,7 @@ let builtInIds = Collection.builtIn.map(\.id)
 let user = Session(history: History(url: tempDir().appendingPathComponent("history.json")), folder: folder)
 assert(user.collections.map(\.id) == builtInIds + ["file:prog.json"] && user.problems.count == 2, "collections \(user.collections.map(\.id))")
 user.choose(user.collections.last!)
-assert(user.quotes.allSatisfy { parsed.collection.es.contains($0) } && !user.quotes.isEmpty, "file quotes \(user.quotes)")
+assert(user.round.quotes.allSatisfy { parsed.collection.es.contains($0) } && !user.round.quotes.isEmpty, "file quotes \(user.round.quotes)")
 
 // Favorites come first; ⌃f keeps the same collection selected as it moves.
 user.openPicker()

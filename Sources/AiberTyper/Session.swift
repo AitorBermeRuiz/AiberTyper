@@ -10,23 +10,17 @@ import Observation
     private(set) var problems: [String] = []
     private(set) var favorites = Set(UserDefaults.standard.stringArray(forKey: "favorites") ?? [])
     let folder: URL
-    private(set) var target = ""
-    /// The sentences that make up `target`, in order.
-    private(set) var quotes: [Quote] = []
-    private(set) var typed = ""
+    private(set) var round = Round()
     private(set) var result: RoundResult?
     private(set) var averageBefore: Double?
     /// The finished round beats every saved round (never true on the first one).
     private(set) var isRecord = false
     private(set) var note = ""
-    private(set) var round = 0
+    /// Counts rounds started, so the view can refocus the field on each one.
+    private(set) var roundNumber = 0
     /// The panel is on screen; the live stats only tick while it is.
     var visible = false
 
-    private var start: Date?
-    private var keystrokes = 0
-    /// Wrong keystrokes, including the ones corrected later.
-    private(set) var errors = 0
     private var history: History
 
     init(history: History = History(), folder: URL = Collection.folder) {
@@ -35,23 +29,18 @@ import Observation
         lang = Lang(rawValue: UserDefaults.standard.string(forKey: "lang") ?? "") ?? .es
         collection = .general
         reloadCollections() // switches to the saved collection when it loads
-        if round == 0 { newRound() }
+        if roundNumber == 0 { newRound() }
     }
 
     func newRound() {
         // First run has no history: assume an average typist (40 wpm).
         let wpm = history.recentWPM ?? 40
-        quotes = pickSentences(from: collection.quotes(lang), chars: charsFor(wpm: wpm, seconds: .random(in: 30...60)),
-                               maxChars: charsFor(wpm: wpm, seconds: 90))
-        target = quotes.map(\.text).joined(separator: " ")
-        typed = ""
+        round = Round(quotes: pickSentences(from: collection.quotes(lang), chars: charsFor(wpm: wpm, seconds: .random(in: 30...60)),
+                                            maxChars: charsFor(wpm: wpm, seconds: 90)))
         result = nil
         isRecord = false
         note = ""
-        start = nil
-        keystrokes = 0
-        errors = 0
-        round += 1
+        roundNumber += 1
     }
 
     func toggleLanguage() {
@@ -145,58 +134,20 @@ import Observation
         choose(matches[index])
     }
 
-    /// Source of the sentence under the cursor; nil for unattributed sentences.
-    var source: String? {
-        var end = 0
-        for quote in quotes {
-            end += quote.text.count + 1
-            if typed.count < end { return quote.source }
-        }
-        return quotes.last?.source
-    }
-
+    /// Types into the round and, on the keystroke that completes it, saves the result to the history.
     func type(_ text: String, now: Date = Date()) {
-        guard result == nil else { return }
-        let goal = Array(target)
-        let new = Array(text.prefix(goal.count))
-        let old = Array(typed)
-        if start == nil, !new.isEmpty { start = now }
-        if new.count > old.count {
-            for i in old.count..<new.count {
-                keystrokes += 1
-                if new[i] != goal[i] { errors += 1 }
-            }
-        } else if new.count == old.count, let i = new.indices.last, new[i] != old[i] {
-            // A dead key composed in place (´ then á): re-score that keystroke.
-            if old[i] != goal[i] { errors -= 1 }
-            if new[i] != goal[i] { errors += 1 }
+        guard let s = round.type(text, now: now) else { return }
+        let result = RoundResult(date: now, lang: lang, wpm: s.wpm, accuracy: s.accuracy, seconds: s.seconds)
+        averageBefore = history.recentWPM
+        isRecord = history.rounds.map(\.wpm).max().map { s.wpm > $0 } ?? false
+        do {
+            try history.add(result)
+        } catch {
+            note = "No se pudo guardar el historial: \(error.localizedDescription)"
         }
-        typed = String(new)
-        let pendingAccent = new.last.map { "´¨`^~ˆ˜".contains($0) && $0 != goal.last } ?? false
-        if new.count == goal.count, !pendingAccent { finish(now: now) }
-    }
-
-    /// Stats of the round so far; nil until the first keystroke.
-    func live(now: Date = Date()) -> (wpm: Double, accuracy: Double)? {
-        guard let start else { return nil }
-        return score(target: target, typed: typed, seconds: now.timeIntervalSince(start), keystrokes: keystrokes, errors: errors)
+        self.result = result
     }
 
     /// WPM of the last 20 saved rounds, oldest first; after a round it ends with that round.
     var recentWPMs: [Double] { history.rounds.suffix(20).map(\.wpm) }
-
-    var correct: Int { correctChars(target: target, typed: typed) }
-
-    private func finish(now: Date) {
-        guard let start, let s = live(now: now) else { return }
-        let round = RoundResult(date: now, lang: lang, wpm: s.wpm, accuracy: s.accuracy, seconds: now.timeIntervalSince(start))
-        averageBefore = history.recentWPM
-        isRecord = history.rounds.map(\.wpm).max().map { s.wpm > $0 } ?? false
-        do {
-            try history.add(round)
-        } catch {
-            note = "No se pudo guardar el historial: \(error.localizedDescription)"
-        }
-        result = round
-    }
 }
