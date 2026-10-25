@@ -27,7 +27,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
         panel.isReleasedWhenClosed = false
         panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
         panel.delegate = self
-        let host = NSHostingController(rootView: TyperView(session: session, onImport: { [weak self] in self?.importCollections() }))
+        let host = NSHostingController(rootView: TyperView(session: session, onImport: { [weak self] in self?.importCollections() }, onClose: { [weak self] in self?.hide() }))
         host.sizingOptions = [.preferredContentSize]
         // Under the transparent titlebar, safe-area changes on every resize loop the layout and AppKit aborts.
         host.safeAreaRegions = []
@@ -62,6 +62,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
             case kVK_Tab where event.modifierFlags.contains(.shift): self.session.openPicker()
             case kVK_Tab: self.session.toggleLanguage()
             case kVK_Return, kVK_ANSI_KeypadEnter: self.session.newRound()
+            // Moving the caret inside the hidden field would desync it from the cursor drawn on screen.
+            case kVK_LeftArrow, kVK_RightArrow, kVK_UpArrow, kVK_DownArrow, kVK_Home, kVK_End, kVK_PageUp, kVK_PageDown, kVK_ForwardDelete: break
             default: return event
             }
             return nil
@@ -88,10 +90,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
         case _ where control && key == "f": session.toggleFavoritePicked()
         case _ where control && key == "i": importCollections()
         default:
-            if !control, !event.modifierFlags.contains(.command), let chars = event.characters, !chars.isEmpty,
-               chars.allSatisfy({ $0.isLetter || $0.isNumber || $0 == " " }) {
-                session.typeInPicker(chars)
-            }
+            if !control, !event.modifierFlags.contains(.command), let chars = event.characters { session.typeInPicker(chars) }
         }
     }
 
@@ -132,24 +131,23 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
         var imported: String?
         for url in open.urls {
             do {
-                _ = try Collection.parse(Data(contentsOf: url), id: "file:" + url.lastPathComponent)
+                // The validated bytes are the ones written, so the file cannot change in between.
+                let data = try Data(contentsOf: url)
+                _ = try Collection.parse(data, id: "file:" + url.lastPathComponent)
                 try FileManager.default.createDirectory(at: session.folder, withIntermediateDirectories: true)
                 let destination = session.folder.appendingPathComponent(url.lastPathComponent)
-                if FileManager.default.fileExists(atPath: destination.path) { try FileManager.default.removeItem(at: destination) }
-                try FileManager.default.copyItem(at: url, to: destination)
+                // Re-importing a file from the folder itself must not trash its own source.
+                let same = destination.resolvingSymlinksInPath().standardizedFileURL == url.resolvingSymlinksInPath().standardizedFileURL
+                if !same, FileManager.default.fileExists(atPath: destination.path) {
+                    try FileManager.default.trashItem(at: destination, resultingItemURL: nil)
+                }
+                try data.write(to: destination, options: .atomic)
                 imported = "file:" + url.lastPathComponent
             } catch {
                 let alert = NSAlert()
                 alert.messageText = "No se pudo importar \(url.lastPathComponent)"
-                alert.informativeText = (error is DecodingError ? "JSON no válido" : error.localizedDescription) + """
-
-
-                    Formato esperado:
-                    {"name": "Programación", "quotes": [
-                      {"text": "Una frase.", "source": "Autor"},
-                      {"text": "Una frase sin fuente."}
-                    ]}
-                    """
+                alert.informativeText = (error is DecodingError ? "JSON no válido" : error.localizedDescription)
+                    + "\n\nFormato esperado:\n" + Self.formatExample
                 alert.runModal()
             }
         }
@@ -181,17 +179,20 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
         return accepted
     }
 
+    /// The collection file format, shown in the import help and in import errors.
+    static let formatExample = """
+        {
+          "name": "Programación",
+          "quotes": [
+            { "text": "Una frase.", "source": "Autor" },
+            { "text": "Una frase sin fuente." }
+          ]
+        }
+        """
+
     /// The format example as an indented code block, followed by the field rules.
     private func importHelpView() -> NSView {
-        let code = NSTextField(labelWithString: """
-            {
-              "name": "Programación",
-              "quotes": [
-                { "text": "Una frase.", "source": "Autor" },
-                { "text": "Una frase sin fuente." }
-              ]
-            }
-            """)
+        let code = NSTextField(labelWithString: Self.formatExample)
         code.font = .monospacedSystemFont(ofSize: 11.5, weight: .regular)
         code.isSelectable = true
         let box = NSView()
@@ -209,7 +210,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
         let rules = NSTextField(wrappingLabelWithString: """
             • name y text son obligatorios.
             • source es opcional.
-            • Las frases de más de \(Collection.maxChars) caracteres se descartan.
+            • Se descartan las frases de más de \(Collection.maxChars) caracteres y las que tienen emojis o caracteres anchos (chino, japonés, coreano).
             """)
         rules.font = .systemFont(ofSize: NSFont.smallSystemFontSize)
         rules.textColor = .secondaryLabelColor
@@ -243,7 +244,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
         shown.frame.size = NSSize(width: 260, height: 32)
         let alert = NSAlert()
         alert.messageText = "Cambiar atajo"
-        alert.informativeText = "Pulsa la nueva combinación. Tiene que incluir ⌘, ⌥ o ⌃."
+        alert.informativeText = "Pulsa la nueva combinación. Tiene que incluir ⌘, ⌥ o ⌃. No se permiten ⌘+letra (atajos de las apps) ni ⌥+letra (acentos y símbolos)."
         alert.icon = NSImage(systemSymbolName: "keyboard", accessibilityDescription: nil)?
             .withSymbolConfiguration(.init(pointSize: 40, weight: .regular))
         alert.accessoryView = shown
@@ -264,11 +265,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
         let chosen = answer == .alertFirstButtonReturn ? recorded ?? old : answer == .alertThirdButtonReturn ? .standard : old
         if apply(chosen) {
             HotKey.saved = chosen
-        } else {
-            apply(old)
+        } else if chosen != old { // a busy old shortcut is already flagged in the menu
+            let restored = apply(old)
             let busy = NSAlert()
             busy.messageText = "\(chosen.label) ya lo usa otra app"
-            busy.informativeText = "Se mantiene \(old.label). Prueba otra combinación."
+            busy.informativeText = restored ? "Se mantiene \(old.label). Prueba otra combinación." : "Ningún atajo activo: \(old.label) también está ocupado."
             busy.runModal()
         }
     }
