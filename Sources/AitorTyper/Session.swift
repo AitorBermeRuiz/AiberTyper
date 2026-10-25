@@ -4,12 +4,13 @@ import Observation
 @Observable final class Session {
     private(set) var lang: Lang
     private(set) var collection: Collection
-    /// Built-in collections, then the ones in `folder`; refreshed every time the picker opens.
+    /// Built-in collections, then the ones in `folder`; refreshed when the picker or the Colección menu opens and after an import.
     private(set) var collections = Collection.builtIn
     /// Files in `folder` that could not be used, one message each.
     private(set) var problems: [String] = []
     private(set) var favorites = Set(UserDefaults.standard.stringArray(forKey: "favorites") ?? [])
     let folder: URL
+    /// Settable so the self-check can type against a known text.
     var target = ""
     /// The sentences that make up `target`, in order.
     private(set) var quotes: [Quote] = []
@@ -34,10 +35,8 @@ import Observation
         self.folder = folder
         lang = Lang(rawValue: UserDefaults.standard.string(forKey: "lang") ?? "") ?? .es
         collection = .general
-        reloadCollections()
-        let saved = UserDefaults.standard.string(forKey: "pack")
-        collection = collections.first { $0.id == saved } ?? .general
-        newRound()
+        reloadCollections() // switches to the saved collection when it loads
+        if round == 0 { newRound() }
     }
 
     func newRound() {
@@ -70,15 +69,21 @@ import Observation
         newRound()
     }
 
-    /// Rereads `folder`; a chosen collection whose file is gone falls back to General.
+    /// Rereads `folder`. A chosen collection whose file is gone falls back to General in memory only:
+    /// the saved `pack` is kept and comes back once its file loads again.
     func reloadCollections() {
         let loaded = Collection.load(from: folder)
         collections = Collection.builtIn + loaded.collections
         problems = loaded.problems
-        if let fresh = collections.first(where: { $0.id == collection.id }) {
+        let saved = UserDefaults.standard.string(forKey: "pack")
+        if saved != collection.id, let wanted = collections.first(where: { $0.id == saved }) {
+            collection = wanted
+            newRound()
+        } else if let fresh = collections.first(where: { $0.id == collection.id }) {
             collection = fresh
         } else {
-            choose(.general)
+            collection = .general
+            newRound()
         }
     }
 
@@ -122,19 +127,28 @@ import Observation
         selection = max(0, min(selection + step, matches.count - 1))
     }
 
+    /// Adds printable characters to the filter; newlines, control and private-use characters (arrow keys) are dropped.
     func typeInPicker(_ chars: String) {
-        filter += chars
+        let printable = chars.filter { char in
+            !char.isNewline && !char.unicodeScalars.contains { [.control, .privateUse].contains($0.properties.generalCategory) }
+        }
+        guard !printable.isEmpty else { return }
+        filter += printable
         selection = 0
     }
 
     func deleteInPicker() {
+        guard !filter.isEmpty else { return }
         filter = String(filter.dropLast())
         selection = 0
     }
 
-    func choosePicked() {
-        guard matches.indices.contains(selection) else { return }
-        choose(matches[selection])
+    func choosePicked() { chooseMatch(at: selection) }
+
+    /// Chooses the row at `index`, as a mouse click on it does.
+    func chooseMatch(at index: Int) {
+        guard matches.indices.contains(index) else { return }
+        choose(matches[index])
     }
 
     /// Source of the sentence under the cursor; nil for unattributed sentences.
@@ -158,9 +172,14 @@ import Observation
                 keystrokes += 1
                 if new[i] != goal[i] { errors += 1 }
             }
+        } else if new.count == old.count, let i = new.indices.last, new[i] != old[i] {
+            // A dead key composed in place (´ then á): re-score that keystroke.
+            if old[i] != goal[i] { errors -= 1 }
+            if new[i] != goal[i] { errors += 1 }
         }
         typed = String(new)
-        if new.count == goal.count, let start { finish(seconds: now.timeIntervalSince(start), now: now) }
+        let pendingAccent = new.last.map { "´¨`^~ˆ˜".contains($0) && $0 != goal.last } ?? false
+        if new.count == goal.count, !pendingAccent, let start { finish(seconds: now.timeIntervalSince(start), now: now) }
     }
 
     /// Stats of the round so far; nil until the first keystroke.

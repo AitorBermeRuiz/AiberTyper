@@ -39,22 +39,32 @@ struct Collection: Equatable {
         let name = file.name.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !name.isEmpty else { throw CollectionError("falta \"name\"") }
         let quotes = file.quotes
-            .map { Quote(text: $0.text.trimmingCharacters(in: .whitespacesAndNewlines), source: $0.source) }
-            .filter { !$0.text.isEmpty && $0.text.count <= maxChars }
+            .map { Quote(text: $0.text.split(whereSeparator: \.isWhitespace).joined(separator: " "), source: $0.source) }
+            .filter { !$0.text.isEmpty && $0.text.count <= maxChars && !$0.text.unicodeScalars.contains(where: isWide) }
         guard !quotes.isEmpty else { throw CollectionError("no tiene frases de hasta \(maxChars) caracteres") }
         return (Collection(id: id, name: name, es: quotes, en: quotes), file.quotes.count - quotes.count)
     }
 
+    /// Emoji and CJK, kana, Hangul or fullwidth characters take two monospaced cells and break the manual wrap.
+    // shortcut: a fixed list of ranges, not real glyph measurement; measure with text layout if other wide scripts show up.
+    private static func isWide(_ scalar: Unicode.Scalar) -> Bool {
+        scalar.properties.isEmojiPresentation || scalar.properties.isIdeographic
+            || [0x1100...0x11FF, 0xAC00...0xD7AF, 0x3040...0x30FF, 0xFF00...0xFF60].contains { $0.contains(scalar.value) }
+    }
+
     /// Every `*.json` in `folder`, by file name, plus one message per file that could not be used.
     static func load(from folder: URL = folder) -> (collections: [Collection], problems: [String]) {
-        let files = (try? FileManager.default.contentsOfDirectory(at: folder, includingPropertiesForKeys: nil)) ?? []
+        let files = (try? FileManager.default.contentsOfDirectory(at: folder, includingPropertiesForKeys: [.isRegularFileKey, .fileSizeKey])) ?? []
         var collections: [Collection] = []
         var problems: [String] = []
         for url in files.filter({ $0.pathExtension.lowercased() == "json" }).sorted(by: { $0.lastPathComponent < $1.lastPathComponent }) {
+            let values = try? url.resourceValues(forKeys: [.isRegularFileKey, .fileSizeKey])
+            guard values?.isRegularFile == true else { problems.append("\(url.lastPathComponent): no es un archivo normal"); continue }
+            guard (values?.fileSize ?? 0) <= 1_000_000 else { problems.append("\(url.lastPathComponent): más de 1 MB"); continue }
             do {
                 let parsed = try parse(Data(contentsOf: url), id: "file:" + url.lastPathComponent)
                 collections.append(parsed.collection)
-                if parsed.skipped > 0 { problems.append("\(url.lastPathComponent): \(parsed.skipped) frases vacías o de más de \(maxChars) caracteres") }
+                if parsed.skipped > 0 { problems.append("\(url.lastPathComponent): \(parsed.skipped) frases vacías, con caracteres anchos o de más de \(maxChars) caracteres") }
             } catch {
                 problems.append("\(url.lastPathComponent): \(error is DecodingError ? "JSON no válido" : error.localizedDescription)")
             }
@@ -80,11 +90,13 @@ struct RoundResult: Codable, Equatable {
 func charsFor(wpm: Double, seconds: Double) -> Int { Int(wpm * 5 * seconds / 60) }
 
 /// Whole shuffled sentences whose space-joined text reaches `chars` characters without passing
-/// `maxChars` (the first sentence is always taken, even if it is longer).
+/// `maxChars`. Sentences that fit come first; an oversize one is taken only when none fits,
+/// so the round is never empty.
 func pickSentences<R: RandomNumberGenerator>(from sentences: [Quote], chars: Int, maxChars: Int = .max, using rng: inout R) -> [Quote] {
+    let shuffled = sentences.shuffled(using: &rng)
     var picked: [Quote] = []
     var length = -1 // no separator before the first sentence
-    for next in sentences.shuffled(using: &rng) where length < chars {
+    for next in shuffled.filter({ $0.text.count <= maxChars }) + shuffled.filter({ $0.text.count > maxChars }) where length < chars {
         guard picked.isEmpty || length + 1 + next.text.count <= maxChars else { continue }
         picked.append(next)
         length += 1 + next.text.count
@@ -140,7 +152,9 @@ struct History {
 
     init(url: URL = History.defaultURL) {
         self.url = url
-        guard let data = try? Data(contentsOf: url) else { return } // no history yet
+        guard FileManager.default.fileExists(atPath: url.path) else { return } // no history yet
+        // Any other read error (permissions, a directory) makes it read-only, so the file is never replaced.
+        guard let data = try? Data(contentsOf: url) else { writable = false; return }
         do {
             rounds = try Self.decoder.decode([RoundResult].self, from: data)
         } catch {
@@ -156,8 +170,12 @@ struct History {
     }
 
     mutating func add(_ round: RoundResult) throws {
+        // Another running instance may have saved rounds since this one read the file.
+        if writable, let data = try? Data(contentsOf: url), let saved = try? Self.decoder.decode([RoundResult].self, from: data) {
+            rounds = saved
+        }
         rounds.append(round)
-        guard writable else { return }
+        guard writable else { throw CollectionError("no se pudo leer \(url.lastPathComponent), así que no se sobrescribe") }
         try FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
         try Self.encoder.encode(rounds).write(to: url, options: .atomic)
     }
