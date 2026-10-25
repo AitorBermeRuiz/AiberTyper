@@ -4,7 +4,7 @@ Guide for AI agents working on AiberTyper. Read it before changing code.
 
 ## What this is
 
-AiberTyper is a macOS menu bar app for typing practice. The user presses a global shortcut (default ⌥⇧T), types sentences from a collection, and sees live words per minute (WPM) and accuracy. It replaces the Raycast typer the owner used before. Future distribution through the gentle-shell installer is possible, but not decided.
+AiberTyper is a macOS menu bar app for typing practice. The user presses a global shortcut (default ⌥⇧T), types quotes from a collection, and sees live words per minute (WPM) and accuracy. It replaces the Raycast typer the owner used before. Future distribution through the gentle-shell installer is possible, but not decided.
 
 - Language: Swift 5.10 (SwiftPM), SwiftUI + AppKit, macOS 14+.
 - No dependencies. No Dock icon (`LSUIElement`).
@@ -18,7 +18,7 @@ AiberTyper is a macOS menu bar app for typing practice. The user presses a globa
 | `Sources/AiberTyper/Session.swift` | `@Observable` state: the current `Round`, its saved result and record, collection picker, favorites, history. |
 | `Sources/AiberTyper/Round.swift` | `Round`: one attempt at a text. Typing rules (dead keys, corrected errors), live score, current source. No history or settings. |
 | `Sources/AiberTyper/TyperView.swift` | SwiftUI views: typing, picker, results. Palette `G` lives here. |
-| `Sources/AiberTyper/Typing.swift` | Pure logic: `Lang`, `Quote`, `Collection` (JSON parse and load), `History`, `wrapLines`, `lineWindow`, `pickSentences`, `charsFor`. |
+| `Sources/AiberTyper/Typing.swift` | Pure logic: `Lang`, `Quote`, `Collection` (JSON parse and load), `History`, `wrapLines`, `lineWindow`, `pickQuotes`, `charsFor`. |
 | `Sources/AiberTyper/HotKey.swift` | `HotKey` model, Carbon hot key registration. |
 | `Sources/AiberTyper/Keys.swift` | `PanelKey(event:picking:)`: what each key does in the typing view and in the picker. |
 | `Sources/AiberTyper/Texts.swift`, `Texts+*.swift` | Built-in sentences: General, Stoicism, Programming, The Art of War, Cinema and Cult Books (es/en, each themed quote with its source). |
@@ -61,7 +61,7 @@ Say in the report that the app was restarted and with which build. The user has 
 - **Live stats**: `TimelineView` ticks twice a second only while the panel is visible and a round has started. Keep that cost; do not add timers.
 - **Manual wrap**: text is wrapped by hand, using the monospaced advance of the Iosevka font (fallback: system monospaced). `G.charsPerLine` is computed once. A proportional font would need real text layout measurement.
 - **Score**: WPM counts correct characters only. Accuracy counts every keystroke, including corrected mistakes. The code is `Round.live`; test typing rules on a bare `Round`, without a `Session`.
-- **Round length**: sentences are picked to fill 30–60 s at the user's recent WPM (`History.recentWPM`, default 40), capped at 90 s.
+- **Round length**: quotes are picked to fill 30–60 s at the user's recent WPM (`History.recentWPM`, default 40), capped at 90 s.
 
 ## Persistence (do not break these)
 
@@ -79,7 +79,7 @@ Say in the report that the app was restarted and with which build. The user has 
 - **Built-in collections (standard)**:
   - File: one `Sources/AiberTyper/Texts+<Name>.swift` per collection (`extension Texts`), registered as a `static let` on `Collection` and appended to `Collection.builtIn` in `Sources/AiberTyper/Typing.swift`. `test.sh` compiles `Texts*.swift` automatically.
   - Size & uniqueness: at least **30 distinct quotes in Spanish (`es`) and 30 in English (`en`)**, paired 1-to-1 with the same count in both languages (`c.es.count == c.en.count` and `Set(texts).count == quotes.count`).
-  - Length & duration: each quote must be **25–300 characters** (`Collection.maxChars`, 90 s at 40 wpm), single-spaced, with no newlines or wide/emoji characters (`Collection.parse` must accept all quotes with `skipped == 0`), and include enough quotes ≤150 chars so `pickSentences` always forms rounds of **30–90 s** (even at 20 wpm).
+  - Length & duration: each quote must be **25–300 characters** (`Collection.maxChars`, 90 s at 40 wpm), single-spaced, with no newlines or wide/emoji characters (`Collection.parse` must accept all quotes with `skipped == 0`), and include enough quotes ≤150 chars so `pickQuotes` always forms rounds of **30–90 s** (even at 20 wpm).
   - References: every quote in a themed collection (`id != "general"`) must have a non-empty, verifiable `source` (e.g. `"Author, Work"` or `"Author, Work, section"`). Do not add unattributed, paraphrased or misattributed quotes.
   - Self-check: `./test.sh` enforces all of the above automatically over every entry in `Collection.builtIn`.
 - **Themes**: the owner plans to switch between several styles later. The current style is the Aiber Bermejo palette (`Brand/README.md`): background `#1B1113`, text `#F6EEF0`, pink `#F497A9`, neon `#E83A59`, muted `#AA989C`, border `#3C262B`, yellow `#F5D547` for NEW tags. Do not use the Kanagawa/gold palette; the owner rejected it. Other mockups are in `Designs/`.

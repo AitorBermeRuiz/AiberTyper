@@ -39,7 +39,7 @@ import Observation
     func newRound() {
         // First run has no history: assume an average typist (40 wpm).
         let wpm = history.recentWPM ?? 40
-        round = Round(quotes: pickSentences(from: collection.quotes(lang), chars: charsFor(wpm: wpm, seconds: .random(in: 30...60)),
+        round = Round(quotes: pickQuotes(from: collection.quotes(lang), chars: charsFor(wpm: wpm, seconds: .random(in: 30...60)),
                                             maxChars: charsFor(wpm: wpm, seconds: 90)))
         result = nil
         isRecord = false
