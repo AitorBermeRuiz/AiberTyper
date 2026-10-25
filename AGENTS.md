@@ -28,7 +28,9 @@ AitorTyper is a macOS menu bar app for typing practice. The user presses a globa
 ## Commands
 
 - `./test.sh`: compiles `Typing`, `Session`, `HotKey`, `Texts*` and `Tests/main.swift` with `swiftc` and runs the self-check. Must print `self-check OK`.
-- `./build.sh`: `swift build -c release` and assembles `build/AitorTyper.app` (ad-hoc signed).
+- `./build.sh`: `swift build -c release` and assembles `build/AitorTyper.app` (ad-hoc signed). Optional env: `VERSION`, `UNIVERSAL=1` (arm64 + x86_64), `SIGN_IDENTITY` (Developer ID, hardened runtime).
+- `scripts/cask.sh <version> <sha256> <notarized 0|1>`: prints the Homebrew cask. Unnotarized casks strip the quarantine flag in `postflight`.
+- CI: `.github/workflows/ci.yml` (PRs and `main`: self-check, universal build, cask syntax). `.github/workflows/release.yml` (tags `v*`: build, optional sign and notarize, GitHub release, tap update). Secrets are listed in `README.md`.
 - `./designs.sh`: renders the mockups.
 - `swift test` does not work here. Command Line Tools lack the swift-testing macro plugin. Do not add XCTest or `@Test` without checking that first.
 
@@ -84,7 +86,9 @@ Say in the report that the app was restarted and with which build. The user has 
 
 ## Git
 
-- Branch: `master`, local only so far. No remote is configured in this repo.
+- Remote: public `github.com/AitorBermeRuiz/AitorTyper`, default branch `main`. Work goes through branches and pull requests.
+- Homebrew tap: `github.com/AitorBermeRuiz/homebrew-tap`, `Casks/aitortyper.rb` is written by the release workflow; do not edit it by hand.
+- License: MIT (`LICENSE`). Vendored skills in `.agents/skills/` keep their upstream MIT `LICENSE` files.
 - Commit style: Conventional Commits (`feat:`, `fix:`, `perf:`, `chore:`, `feat(texts):`).
 - Do not commit, push or create branches unless the user asks. When the user does ask for commits, split them by phase (see the history: one commit per feature, tests with the code).
 - Do not commit `build/` or `.build/` (both ignored). Do not commit scratch files.
