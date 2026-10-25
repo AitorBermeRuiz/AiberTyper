@@ -131,23 +131,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
         var imported: String?
         for url in open.urls {
             do {
-                // The validated bytes are the ones written, so the file cannot change in between.
-                let data = try Data(contentsOf: url)
-                _ = try Collection.parse(data, id: "file:" + url.lastPathComponent)
-                try FileManager.default.createDirectory(at: session.folder, withIntermediateDirectories: true)
-                let destination = session.folder.appendingPathComponent(url.lastPathComponent)
-                // Re-importing a file from the folder itself must not trash its own source.
-                let same = destination.resolvingSymlinksInPath().standardizedFileURL == url.resolvingSymlinksInPath().standardizedFileURL
-                if !same, FileManager.default.fileExists(atPath: destination.path) {
-                    try FileManager.default.trashItem(at: destination, resultingItemURL: nil)
-                }
-                try data.write(to: destination, options: .atomic)
-                imported = "file:" + url.lastPathComponent
+                imported = try Collection.install(url, into: session.folder)
             } catch {
                 let alert = NSAlert()
                 alert.messageText = "No se pudo importar \(url.lastPathComponent)"
-                alert.informativeText = (error is DecodingError ? "JSON no válido" : error.localizedDescription)
-                    + "\n\nFormato esperado:\n" + Self.formatExample
+                alert.informativeText = error.localizedDescription + "\n\nFormato esperado:\n" + Self.formatExample
                 alert.runModal()
             }
         }

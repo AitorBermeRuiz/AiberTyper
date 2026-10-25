@@ -391,4 +391,21 @@ assert(newDefaults.string(forKey: "lang") == "en" && newDefaults.string(forKey: 
 assert(newDefaults.stringArray(forKey: "favorites") == ["books"], "newer favorites kept")
 for suite in [oldSuite, newSuite] { UserDefaults.standard.removePersistentDomain(forName: suite) }
 
+// install: a valid file is copied into the folder (created if missing) and loads under the returned id.
+let inbox = tempDir()
+let shelf = tempDir().appendingPathComponent("Colecciones")
+try! valid.write(to: inbox.appendingPathComponent("prog.json"))
+let installedId = try! Collection.install(inbox.appendingPathComponent("prog.json"), into: shelf)
+assert(installedId == "file:prog.json" && Collection.load(from: shelf).collections.map(\.id) == [installedId], "installed \(installedId)")
+// A broken file is refused with the same wording load uses, and never lands in the folder.
+try! Data("not json".utf8).write(to: inbox.appendingPathComponent("bad.json"))
+var installError = ""
+do { _ = try Collection.install(inbox.appendingPathComponent("bad.json"), into: shelf) } catch { installError = error.localizedDescription }
+assert(installError == "JSON no válido" && !FileManager.default.fileExists(atPath: shelf.appendingPathComponent("bad.json").path), "refused \(installError)")
+assert(loaded.problems.contains("bad.json: JSON no válido"), "load wording \(loaded.problems)")
+// Re-importing a file from the folder itself keeps it instead of trashing its own source.
+let again = try! Collection.install(shelf.appendingPathComponent("prog.json"), into: shelf)
+assert(again == installedId && (try! Data(contentsOf: shelf.appendingPathComponent("prog.json"))) == valid, "same file kept")
+// Replacing a different file moves the old one to the user's real Trash, so it is not exercised here.
+
 print("self-check OK")
