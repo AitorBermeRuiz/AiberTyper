@@ -59,7 +59,7 @@ See [`Examples/Programming.json`](Examples/Programming.json) for a ready-to-impo
 
 ## Releasing
 
-Push a tag such as `v0.2.0`. The [release workflow](.github/workflows/release.yml) runs the self-check, builds a universal app, publishes `AitorTyper-0.2.0.zip` on GitHub Releases and updates the cask in [AitorBermeRuiz/homebrew-tap](https://github.com/AitorBermeRuiz/homebrew-tap).
+Push a tag such as `v0.2.0` on `main` (`git tag -a v0.2.0 origin/main -m "AitorTyper 0.2.0" && git push origin v0.2.0`, or **Draft a new release** with target `main`); tags on any other commit are refused. The [release workflow](.github/workflows/release.yml) runs the self-check, builds a universal app, publishes `AitorTyper-0.2.0.zip` on GitHub Releases and updates the cask in [AitorBermeRuiz/homebrew-tap](https://github.com/AitorBermeRuiz/homebrew-tap).
 
 Repository secrets it reads (all optional):
 
