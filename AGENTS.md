@@ -26,10 +26,11 @@ AiberTyper is a macOS menu bar app for typing practice. The user presses a globa
 | `Examples/Programming.json` | Example collection for users. |
 | `Brand/` | Official Aiber brand: `README.md` (palette, Logo 1B geometry), `logo.svg`, `menubar-template.svg`, `icon-1024.png` (source of `AppIcon.icns` in `build.sh`), `brand-sheet.png`. Keep it separate from `Designs/`. |
 | `Designs/main.swift` | Design mockups rendered to `Designs/out/` by `designs.sh`. Reference only, not shipped. |
-| `README.md`, `README.es.md` | User-facing docs in English and Spanish: shortcuts, collection format. Keep both in sync with behavior and with each other. |
+| `README.md`, `README.es.md` | User-facing docs in English and Spanish: shortcuts, collection format. |
 | `docs/assets/` | README banner, screenshots and demo GIFs, rendered by `scripts/readme-assets.sh` (`scripts/readme-assets/`: the script and the banners). `banner-alt-*.png` is a spare header the owner may switch to. |
 | `ROADMAP.md` | Known limits and work planned for later. |
 | `GLOSSARY.md` | Domain terms (round, round result, collection). Use these names in code and docs. |
+| `.worktrees/` | Local git worktrees (excluded in `.git/info/exclude`). Old copies of the repo: skip them when searching. |
 
 ## Commands
 
@@ -87,8 +88,8 @@ Say in the report that the app was restarted and with which build. The user has 
 - **Themes**: the owner plans to switch between several styles later. The current style is the Aiber Bermejo palette (`Brand/README.md`): background `#1B1113`, text `#F6EEF0`, pink `#F497A9`, neon `#E83A59`, muted `#AA989C`, border `#3C262B`, yellow `#F5D547` for NEW tags. Do not use the Kanagawa/gold palette; the owner rejected it. Other mockups are in `Designs/`.
 - **Window**: `safeAreaRegions = []` on the hosting controller is required. Without it, resizing the transparent titlebar panel crashes AppKit (constraint loop). Do not remove it.
 - **Import**: validate every file before copying it into the folder (`Collection.install`; `AppDelegate` only shows the dialogs). Show the format help once, with "No volver a mostrar este mensaje nunca más".
-- **Strings**: UI copy in Spanish, with the same register as existing strings (voseo is not used in UI). Keep keyboard hints in the footers in sync with the real keys.
-- **Docs**: when a shortcut, option or message changes, update `README.md`, `README.es.md` and the footer hints in `TyperView`; re-render `docs/assets` when the UI changes.
+- **Strings**: UI copy in Spanish, with the same register as existing strings (voseo is not used in UI).
+- **Docs**: when a shortcut, option or message changes, update `README.md` and `README.es.md` (kept in sync with each other) and the footer hints in `TyperView` (kept matching the real keys); re-render `docs/assets` when the UI changes.
 
 ## Testing and verification
 
@@ -99,6 +100,7 @@ Say in the report that the app was restarted and with which build. The user has 
 ## Git
 
 - Remote: public `github.com/AitorBermeRuiz/AitorTyper`, default branch `main`. Work goes through branches and pull requests.
+- `main` ruleset: PR required, linear history, required check `check` (the `ci.yml` job). Merge with squash or rebase; update a PR branch by rebasing, never with GitHub's "Update branch" merge.
 - Homebrew tap: `github.com/AitorBermeRuiz/homebrew-tap`, `Casks/aibertyper.rb` is written by the release workflow from `scripts/cask.sh`. To fix a published cask, change `scripts/cask.sh` and release a patch tag; the workflow rewrites the cask.
 - License: MIT (`LICENSE`). Vendored skills in `.agents/skills/` keep their upstream MIT `LICENSE` files.
 - Commit style: Conventional Commits (`feat:`, `fix:`, `perf:`, `chore:`, `feat(texts):`).
