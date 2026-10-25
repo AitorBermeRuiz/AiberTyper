@@ -62,14 +62,14 @@ Say in the report that the app was restarted and with which build. The user has 
 
 - `UserDefaults`: `lang`, `pack` (collection id), `favorites`, `hotKey` (JSON; a saved shortcut the recorder would refuse falls back to ⌥⇧T), `hideImportHelp`.
 - `~/Library/Application Support/AitorTyper/history.json`: finished rounds. Only a missing file means empty history. Any other read or decode error, at launch or when `add()` re-reads the file later, makes the history read-only: rounds are not saved, the file is kept as is and a note is shown. `add()` re-reads the file before appending, so two instances do not erase each other's rounds.
-- `~/Library/Application Support/AitorTyper/Colecciones/*.json`: user collections. Format: `{"name": "...", "quotes": [{"text": "...", "source": "..."}]}`. `name` and `text` are required. Quotes over `Collection.maxChars` (300 characters, 90 s at 40 wpm) or empty are skipped. Files over `Collection.maxBytes` (1 MB) are refused by `parse` (import) and `load`.
+- `~/Library/Application Support/AitorTyper/Colecciones/*.json`: user collections. The format and what is skipped or refused are documented once, in `README.md` ("Your own collections"); the code is `Collection.parse` and `Collection.load`.
 - Collection ids: built-in `general`, `stoic`, `programming`, `art-of-war`, `cinema` and `books`; files are `file:<name>.json`. A selected collection whose file disappears or fails to load falls back to `general` in memory only; the saved `pack` is kept, so it comes back when the file loads again.
 
 ## Rules for changes
 
-- **Hotkeys**: must include ⌘, ⌥ or ⌃. Plain or ⇧-only keys would steal normal typing in every app. ⌘+letter/number (with or without ⇧) and ⌥ plus any key that types a character (letter, number, symbol or dead key) are refused too: macOS and apps use ⌘ ones, and ⌥ ones type accents and symbols (⌥+ is `]` on a Spanish keyboard).
+- **Hotkeys**: a shortcut must leave normal typing alone in every app. The accepted and refused combinations are documented once, in `README.md` ("Shortcuts"); the code is `HotKey(event:)`.
 - **Picker keys**: every plain letter goes to the filter; plain j/k never move. ⌃j/⌃k and the arrows move.
-- **View state**: the `@State` macro does not compile here (the SwiftUI macro plugin is missing). Use `@StateObject` with an `ObservableObject` for view-local state, like `HoverState`.
+- **View state**: use `@StateObject` with an `ObservableObject` for view-local state, like `HoverState`. The `@State` macro does not compile with Command Line Tools (CI with Xcode does compile it), so `./test.sh` fails when `Sources/` uses it.
 - **Built-in collections (standard)**:
   - File: one `Sources/AitorTyper/Texts+<Name>.swift` per collection (`extension Texts`), registered as a `static let` on `Collection` and appended to `Collection.builtIn` in `Sources/AitorTyper/Typing.swift`. `test.sh` compiles `Texts*.swift` automatically.
   - Size & uniqueness: at least **30 distinct quotes in Spanish (`es`) and 30 in English (`en`)**, paired 1-to-1 with the same count in both languages (`c.es.count == c.en.count` and `Set(texts).count == quotes.count`).
@@ -91,7 +91,7 @@ Say in the report that the app was restarted and with which build. The user has 
 ## Git
 
 - Remote: public `github.com/AitorBermeRuiz/AitorTyper`, default branch `main`. Work goes through branches and pull requests.
-- Homebrew tap: `github.com/AitorBermeRuiz/homebrew-tap`, `Casks/aitortyper.rb` is written by the release workflow; do not edit it by hand.
+- Homebrew tap: `github.com/AitorBermeRuiz/homebrew-tap`, `Casks/aitortyper.rb` is written by the release workflow from `scripts/cask.sh`. To fix a published cask, change `scripts/cask.sh` and release a patch tag; the workflow rewrites the cask.
 - License: MIT (`LICENSE`). Vendored skills in `.agents/skills/` keep their upstream MIT `LICENSE` files.
 - Commit style: Conventional Commits (`feat:`, `fix:`, `perf:`, `chore:`, `feat(texts):`).
 - Do not commit, push or create branches unless the user asks. When the user does ask for commits, split them by phase (see the history: one commit per feature, tests with the code).
