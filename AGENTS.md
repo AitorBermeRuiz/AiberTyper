@@ -67,7 +67,7 @@ Say in the report that the app was restarted and with which build. The user has 
 
 ## Rules for changes
 
-- **Hotkeys**: must include ⌘, ⌥ or ⌃. Plain or ⇧-only keys would steal normal typing in every app. ⌘+letter/number (with or without ⇧) and ⌥+letter are refused too: macOS and apps use them, and ⌥+letter types dead keys.
+- **Hotkeys**: must include ⌘, ⌥ or ⌃. Plain or ⇧-only keys would steal normal typing in every app. ⌘+letter/number (with or without ⇧) and ⌥ plus any key that types a character (letter, number, symbol or dead key) are refused too: macOS and apps use ⌘ ones, and ⌥ ones type accents and symbols (⌥+ is `]` on a Spanish keyboard).
 - **Picker keys**: every plain letter goes to the filter; plain j/k never move. ⌃j/⌃k and the arrows move.
 - **View state**: the `@State` macro does not compile here (the SwiftUI macro plugin is missing). Use `@StateObject` with an `ObservableObject` for view-local state, like `HoverState`.
 - **Built-in collections (standard)**:

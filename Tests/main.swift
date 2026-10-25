@@ -314,6 +314,18 @@ assert(HotKey(event: keyEvent(" ", code: 49, [.command, .control]))?.label == "�
 // ⌘+letter belongs to apps and ⌥+letter types accents.
 assert(HotKey(event: keyEvent("c", code: 8, .command)) == nil && HotKey(event: keyEvent("C", code: 8, [.command, .shift])) == nil, "⌘C")
 assert(HotKey(event: keyEvent("e", code: 14, .option)) == nil, "⌥E")
+// ⌥ plus a symbol key types that symbol (⌥+ is ] on a Spanish keyboard), and a dead key types one once composed.
+assert(HotKey(event: keyEvent("+", code: 30, .option)) == nil, "⌥+")
+let deadKey = NSEvent.keyEvent(with: .keyDown, location: .zero, modifierFlags: .option, timestamp: 0, windowNumber: 0, context: nil,
+                               characters: "æ", charactersIgnoringModifiers: "", isARepeat: false, keyCode: 39)!
+assert(HotKey(event: deadKey) == nil, "⌥ dead key")
+// Keys that type nothing still work with ⌥ alone, recorded and saved.
+let optionArrow = HotKey(event: keyEvent("\u{F702}", code: 123, .option))
+assert(optionArrow?.label == "⌥←", "⌥← \(String(describing: optionArrow))")
+UserDefaults.standard.set(try! JSONEncoder().encode(optionArrow), forKey: "hotKey")
+assert(HotKey.saved == optionArrow, "saved ⌥← kept")
+UserDefaults.standard.set(try! JSONEncoder().encode(HotKey(code: 30, mods: UInt32(optionKey), key: "+")), forKey: "hotKey")
+assert(HotKey.saved == .standard, "saved ⌥+ refused")
 // A saved shortcut without ⌘, ⌥ or ⌃ falls back to the default.
 UserDefaults.standard.set(try! JSONEncoder().encode(HotKey(code: 17, mods: UInt32(shiftKey), key: "T")), forKey: "hotKey")
 assert(HotKey.saved == .standard, "saved fallback")

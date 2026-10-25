@@ -244,7 +244,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
         shown.frame.size = NSSize(width: 260, height: 32)
         let alert = NSAlert()
         alert.messageText = "Cambiar atajo"
-        alert.informativeText = "Pulsa la nueva combinación. Tiene que incluir ⌘, ⌥ o ⌃. No se permiten ⌘+letra (atajos de las apps) ni ⌥+letra (acentos y símbolos)."
+        alert.informativeText = "Pulsa la nueva combinación. Tiene que incluir ⌘, ⌥ o ⌃. No se permiten ⌘+letra (atajos de las apps) ni ⌥ con una tecla que escribe algo, como ⌥+letra o ⌥+signo (acentos y símbolos)."
         alert.icon = NSImage(systemSymbolName: "keyboard", accessibilityDescription: nil)?
             .withSymbolConfiguration(.init(pointSize: 40, weight: .regular))
         alert.accessoryView = shown

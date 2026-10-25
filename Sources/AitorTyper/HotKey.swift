@@ -10,12 +10,23 @@ struct HotKey: Codable, Equatable {
 
     static let standard = HotKey(code: UInt32(kVK_ANSI_T), mods: UInt32(optionKey | shiftKey), key: "T")
 
+    /// Labels of keys that type no character.
+    static let names = [kVK_Space: "Espacio", kVK_Return: "↩", kVK_Tab: "⇥", kVK_Delete: "⌫",
+                        kVK_LeftArrow: "←", kVK_RightArrow: "→", kVK_UpArrow: "↑", kVK_DownArrow: "↓"]
+
     /// Needs ⌘, ⌥ or ⌃: a plain or ⇧-only key would steal normal typing in every app.
-    /// Refuses ⌘ or ⌘⇧ plus a letter or number (app shortcuts) and ⌥ plus one (accents and symbols).
+    /// Refuses ⌘ or ⌘⇧ plus a letter or number (app shortcuts) and ⌥ plus a letter, number or symbol
+    /// (it types accents and symbols: ⌥+ is ] on a Spanish keyboard).
     static func allowed(mods: Int, key: String) -> Bool {
         guard mods & (cmdKey | optionKey | controlKey) != 0 else { return false }
         let single = key.count == 1 && key.allSatisfy { $0.isLetter || $0.isNumber }
-        return !(single && (mods & ~shiftKey == cmdKey || mods == optionKey))
+        let symbol = isVisible(key) && !names.values.contains(key)
+        return !(single && mods & ~shiftKey == cmdKey || symbol && mods == optionKey)
+    }
+
+    /// One character that shows on screen: not a control, function-key or space character.
+    private static func isVisible(_ s: String) -> Bool {
+        s.count == 1 && !s.unicodeScalars.contains { [.control, .privateUse, .spaceSeparator].contains($0.properties.generalCategory) }
     }
 
     /// nil when the shortcut is not `allowed`.
@@ -26,12 +37,12 @@ struct HotKey: Codable, Equatable {
         if flags.contains(.option) { mods |= optionKey }
         if flags.contains(.shift) { mods |= shiftKey }
         if flags.contains(.command) { mods |= cmdKey }
-        let names = [kVK_Space: "Espacio", kVK_Return: "↩", kVK_Tab: "⇥", kVK_Delete: "⌫",
-                     kVK_LeftArrow: "←", kVK_RightArrow: "→", kVK_UpArrow: "↑", kVK_DownArrow: "↓"]
         let typed = (event.charactersIgnoringModifiers ?? "").uppercased()
         guard Self.allowed(mods: mods, key: typed) else { return nil }
+        // With ⌥ alone, also check what the key really types: a dead key has no characters here.
+        if mods == optionKey, let chars = event.characters, chars.isEmpty || Self.isVisible(chars) { return nil }
         // shortcut: function keys and other unnamed keys show their key code, add names if users pick them.
-        let key = names[Int(event.keyCode)] ?? (typed.isEmpty || typed.unicodeScalars.contains { $0.value < 32 || $0.value == 127 } ? "#\(event.keyCode)" : typed)
+        let key = Self.names[Int(event.keyCode)] ?? (typed.isEmpty || typed.unicodeScalars.contains { $0.value < 32 || $0.value == 127 } ? "#\(event.keyCode)" : typed)
         self.init(code: UInt32(event.keyCode), mods: UInt32(mods), key: key)
     }
 

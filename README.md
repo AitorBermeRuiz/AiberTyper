@@ -18,7 +18,7 @@ From source: `./build.sh` creates `build/AitorTyper.app`; `./test.sh` runs the s
 
 | Key | Action |
 |-----|--------|
-| ⌥⇧T | Open / close (change it with **Cambiar atajo…** in the menu bar; it must include ⌘, ⌥ or ⌃, and ⌘+letter or ⌥+letter are refused because macOS uses them) |
+| ⌥⇧T | Open / close (change it with **Cambiar atajo…** in the menu bar; it must include ⌘, ⌥ or ⌃, and ⌘+letter is refused because apps use it, as is ⌥ plus any key that types a character, such as ⌥+letter or ⌥+ (`]` on a Spanish keyboard)) |
 | Tab | Switch language (Español / English) |
 | Shift+Tab | Choose a collection |
 | Enter | New round |
