@@ -4,7 +4,10 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 z=$(printf '0%.0s' {1..64}); t=$(mktemp -d)
 for n in 0 1; do scripts/cask.sh 1.2.3 "$z" $n > "$t/c$n.rb"; ruby -c "$t/c$n.rb" > /dev/null; done
-grep -q 'releases/download/v#{version}/AitorTyper-#{version}.zip' "$t/c0.rb"
+grep -q 'cask "aibertyper"' "$t/c0.rb"
+grep -q 'releases/download/v#{version}/AiberTyper-#{version}.zip' "$t/c0.rb"
+grep -q 'app "AiberTyper.app"' "$t/c0.rb"
+grep -q 'com.aiber.AiberTyper.plist' "$t/c0.rb"
 grep -q quarantine "$t/c0.rb"
 grep -q 'depends_on macos: :sonoma' "$t/c0.rb"
 grep -q 'postflight_steps' "$t/c0.rb"

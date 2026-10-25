@@ -1,6 +1,6 @@
 name: Release
 
-# Push a tag like v0.2.0 to publish AitorTyper-0.2.0.zip on GitHub Releases and update the Homebrew tap.
+# Push a tag like v0.2.0 to publish AiberTyper-0.2.0.zip on GitHub Releases and update the Homebrew tap.
 # Every secret is optional: without the Apple ones the app is ad-hoc signed and not notarized;
 # without HOMEBREW_TAP_TOKEN the tap is not updated.
 on:
@@ -36,7 +36,7 @@ jobs:
           version=${GITHUB_REF_NAME#v}
           [[ "$version" =~ ^[0-9]+(\.[0-9]+)*$ ]] || { echo "Tag $GITHUB_REF_NAME is not vX.Y.Z"; exit 1; }
           echo "VERSION=$version" >> "$GITHUB_ENV"
-          echo "ZIP=AitorTyper-$version.zip" >> "$GITHUB_ENV"
+          echo "ZIP=AiberTyper-$version.zip" >> "$GITHUB_ENV"
 
       - name: Self-check
         run: ./test.sh
@@ -60,16 +60,16 @@ jobs:
         run: UNIVERSAL=1 ./build.sh
 
       - name: Zip
-        run: ditto -c -k --keepParent build/AitorTyper.app "$ZIP"
+        run: ditto -c -k --keepParent build/AiberTyper.app "$ZIP"
 
       - name: Notarize
         if: env.SIGN_IDENTITY != '' && env.NOTARY_APPLE_ID != '' && env.NOTARY_TEAM_ID != '' && env.NOTARY_PASSWORD != ''
         run: |
           xcrun notarytool submit "$ZIP" --apple-id "$NOTARY_APPLE_ID" --team-id "$NOTARY_TEAM_ID" --password "$NOTARY_PASSWORD" --wait
           # Stapling fails unless Apple accepted the submission, which stops the release.
-          xcrun stapler staple build/AitorTyper.app
+          xcrun stapler staple build/AiberTyper.app
           rm "$ZIP"
-          ditto -c -k --keepParent build/AitorTyper.app "$ZIP"
+          ditto -c -k --keepParent build/AiberTyper.app "$ZIP"
           echo "NOTARIZED=1" >> "$GITHUB_ENV"
 
       - name: Publish GitHub release
@@ -78,15 +78,15 @@ jobs:
         run: |
           echo "SHA256=$(shasum -a 256 "$ZIP" | cut -d' ' -f1)" >> "$GITHUB_ENV"
           if [[ "${NOTARIZED:-0}" == 1 ]]; then
-            notes="Install with \`brew install --cask aitorbermeruiz/tap/aitortyper\`, or unzip and move AitorTyper.app to Applications."
+            notes="Install with \`brew install --cask aitorbermeruiz/tap/aibertyper\`, or unzip and move AiberTyper.app to Applications."
           else
-            notes="Install with \`brew install --cask aitorbermeruiz/tap/aitortyper\`. This build is not notarized by Apple: if you download the zip by hand, run \`xattr -dr com.apple.quarantine /Applications/AitorTyper.app\` after moving it to Applications."
+            notes="Install with \`brew install --cask aitorbermeruiz/tap/aibertyper\`. This build is not notarized by Apple: if you download the zip by hand, run \`xattr -dr com.apple.quarantine /Applications/AiberTyper.app\` after moving it to Applications."
           fi
           # A re-run after a failed tap update replaces the asset instead of failing.
           if gh release view "$GITHUB_REF_NAME" > /dev/null 2>&1; then
             gh release upload "$GITHUB_REF_NAME" "$ZIP" --clobber
           else
-            gh release create "$GITHUB_REF_NAME" "$ZIP" --title "AitorTyper $VERSION" --notes "$notes" --generate-notes
+            gh release create "$GITHUB_REF_NAME" "$ZIP" --title "AiberTyper $VERSION" --notes "$notes" --generate-notes
           fi
 
       - name: Update Homebrew tap
@@ -94,11 +94,11 @@ jobs:
         run: |
           git clone "https://x-access-token:$TAP_TOKEN@github.com/AitorBermeRuiz/homebrew-tap.git" "$RUNNER_TEMP/tap"
           mkdir -p "$RUNNER_TEMP/tap/Casks"
-          scripts/cask.sh "$VERSION" "$SHA256" "${NOTARIZED:-0}" > "$RUNNER_TEMP/tap/Casks/aitortyper.rb"
+          scripts/cask.sh "$VERSION" "$SHA256" "${NOTARIZED:-0}" > "$RUNNER_TEMP/tap/Casks/aibertyper.rb"
           cd "$RUNNER_TEMP/tap"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add Casks/aitortyper.rb
+          git add Casks/aibertyper.rb
           git diff --cached --quiet && exit 0 # already up to date (re-run)
-          git commit -m "aitortyper $VERSION"
+          git commit -m "aibertyper $VERSION"
           git push
