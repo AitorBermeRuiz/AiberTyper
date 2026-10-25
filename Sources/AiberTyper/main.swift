@@ -2,8 +2,17 @@ import AppKit
 import SwiftUI
 import UniformTypeIdentifiers
 
+/// `--bench`: scripts/bench.sh drives this instance through stdin, with a temporary history and settings, never the user's.
+let bench = CommandLine.arguments.contains("--bench")
+let benchDir = FileManager.default.temporaryDirectory.appendingPathComponent("aiber-bench-\(UUID().uuidString)")
+
 final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWindowDelegate {
-    let session = Session()
+    let session: Session = {
+        guard bench else { return Session() }
+        UserDefaults.standard.removePersistentDomain(forName: "aiber-bench")
+        return Session(history: History(url: benchDir.appendingPathComponent("history.json")), folder: benchDir.appendingPathComponent("Colecciones"),
+                       defaults: UserDefaults(suiteName: "aiber-bench")!)
+    }()
     var panel: NSPanel!
     var statusItem: NSStatusItem!
     var previousApp: NSRunningApplication?
@@ -68,6 +77,47 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
             case .filter(let chars): self.session.typeInPicker(chars)
             }
             return nil
+        }
+        if bench { readBenchCommands() }
+    }
+
+    /// One command per line: `show`, `hide`, `type <wpm>`. Each answers one line when done; end of input quits.
+    func readBenchCommands() {
+        setlinebuf(stdout)
+        print("ready \(benchDir.path)")
+        Thread.detachNewThread {
+            while let line = readLine() {
+                DispatchQueue.main.async { self.runBench(line.split(separator: " ").map(String.init)) }
+            }
+            DispatchQueue.main.async {
+                // The benchmark's rounds and settings never outlive the run.
+                try? FileManager.default.removeItem(at: benchDir)
+                UserDefaults.standard.removePersistentDomain(forName: "aiber-bench")
+                NSApp.terminate(nil)
+            }
+        }
+    }
+
+    func runBench(_ command: [String]) {
+        switch command.first {
+        case "show": show(); print("shown")
+        case "hide": hide(); print("hidden")
+        case "type":
+            // Real key events through the app's queue: the key monitor, the hidden field and session.type, as when typing.
+            let gap = 60 / ((Double(command.last!) ?? 80) * 5)
+            let chars = Array(session.round.target)
+            for (i, c) in chars.enumerated() {
+                DispatchQueue.main.asyncAfter(deadline: .now() + gap * Double(i)) { [self] in
+                    NSApp.postEvent(NSEvent.keyEvent(with: .keyDown, location: .zero, modifierFlags: [], timestamp: ProcessInfo.processInfo.systemUptime,
+                                                     windowNumber: panel.windowNumber, context: nil, characters: String(c),
+                                                     charactersIgnoringModifiers: String(c), isARepeat: false, keyCode: 0)!, atStart: false)
+                }
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + gap * Double(chars.count) + 0.5) { [self] in
+                let r = session.result
+                print("typed chars=\(chars.count) wpm=\(Int(r?.wpm ?? 0)) accuracy=\(Int((r?.accuracy ?? 0) * 100)) finished=\(r != nil)")
+            }
+        default: print("unknown")
         }
     }
 
@@ -295,7 +345,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
 
 let app = NSApplication.shared
 // Before AppDelegate creates the Session, which reads these settings.
-migrateDefaults(from: UserDefaults(suiteName: "com.aitor.AitorTyper"))
+// A benchmark run never writes the user's settings.
+if !bench { migrateDefaults(from: UserDefaults(suiteName: "com.aitor.AitorTyper")) }
 let delegate = AppDelegate()
 app.delegate = delegate
 app.setActivationPolicy(.accessory)
