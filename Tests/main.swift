@@ -223,8 +223,8 @@ let tooLong = String(repeating: "x", count: Collection.maxChars + 1)
 let trimmed = try! Collection.parse(Data(#"{"name": "A", "quotes": [{"text": "ok"}, {"text": "  "}, {"text": "\#(tooLong)"}]}"#.utf8), id: "a")
 assert(Collection.maxChars == 300 && trimmed.collection.es.map(\.text) == ["ok"] && trimmed.skipped == 2, "skipped \(trimmed.skipped)")
 // Whitespace runs become one space; emoji and wide characters are skipped.
-let wide = try! Collection.parse(Data(#"{"name": "W", "quotes": [{"text": "a\n\tb\u00a0 c"}, {"text": "hola 😀"}, {"text": "日本"}, {"text": "한국"}, {"text": "カナ"}, {"text": "ＡＢ"}]}"#.utf8), id: "w")
-assert(wide.collection.es.map(\.text) == ["a b c"] && wide.skipped == 5, "wide \(wide.collection.es) \(wide.skipped)")
+let wide = try! Collection.parse(Data(#"{"name": "W", "quotes": [{"text": "a\n\tb\u00a0 c"}, {"text": "hola 😀"}, {"text": "日本"}, {"text": "한국"}, {"text": "カナ"}, {"text": "ＡＢ"}, {"text": "te \u2764\ufe0f"}, {"text": "ojo \u26a0\ufe0f"}]}"#.utf8), id: "w")
+assert(wide.collection.es.map(\.text) == ["a b c"] && wide.skipped == 7, "wide \(wide.collection.es) \(wide.skipped)")
 
 // load: broken files become problems, the valid one still loads.
 let folder = tempDir()
