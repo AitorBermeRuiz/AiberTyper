@@ -180,16 +180,6 @@ func lineWindow(_ lines: [Range<Int>], cursor: Int, focus: Int = 3) -> (before: 
     return (first > 0 ? first - 1 : nil, first..<end, end < lines.count ? end : nil)
 }
 
-/// WPM counts only correct characters; accuracy counts every keystroke, including corrected mistakes.
-func score(target: String, typed: String, seconds: Double, keystrokes: Int, errors: Int) -> (wpm: Double, accuracy: Double) {
-    let wpm = seconds > 0 ? Double(correctChars(target: target, typed: typed)) / 5 / (seconds / 60) : 0
-    let accuracy = keystrokes > 0 ? Double(keystrokes - errors) / Double(keystrokes) : 1
-    return (wpm, accuracy)
-}
-
-/// Typed characters that match the target at the same position.
-func correctChars(target: String, typed: String) -> Int { zip(target, typed).filter { $0 == $1 }.count }
-
 struct History {
     static let defaultURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
         .appendingPathComponent("AiberTyper/history.json")

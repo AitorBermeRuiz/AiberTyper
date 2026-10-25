@@ -126,7 +126,7 @@ struct TyperView: View {
         .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous).strokeBorder(border, lineWidth: 1))
         .background(alignment: .topLeading) {
             // Hidden field: it receives the keystrokes so accents and ñ compose like in any text field.
-            TextField("", text: Binding(get: { session.typed }, set: { session.type($0) }))
+            TextField("", text: Binding(get: { session.round.typed }, set: { session.type($0) }))
                 .textFieldStyle(.plain)
                 .autocorrectionDisabled()
                 .focused($focused)
@@ -134,7 +134,7 @@ struct TyperView: View {
                 .opacity(0.01)
         }
         .onAppear { focused = true }
-        .onChange(of: session.round) { focused = true }
+        .onChange(of: session.roundNumber) { focused = true }
     }
 
     private var typing: some View {
@@ -150,16 +150,16 @@ struct TyperView: View {
                 }
             }
             textLines
-            if let source = session.source {
+            if let source = session.round.source {
                 Text("— \(source)").font(.system(size: 12)).foregroundStyle(muted)
             }
             // Redraw twice a second so WPM keeps moving while you pause; idle when hidden or not started.
-            if session.visible, session.live() != nil {
+            if session.visible, session.round.live() != nil {
                 TimelineView(.periodic(from: .now, by: 0.5)) { context in
-                    liveStats(session.live(now: context.date))
+                    liveStats(session.round.live(now: context.date))
                 }
             } else {
-                liveStats(session.live())
+                liveStats(session.round.live())
             }
             progressBar
             HStack(spacing: 16) {
@@ -283,8 +283,8 @@ struct TyperView: View {
 
     /// Three sharp lines around the cursor, the line before and after blurred, the rest hidden.
     private var textLines: some View {
-        let lines = wrapLines(session.target, width: G.charsPerLine)
-        let window = lineWindow(lines, cursor: session.typed.count)
+        let lines = wrapLines(session.round.target, width: G.charsPerLine)
+        let window = lineWindow(lines, cursor: session.round.typed.count)
         return VStack(alignment: .leading, spacing: 8) {
             if let before = window.before { dimmed(lines[before]) }
             ForEach(window.focus, id: \.self) { text(lines[$0]) }
@@ -308,9 +308,9 @@ struct TyperView: View {
     }
 
     private func rendered(_ range: Range<Int>) -> AttributedString {
-        let typed = Array(session.typed)
+        let typed = Array(session.round.typed)
         var out = AttributedString()
-        for (i, c) in session.target.enumerated() where range.contains(i) {
+        for (i, c) in session.round.target.enumerated() where range.contains(i) {
             var a = AttributedString(String(c))
             if i < typed.count {
                 if typed[i] == c {
@@ -340,7 +340,7 @@ struct TyperView: View {
     }
 
     private var progressBar: some View {
-        let progress = session.target.isEmpty ? 0 : Double(session.typed.count) / Double(session.target.count)
+        let progress = session.round.target.isEmpty ? 0 : Double(session.round.typed.count) / Double(session.round.target.count)
         return GeometryReader { g in
             ZStack(alignment: .leading) {
                 Capsule().fill(border)
@@ -387,8 +387,8 @@ struct TyperView: View {
                         cell("\(seconds)s", "tiempo", spoken: "\(seconds) segundos")
                     }
                     GridRow {
-                        cell("\(session.correct)", "correctas", spoken: "\(session.correct) correctas")
-                        cell("\(session.errors)", "errores", G.neon, spoken: "\(session.errors) errores")
+                        cell("\(session.round.correct)", "correctas", spoken: "\(session.round.correct) correctas")
+                        cell("\(session.round.errors)", "errores", G.neon, spoken: "\(session.round.errors) errores")
                     }
                 }
                 .padding(.leading, 36)
