@@ -15,7 +15,7 @@ cask "aitortyper" do
   desc "Typing practice from the menu bar"
   homepage "https://github.com/AitorBermeRuiz/AitorTyper"
 
-  depends_on macos: ">= :sonoma"
+  depends_on macos: :sonoma
 
   app "AitorTyper.app"
 EOF
