@@ -25,6 +25,7 @@ AiberTyper is a macOS menu bar app for typing practice. The user presses a globa
 | `Brand/` | Official Aiber brand: `README.md` (palette, Logo 1B geometry), `logo.svg`, `menubar-template.svg`, `icon-1024.png` (source of `AppIcon.icns` in `build.sh`), `brand-sheet.png`. Keep it separate from `Designs/`. |
 | `Designs/main.swift` | Design mockups rendered to `Designs/out/` by `designs.sh`. Reference only, not shipped. |
 | `README.md` | User-facing docs: shortcuts, collection format. Keep it in sync with behavior. |
+| `ROADMAP.md` | Known limits and work planned for later. |
 
 ## Commands
 
@@ -101,9 +102,7 @@ Say in the report that the app was restarted and with which build. The user has 
 
 ## Known limits and next steps
 
-- Themes: only the Aiber Bermejo style is implemented. Others are mockups in `Designs/`.
-- Picker: no scroll, no mouse wheel handling for long lists.
-- Possible later work: a shortcut recorder inside the picker, distribution through gentle-shell.
+Listed in `ROADMAP.md`. Update it when you close or add one.
 
 ## Memory
 
