@@ -325,6 +325,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
 }
 
 let app = NSApplication.shared
+// Before AppDelegate creates the Session, which reads these settings.
+migrateDefaults(from: UserDefaults(suiteName: "com.aitor.AitorTyper"))
 let delegate = AppDelegate()
 app.delegate = delegate
 app.setActivationPolicy(.accessory)
