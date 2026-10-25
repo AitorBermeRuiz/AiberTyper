@@ -60,7 +60,7 @@ struct Collection: Equatable {
     }
 
     /// Every `*.json` in `folder`, by file name, plus one message per file that could not be used.
-    static func load(from folder: URL = folder) -> (collections: [Collection], problems: [String]) {
+    static func load(from folder: URL) -> (collections: [Collection], problems: [String]) {
         // One-time copy from the AitorTyper folder: once the new folder exists, files deleted by hand stay deleted.
         if folder.lastPathComponent == "Colecciones", folder.deletingLastPathComponent().lastPathComponent == "AiberTyper",
            !FileManager.default.fileExists(atPath: folder.path) {
@@ -117,8 +117,8 @@ func charsFor(wpm: Double, seconds: Double) -> Int { Int(wpm * 5 * seconds / 60)
 /// Whole shuffled sentences whose space-joined text reaches `chars` characters without passing
 /// `maxChars`. Sentences that fit come first; an oversize one is taken only when none fits,
 /// so the round is never empty.
-func pickSentences<R: RandomNumberGenerator>(from sentences: [Quote], chars: Int, maxChars: Int = .max, using rng: inout R) -> [Quote] {
-    let shuffled = sentences.shuffled(using: &rng)
+func pickSentences(from sentences: [Quote], chars: Int, maxChars: Int) -> [Quote] {
+    let shuffled = sentences.shuffled()
     var picked: [Quote] = []
     var length = -1 // no separator before the first sentence
     for next in shuffled.filter({ $0.text.count <= maxChars }) + shuffled.filter({ $0.text.count > maxChars }) where length < chars {

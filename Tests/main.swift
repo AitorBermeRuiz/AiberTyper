@@ -9,24 +9,28 @@ func tempDir() -> URL {
     return dir
 }
 
+extension Session {
+    /// Starts a round whose text is exactly `text`: a one-sentence collection always yields that sentence.
+    func practice(_ text: String) { choose(Collection(id: "test", name: "Test", es: [Quote(text: text)], en: [Quote(text: text)])) }
+}
+
 // Score: WPM from correct characters, accuracy from keystrokes.
 let s = score(target: "hola mundo", typed: "hola mundx", seconds: 6, keystrokes: 10, errors: 1)
 assert(abs(s.wpm - 18) < 0.001, "wpm \(s.wpm)") // 9 correct chars / 5 / 0.1 min
 assert(abs(s.accuracy - 0.9) < 0.001, "accuracy \(s.accuracy)")
 
 // pickSentences takes whole sentences until the joined text is long enough.
-var rng = SystemRandomNumberGenerator()
 let four = ["aaaa", "bbbb", "cccc"].map { Quote(text: $0) }
-let picked = pickSentences(from: four, chars: 6, using: &rng).map(\.text)
+let picked = pickSentences(from: four, chars: 6, maxChars: .max).map(\.text)
 assert(picked.joined(separator: " ").count == 9, "picked \(picked)") // two sentences and a space
 // maxChars skips sentences that would overflow it, but never leaves the round empty.
 let long = String(repeating: "x", count: 20)
 // Sentences that fit come first: the oversize one is used only when nothing else fits.
 for _ in 0..<50 {
-    let capped = pickSentences(from: four + [Quote(text: long)], chars: 12, maxChars: 14, using: &rng).map(\.text)
+    let capped = pickSentences(from: four + [Quote(text: long)], chars: 12, maxChars: 14).map(\.text)
     assert(capped.sorted() == ["aaaa", "bbbb", "cccc"], "capped \(capped)")
 }
-assert(pickSentences(from: [Quote(text: long)], chars: 12, maxChars: 14, using: &rng).map(\.text) == [long], "only long")
+assert(pickSentences(from: [Quote(text: long)], chars: 12, maxChars: 14).map(\.text) == [long], "only long")
 
 // Built-in collections: >=30 distinct quotes per language (25...300 chars, normalized, no wide chars),
 // with a non-empty source on every collection except General, and rounds within 30...90s at 40 wpm.
@@ -46,7 +50,7 @@ for c in Collection.builtIn {
             assert(quotes.allSatisfy { !($0.source?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true) }, "\(c.id) \(lang) source")
         }
         for _ in 0..<20 {
-            let round = pickSentences(from: quotes, chars: charsFor(wpm: 40, seconds: .random(in: 30...60)), maxChars: Collection.maxChars, using: &rng)
+            let round = pickSentences(from: quotes, chars: charsFor(wpm: 40, seconds: .random(in: 30...60)), maxChars: Collection.maxChars)
             let len = round.map(\.text).joined(separator: " ").count
             assert((charsFor(wpm: 40, seconds: 30)...Collection.maxChars).contains(len), "\(c.id) \(lang) round \(len)")
         }
@@ -72,7 +76,7 @@ assert(two.before == nil && two.focus == 0..<2 && two.after == nil, "short \(two
 // Session counts corrected errors and saves the finished round.
 let historyURL = tempDir().appendingPathComponent("history.json")
 let session = Session(history: History(url: historyURL), folder: tempDir())
-session.target = "añ"
+session.practice("añ")
 let t0 = Date()
 assert(session.live(now: t0) == nil, "no live stats before the first keystroke")
 session.type("x", now: t0)
@@ -89,7 +93,7 @@ assert(!session.isRecord, "no record on the very first round")
 // A round is a record only when it beats every saved round (the first one was 24 wpm).
 func finishedRound(seconds: Double) -> Session {
     let s = Session(history: History(url: historyURL), folder: tempDir())
-    s.target = "ab"
+    s.practice("ab")
     s.type("a", now: t0)
     s.type("ab", now: t0.addingTimeInterval(seconds))
     return s
@@ -146,14 +150,14 @@ let chartURL = tempDir().appendingPathComponent("history.json")
 var chartHistory = History(url: chartURL)
 for i in 0..<25 { try! chartHistory.add(RoundResult(date: Date(), lang: .es, wpm: Double(i), accuracy: 1, seconds: 30)) }
 let chart = Session(history: chartHistory, folder: tempDir())
-chart.target = "ab"
+chart.practice("ab")
 chart.type("a", now: t0)
 chart.type("ab", now: t0.addingTimeInterval(6))
 assert(chart.recentWPMs.count == 20 && chart.recentWPMs.first == 6 && chart.recentWPMs.last == chart.result?.wpm, "chart \(chart.recentWPMs)")
 
 // A dead key (´ then á at the same length) is re-scored, and the round waits for the composed letter.
 let accent = Session(history: History(url: tempDir().appendingPathComponent("history.json")), folder: tempDir())
-accent.target = "á"
+accent.practice("á")
 accent.type("´", now: t0)
 assert(accent.result == nil, "pending accent does not finish")
 accent.type("á", now: t0.addingTimeInterval(1))
@@ -161,7 +165,7 @@ assert(accent.result?.accuracy == 1 && accent.errors == 0, "composed \(String(de
 
 // NFD and NFC spellings compare equal, one character each.
 let nfd = Session(history: History(url: tempDir().appendingPathComponent("history.json")), folder: tempDir())
-nfd.target = "man\u{0303}ana"
+nfd.practice("man\u{0303}ana")
 nfd.type("mañana", now: t0)
 assert(nfd.correct == 6 && nfd.errors == 0, "nfd \(nfd.correct) \(nfd.errors)")
 assert(wrapLines(nfd.target, width: 10) == [0..<6])

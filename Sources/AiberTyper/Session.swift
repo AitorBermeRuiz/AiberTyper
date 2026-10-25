@@ -10,8 +10,7 @@ import Observation
     private(set) var problems: [String] = []
     private(set) var favorites = Set(UserDefaults.standard.stringArray(forKey: "favorites") ?? [])
     let folder: URL
-    /// Settable so the self-check can type against a known text.
-    var target = ""
+    private(set) var target = ""
     /// The sentences that make up `target`, in order.
     private(set) var quotes: [Quote] = []
     private(set) var typed = ""
@@ -40,11 +39,10 @@ import Observation
     }
 
     func newRound() {
-        var rng = SystemRandomNumberGenerator()
         // First run has no history: assume an average typist (40 wpm).
         let wpm = history.recentWPM ?? 40
         quotes = pickSentences(from: collection.quotes(lang), chars: charsFor(wpm: wpm, seconds: .random(in: 30...60)),
-                               maxChars: charsFor(wpm: wpm, seconds: 90), using: &rng)
+                               maxChars: charsFor(wpm: wpm, seconds: 90))
         target = quotes.map(\.text).joined(separator: " ")
         typed = ""
         result = nil
@@ -87,11 +85,6 @@ import Observation
         }
     }
 
-    func toggleFavorite(_ collection: Collection) {
-        if favorites.remove(collection.id) == nil { favorites.insert(collection.id) }
-        UserDefaults.standard.set(Array(favorites), forKey: "favorites")
-    }
-
     /// Favorites first, each group in its original order.
     var sortedCollections: [Collection] {
         collections.filter { favorites.contains($0.id) } + collections.filter { !favorites.contains($0.id) }
@@ -117,7 +110,8 @@ import Observation
     func toggleFavoritePicked() {
         guard matches.indices.contains(selection) else { return }
         let picked = matches[selection]
-        toggleFavorite(picked)
+        if favorites.remove(picked.id) == nil { favorites.insert(picked.id) }
+        UserDefaults.standard.set(Array(favorites), forKey: "favorites")
         selection = matches.firstIndex { $0.id == picked.id } ?? 0
     }
 
@@ -179,7 +173,7 @@ import Observation
         }
         typed = String(new)
         let pendingAccent = new.last.map { "´¨`^~ˆ˜".contains($0) && $0 != goal.last } ?? false
-        if new.count == goal.count, !pendingAccent, let start { finish(seconds: now.timeIntervalSince(start), now: now) }
+        if new.count == goal.count, !pendingAccent { finish(now: now) }
     }
 
     /// Stats of the round so far; nil until the first keystroke.
@@ -193,9 +187,9 @@ import Observation
 
     var correct: Int { correctChars(target: target, typed: typed) }
 
-    private func finish(seconds: Double, now: Date) {
-        let s = score(target: target, typed: typed, seconds: seconds, keystrokes: keystrokes, errors: errors)
-        let round = RoundResult(date: now, lang: lang, wpm: s.wpm, accuracy: s.accuracy, seconds: seconds)
+    private func finish(now: Date) {
+        guard let start, let s = live(now: now) else { return }
+        let round = RoundResult(date: now, lang: lang, wpm: s.wpm, accuracy: s.accuracy, seconds: now.timeIntervalSince(start))
         averageBefore = history.recentWPM
         isRecord = history.rounds.map(\.wpm).max().map { s.wpm > $0 } ?? false
         do {

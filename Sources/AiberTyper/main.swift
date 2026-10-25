@@ -229,7 +229,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
     /// Registers `hotKey` and shows it in the menu; false if another app already owns it.
     @discardableResult
     func apply(_ hotKey: HotKey) -> Bool {
-        let ok = registerHotKey(hotKey) { [weak self] in self?.toggle() }
+        let ok = registerHotKey(hotKey) { [weak self] in
+            guard let self else { return }
+            panel.isKeyWindow ? hide() : show()
+        }
         practice.title = ok ? "Practicar  \(hotKey.label)" : "Practicar (\(hotKey.label) ocupado)"
         return ok
     }
@@ -277,10 +280,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
     @objc func openFolder() {
         try? FileManager.default.createDirectory(at: session.folder, withIntermediateDirectories: true)
         NSWorkspace.shared.open(session.folder)
-    }
-
-    func toggle() {
-        panel.isKeyWindow ? hide() : show()
     }
 
     @objc func show() {

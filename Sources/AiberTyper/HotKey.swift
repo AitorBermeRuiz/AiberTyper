@@ -29,6 +29,23 @@ struct HotKey: Codable, Equatable {
         s.count == 1 && !s.unicodeScalars.contains { [.control, .privateUse, .spaceSeparator].contains($0.properties.generalCategory) }
     }
 
+    var label: String {
+        let m = Int(mods)
+        return (m & controlKey != 0 ? "⌃" : "") + (m & optionKey != 0 ? "⌥" : "") + (m & shiftKey != 0 ? "⇧" : "")
+            + (m & cmdKey != 0 ? "⌘" : "") + key
+    }
+
+    static var saved: HotKey {
+        get {
+            let decoded = UserDefaults.standard.data(forKey: "hotKey").flatMap { try? JSONDecoder().decode(HotKey.self, from: $0) }
+            return decoded.flatMap { allowed(mods: Int($0.mods), key: $0.key) ? $0 : nil } ?? .standard
+        }
+        set { UserDefaults.standard.set(try? JSONEncoder().encode(newValue), forKey: "hotKey") }
+    }
+}
+
+// In an extension so Swift still synthesizes the memberwise init(code:mods:key:).
+extension HotKey {
     /// nil when the shortcut is not `allowed`.
     init?(event: NSEvent) {
         let flags = event.modifierFlags
@@ -44,26 +61,6 @@ struct HotKey: Codable, Equatable {
         // shortcut: function keys and other unnamed keys show their key code, add names if users pick them.
         let key = Self.names[Int(event.keyCode)] ?? (typed.isEmpty || typed.unicodeScalars.contains { $0.value < 32 || $0.value == 127 } ? "#\(event.keyCode)" : typed)
         self.init(code: UInt32(event.keyCode), mods: UInt32(mods), key: key)
-    }
-
-    init(code: UInt32, mods: UInt32, key: String) {
-        self.code = code
-        self.mods = mods
-        self.key = key
-    }
-
-    var label: String {
-        let m = Int(mods)
-        return (m & controlKey != 0 ? "⌃" : "") + (m & optionKey != 0 ? "⌥" : "") + (m & shiftKey != 0 ? "⇧" : "")
-            + (m & cmdKey != 0 ? "⌘" : "") + key
-    }
-
-    static var saved: HotKey {
-        get {
-            let decoded = UserDefaults.standard.data(forKey: "hotKey").flatMap { try? JSONDecoder().decode(HotKey.self, from: $0) }
-            return decoded.flatMap { allowed(mods: Int($0.mods), key: $0.key) ? $0 : nil } ?? .standard
-        }
-        set { UserDefaults.standard.set(try? JSONEncoder().encode(newValue), forKey: "hotKey") }
     }
 }
 
