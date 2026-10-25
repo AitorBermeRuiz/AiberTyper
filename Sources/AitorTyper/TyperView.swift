@@ -46,14 +46,48 @@ extension Color {
     }
 }
 
+/// Plain button that reports hover (for a light highlight) and shows a pointing-hand cursor.
+private struct HoverButton<Label: View>: View {
+    let action: () -> Void
+    @ViewBuilder let label: (_ hovered: Bool) -> Label
+    @StateObject private var hover = HoverState()
+
+    var body: some View {
+        // A click can hide or replace this view without a mouse-exit event, so clear the hover first.
+        Button { hover.on = false; NSCursor.arrow.set(); action() } label: { label(hover.on) }
+            .buttonStyle(.plain)
+            .onHover { inside in
+                hover.on = inside
+                // set(), not push/pop: a view removed while hovered never pops, and pushes would pile up.
+                (inside ? NSCursor.pointingHand : NSCursor.arrow).set()
+            }
+            .animation(.easeOut(duration: 0.15), value: hover.on)
+            // Removed or backgrounded while hovered: no mouse-exit arrives, so reset here.
+            .onDisappear { hover.on = false; NSCursor.arrow.set() }
+            .onReceive(NotificationCenter.default.publisher(for: NSWindow.didResignKeyNotification)) { _ in hover.on = false }
+    }
+}
+
+/// Observable hover flag. `@StateObject` works without the SwiftUI macro plugin missing from this toolchain.
+final class HoverState: ObservableObject {
+    @Published var on = false
+}
+
 struct TyperView: View {
     let session: Session
     var onImport: () -> Void = {}
+    var onClose: () -> Void = {}
     @FocusState private var focused: Bool
     @Environment(\.colorSchemeContrast) private var contrast
 
     private var muted: Color { G.muted(contrast) }
     private var border: Color { G.border(contrast) }
+
+    /// A click does what its key does, then hands keystrokes back to the hidden field.
+    private func act(_ action: () -> Void) {
+        action()
+        focused = true
+    }
 
     var body: some View {
         Group {
@@ -87,8 +121,12 @@ struct TyperView: View {
             HStack(spacing: 10) {
                 G.label("Gentle typer")
                 Spacer()
-                pills([session.collection.name + " ▾"], selected: session.collection.name + " ▾", spoken: "Colección")
-                pills([Lang.es.label, Lang.en.label], selected: session.lang.label, spoken: "Idioma")
+                pills([session.collection.name + " ▾"], selected: session.collection.name + " ▾", spoken: "Colección") {
+                    session.openPicker()
+                }
+                pills([Lang.es.label, Lang.en.label], selected: session.lang.label, spoken: "Idioma") {
+                    session.toggleLanguage()
+                }
             }
             textLines
             if let source = session.source {
@@ -103,10 +141,54 @@ struct TyperView: View {
                 liveStats(session.live())
             }
             progressBar
-            Text("tab idioma · ⇧tab colección · ⏎ otra · esc cerrar").font(G.mono(12)).foregroundStyle(muted)
-                .frame(maxWidth: .infinity, alignment: .trailing)
+            HStack(spacing: 16) {
+                keyHint("Tab", "idioma")
+                keyHint("Shift+Tab", "colección")
+                Spacer()
+                roundActions
+            }
         }
         .padding(28)
+    }
+
+    /// Mouse equivalents of Enter and Esc; each button shows its key.
+    private var roundActions: some View {
+        HStack(spacing: 10) {
+            actionButton("Otra ronda", key: "Enter", primary: true) { session.newRound() }
+            actionButton("Cerrar", key: "Esc", primary: false, action: onClose)
+        }
+    }
+
+    private func actionButton(_ title: String, key: String, primary: Bool, action: @escaping () -> Void) -> some View {
+        HoverButton(action: { act(action) }) { hovered in
+            HStack(spacing: 8) {
+                Text(title).font(.system(size: 12, weight: .semibold))
+                keycap(key, color: primary ? G.bg : hovered ? G.pink : muted)
+            }
+            .foregroundStyle(primary ? G.bg : hovered ? G.pink : muted)
+            .padding(.horizontal, 12).padding(.vertical, 5)
+            .background(Capsule().fill(primary ? (hovered ? G.neon : G.pink) : .clear))
+            .overlay(Capsule().strokeBorder(primary ? .clear : hovered ? G.pink : muted.opacity(0.6), lineWidth: 1))
+            .contentShape(Capsule())
+        }
+    }
+
+    /// A key name in a small keycap followed by what it does.
+    private func keyHint(_ key: String, _ action: String) -> some View {
+        HStack(spacing: 6) {
+            keycap(key, color: muted)
+            Text(action).font(.system(size: 12)).foregroundStyle(muted)
+        }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(key): \(action)")
+    }
+
+    private func keycap(_ key: String, color: Color) -> some View {
+        Text(key)
+            .font(.system(size: 10, weight: .semibold))
+            .foregroundStyle(color)
+            .padding(.horizontal, 5).padding(.vertical, 1)
+            .overlay(RoundedRectangle(cornerRadius: 4).strokeBorder(color.opacity(0.7), lineWidth: 1))
     }
 
     /// Filterable list of collections; the keys are handled in AppDelegate.pickerKey.
@@ -123,43 +205,59 @@ struct TyperView: View {
                 }
                 ForEach(Array(session.matches.enumerated()), id: \.element.id) { i, collection in
                     let selected = i == session.selection
-                    HStack {
-                        if session.favorites.contains(collection.id) { Text("★").accessibilityLabel("favorita") }
-                        Text(collection.name).font(.system(size: 15, weight: selected ? .bold : .regular))
-                        Spacer()
-                        if collection.id == session.collection.id { Text("✓").foregroundStyle(G.neon).accessibilityLabel("actual") }
+                    HoverButton(action: { act { session.chooseMatch(at: i) } }) { hovered in
+                        HStack {
+                            if session.favorites.contains(collection.id) { Text("★").accessibilityLabel("favorita") }
+                            Text(collection.name).font(.system(size: 15, weight: selected ? .bold : .regular))
+                            Spacer()
+                            if collection.id == session.collection.id { Text("✓").foregroundStyle(G.neon).accessibilityLabel("actual") }
+                        }
+                        .foregroundStyle(selected ? G.bg : .primary)
+                        .padding(.horizontal, 12).padding(.vertical, 6)
+                        .contentShape(Rectangle())
+                        .background(RoundedRectangle(cornerRadius: 6).fill(selected ? G.pink : hovered ? G.pink.opacity(0.15) : .clear))
                     }
-                    .foregroundStyle(selected ? G.bg : .primary)
-                    .padding(.horizontal, 12).padding(.vertical, 6)
-                    .background(RoundedRectangle(cornerRadius: 6).fill(selected ? G.pink : .clear))
                     .accessibilityAddTraits(selected ? .isSelected : [])
                 }
             }
             ForEach(session.problems, id: \.self) { Text($0).font(.system(size: 12)).foregroundStyle(G.neon) }
-            Button("＋ Importar colección…", action: onImport)
-                .buttonStyle(.plain)
-                .focusable(false)
-                .font(.system(size: 13, weight: .medium))
-                .foregroundStyle(G.pink)
-            Text("⌃j/⌃k ↑↓ mover · ⌃f favorita · ⌃i importar · ⏎ elegir · esc volver").font(G.mono(12)).foregroundStyle(muted)
-                .frame(maxWidth: .infinity, alignment: .trailing)
+            HoverButton(action: { act(onImport) }) { hovered in
+                Text("＋ Importar colección…")
+                    .font(.system(size: 13, weight: .medium))
+                    .foregroundStyle(hovered ? G.neon : G.pink)
+            }
+            .focusable(false)
+            HStack(spacing: 12) {
+                keyHint("Ctrl+J/K", "mover")
+                keyHint("Ctrl+F", "favorita")
+                keyHint("Ctrl+I", "importar")
+                keyHint("Enter", "elegir")
+                keyHint("Esc", "volver")
+            }
+            .frame(maxWidth: .infinity, alignment: .trailing)
         }
         .padding(28)
     }
 
-    private func pills(_ labels: [String], selected: String, spoken: String) -> some View {
+    private func pills(_ labels: [String], selected: String, spoken: String, action: @escaping () -> Void) -> some View {
         HStack(spacing: 10) {
             ForEach(labels, id: \.self) { label in
-                if label == selected {
-                    Text(label).font(.system(size: 12, weight: .bold)).foregroundStyle(G.bg)
-                        .padding(.horizontal, 10).padding(.vertical, 3).background(Capsule().fill(G.pink))
-                } else {
-                    Text(label).font(.system(size: 12, weight: .medium)).foregroundStyle(muted)
+                let isSelected = label == selected
+                // Each option is its own target, so hovering one never restyles the others.
+                // Clicking the already selected option of a group does nothing.
+                HoverButton(action: { if !isSelected || labels.count == 1 { act(action) } }) { hovered in
+                    Text(label)
+                        .font(.system(size: 12, weight: isSelected ? .bold : .medium))
+                        .foregroundStyle(isSelected ? G.bg : hovered ? G.fg : muted)
+                        .padding(.horizontal, isSelected ? 10 : 0).padding(.vertical, isSelected ? 3 : 0)
+                        .background(Capsule().fill(isSelected ? (hovered ? G.neon : G.pink) : .clear))
                 }
             }
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("\(spoken): \(selected)")
+        .accessibilityAction { act(action) }
+        .accessibilityAddTraits(.isButton)
     }
 
     /// Three sharp lines around the cursor, the line before and after blurred, the rest hidden.
@@ -213,12 +311,10 @@ struct TyperView: View {
 
     private func liveStats(_ stats: (wpm: Double, accuracy: Double)?) -> some View {
         HStack(alignment: .bottom, spacing: 28) {
-            stat(stats.map { "\(Int($0.wpm.rounded()))" } ?? "—", "ppm",
+            cell(stats.map { "\(Int($0.wpm.rounded()))" } ?? "—", "ppm", size: 28,
                  spoken: stats.map { "\(Int($0.wpm.rounded())) palabras por minuto" } ?? "Palabras por minuto: sin datos")
-            stat(stats.map { "\(Int(($0.accuracy * 100).rounded()))%" } ?? "—", "precisión",
+            cell(stats.map { "\(Int(($0.accuracy * 100).rounded()))%" } ?? "—", "precisión", size: 28,
                  spoken: stats.map { "\(Int(($0.accuracy * 100).rounded())) por ciento de precisión" } ?? "Precisión: sin datos")
-            Spacer()
-            Text("tab idioma · ⏎ otro · esc cerrar").font(G.mono(12)).foregroundStyle(muted)
         }
     }
 
@@ -236,15 +332,6 @@ struct TyperView: View {
         .accessibilityElement()
         .accessibilityLabel("Progreso")
         .accessibilityValue("\(Int((progress * 100).rounded())) por ciento")
-    }
-
-    private func stat(_ value: String, _ caption: String, spoken: String) -> some View {
-        VStack(alignment: .leading, spacing: 2) {
-            Text(value).font(G.mono(28).bold()).foregroundStyle(G.pink)
-            Text(caption).font(.system(size: 12)).foregroundStyle(muted)
-        }
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel(spoken)
     }
 
     private func results(_ r: RoundResult) -> some View {
@@ -292,7 +379,7 @@ struct TyperView: View {
                     Text(session.note).font(.system(size: 12)).foregroundStyle(G.neon)
                 }
                 Spacer()
-                Text("⏎ otra · esc cerrar").font(G.mono(12)).foregroundStyle(muted)
+                roundActions
             }
         }
         .padding(30)
@@ -324,9 +411,9 @@ struct TyperView: View {
         .accessibilityLabel("Historial de las últimas \(wpms.count) rondas: " + wpms.map { "\(Int($0.rounded()))" }.joined(separator: ", ") + " palabras por minuto")
     }
 
-    private func cell(_ value: String, _ caption: String, _ color: Color = G.pink, spoken: String) -> some View {
+    private func cell(_ value: String, _ caption: String, _ color: Color = G.pink, size: CGFloat = 30, spoken: String) -> some View {
         VStack(alignment: .leading, spacing: 2) {
-            Text(value).font(G.mono(30).bold()).foregroundStyle(color)
+            Text(value).font(G.mono(size).bold()).foregroundStyle(color)
             Text(caption).font(.system(size: 12)).foregroundStyle(muted)
         }
         .accessibilityElement(children: .ignore)
