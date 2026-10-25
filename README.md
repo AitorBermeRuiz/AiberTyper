@@ -59,25 +59,32 @@ Typing websites want a tab, an account and your attention. **Aiber Typer** is a 
 
 ## Install
 
-With [Homebrew](https://brew.sh) (macOS 14 Sonoma or later):
+In Terminal (macOS 14 Sonoma or later):
 
 ```sh
-brew install --cask aitorbermeruiz/tap/aibertyper
+curl -fsSL https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/scripts/install.sh | bash
 ```
+
+It downloads the latest release to Applications and opens it. Run it again to update.
 
 Then press <kbd>⌥⇧T</kbd>. The app lives in the menu bar (the Aiber logo icon), not in the Dock.
 
 <details>
-<summary><b>Installed it before as <code>aitortyper</code>?</b></summary>
+<summary><b>With Homebrew</b></summary>
 
-`brew update` moves it to `aibertyper`, and your history, collections and settings carry over.
+```sh
+brew trust --cask aitorbermeruiz/tap/aibertyper
+brew install --cask aitorbermeruiz/tap/aibertyper
+```
+
+Homebrew 6 and later load casks from third-party taps only after you trust them, once. If you installed it before as `aitortyper`, `brew update` moves it to `aibertyper`, and your history, collections and settings carry over.
 
 </details>
 
 <details>
-<summary><b>Without Homebrew</b></summary>
+<summary><b>By hand</b></summary>
 
-Download `AiberTyper-<version>.zip` from [Releases](https://github.com/AitorBermeRuiz/AitorTyper/releases), unzip it and move `AiberTyper.app` to Applications. Builds are not notarized by Apple yet, so a downloaded app needs this once before it opens (Homebrew does it for you):
+Download `AiberTyper-<version>.zip` from [Releases](https://github.com/AitorBermeRuiz/AitorTyper/releases), unzip it and move `AiberTyper.app` to Applications. Builds are not notarized by Apple yet, so an app downloaded with a browser needs this once before it opens (the script and Homebrew do it for you):
 
 ```sh
 xattr -dr com.apple.quarantine /Applications/AiberTyper.app
@@ -176,7 +183,7 @@ Everything stays on your Mac. The app makes no network requests.
 | Your collections | `~/Library/Application Support/AiberTyper/Colecciones/` |
 | Language, collection, favorites, shortcut | `defaults read com.aiber.AiberTyper` |
 
-`brew uninstall --zap aibertyper` removes all of it.
+`brew uninstall --zap aibertyper` removes all of it. Without Homebrew, delete the app and the paths above.
 
 ## Build from source
 

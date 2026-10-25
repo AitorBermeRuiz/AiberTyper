@@ -78,9 +78,9 @@ jobs:
         run: |
           echo "SHA256=$(shasum -a 256 "$ZIP" | cut -d' ' -f1)" >> "$GITHUB_ENV"
           if [[ "${NOTARIZED:-0}" == 1 ]]; then
-            notes="Install with \`brew install --cask aitorbermeruiz/tap/aibertyper\`, or unzip and move AiberTyper.app to Applications."
+            notes="Install with \`curl -fsSL https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/scripts/install.sh | bash\` or see the README. You can also unzip it and move AiberTyper.app to Applications."
           else
-            notes="Install with \`brew install --cask aitorbermeruiz/tap/aibertyper\`. This build is not notarized by Apple: if you download the zip by hand, run \`xattr -dr com.apple.quarantine /Applications/AiberTyper.app\` after moving it to Applications."
+            notes="Install with \`curl -fsSL https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/scripts/install.sh | bash\` or see the README. This build is not notarized by Apple: if you download the zip with a browser, run \`xattr -dr com.apple.quarantine /Applications/AiberTyper.app\` after moving it to Applications."
           fi
           # A re-run after a failed tap update replaces the asset instead of failing.
           if gh release view "$GITHUB_REF_NAME" > /dev/null 2>&1; then
