@@ -23,5 +23,6 @@ cat > "$app/Contents/Info.plist" <<'EOF'
 </dict>
 </plist>
 EOF
+# Ad-hoc signing is for local use; distribution needs a Developer ID signature with --options runtime and notarization.
 codesign --force --sign - "$app"
 echo "Built $app. Copy it to /Applications to keep it."
