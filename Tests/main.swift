@@ -3,6 +3,14 @@
 import AppKit
 import Carbon
 
+var suites: [String] = []
+/// A settings store of its own, so no Session sees another one's language, collection or favorites.
+func freshDefaults() -> UserDefaults {
+    let name = "aibertyper.selfcheck.\(UUID().uuidString)"
+    suites.append(name)
+    return UserDefaults(suiteName: name)!
+}
+
 func tempDir() -> URL {
     let dir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
     try! FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
@@ -108,7 +116,7 @@ assert(two.before == nil && two.focus == 0..<2 && two.after == nil, "short \(two
 
 // Session saves the finished round with its language.
 let historyURL = tempDir().appendingPathComponent("history.json")
-let session = Session(history: History(url: historyURL), folder: tempDir())
+let session = Session(history: History(url: historyURL), folder: tempDir(), defaults: freshDefaults())
 session.practice("añ")
 session.type("a", now: t0)
 session.type("añ", now: t0.addingTimeInterval(1))
@@ -118,7 +126,7 @@ assert(!session.isRecord, "no record on the very first round")
 
 // A round is a record only when it beats every saved round (the first one was 24 wpm).
 func finishedRound(seconds: Double) -> Session {
-    let s = Session(history: History(url: historyURL), folder: tempDir())
+    let s = Session(history: History(url: historyURL), folder: tempDir(), defaults: freshDefaults())
     s.practice("ab")
     s.type("a", now: t0)
     s.type("ab", now: t0.addingTimeInterval(seconds))
@@ -175,14 +183,14 @@ assert(recent.recentWPM == 50, "recentWPM \(String(describing: recent.recentWPM)
 let chartURL = tempDir().appendingPathComponent("history.json")
 var chartHistory = History(url: chartURL)
 for i in 0..<25 { try! chartHistory.add(RoundResult(date: Date(), lang: .es, wpm: Double(i), accuracy: 1, seconds: 30)) }
-let chart = Session(history: chartHistory, folder: tempDir())
+let chart = Session(history: chartHistory, folder: tempDir(), defaults: freshDefaults())
 chart.practice("ab")
 chart.type("a", now: t0)
 chart.type("ab", now: t0.addingTimeInterval(6))
 assert(chart.recentWPMs.count == 20 && chart.recentWPMs.first == 6 && chart.recentWPMs.last == chart.result?.wpm, "chart \(chart.recentWPMs)")
 
 // toggleLanguage flips the language and starts a fresh round.
-let toggled = Session(history: History(url: tempDir().appendingPathComponent("history.json")), folder: tempDir())
+let toggled = Session(history: History(url: tempDir().appendingPathComponent("history.json")), folder: tempDir(), defaults: freshDefaults())
 let langBefore = toggled.lang, roundBefore = toggled.roundNumber
 toggled.type("x", now: t0)
 toggled.toggleLanguage()
@@ -192,7 +200,7 @@ toggled.toggleLanguage()
 // A round never passes 90 seconds at the recent WPM.
 var slowHistory = History(url: tempDir().appendingPathComponent("history.json"))
 try! slowHistory.add(RoundResult(date: Date(), lang: .es, wpm: 20, accuracy: 1, seconds: 40))
-let slow = Session(history: slowHistory, folder: tempDir())
+let slow = Session(history: slowHistory, folder: tempDir(), defaults: freshDefaults())
 for c in Collection.builtIn {
     slow.choose(c)
     for _ in 0..<20 {
@@ -202,8 +210,7 @@ for c in Collection.builtIn {
 }
 
 // Picker: every letter filters (accent- and case-insensitive), moving is clamped, ⏎ chooses.
-UserDefaults.standard.removeObject(forKey: "favorites")
-let picker = Session(history: History(url: tempDir().appendingPathComponent("history.json")), folder: tempDir())
+let picker = Session(history: History(url: tempDir().appendingPathComponent("history.json")), folder: tempDir(), defaults: freshDefaults())
 picker.choose(.general)
 picker.openPicker()
 assert(picker.picking && picker.selection == 0)
@@ -270,7 +277,8 @@ assert(oddLoaded.collections.isEmpty && oddLoaded.problems == ["big.json: más d
 
 // A Session lists file collections after the built-ins and practices with them.
 let builtInIds = Collection.builtIn.map(\.id)
-let user = Session(history: History(url: tempDir().appendingPathComponent("history.json")), folder: folder)
+let userDefaults = freshDefaults()
+let user = Session(history: History(url: tempDir().appendingPathComponent("history.json")), folder: folder, defaults: userDefaults)
 assert(user.collections.map(\.id) == builtInIds + ["file:prog.json"] && user.problems.count == 2, "collections \(user.collections.map(\.id))")
 user.choose(user.collections.last!)
 assert(user.round.quotes.allSatisfy { parsed.collection.es.contains($0) } && !user.round.quotes.isEmpty, "file quotes \(user.round.quotes)")
@@ -288,21 +296,20 @@ user.closePicker()
 try! FileManager.default.removeItem(at: folder.appendingPathComponent("prog.json"))
 user.reloadCollections()
 assert(user.collection.id == "general" && user.collections.count == builtInIds.count, "fallback \(user.collection.id)")
-// The fallback lives in memory only: the saved collection comes back with its file.
-assert(UserDefaults.standard.string(forKey: "pack") == "file:prog.json", "pack kept")
+// The fallback lives in memory only: the saved collection comes back with its file, also after a relaunch.
 try! valid.write(to: folder.appendingPathComponent("prog.json"))
 user.reloadCollections()
 assert(user.collection.id == "file:prog.json", "back \(user.collection.id)")
-UserDefaults.standard.removeObject(forKey: "favorites")
+let relaunched = Session(history: History(url: tempDir().appendingPathComponent("history.json")), folder: folder, defaults: userDefaults)
+assert(relaunched.collection.id == "file:prog.json", "relaunch \(relaunched.collection.id)")
 
 // Clicking a picker row chooses that collection and closes the picker, like moving to it and pressing return.
 let clickDir = tempDir()
-let clicked = Session(history: History(url: clickDir.appendingPathComponent("history.json")), folder: clickDir)
+let clicked = Session(history: History(url: clickDir.appendingPathComponent("history.json")), folder: clickDir, defaults: freshDefaults())
 clicked.openPicker()
 let second = clicked.matches[1]
 clicked.chooseMatch(at: 1)
 assert(clicked.collection == second && !clicked.picking, "clicked \(clicked.collection.id)")
-UserDefaults.standard.removeObject(forKey: "pack")
 
 // The documented example parses.
 let example = try! Collection.parse(Data(contentsOf: URL(fileURLWithPath: "Examples/Programming.json")), id: "file:Programming.json")
@@ -431,4 +438,5 @@ assert(panelKey("\u{1b}", kVK_Escape, picking: true) == .closePicker && panelKey
 assert(panelKey("\r", kVK_Return, picking: true) == .choose && panelKey("\u{7f}", kVK_Delete, picking: true) == .delete)
 assert(panelKey("a", kVK_ANSI_A, .command, picking: true) == .ignore && panelKey("x", kVK_ANSI_X, .control, picking: true) == .ignore, "⌘ and other ⌃ keys do nothing")
 
+for suite in suites { UserDefaults.standard.removePersistentDomain(forName: suite) }
 print("self-check OK")

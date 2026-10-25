@@ -65,7 +65,7 @@ Say in the report that the app was restarted and with which build. The user has 
 
 ## Persistence (do not break these)
 
-- `UserDefaults`: `lang`, `pack` (collection id), `favorites`, `hotKey` (JSON; a saved shortcut the recorder would refuse falls back to ⌥⇧T), `hideImportHelp`.
+- `UserDefaults`: `lang`, `pack` (collection id), `favorites`, `hotKey` (JSON; a saved shortcut the recorder would refuse falls back to ⌥⇧T), `hideImportHelp`. `Session` reads and writes its three keys through the store it is given (`.standard` in the app); each test passes a suite of its own (`freshDefaults()`), so test sessions never share settings.
 - Migration from the old name (AitorTyper): at launch `migrateDefaults` copies those keys from the `com.aitor.AitorTyper` domain when the new one lacks them; `History` merges `AitorTyper/history.json` rounds it does not have; `Collection.load` copies `AitorTyper/Colecciones` only while `AiberTyper/Colecciones` does not exist, so files deleted later stay deleted. The old files are never deleted (the cask `zap` removes both).
 - `~/Library/Application Support/AiberTyper/history.json`: finished rounds. Only a missing file means empty history. Any other read or decode error, at launch or when `add()` re-reads the file later, makes the history read-only: rounds are not saved, the file is kept as is and a note is shown. `add()` re-reads the file before appending, so two instances do not erase each other's rounds.
 - `~/Library/Application Support/AiberTyper/Colecciones/*.json`: user collections. The format and what is skipped or refused are documented once, in `README.md` ("Your own collections"); the code is `Collection.parse`, `Collection.load` and `Collection.install` (import).
