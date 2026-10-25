@@ -296,6 +296,24 @@ assert(HotKey(event: keyEvent("e", code: 14, .option)) == nil, "⌥E")
 // A saved shortcut without ⌘, ⌥ or ⌃ falls back to the default.
 UserDefaults.standard.set(try! JSONEncoder().encode(HotKey(code: 17, mods: UInt32(shiftKey), key: "T")), forKey: "hotKey")
 assert(HotKey.saved == .standard, "saved fallback")
+UserDefaults.standard.set(try! JSONEncoder().encode(HotKey(code: 8, mods: UInt32(cmdKey), key: "C")), forKey: "hotKey")
+assert(HotKey.saved == .standard, "saved ⌘C refused")
+UserDefaults.standard.set(try! JSONEncoder().encode(HotKey(code: 14, mods: UInt32(optionKey), key: "E")), forKey: "hotKey")
+assert(HotKey.saved == .standard, "saved ⌥E refused")
 UserDefaults.standard.removeObject(forKey: "hotKey")
+
+// A file that turns corrupt while running is kept, not overwritten with the rounds in memory.
+let laterURL = tempDir().appendingPathComponent("history.json")
+var later = History(url: laterURL)
+try! later.add(RoundResult(date: Date(), lang: .es, wpm: 30, accuracy: 1, seconds: 30))
+try! Data("[ broken".utf8).write(to: laterURL)
+var laterThrew = false
+do { try later.add(RoundResult(date: Date(), lang: .es, wpm: 40, accuracy: 1, seconds: 30)) } catch { laterThrew = true }
+assert(laterThrew && (try! String(contentsOf: laterURL, encoding: .utf8)) == "[ broken", "later corrupt history kept")
+
+// A valid file over 1 MB is refused at parse, so import never copies what load would skip.
+let hugeQuotes = Array(repeating: #"{"text": "\#(String(repeating: "a", count: 250))"}"#, count: 4500).joined(separator: ",")
+let huge = Data(#"{"name": "Huge", "quotes": [\#(hugeQuotes)]}"#.utf8)
+assert(huge.count > 1_000_000 && (try? Collection.parse(huge, id: "file:huge.json")) == nil, "parse refuses over 1 MB")
 
 print("self-check OK")

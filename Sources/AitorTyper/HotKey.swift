@@ -10,11 +10,17 @@ struct HotKey: Codable, Equatable {
 
     static let standard = HotKey(code: UInt32(kVK_ANSI_T), mods: UInt32(optionKey | shiftKey), key: "T")
 
-    /// nil unless ⌘, ⌥ or ⌃ is held: a plain or ⇧-only key would steal normal typing in every app.
-    /// Also nil for ⌘ or ⌘⇧ plus a letter or number (app shortcuts) and ⌥ plus one (accents and symbols).
+    /// Needs ⌘, ⌥ or ⌃: a plain or ⇧-only key would steal normal typing in every app.
+    /// Refuses ⌘ or ⌘⇧ plus a letter or number (app shortcuts) and ⌥ plus one (accents and symbols).
+    static func allowed(mods: Int, key: String) -> Bool {
+        guard mods & (cmdKey | optionKey | controlKey) != 0 else { return false }
+        let single = key.count == 1 && key.allSatisfy { $0.isLetter || $0.isNumber }
+        return !(single && (mods & ~shiftKey == cmdKey || mods == optionKey))
+    }
+
+    /// nil when the shortcut is not `allowed`.
     init?(event: NSEvent) {
         let flags = event.modifierFlags
-        guard !flags.isDisjoint(with: [.command, .option, .control]) else { return nil }
         var mods = 0
         if flags.contains(.control) { mods |= controlKey }
         if flags.contains(.option) { mods |= optionKey }
@@ -23,7 +29,7 @@ struct HotKey: Codable, Equatable {
         let names = [kVK_Space: "Espacio", kVK_Return: "↩", kVK_Tab: "⇥", kVK_Delete: "⌫",
                      kVK_LeftArrow: "←", kVK_RightArrow: "→", kVK_UpArrow: "↑", kVK_DownArrow: "↓"]
         let typed = (event.charactersIgnoringModifiers ?? "").uppercased()
-        if typed.count == 1, typed.allSatisfy({ $0.isLetter || $0.isNumber }), mods & ~shiftKey == cmdKey || mods == optionKey { return nil }
+        guard Self.allowed(mods: mods, key: typed) else { return nil }
         // shortcut: function keys and other unnamed keys show their key code, add names if users pick them.
         let key = names[Int(event.keyCode)] ?? (typed.isEmpty || typed.unicodeScalars.contains { $0.value < 32 || $0.value == 127 } ? "#\(event.keyCode)" : typed)
         self.init(code: UInt32(event.keyCode), mods: UInt32(mods), key: key)
@@ -44,7 +50,7 @@ struct HotKey: Codable, Equatable {
     static var saved: HotKey {
         get {
             let decoded = UserDefaults.standard.data(forKey: "hotKey").flatMap { try? JSONDecoder().decode(HotKey.self, from: $0) }
-            return decoded.flatMap { Int($0.mods) & (cmdKey | optionKey | controlKey) != 0 ? $0 : nil } ?? .standard
+            return decoded.flatMap { allowed(mods: Int($0.mods), key: $0.key) ? $0 : nil } ?? .standard
         }
         set { UserDefaults.standard.set(try? JSONEncoder().encode(newValue), forKey: "hotKey") }
     }

@@ -37,7 +37,7 @@ A collection is a JSON file:
 - Sentences over 300 characters (90 s at 40 wpm) or empty are skipped.
 - Whitespace runs (line breaks, tabs) become one space.
 - Sentences with emoji or wide characters (Chinese, Japanese, Korean) are skipped.
-- Files over 1 MB are ignored.
+- Files over 1 MB are refused on import and ignored in the folder.
 - Your collections have no language: the same sentences are used whatever tab selects.
 
 Files live in `~/Library/Application Support/AitorTyper/Colecciones`. From the menu-bar icon:

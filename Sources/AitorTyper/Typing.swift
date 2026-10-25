@@ -30,10 +30,12 @@ struct Collection: Equatable {
 
     /// Longest sentence kept from a file: 90 seconds at 40 wpm.
     static let maxChars = charsFor(wpm: 40, seconds: 90)
+    static let maxBytes = 1_000_000
 
     /// The JSON format users write: `{"name": "…", "quotes": [{"text": "…", "source": "…"}]}`.
     /// The sentences are used whatever language is selected.
     static func parse(_ data: Data, id: String) throws -> (collection: Collection, skipped: Int) {
+        guard data.count <= maxBytes else { throw CollectionError("más de 1 MB") }
         struct File: Decodable { var name: String; var quotes: [Quote] }
         let file = try JSONDecoder().decode(File.self, from: data)
         let name = file.name.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -60,7 +62,7 @@ struct Collection: Equatable {
         for url in files.filter({ $0.pathExtension.lowercased() == "json" }).sorted(by: { $0.lastPathComponent < $1.lastPathComponent }) {
             let values = try? url.resourceValues(forKeys: [.isRegularFileKey, .fileSizeKey])
             guard values?.isRegularFile == true else { problems.append("\(url.lastPathComponent): no es un archivo normal"); continue }
-            guard (values?.fileSize ?? 0) <= 1_000_000 else { problems.append("\(url.lastPathComponent): más de 1 MB"); continue }
+            guard (values?.fileSize ?? 0) <= maxBytes else { problems.append("\(url.lastPathComponent): más de 1 MB"); continue }
             do {
                 let parsed = try parse(Data(contentsOf: url), id: "file:" + url.lastPathComponent)
                 collections.append(parsed.collection)
@@ -171,8 +173,9 @@ struct History {
 
     mutating func add(_ round: RoundResult) throws {
         // Another running instance may have saved rounds since this one read the file.
-        if writable, let data = try? Data(contentsOf: url), let saved = try? Self.decoder.decode([RoundResult].self, from: data) {
-            rounds = saved
+        // A file that turned unreadable since then is kept: the history becomes read-only.
+        if writable, FileManager.default.fileExists(atPath: url.path) {
+            do { rounds = try Self.decoder.decode([RoundResult].self, from: Data(contentsOf: url)) } catch { writable = false }
         }
         rounds.append(round)
         guard writable else { throw CollectionError("no se pudo leer \(url.lastPathComponent), así que no se sobrescribe") }

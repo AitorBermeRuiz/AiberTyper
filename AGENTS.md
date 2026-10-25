@@ -58,9 +58,9 @@ Say in the report that the app was restarted and with which build. The user has 
 
 ## Persistence (do not break these)
 
-- `UserDefaults`: `lang`, `pack` (collection id), `favorites`, `hotKey` (JSON), `hideImportHelp`.
-- `~/Library/Application Support/AitorTyper/history.json`: finished rounds. Only a missing file means empty history. Any other read or decode error makes the history read-only: rounds are not saved and a note is shown. `add()` re-reads the file before appending, so two instances do not erase each other's rounds.
-- `~/Library/Application Support/AitorTyper/Colecciones/*.json`: user collections. Format: `{"name": "...", "quotes": [{"text": "...", "source": "..."}]}`. `name` and `text` are required. Quotes over `Collection.maxChars` (300 characters, 90 s at 40 wpm) or empty are skipped.
+- `UserDefaults`: `lang`, `pack` (collection id), `favorites`, `hotKey` (JSON; a saved shortcut the recorder would refuse falls back to ⌥⇧T), `hideImportHelp`.
+- `~/Library/Application Support/AitorTyper/history.json`: finished rounds. Only a missing file means empty history. Any other read or decode error, at launch or when `add()` re-reads the file later, makes the history read-only: rounds are not saved, the file is kept as is and a note is shown. `add()` re-reads the file before appending, so two instances do not erase each other's rounds.
+- `~/Library/Application Support/AitorTyper/Colecciones/*.json`: user collections. Format: `{"name": "...", "quotes": [{"text": "...", "source": "..."}]}`. `name` and `text` are required. Quotes over `Collection.maxChars` (300 characters, 90 s at 40 wpm) or empty are skipped. Files over `Collection.maxBytes` (1 MB) are refused by `parse` (import) and `load`.
 - Collection ids: built-in `general` and `stoic`; files are `file:<name>.json`. A selected collection whose file disappears or fails to load falls back to `general` in memory only; the saved `pack` is kept, so it comes back when the file loads again.
 
 ## Rules for changes
