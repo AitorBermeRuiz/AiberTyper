@@ -29,8 +29,8 @@ AitorTyper is a macOS menu bar app for typing practice. The user presses a globa
 
 - `./test.sh`: compiles `Typing`, `Session`, `HotKey`, `Texts*` and `Tests/main.swift` with `swiftc` and runs the self-check. Must print `self-check OK`.
 - `./build.sh`: `swift build -c release` and assembles `build/AitorTyper.app` (ad-hoc signed). Optional env: `VERSION`, `UNIVERSAL=1` (arm64 + x86_64), `SIGN_IDENTITY` (Developer ID, hardened runtime).
-- `scripts/cask.sh <version> <sha256> <notarized 0|1>`: prints the Homebrew cask. Unnotarized casks strip the quarantine flag in `postflight`.
-- CI: `.github/workflows/ci.yml` (PRs and `main`: self-check, universal build, cask syntax). `.github/workflows/release.yml` (tags `v*`: build, optional sign and notarize, GitHub release, tap update). Secrets are listed in `README.md`.
+- `scripts/cask.sh <version> <sha256> [notarized 0|1, default 0]`: prints the Homebrew cask; `scripts/test-cask.sh` checks it (run in CI). Unnotarized casks strip the quarantine flag in `postflight`.
+- CI: `.github/workflows/ci.yml` (PRs and `main`: self-check, universal build, `scripts/test-cask.sh`). `.github/workflows/release.yml` (tags `v*`: build, optional sign and notarize, GitHub release, tap update). Secrets are listed in `README.md`.
 - `./designs.sh`: renders the mockups.
 - `swift test` does not work here. Command Line Tools lack the swift-testing macro plugin. Do not add XCTest or `@Test` without checking that first.
 

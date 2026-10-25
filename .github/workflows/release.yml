@@ -23,6 +23,8 @@ jobs:
       TAP_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
     steps:
       - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
 
       - name: Version from tag
         run: |
@@ -35,7 +37,7 @@ jobs:
         run: ./test.sh
 
       - name: Import Developer ID certificate
-        if: env.CERT_P12 != ''
+        if: env.CERT_P12 != '' && env.CERT_IDENTITY != ''
         run: |
           keychain="$RUNNER_TEMP/signing.keychain-db"
           password=$(uuidgen)
@@ -56,7 +58,7 @@ jobs:
         run: ditto -c -k --keepParent build/AitorTyper.app "$ZIP"
 
       - name: Notarize
-        if: env.CERT_P12 != '' && env.NOTARY_PASSWORD != ''
+        if: env.SIGN_IDENTITY != '' && env.NOTARY_APPLE_ID != '' && env.NOTARY_TEAM_ID != '' && env.NOTARY_PASSWORD != ''
         run: |
           xcrun notarytool submit "$ZIP" --apple-id "$NOTARY_APPLE_ID" --team-id "$NOTARY_TEAM_ID" --password "$NOTARY_PASSWORD" --wait
           # Stapling fails unless Apple accepted the submission, which stops the release.
@@ -75,7 +77,12 @@ jobs:
           else
             notes="Install with \`brew install --cask aitorbermeruiz/tap/aitortyper\`. This build is not notarized by Apple: if you download the zip by hand, run \`xattr -dr com.apple.quarantine /Applications/AitorTyper.app\` after moving it to Applications."
           fi
-          gh release create "$GITHUB_REF_NAME" "$ZIP" --title "AitorTyper $VERSION" --notes "$notes" --generate-notes
+          # A re-run after a failed tap update replaces the asset instead of failing.
+          if gh release view "$GITHUB_REF_NAME" > /dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" "$ZIP" --clobber
+          else
+            gh release create "$GITHUB_REF_NAME" "$ZIP" --title "AitorTyper $VERSION" --notes "$notes" --generate-notes
+          fi
 
       - name: Update Homebrew tap
         if: env.TAP_TOKEN != ''
@@ -87,5 +94,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add Casks/aitortyper.rb
+          git diff --cached --quiet && exit 0 # already up to date (re-run)
           git commit -m "aitortyper $VERSION"
           git push

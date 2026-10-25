@@ -2,7 +2,7 @@
 # Prints the Homebrew cask for a release: scripts/cask.sh <version> <sha256> <notarized: 0|1>
 # The release workflow writes it to Casks/aitortyper.rb in AitorBermeRuiz/homebrew-tap.
 set -euo pipefail
-version=$1 sha=$2 notarized=${3:-0}
+version=${1:-} sha=${2:-} notarized=${3:-0}
 [[ "$version" =~ ^[0-9]+(\.[0-9]+)*$ && "$sha" =~ ^[0-9a-f]{64}$ ]] || { echo "usage: $0 <version> <sha256> [0|1]" >&2; exit 1; }
 
 cat <<EOF
