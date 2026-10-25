@@ -171,6 +171,23 @@ func wrapLines(_ text: String, width: Int) -> [Range<Int>] {
 }
 
 /// Line indices to draw around the cursor: up to `focus` sharp lines, plus one dimmed before and after.
+/// How a character of the round is drawn.
+enum Mark { case correct, wrong, cursor, pending }
+
+/// Splits `range` of `target` into runs of characters drawn alike, so a line is a few styled strings, not one per character.
+func markRuns(_ target: [Character], typed: [Character], in range: Range<Int>) -> [(range: Range<Int>, mark: Mark)] {
+    var runs: [(range: Range<Int>, mark: Mark)] = []
+    for i in range {
+        let mark: Mark = i < typed.count ? (typed[i] == target[i] ? .correct : .wrong) : i == typed.count ? .cursor : .pending
+        if let last = runs.last, last.mark == mark {
+            runs[runs.count - 1].range = last.range.lowerBound..<i + 1
+        } else {
+            runs.append((i..<i + 1, mark))
+        }
+    }
+    return runs
+}
+
 func lineWindow(_ lines: [Range<Int>], cursor: Int, focus: Int = 3) -> (before: Int?, focus: Range<Int>, after: Int?) {
     guard !lines.isEmpty else { return (nil, 0..<0, nil) }
     let current = lines.lastIndex { $0.lowerBound <= cursor } ?? 0

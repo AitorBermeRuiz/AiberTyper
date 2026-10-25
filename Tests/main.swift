@@ -103,6 +103,13 @@ assert(wrapLines("aaa bbb ccc", width: 7) == [0..<8, 8..<11])
 assert(wrapLines("aaaaaaaaaa", width: 4) == [0..<4, 4..<8, 8..<10])
 assert(wrapLines("ab", width: 7) == [0..<2])
 
+// markRuns: one run per stretch of characters drawn alike, limited to the line's range.
+let runs = markRuns(Array("abcdefgh"), typed: Array("abXdY"), in: 1..<8)
+assert(runs.map(\.range) == [1..<2, 2..<3, 3..<4, 4..<5, 5..<6, 6..<8] && runs.map(\.mark) == [.correct, .wrong, .correct, .wrong, .cursor, .pending], "\(runs)")
+assert(markRuns(Array("abcd"), typed: Array("abcd"), in: 0..<4).map(\.mark) == [.correct], "finished round: no cursor")
+assert(markRuns(Array("abcd"), typed: [], in: 2..<4).map(\.mark) == [.pending], "untouched line")
+assert(markRuns(Array("abcd"), typed: Array("xy"), in: 0..<4).map(\.range) == [0..<2, 2..<3, 3..<4], "errors merge")
+
 // lineWindow: three sharp lines, one dimmed on each side, the rest hidden.
 let six = (0..<6).map { $0 * 10..<($0 + 1) * 10 }
 let l0 = lineWindow(six, cursor: 0)
