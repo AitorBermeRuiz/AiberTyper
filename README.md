@@ -1,4 +1,4 @@
-# AitorTyper
+# Aiber Typer
 
 Typing practice from the macOS menu bar. Press ⌥⇧T anywhere, type the sentences, see your words per minute and accuracy.
 
@@ -7,12 +7,12 @@ Typing practice from the macOS menu bar. Press ⌥⇧T anywhere, type the senten
 With [Homebrew](https://brew.sh) (macOS 14 Sonoma or later):
 
 ```sh
-brew install --cask aitorbermeruiz/tap/aitortyper
+brew install --cask aitorbermeruiz/tap/aibertyper
 ```
 
-Or download `AitorTyper-<version>.zip` from [Releases](https://github.com/AitorBermeRuiz/AitorTyper/releases), unzip it and move `AitorTyper.app` to Applications. Builds are not notarized by Apple yet, so a downloaded app needs `xattr -dr com.apple.quarantine /Applications/AitorTyper.app` once before it opens (Homebrew does this for you).
+Or download `AiberTyper-<version>.zip` from [Releases](https://github.com/AitorBermeRuiz/AitorTyper/releases), unzip it and move `AiberTyper.app` to Applications. Builds are not notarized by Apple yet, so a downloaded app needs `xattr -dr com.apple.quarantine /Applications/AiberTyper.app` once before it opens (Homebrew does this for you).
 
-From source: `./build.sh` creates `build/AitorTyper.app`; `./test.sh` runs the self-check.
+From source: `./build.sh` creates `build/AiberTyper.app`; `./test.sh` runs the self-check.
 
 ## Shortcuts
 
@@ -50,7 +50,7 @@ A collection is a JSON file:
 - Files over 1 MB are refused on import and ignored in the folder.
 - Your collections have no language: the same sentences are used whatever tab selects.
 
-Files live in `~/Library/Application Support/AitorTyper/Colecciones`. From the menu-bar icon:
+Files live in `~/Library/Application Support/AiberTyper/Colecciones`. From the menu-bar icon:
 
 - **Importar colección…** (also in the picker) first explains the format (with a "No volver a mostrar este mensaje nunca más" checkbox), then checks the files you pick and copies the valid ones into that folder. An existing file with the same name is moved to the Trash before the new one is written; re-importing a file from the folder itself is safe.
 - **Abrir carpeta de colecciones** opens the folder, to edit or delete files by hand. Changes show up the next time you open the picker.
@@ -59,7 +59,7 @@ See [`Examples/Programming.json`](Examples/Programming.json) for a ready-to-impo
 
 ## Releasing
 
-Push a tag such as `v0.2.0` on `main` (`git tag -a v0.2.0 origin/main -m "AitorTyper 0.2.0" && git push origin v0.2.0`, or **Draft a new release** with target `main`); tags on any other commit are refused. The [release workflow](.github/workflows/release.yml) runs the self-check, builds a universal app, publishes `AitorTyper-0.2.0.zip` on GitHub Releases and updates the cask in [AitorBermeRuiz/homebrew-tap](https://github.com/AitorBermeRuiz/homebrew-tap).
+Push a tag such as `v0.2.0` on `main` (`git tag -a v0.2.0 origin/main -m "AiberTyper 0.2.0" && git push origin v0.2.0`, or **Draft a new release** with target `main`); tags on any other commit are refused. The [release workflow](.github/workflows/release.yml) runs the self-check, builds a universal app, publishes `AiberTyper-0.2.0.zip` on GitHub Releases and updates the cask in [AitorBermeRuiz/homebrew-tap](https://github.com/AitorBermeRuiz/homebrew-tap).
 
 Repository secrets it reads (all optional):
 
