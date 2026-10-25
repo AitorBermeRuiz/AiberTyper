@@ -2,7 +2,17 @@
 
 Typing practice from the macOS menu bar. Press ⌥⇧T anywhere, type the sentences, see your words per minute and accuracy.
 
-Build with `./build.sh` (creates `build/AitorTyper.app`); run the self-check with `./test.sh`.
+## Install
+
+With [Homebrew](https://brew.sh) (macOS 14 Sonoma or later):
+
+```sh
+brew install --cask aitorbermeruiz/tap/aitortyper
+```
+
+Or download `AitorTyper-<version>.zip` from [Releases](https://github.com/AitorBermeRuiz/AitorTyper/releases), unzip it and move `AitorTyper.app` to Applications. Builds are not notarized by Apple yet, so a downloaded app needs `xattr -dr com.apple.quarantine /Applications/AitorTyper.app` once before it opens (Homebrew does this for you).
+
+From source: `./build.sh` creates `build/AitorTyper.app`; `./test.sh` runs the self-check.
 
 ## Shortcuts
 
@@ -46,3 +56,19 @@ Files live in `~/Library/Application Support/AitorTyper/Colecciones`. From the m
 - **Abrir carpeta de colecciones** opens the folder, to edit or delete files by hand. Changes show up the next time you open the picker.
 
 See [`Examples/Programming.json`](Examples/Programming.json) for a ready-to-import example.
+
+## Releasing
+
+Push a tag such as `v0.2.0`. The [release workflow](.github/workflows/release.yml) runs the self-check, builds a universal app, publishes `AitorTyper-0.2.0.zip` on GitHub Releases and updates the cask in [AitorBermeRuiz/homebrew-tap](https://github.com/AitorBermeRuiz/homebrew-tap).
+
+Repository secrets it reads (all optional):
+
+| Secret | Purpose |
+|--------|---------|
+| `HOMEBREW_TAP_TOKEN` | Fine-grained token with *Contents: read and write* on `homebrew-tap`; without it the tap is not updated. |
+| `MACOS_CERT_P12`, `MACOS_CERT_PASSWORD`, `MACOS_SIGN_IDENTITY` | Developer ID Application certificate (base64 `.p12`), its password and its name. Without them the app is ad-hoc signed. |
+| `NOTARY_APPLE_ID`, `NOTARY_TEAM_ID`, `NOTARY_PASSWORD` | Apple ID, team id and app-specific password for notarization. Once set, the cask stops removing the quarantine flag. |
+
+## License
+
+[MIT](LICENSE). The agent skills under `.agents/skills/` keep their own MIT licenses.
