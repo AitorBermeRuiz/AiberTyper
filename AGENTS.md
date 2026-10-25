@@ -19,7 +19,7 @@ AitorTyper is a macOS menu bar app for typing practice. The user presses a globa
 | `Sources/AitorTyper/TyperView.swift` | SwiftUI views: typing, picker, results. Palette `G` lives here. |
 | `Sources/AitorTyper/Typing.swift` | Pure logic: `Lang`, `Quote`, `Collection` (JSON parse and load), `History`, `score`, `wrapLines`, `lineWindow`, `pickSentences`, `charsFor`. |
 | `Sources/AitorTyper/HotKey.swift` | `HotKey` model, Carbon hot key registration. |
-| `Sources/AitorTyper/Texts.swift`, `Texts+Stoic.swift` | Built-in sentences. General (es/en) and Stoicism (es/en, each with its source). |
+| `Sources/AitorTyper/Texts.swift`, `Texts+*.swift` | Built-in sentences: General, Stoicism, Programming, The Art of War, Cinema and Cult Books (es/en, each themed quote with its source). |
 | `Tests/main.swift` | Self-check with `assert`s. No XCTest. |
 | `Examples/Programming.json` | Example collection for users. |
 | `Designs/main.swift` | Design mockups rendered to `Designs/out/` by `designs.sh`. Reference only, not shipped. |
@@ -63,15 +63,19 @@ Say in the report that the app was restarted and with which build. The user has 
 - `UserDefaults`: `lang`, `pack` (collection id), `favorites`, `hotKey` (JSON; a saved shortcut the recorder would refuse falls back to ⌥⇧T), `hideImportHelp`.
 - `~/Library/Application Support/AitorTyper/history.json`: finished rounds. Only a missing file means empty history. Any other read or decode error, at launch or when `add()` re-reads the file later, makes the history read-only: rounds are not saved, the file is kept as is and a note is shown. `add()` re-reads the file before appending, so two instances do not erase each other's rounds.
 - `~/Library/Application Support/AitorTyper/Colecciones/*.json`: user collections. Format: `{"name": "...", "quotes": [{"text": "...", "source": "..."}]}`. `name` and `text` are required. Quotes over `Collection.maxChars` (300 characters, 90 s at 40 wpm) or empty are skipped. Files over `Collection.maxBytes` (1 MB) are refused by `parse` (import) and `load`.
-- Collection ids: built-in `general` and `stoic`; files are `file:<name>.json`. A selected collection whose file disappears or fails to load falls back to `general` in memory only; the saved `pack` is kept, so it comes back when the file loads again.
+- Collection ids: built-in `general`, `stoic`, `programming`, `art-of-war`, `cinema` and `books`; files are `file:<name>.json`. A selected collection whose file disappears or fails to load falls back to `general` in memory only; the saved `pack` is kept, so it comes back when the file loads again.
 
 ## Rules for changes
 
 - **Hotkeys**: must include ⌘, ⌥ or ⌃. Plain or ⇧-only keys would steal normal typing in every app. ⌘+letter/number (with or without ⇧) and ⌥+letter are refused too: macOS and apps use them, and ⌥+letter types dead keys.
 - **Picker keys**: every plain letter goes to the filter; plain j/k never move. ⌃j/⌃k and the arrows move.
 - **View state**: the `@State` macro does not compile here (the SwiftUI macro plugin is missing). Use `@StateObject` with an `ObservableObject` for view-local state, like `HoverState`.
-- **Stoic and new quotes**: each quote needs a verifiable source and must fit 90 s at 40 wpm (≤300 characters). Do not add unattributed or misattributed quotes.
-- **New collections**: one file per collection (like `Texts+Stoic.swift`), registered in `Collection`. Keep `test.sh` in sync.
+- **Built-in collections (standard)**:
+  - File: one `Sources/AitorTyper/Texts+<Name>.swift` per collection (`extension Texts`), registered as a `static let` on `Collection` and appended to `Collection.builtIn` in `Sources/AitorTyper/Typing.swift`. `test.sh` compiles `Texts*.swift` automatically.
+  - Size & uniqueness: at least **30 distinct quotes in Spanish (`es`) and 30 in English (`en`)**, paired 1-to-1 with the same count in both languages (`c.es.count == c.en.count` and `Set(texts).count == quotes.count`).
+  - Length & duration: each quote must be **25–300 characters** (`Collection.maxChars`, 90 s at 40 wpm), single-spaced, with no newlines or wide/emoji characters (`Collection.parse` must accept all quotes with `skipped == 0`), and include enough quotes ≤150 chars so `pickSentences` always forms rounds of **30–90 s** (even at 20 wpm).
+  - References: every quote in a themed collection (`id != "general"`) must have a non-empty, verifiable `source` (e.g. `"Author, Work"` or `"Author, Work, section"`). Do not add unattributed, paraphrased or misattributed quotes.
+  - Self-check: `./test.sh` enforces all of the above automatically over every entry in `Collection.builtIn`.
 - **Themes**: the owner plans to switch between several styles later. The Gentleman style is the Gentle-AI site palette: plum background `#1A1217`, pink `#F19AC8`, neon `#E8418C`, muted `#A99AA3`, border `#3A2A33`, yellow `#F5D547` for NEW tags. Do not use the Kanagawa/gold palette; the owner rejected it. Other mockups are in `Designs/`.
 - **Window**: `safeAreaRegions = []` on the hosting controller is required. Without it, resizing the transparent titlebar panel crashes AppKit (constraint loop). Do not remove it.
 - **Import**: validate every file before copying it into the folder. Show the format help once, with "No volver a mostrar este mensaje nunca más".
@@ -97,7 +101,7 @@ Say in the report that the app was restarted and with which build. The user has 
 
 - Themes: only the Gentleman style is implemented. Others are mockups in `Designs/`.
 - Picker: no scroll, no mouse wheel handling for long lists.
-- Possible later work: a programming collection, a shortcut recorder inside the picker, distribution through gentle-shell.
+- Possible later work: a shortcut recorder inside the picker, distribution through gentle-shell.
 
 ## Memory
 

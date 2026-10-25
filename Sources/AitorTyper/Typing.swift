@@ -23,7 +23,11 @@ struct Collection: Equatable {
 
     static let general = Collection(id: "general", name: "General", es: Texts.es.map { Quote(text: $0) }, en: Texts.en.map { Quote(text: $0) })
     static let stoic = Collection(id: "stoic", name: "Estoicismo", es: Texts.stoicEs, en: Texts.stoicEn)
-    static let builtIn = [general, stoic]
+    static let programming = Collection(id: "programming", name: "Programación", es: Texts.programmingEs, en: Texts.programmingEn)
+    static let artOfWar = Collection(id: "art-of-war", name: "El arte de la guerra", es: Texts.artOfWarEs, en: Texts.artOfWarEn)
+    static let cinema = Collection(id: "cinema", name: "Cine", es: Texts.cinemaEs, en: Texts.cinemaEn)
+    static let books = Collection(id: "books", name: "Libros de culto", es: Texts.booksEs, en: Texts.booksEn)
+    static let builtIn = [general, stoic, programming, artOfWar, cinema, books]
 
     static let folder = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
         .appendingPathComponent("AitorTyper/Colecciones")

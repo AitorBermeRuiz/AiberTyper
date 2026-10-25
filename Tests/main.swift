@@ -28,12 +28,29 @@ for _ in 0..<50 {
 }
 assert(pickSentences(from: [Quote(text: long)], chars: 12, maxChars: 14, using: &rng).map(\.text) == [long], "only long")
 
-// Every stoic quote names its source and fits 90 seconds at 40 wpm (300 characters).
-for lang in [Lang.es, .en] {
-    let stoic = Collection.stoic.quotes(lang)
-    assert(stoic.count >= 40 && stoic.allSatisfy { $0.source != nil && $0.text.count <= charsFor(wpm: 40, seconds: 90) }, "stoic \(lang)")
-    let general = Collection.general.quotes(lang).map(\.text)
-    assert(general.count >= 100 && Set(general).count == general.count, "general \(lang)")
+// Built-in collections: >=30 distinct quotes per language (25...300 chars, normalized, no wide chars),
+// with a non-empty source on every collection except General, and rounds within 30...90s at 40 wpm.
+struct RawCollection: Encodable { var name: String; var quotes: [Quote] }
+assert(Set(Collection.builtIn.map(\.id)).count == Collection.builtIn.count && Collection.builtIn.allSatisfy { !$0.id.hasPrefix("file:") })
+for c in Collection.builtIn {
+    let minCount = c.id == "general" ? 100 : (c.id == "stoic" ? 40 : 30)
+    assert(c.es.count == c.en.count, "\(c.id) es/en count mismatch (\(c.es.count) vs \(c.en.count))")
+    for lang in [Lang.es, .en] {
+        let quotes = c.quotes(lang)
+        let texts = quotes.map(\.text)
+        let reparsed = try! Collection.parse(JSONEncoder().encode(RawCollection(name: c.name, quotes: quotes)), id: c.id)
+        assert(quotes.count >= minCount && Set(texts).count == quotes.count, "\(c.id) \(lang) count/unique")
+        assert(reparsed.skipped == 0 && reparsed.collection.es == quotes, "\(c.id) \(lang) normalized/maxChars/noWide")
+        assert(quotes.allSatisfy { $0.text.count >= 25 }, "\(c.id) \(lang) min 25 chars")
+        if c.id != "general" {
+            assert(quotes.allSatisfy { !($0.source?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true) }, "\(c.id) \(lang) source")
+        }
+        for _ in 0..<20 {
+            let round = pickSentences(from: quotes, chars: charsFor(wpm: 40, seconds: .random(in: 30...60)), maxChars: Collection.maxChars, using: &rng)
+            let len = round.map(\.text).joined(separator: " ").count
+            assert((charsFor(wpm: 40, seconds: 30)...Collection.maxChars).contains(len), "\(c.id) \(lang) round \(len)")
+        }
+    }
 }
 
 // wrapLines breaks after spaces, keeps trailing spaces, and hard-breaks words longer than a line.
@@ -159,10 +176,12 @@ toggled.toggleLanguage()
 var slowHistory = History(url: tempDir().appendingPathComponent("history.json"))
 try! slowHistory.add(RoundResult(date: Date(), lang: .es, wpm: 20, accuracy: 1, seconds: 40))
 let slow = Session(history: slowHistory, folder: tempDir())
-slow.choose(.stoic)
-for _ in 0..<20 {
-    slow.newRound()
-    assert(slow.target.count <= charsFor(wpm: 20, seconds: 90), "round \(slow.target.count)")
+for c in Collection.builtIn {
+    slow.choose(c)
+    for _ in 0..<20 {
+        slow.newRound()
+        assert(slow.target.count <= charsFor(wpm: 20, seconds: 90), "round \(c.id) \(slow.target.count)")
+    }
 }
 
 // The source follows the sentence under the cursor.
@@ -182,9 +201,8 @@ picker.openPicker()
 assert(picker.picking && picker.selection == 0)
 picker.movePicker(-1)
 assert(picker.selection == 0, "stops at the top")
-picker.movePicker(1)
-picker.movePicker(1)
-assert(picker.selection == 1, "stops at the bottom")
+for _ in 0..<(Collection.builtIn.count + 1) { picker.movePicker(1) }
+assert(picker.selection == Collection.builtIn.count - 1, "stops at the bottom")
 picker.typeInPicker("j")
 assert(picker.filter == "j" && picker.selection == 0, "j types into the filter")
 picker.deleteInPicker()
@@ -243,24 +261,25 @@ let oddLoaded = Collection.load(from: odd)
 assert(oddLoaded.collections.isEmpty && oddLoaded.problems == ["big.json: más de 1 MB", "dir.json: no es un archivo normal"], "odd \(oddLoaded.problems)")
 
 // A Session lists file collections after the built-ins and practices with them.
+let builtInIds = Collection.builtIn.map(\.id)
 let user = Session(history: History(url: tempDir().appendingPathComponent("history.json")), folder: folder)
-assert(user.collections.map(\.id) == ["general", "stoic", "file:prog.json"] && user.problems.count == 2, "collections \(user.collections.map(\.id))")
-user.choose(user.collections[2])
+assert(user.collections.map(\.id) == builtInIds + ["file:prog.json"] && user.problems.count == 2, "collections \(user.collections.map(\.id))")
+user.choose(user.collections.last!)
 assert(user.quotes.allSatisfy { parsed.collection.es.contains($0) } && !user.quotes.isEmpty, "file quotes \(user.quotes)")
 
 // Favorites come first; ⌃f keeps the same collection selected as it moves.
 user.openPicker()
-assert(user.selection == 2)
+assert(user.selection == builtInIds.count)
 user.toggleFavoritePicked()
-assert(user.matches.map(\.id) == ["file:prog.json", "general", "stoic"] && user.selection == 0, "favorite first \(user.matches.map(\.id))")
+assert(user.matches.map(\.id) == ["file:prog.json"] + builtInIds && user.selection == 0, "favorite first \(user.matches.map(\.id))")
 user.toggleFavoritePicked()
-assert(user.matches.map(\.id) == ["general", "stoic", "file:prog.json"] && user.selection == 2, "unfavorited")
+assert(user.matches.map(\.id) == builtInIds + ["file:prog.json"] && user.selection == builtInIds.count, "unfavorited")
 user.closePicker()
 
 // A chosen file collection whose file is deleted falls back to General.
 try! FileManager.default.removeItem(at: folder.appendingPathComponent("prog.json"))
 user.reloadCollections()
-assert(user.collection.id == "general" && user.collections.count == 2, "fallback \(user.collection.id)")
+assert(user.collection.id == "general" && user.collections.count == builtInIds.count, "fallback \(user.collection.id)")
 // The fallback lives in memory only: the saved collection comes back with its file.
 assert(UserDefaults.standard.string(forKey: "pack") == "file:prog.json", "pack kept")
 try! valid.write(to: folder.appendingPathComponent("prog.json"))
