@@ -41,7 +41,8 @@ struct Collection: Equatable {
     static func parse(_ data: Data, id: String) throws -> (collection: Collection, skipped: Int) {
         guard data.count <= maxBytes else { throw CollectionError("más de 1 MB") }
         struct File: Decodable { var name: String; var quotes: [Quote] }
-        let file = try JSONDecoder().decode(File.self, from: data)
+        let file: File
+        do { file = try JSONDecoder().decode(File.self, from: data) } catch is DecodingError { throw CollectionError("JSON no válido") }
         let name = file.name.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !name.isEmpty else { throw CollectionError("falta \"name\"") }
         let quotes = file.quotes
@@ -79,15 +80,35 @@ struct Collection: Equatable {
             guard values?.isRegularFile == true else { problems.append("\(url.lastPathComponent): no es un archivo normal"); continue }
             guard (values?.fileSize ?? 0) <= maxBytes else { problems.append("\(url.lastPathComponent): más de 1 MB"); continue }
             do {
-                let parsed = try parse(Data(contentsOf: url), id: "file:" + url.lastPathComponent)
+                let parsed = try parse(Data(contentsOf: url), id: fileId(url.lastPathComponent))
                 collections.append(parsed.collection)
                 if parsed.skipped > 0 { problems.append("\(url.lastPathComponent): \(parsed.skipped) frases vacías, con caracteres anchos o de más de \(maxChars) caracteres") }
             } catch {
-                problems.append("\(url.lastPathComponent): \(error is DecodingError ? "JSON no válido" : error.localizedDescription)")
+                problems.append("\(url.lastPathComponent): \(error.localizedDescription)")
             }
         }
         return (collections, problems)
     }
+
+    /// Validates the file at `url` and copies it into `folder`, so a broken file never lands there.
+    /// A different file with the same name is moved to the Trash. Returns the id the copy loads under.
+    static func install(_ url: URL, into folder: URL) throws -> String {
+        // The validated bytes are the ones written, so the file cannot change in between.
+        let data = try Data(contentsOf: url)
+        let id = fileId(url.lastPathComponent)
+        _ = try parse(data, id: id)
+        try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+        let destination = folder.appendingPathComponent(url.lastPathComponent)
+        // Re-importing a file from the folder itself must not trash its own source.
+        let same = destination.resolvingSymlinksInPath().standardizedFileURL == url.resolvingSymlinksInPath().standardizedFileURL
+        if !same, FileManager.default.fileExists(atPath: destination.path) {
+            try FileManager.default.trashItem(at: destination, resultingItemURL: nil)
+        }
+        try data.write(to: destination, options: .atomic)
+        return id
+    }
+
+    private static func fileId(_ fileName: String) -> String { "file:" + fileName }
 }
 
 /// Copies the settings saved under the old bundle id (com.aitor.AitorTyper) that `new` does not have yet.

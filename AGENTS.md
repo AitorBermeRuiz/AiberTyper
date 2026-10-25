@@ -14,7 +14,7 @@ AiberTyper is a macOS menu bar app for typing practice. The user presses a globa
 
 | Path | Role |
 |------|------|
-| `Sources/AiberTyper/main.swift` | `AppDelegate`: status item and menu, the floating `NSPanel`, the local key monitor (`pickerKey`), the import flow, the shortcut dialog. |
+| `Sources/AiberTyper/main.swift` | `AppDelegate`: status item and menu, the floating `NSPanel`, the local key monitor (`pickerKey`), the import dialogs, the shortcut dialog. |
 | `Sources/AiberTyper/Session.swift` | `@Observable` state: round, typed text, live stats, result, collection picker, favorites, history. |
 | `Sources/AiberTyper/TyperView.swift` | SwiftUI views: typing, picker, results. Palette `G` lives here. |
 | `Sources/AiberTyper/Typing.swift` | Pure logic: `Lang`, `Quote`, `Collection` (JSON parse and load), `History`, `score`, `wrapLines`, `lineWindow`, `pickSentences`, `charsFor`. |
@@ -65,7 +65,7 @@ Say in the report that the app was restarted and with which build. The user has 
 - `UserDefaults`: `lang`, `pack` (collection id), `favorites`, `hotKey` (JSON; a saved shortcut the recorder would refuse falls back to ⌥⇧T), `hideImportHelp`.
 - Migration from the old name (AitorTyper): at launch `migrateDefaults` copies those keys from the `com.aitor.AitorTyper` domain when the new one lacks them; `History` merges `AitorTyper/history.json` rounds it does not have; `Collection.load` copies `AitorTyper/Colecciones` only while `AiberTyper/Colecciones` does not exist, so files deleted later stay deleted. The old files are never deleted (the cask `zap` removes both).
 - `~/Library/Application Support/AiberTyper/history.json`: finished rounds. Only a missing file means empty history. Any other read or decode error, at launch or when `add()` re-reads the file later, makes the history read-only: rounds are not saved, the file is kept as is and a note is shown. `add()` re-reads the file before appending, so two instances do not erase each other's rounds.
-- `~/Library/Application Support/AiberTyper/Colecciones/*.json`: user collections. The format and what is skipped or refused are documented once, in `README.md` ("Your own collections"); the code is `Collection.parse` and `Collection.load`.
+- `~/Library/Application Support/AiberTyper/Colecciones/*.json`: user collections. The format and what is skipped or refused are documented once, in `README.md` ("Your own collections"); the code is `Collection.parse`, `Collection.load` and `Collection.install` (import).
 - Collection ids: built-in `general`, `stoic`, `programming`, `art-of-war`, `cinema` and `books`; files are `file:<name>.json`. A selected collection whose file disappears or fails to load falls back to `general` in memory only; the saved `pack` is kept, so it comes back when the file loads again.
 
 ## Rules for changes
@@ -81,7 +81,7 @@ Say in the report that the app was restarted and with which build. The user has 
   - Self-check: `./test.sh` enforces all of the above automatically over every entry in `Collection.builtIn`.
 - **Themes**: the owner plans to switch between several styles later. The current style is the Aiber Bermejo palette (`Brand/README.md`): background `#1B1113`, text `#F6EEF0`, pink `#F497A9`, neon `#E83A59`, muted `#AA989C`, border `#3C262B`, yellow `#F5D547` for NEW tags. Do not use the Kanagawa/gold palette; the owner rejected it. Other mockups are in `Designs/`.
 - **Window**: `safeAreaRegions = []` on the hosting controller is required. Without it, resizing the transparent titlebar panel crashes AppKit (constraint loop). Do not remove it.
-- **Import**: validate every file before copying it into the folder. Show the format help once, with "No volver a mostrar este mensaje nunca más".
+- **Import**: validate every file before copying it into the folder (`Collection.install`; `AppDelegate` only shows the dialogs). Show the format help once, with "No volver a mostrar este mensaje nunca más".
 - **Strings**: UI copy in Spanish, with the same register as existing strings (voseo is not used in UI). Keep keyboard hints in the footers in sync with the real keys.
 - **Docs**: when a shortcut, option or message changes, update `README.md` and the footer hints in `TyperView`.
 
