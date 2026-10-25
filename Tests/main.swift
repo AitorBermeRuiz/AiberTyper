@@ -408,4 +408,25 @@ let again = try! Collection.install(shelf.appendingPathComponent("prog.json"), i
 assert(again == installedId && (try! Data(contentsOf: shelf.appendingPathComponent("prog.json"))) == valid, "same file kept")
 // Replacing a different file moves the old one to the user's real Trash, so it is not exercised here.
 
+// Panel keys: the typing view and the picker each map keys their own way.
+func panelKey(_ chars: String, _ code: Int, _ flags: NSEvent.ModifierFlags = [], picking: Bool = false) -> PanelKey {
+    PanelKey(event: keyEvent(chars, code: UInt16(code), flags), picking: picking)
+}
+assert(panelKey("\u{1b}", kVK_Escape) == .hide && panelKey("\t", kVK_Tab) == .toggleLanguage && panelKey("\t", kVK_Tab, .shift) == .openPicker)
+assert(panelKey("\r", kVK_Return) == .newRound && panelKey("\u{3}", kVK_ANSI_KeypadEnter) == .newRound)
+// Keys that would move the hidden field's caret are swallowed; everything else types.
+for code in [kVK_LeftArrow, kVK_RightArrow, kVK_UpArrow, kVK_DownArrow, kVK_Home, kVK_End, kVK_PageUp, kVK_PageDown, kVK_ForwardDelete] {
+    assert(panelKey("\u{F702}", code) == .ignore, "swallowed \(code)")
+}
+assert(panelKey("j", kVK_ANSI_J) == .pass && panelKey("a", kVK_ANSI_A) == .pass && panelKey("\u{7f}", kVK_Delete) == .pass, "typing keys pass")
+// In the picker plain j/k filter; ⌃j/⌃k and the arrows move.
+assert(panelKey("j", kVK_ANSI_J, picking: true) == .filter("j") && panelKey("K", kVK_ANSI_K, .shift, picking: true) == .filter("K"), "plain j/k filter")
+assert(panelKey("j", kVK_ANSI_J, .control, picking: true) == .move(1) && panelKey("k", kVK_ANSI_K, .control, picking: true) == .move(-1), "⌃j/⌃k move")
+assert(panelKey("\u{F701}", kVK_DownArrow, picking: true) == .move(1) && panelKey("\u{F700}", kVK_UpArrow, picking: true) == .move(-1), "arrows move")
+assert(panelKey("f", kVK_ANSI_F, .control, picking: true) == .favorite && panelKey("i", kVK_ANSI_I, .control, picking: true) == .importCollections)
+assert(panelKey("\u{1b}", kVK_Escape, picking: true) == .closePicker && panelKey("\t", kVK_Tab, picking: true) == .closePicker
+    && panelKey("\t", kVK_Tab, .shift, picking: true) == .closePicker, "esc and tab close the picker")
+assert(panelKey("\r", kVK_Return, picking: true) == .choose && panelKey("\u{7f}", kVK_Delete, picking: true) == .delete)
+assert(panelKey("a", kVK_ANSI_A, .command, picking: true) == .ignore && panelKey("x", kVK_ANSI_X, .control, picking: true) == .ignore, "⌘ and other ⌃ keys do nothing")
+
 print("self-check OK")
