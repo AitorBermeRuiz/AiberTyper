@@ -96,8 +96,8 @@ final class HoverState: ObservableObject {
 
 struct TyperView: View {
     let session: Session
-    var onImport: () -> Void = {}
-    var onClose: () -> Void = {}
+    var onImport: () -> Void
+    var onClose: () -> Void
     @FocusState private var focused: Bool
     @Environment(\.colorSchemeContrast) private var contrast
 
