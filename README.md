@@ -65,7 +65,7 @@ Typing websites want a tab, an account and your attention. **Aiber Typer** is a 
 In Terminal (macOS 14 Sonoma or later):
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/install/install.sh | bash
 ```
 
 It downloads the latest release to Applications and opens it. Run it again to update.
@@ -100,7 +100,7 @@ xattr -dr com.apple.quarantine /Applications/AiberTyper.app
 In PowerShell (Windows 10 or 11), with no administrator rights:
 
 ```powershell
-irm https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/scripts/install.ps1 | iex
+irm https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/install/install.ps1 | iex
 ```
 
 It installs the latest release for your user only, in `%LOCALAPPDATA%\Programs\AiberTyper`, adds **Aiber Typer** to the Start menu and opens it. Run it again to update.
@@ -110,7 +110,7 @@ Then press <kbd>Alt+Shift+T</kbd>. The app lives in the notification area (the t
 <details>
 <summary><b>Uninstall, start at sign-in, by hand</b></summary>
 
-- Uninstall (your history and collections stay): `& ([scriptblock]::Create((irm https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/scripts/install.ps1))) -Uninstall`
+- Uninstall (your history and collections stay): `& ([scriptblock]::Create((irm https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/install/install.ps1))) -Uninstall`
 - To open it when you sign in, put a shortcut to `%LOCALAPPDATA%\Programs\AiberTyper\AiberTyper.exe` in `shell:startup`.
 - By hand: download `AiberTyper-<version>-windows-x64.zip` from [Releases](https://github.com/AitorBermeRuiz/AitorTyper/releases), unzip it anywhere and run `AiberTyper.exe`. It is not signed yet, so SmartScreen may warn about a file from a browser: **More info** → **Run anyway**.
 - It is a 64-bit (x64) app of about 3 MB with nothing else to install. Windows 11 on ARM runs it through its x64 emulation.

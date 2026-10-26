@@ -1,6 +1,6 @@
 #!/bin/bash
 # Installs the latest AiberTyper release into /Applications and opens it:
-#   curl -fsSL https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/scripts/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/install/install.sh | bash
 # curl does not set com.apple.quarantine, so the app opens without the Gatekeeper prompt even when it is not notarized.
 set -euo pipefail
 repo=AitorBermeRuiz/AitorTyper

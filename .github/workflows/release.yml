@@ -90,11 +90,11 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           echo "SHA256=$(shasum -a 256 "$ZIP" | cut -d' ' -f1)" >> "$GITHUB_ENV"
-          windows="Windows: run \`irm https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/scripts/install.ps1 | iex\` in PowerShell (no administrator rights needed)."
+          windows="Windows: run \`irm https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/install/install.ps1 | iex\` in PowerShell (no administrator rights needed)."
           if [[ "${NOTARIZED:-0}" == 1 ]]; then
-            notes="Install with \`curl -fsSL https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/scripts/install.sh | bash\` or see the README. You can also unzip it and move AiberTyper.app to Applications. $windows"
+            notes="Install with \`curl -fsSL https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/install/install.sh | bash\` or see the README. You can also unzip it and move AiberTyper.app to Applications. $windows"
           else
-            notes="Install with \`curl -fsSL https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/scripts/install.sh | bash\` or see the README. This build is not notarized by Apple: if you download the zip with a browser, run \`xattr -dr com.apple.quarantine /Applications/AiberTyper.app\` after moving it to Applications. $windows"
+            notes="Install with \`curl -fsSL https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/install/install.sh | bash\` or see the README. This build is not notarized by Apple: if you download the zip with a browser, run \`xattr -dr com.apple.quarantine /Applications/AiberTyper.app\` after moving it to Applications. $windows"
           fi
           # A re-run after a failed tap update replaces the asset instead of failing.
           if gh release view "$GITHUB_REF_NAME" > /dev/null 2>&1; then
@@ -108,7 +108,7 @@ jobs:
         run: |
           git clone "https://x-access-token:$TAP_TOKEN@github.com/AitorBermeRuiz/homebrew-tap.git" "$RUNNER_TEMP/tap"
           mkdir -p "$RUNNER_TEMP/tap/Casks"
-          scripts/cask.sh "$VERSION" "$SHA256" "${NOTARIZED:-0}" > "$RUNNER_TEMP/tap/Casks/aibertyper.rb"
+          install/cask.sh "$VERSION" "$SHA256" "${NOTARIZED:-0}" > "$RUNNER_TEMP/tap/Casks/aibertyper.rb"
           cd "$RUNNER_TEMP/tap"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

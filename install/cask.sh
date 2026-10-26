@@ -1,5 +1,5 @@
 #!/bin/bash
-# Prints the Homebrew cask for a release: scripts/cask.sh <version> <sha256> <notarized: 0|1>
+# Prints the Homebrew cask for a release: install/cask.sh <version> <sha256> <notarized: 0|1>
 # The release workflow writes it to Casks/aibertyper.rb in AitorBermeRuiz/homebrew-tap.
 set -euo pipefail
 version=${1:-} sha=${2:-} notarized=${3:-0}

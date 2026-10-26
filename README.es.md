@@ -65,7 +65,7 @@ Las webs de mecanografía piden una pestaña, una cuenta y tu atención. **Aiber
 En el Terminal (macOS 14 Sonoma o posterior):
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/install/install.sh | bash
 ```
 
 Descarga la última versión en Aplicaciones y la abre. Vuelve a ejecutarlo para actualizar.
@@ -100,7 +100,7 @@ xattr -dr com.apple.quarantine /Applications/AiberTyper.app
 En PowerShell (Windows 10 u 11), sin permisos de administrador:
 
 ```powershell
-irm https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/scripts/install.ps1 | iex
+irm https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/install/install.ps1 | iex
 ```
 
 Instala la última versión solo para tu usuario, en `%LOCALAPPDATA%\Programs\AiberTyper`, añade **Aiber Typer** al menú Inicio y la abre. Vuelve a ejecutarlo para actualizar.
@@ -110,7 +110,7 @@ Después, pulsa <kbd>Alt+Shift+T</kbd>. La app vive en el área de notificación
 <details>
 <summary><b>Desinstalar, abrir al iniciar sesión, a mano</b></summary>
 
-- Desinstalar (tu historial y tus colecciones se quedan): `& ([scriptblock]::Create((irm https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/scripts/install.ps1))) -Uninstall`
+- Desinstalar (tu historial y tus colecciones se quedan): `& ([scriptblock]::Create((irm https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/install/install.ps1))) -Uninstall`
 - Para abrirla al iniciar sesión, pon un acceso directo a `%LOCALAPPDATA%\Programs\AiberTyper\AiberTyper.exe` en `shell:startup`.
 - A mano: descarga `AiberTyper-<versión>-windows-x64.zip` desde [Releases](https://github.com/AitorBermeRuiz/AitorTyper/releases), descomprímelo donde quieras y ejecuta `AiberTyper.exe`. Aún no está firmada, así que SmartScreen puede avisar de un archivo descargado con el navegador: **Más información** → **Ejecutar de todas formas**.
 - Es una app de 64 bits (x64) de unos 3 MB, sin nada más que instalar. Windows 11 en ARM la ejecuta con su emulación x64.
