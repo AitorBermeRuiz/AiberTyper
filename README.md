@@ -219,21 +219,21 @@ On Windows the same files live in `%APPDATA%\AiberTyper`: `history.json`, `Colec
 Swift 5.10 and the Command Line Tools are enough; there are no dependencies.
 
 ```sh
-./test.sh    # self-check, must print "self-check OK"
-./build.sh   # builds build/AiberTyper.app (UNIVERSAL=1 for arm64 + x86_64)
+src/mac/test.sh    # self-check, must print "self-check OK"
+src/mac/build.sh   # builds build/AiberTyper.app (UNIVERSAL=1 for arm64 + x86_64)
 open build/AiberTyper.app
 ```
 
-The Windows app lives in [`windows/`](windows): Go, no dependencies, Win32 and GDI+ (no web view). It builds from macOS, Linux or Windows:
+The Windows app lives in [`src/windows/`](src/windows): Go, no dependencies, Win32 and GDI+ (no web view). It builds from macOS, Linux or Windows:
 
 ```sh
-windows/build.sh                # builds build/windows/AiberTyper.exe
-(cd windows && go test ./...)   # its tests, including the vectors exported from the Swift code
+src/windows/build.sh   # builds build/windows/AiberTyper.exe
+src/windows/test.sh    # its tests, including the vectors exported from the Swift code
 ```
 
-The Swift code is the reference for both apps. `scripts/export-shared.sh` exports the built-in collections and test vectors from it into `windows/shared`, and CI fails when they are stale or when the Go port disagrees with them.
+The Swift code is the reference for both apps. `src/mac/export-shared.sh` exports the built-in collections and test vectors from it into `src/windows/shared`, and CI fails when they are stale or when the Go port disagrees with them.
 
-`scripts/readme-assets.sh` renders the banner, screenshots and demo GIFs in [`docs/assets`](docs/assets) from the app's real views. Contributor notes are in [`AGENTS.md`](AGENTS.md), the vocabulary in [`GLOSSARY.md`](GLOSSARY.md) and planned work in [`ROADMAP.md`](ROADMAP.md).
+`src/mac/readme-assets.sh` renders the banner, screenshots and demo GIFs in [`docs/assets`](docs/assets) from the app's real views. Contributor notes are in [`AGENTS.md`](AGENTS.md), the vocabulary in [`GLOSSARY.md`](GLOSSARY.md) and planned work in [`ROADMAP.md`](ROADMAP.md).
 
 <details>
 <summary><b>Releasing</b></summary>

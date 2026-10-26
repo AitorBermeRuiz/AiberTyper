@@ -219,21 +219,21 @@ En Windows los mismos archivos viven en `%APPDATA%\AiberTyper`: `history.json`, 
 Basta con Swift 5.10 y las Command Line Tools; no hay dependencias.
 
 ```sh
-./test.sh    # autocomprobación, debe imprimir "self-check OK"
-./build.sh   # genera build/AiberTyper.app (UNIVERSAL=1 para arm64 + x86_64)
+src/mac/test.sh    # autocomprobación, debe imprimir "self-check OK"
+src/mac/build.sh   # genera build/AiberTyper.app (UNIVERSAL=1 para arm64 + x86_64)
 open build/AiberTyper.app
 ```
 
-La app de Windows está en [`windows/`](windows): Go, sin dependencias, Win32 y GDI+ (sin vista web). Se compila desde macOS, Linux o Windows:
+La app de Windows está en [`src/windows/`](src/windows): Go, sin dependencias, Win32 y GDI+ (sin vista web). Se compila desde macOS, Linux o Windows:
 
 ```sh
-windows/build.sh                # genera build/windows/AiberTyper.exe
-(cd windows && go test ./...)   # sus tests, incluidos los vectores exportados del código Swift
+src/windows/build.sh   # genera build/windows/AiberTyper.exe
+src/windows/test.sh    # sus tests, incluidos los vectores exportados del código Swift
 ```
 
-El código Swift es la referencia de las dos apps. `scripts/export-shared.sh` exporta de él las colecciones incluidas y los vectores de test a `windows/shared`, y el CI falla cuando están desactualizados o cuando el port en Go no coincide con ellos.
+El código Swift es la referencia de las dos apps. `src/mac/export-shared.sh` exporta de él las colecciones incluidas y los vectores de test a `src/windows/shared`, y el CI falla cuando están desactualizados o cuando el port en Go no coincide con ellos.
 
-`scripts/readme-assets.sh` renderiza el banner, las capturas y los GIF de [`docs/assets`](docs/assets) con las vistas reales de la app. Las notas para contribuir están en [`AGENTS.md`](AGENTS.md), el vocabulario en [`GLOSSARY.md`](GLOSSARY.md) y el trabajo previsto en [`ROADMAP.md`](ROADMAP.md) (en inglés).
+`src/mac/readme-assets.sh` renderiza el banner, las capturas y los GIF de [`docs/assets`](docs/assets) con las vistas reales de la app. Las notas para contribuir están en [`AGENTS.md`](AGENTS.md), el vocabulario en [`GLOSSARY.md`](GLOSSARY.md) y el trabajo previsto en [`ROADMAP.md`](ROADMAP.md) (en inglés).
 
 <details>
 <summary><b>Publicar una versión</b></summary>
