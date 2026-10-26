@@ -168,6 +168,57 @@ func (v *view) text(s string, f *font, x, y float32, col color) {
 
 func (v *view) width(s string, f *font) float32 { return v.c.measure(s, f) }
 
+func (v *view) wrap(s string, f *font, w float32) []string {
+	return wrapWidth(s, w, func(s string) float32 { return v.width(s, f) })
+}
+
+// wrapWidth breaks s into lines no wider than w at spaces, like SwiftUI Text; a word wider than w (a path) breaks
+// anywhere.
+func wrapWidth(s string, w float32, width func(string) float32) []string {
+	if width(s) <= w {
+		return []string{s}
+	}
+	var lines []string
+	line := ""
+	for _, word := range strings.Fields(s) {
+		if next := strings.TrimPrefix(line+" "+word, " "); width(next) <= w {
+			line = next
+			continue
+		}
+		if line != "" {
+			lines = append(lines, line)
+		}
+		line = word
+		for r := []rune(line); width(line) > w && len(r) > 1; r = []rune(line) {
+			n := len(r) - 1
+			for n > 1 && width(string(r[:n])) > w {
+				n--
+			}
+			lines = append(lines, string(r[:n]))
+			line = string(r[n:])
+		}
+	}
+	return append(lines, line)
+}
+
+// paragraph draws s wrapped to w; returns its height.
+func (v *view) paragraph(s string, f *font, x, y, w float32, col color) float32 {
+	lines := v.wrap(s, f, w)
+	for i, line := range lines {
+		v.text(line, f, x, y+float32(i)*f.height, col)
+	}
+	return float32(len(lines)) * f.height
+}
+
+// fit cuts s with an ellipsis so it is no wider than w.
+func (v *view) fit(s string, f *font, w float32) string {
+	r := []rune(s)
+	for len(r) > 0 && v.width(string(r)+"…", f) > w {
+		r = r[:len(r)-1]
+	}
+	return string(r) + "…"
+}
+
 func (v *view) button(id string, x, y, w, h float32, action func()) bool {
 	if v.dry {
 		return false
@@ -304,7 +355,7 @@ func (v *view) actionButton(id, title, key string, primary bool, x, y float32, a
 }
 
 // roundActions draws "Otra ronda" and "Cerrar" ending at right; returns the row height.
-func (v *view) roundActions(right, y float32) float32 {
+func (v *view) roundActions(right, y float32) float32 { // returns its width
 	saved := v.dry
 	v.dry = true
 	wClose := v.actionButton("", "Cerrar", "Esc", false, 0, 0, nil)
@@ -312,7 +363,7 @@ func (v *view) roundActions(right, y float32) float32 {
 	v.dry = saved
 	v.actionButton("new", "Otra ronda", "Enter", true, right-wClose-10-wNew, y, func() { v.app.do(v.s.NewRound) })
 	v.actionButton("close", "Cerrar", "Esc", false, right-wClose, y, func() { v.app.hide(true) })
-	return actionHeight()
+	return wNew + 10 + wClose
 }
 
 // pill is a capsule option: filled when selected; returns its width.
@@ -366,11 +417,18 @@ func (v *view) typing() float32 {
 	v.dry = true
 	wEN := v.pill("", typer.EN.Label(), s.Lang == typer.EN, 0, 0, nil)
 	wES := v.pill("", typer.ES.Label(), s.Lang == typer.ES, 0, 0, nil)
-	wCol := v.pill("", s.Collection.Name+" ▾", true, 0, 0, nil)
+	name := s.Collection.Name
+	wCol := v.pill("", name+" ▾", true, 0, 0, nil)
+	x := right - wEN - 10 - wES - 10 - wCol
+	// A long collection name is cut so the pill stops short of the brand.
+	if over := pad + 24 + v.width("AIBER TYPER", label()) + 10 - x; over > 0 {
+		name = v.fit(name, ui(12, bold), v.width(name, ui(12, bold))-over)
+		wCol = v.pill("", name+" ▾", true, 0, 0, nil)
+		x = right - wEN - 10 - wES - 10 - wCol
+	}
 	v.dry = saved
 	toggle := func() { v.app.do(s.ToggleLanguage) }
-	x := right - wEN - 10 - wES - 10 - wCol
-	v.pill("collection", s.Collection.Name+" ▾", true, x, cy, func() { v.app.do(s.OpenPicker) })
+	v.pill("collection", name+" ▾", true, x, cy, func() { v.app.do(s.OpenPicker) })
 	x += wCol + 10
 	// Clicking the already selected language does nothing.
 	v.pill("es", typer.ES.Label(), s.Lang == typer.ES, x, cy, ifNot(s.Lang == typer.ES, toggle))
@@ -380,9 +438,7 @@ func (v *view) typing() float32 {
 	y = v.textLines(pad, y) + gap
 
 	if source, ok := s.Round.Source(); ok {
-		f := ui(12, regular)
-		v.text("— "+source, f, pad, y, rgb(muted(), 1))
-		y += f.height + gap
+		y += v.paragraph("— "+source, ui(12, regular), pad, y, cardWidth-2*pad, rgb(muted(), 1)) + gap
 	}
 
 	live, started := s.Round.Live(now())
@@ -586,9 +642,7 @@ func (v *view) picker() float32 {
 	}
 	y += gap
 	for _, p := range s.Problems {
-		f := ui(12, regular)
-		v.text(p, f, pad, y, rgb(gNeon, 1))
-		y += f.height + gap
+		y += v.paragraph(p, ui(12, regular), pad, y, cardWidth-2*pad, rgb(gNeon, 1)) + gap
 	}
 	f := ui(13, medium)
 	title := "+ Importar colección…"
@@ -676,12 +730,19 @@ func (v *view) results(r typer.RoundResult) float32 {
 		y = v.historyChart(wpms, pad, y, contentW) + gap
 	}
 
+	// The note wraps in the room the buttons leave, and the row grows to fit it, as in the SwiftUI HStack.
 	rowH := actionHeight()
+	saved := v.dry
+	v.dry = true
+	actionsW := v.roundActions(0, 0)
+	v.dry = saved
 	if s.Note != "" {
 		f := ui(12, regular)
-		v.text(s.Note, f, pad, y+(rowH-f.height)/2, rgb(gNeon, 1))
+		lines := v.wrap(s.Note, f, contentW-actionsW-8)
+		rowH = max(rowH, float32(len(lines))*f.height)
+		v.paragraph(s.Note, f, pad, y+(rowH-float32(len(lines))*f.height)/2, contentW-actionsW-8, rgb(gNeon, 1))
 	}
-	v.roundActions(cardWidth-pad, y)
+	v.roundActions(cardWidth-pad, y+(rowH-actionHeight())/2)
 	return y + rowH + pad
 }
 
