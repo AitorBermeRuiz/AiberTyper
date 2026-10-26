@@ -186,7 +186,7 @@ func (p *panel) setHover(id string) {
 func (p *panel) wndProc(hwnd, m, wparam, lparam uintptr) uintptr {
 	switch m {
 	case wmAppRender:
-		if p.visible() || p.dirty {
+		if p.visible() { // a hidden panel draws again when it is shown
 			p.render()
 		}
 		return 0
@@ -269,9 +269,17 @@ func (p *panel) wndProc(hwnd, m, wparam, lparam uintptr) uintptr {
 func (p *panel) key(vk int) bool {
 	s := p.app.session
 	a := typer.PanelKey(vk, keyDown(typer.VKControl), keyDown(typer.VKShift), keyDown(typer.VKMenu), s.Picking)
-	switch a.Kind {
-	case typer.Pass:
+	if a.Kind == typer.Pass {
 		return false
+	}
+	p.perform(a)
+	return true
+}
+
+// perform does a panel action and redraws; the bench drives its key steps through it too.
+func (p *panel) perform(a typer.PanelAction) {
+	s := p.app.session
+	switch a.Kind {
 	case typer.Ignore:
 	case typer.Hide:
 		p.app.hide(true)
@@ -295,7 +303,6 @@ func (p *panel) key(vk int) bool {
 		s.MovePicker(a.Step)
 	}
 	p.invalidate()
-	return true
 }
 
 // char types one UTF-16 unit from WM_CHAR. Dead keys arrive already composed (´ then a gives á).
