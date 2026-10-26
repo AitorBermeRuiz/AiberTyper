@@ -40,7 +40,7 @@ jobs:
           echo "ZIP=AiberTyper-$version.zip" >> "$GITHUB_ENV"
 
       - name: Self-check
-        run: ./test.sh
+        run: src/mac/test.sh
 
       - name: Import Developer ID certificate
         if: env.CERT_P12 != '' && env.CERT_IDENTITY != ''
@@ -58,7 +58,7 @@ jobs:
           echo "SIGN_IDENTITY=$CERT_IDENTITY" >> "$GITHUB_ENV"
 
       - name: Build universal app
-        run: UNIVERSAL=1 ./build.sh
+        run: UNIVERSAL=1 src/mac/build.sh
 
       - name: Zip
         run: ditto -c -k --keepParent build/AiberTyper.app "$ZIP"

@@ -1,6 +1,6 @@
 // Measures the real build/AiberTyper.app from outside: launches it with --bench, drives it through stdin
 // (show, type a round, hide) and samples its CPU, RAM, wakeups, energy and GPU in each phase.
-// Run scripts/bench.sh. The app uses a temporary history and settings, never the user's.
+// Run src/mac/bench.sh. The app uses a temporary history and settings, never the user's.
 import Foundation
 import IOKit
 
