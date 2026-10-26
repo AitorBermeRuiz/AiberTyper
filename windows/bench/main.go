@@ -1,7 +1,8 @@
 //go:build windows
 
 // Command bench launches AiberTyper.exe --bench and checks it end to end on a real Windows desktop: the global
-// shortcut, keyboard focus, a typed round, the picker and closing with Esc. It saves screenshots of each screen and
+// shortcut, keyboard focus, a typed round, the picker, mouse clicks, the shortcut recorder, importing a collection
+// through the system dialogs and closing with Esc. It saves screenshots of each screen and
 // prints a Markdown table of CPU and memory per phase, failing over budget (the same budgets as scripts/bench.sh).
 //
 //	go run ./bench <AiberTyper.exe> <screenshots folder>
@@ -19,6 +20,7 @@ import (
 	"strings"
 	"syscall"
 	"time"
+	"unicode/utf16"
 	"unsafe"
 )
 
@@ -29,8 +31,10 @@ const (
 )
 
 var (
-	user32     = syscall.NewLazyDLL("user32.dll")
-	pSendInput = user32.NewProc("SendInput")
+	user32        = syscall.NewLazyDLL("user32.dll")
+	pSendInput    = user32.NewProc("SendInput")
+	pSetCursorPos = user32.NewProc("SetCursorPos")
+	child         *exec.Cmd
 )
 
 type keyInput struct {
@@ -58,17 +62,70 @@ func press(vks ...uint16) {
 	time.Sleep(700 * time.Millisecond)
 }
 
+// typeText sends text as Unicode key events, like typing into a file dialog.
+func typeText(s string) {
+	var in []keyInput
+	for _, u := range utf16.Encode([]rune(s)) {
+		in = append(in, keyInput{Type: 1, Scan: u, Flags: 4}, keyInput{Type: 1, Scan: u, Flags: 4 | 2}) // KEYEVENTF_UNICODE
+	}
+	pSendInput.Call(uintptr(len(in)), uintptr(unsafe.Pointer(&in[0])), unsafe.Sizeof(in[0]))
+	time.Sleep(700 * time.Millisecond)
+}
+
+type mouseInput struct {
+	Type   uint32
+	_      uint32
+	DX, DY int32
+	Data   uint32
+	Flags  uint32
+	Time   uint32
+	_      uint32
+	Extra  uintptr
+}
+
+// click moves the real pointer to x, y and presses the left button.
+func click(x, y int) {
+	pSetCursorPos.Call(uintptr(x), uintptr(y))
+	time.Sleep(200 * time.Millisecond)
+	in := []mouseInput{{Type: 0, Flags: 2}, {Type: 0, Flags: 4}} // LEFTDOWN, LEFTUP
+	pSendInput.Call(2, uintptr(unsafe.Pointer(&in[0])), unsafe.Sizeof(in[0]))
+	time.Sleep(700 * time.Millisecond)
+}
+
 type app struct {
-	in  io.WriteCloser
-	out *bufio.Scanner
+	in    io.WriteCloser
+	lines chan string
 }
 
 func (a *app) send(cmd string) string {
-	fmt.Fprintln(a.in, cmd)
-	if !a.out.Scan() {
-		fail("no answer to %q", cmd)
+	a.write(cmd)
+	return a.answer(cmd)
+}
+
+// write sends a command without waiting: the dialog commands answer only once the harness closes their dialogs.
+func (a *app) write(cmd string) { fmt.Fprintln(a.in, cmd) }
+
+func (a *app) answer(cmd string) string {
+	select {
+	case line, ok := <-a.lines:
+		if !ok {
+			fail("no answer to %q", cmd)
+		}
+		return line
+	case <-time.After(60 * time.Second):
+		fail("no answer to %q in 60 s (a dialog left open?)", cmd)
 	}
-	return a.out.Text()
+	return ""
+}
+
+// clickOn clicks the middle of one of the panel's clickable areas.
+func (a *app) clickOn(id string) bool {
+	var x, y int
+	if _, err := fmt.Sscanf(a.send("where "+id), "at %d %d", &x, &y); err != nil {
+		return false
+	}
+	click(x, y)
+	return true
 }
 
 // stat reads one number from the app's "stats" answer.
@@ -84,6 +141,9 @@ func (a *app) stat(name string) float64 {
 
 func fail(format string, args ...any) {
 	fmt.Printf("FAIL: "+format+"\n", args...)
+	if child != nil {
+		child.Process.Kill()
+	}
 	os.Exit(1)
 }
 
@@ -103,11 +163,20 @@ func main() {
 	if err := cmd.Start(); err != nil {
 		fail("start: %v", err)
 	}
-	a := &app{in: in, out: bufio.NewScanner(outPipe)}
-	if !a.out.Scan() || !strings.HasPrefix(a.out.Text(), "ready ") {
-		fail("app did not start")
+	child = cmd
+	a := &app{in: in, lines: make(chan string)}
+	go func() {
+		out := bufio.NewScanner(outPipe)
+		for out.Scan() {
+			a.lines <- out.Text()
+		}
+		close(a.lines)
+	}()
+	ready := a.answer("launch")
+	if !strings.HasPrefix(ready, "ready ") {
+		fail("app did not start: %s", ready)
 	}
-	dir := strings.TrimPrefix(a.out.Text(), "ready ")
+	dir := strings.TrimPrefix(ready, "ready ")
 	seedHistory(filepath.Join(dir, "history.json"))
 
 	var rows []row
@@ -168,6 +237,43 @@ func main() {
 	press(0x1B) // Esc hides
 	state = a.send("state")
 	check(strings.Contains(state, "visible=false"), "Esc twice hides the panel: "+state)
+
+	// Mouse: the language pill that is not selected switches the language.
+	a.send("show")
+	other := "en"
+	if strings.Contains(a.send("state"), "lang=en") {
+		other = "es"
+	}
+	check(a.clickOn(other), "the "+other+" pill is clickable")
+	state = a.send("state")
+	check(strings.Contains(state, "lang="+other), "clicking the "+other+" pill switches the language: "+state)
+	a.send("hide")
+
+	// Cambiar atajo…: the recorder takes Alt+Shift+Y, Enter saves it, and the new shortcut opens the panel.
+	a.write("hotkey")
+	time.Sleep(2 * time.Second)
+	press(0x12, 0x10, 'Y')
+	press(0x0D)
+	recorded := a.answer("hotkey")
+	check(strings.Contains(recorded, "hotkey Alt+Shift+Y ok=true"), "the recorder saves Alt+Shift+Y: "+recorded)
+	press(0x12, 0x10, 'Y')
+	state = a.send("state")
+	check(strings.Contains(state, "visible=true"), "the new shortcut shows the panel: "+state)
+
+	// Import: the format help (Enter accepts), then the file dialog takes a typed path; the panel shows the new collection.
+	src, _ := os.MkdirTemp("", "aiber-import-")
+	defer os.RemoveAll(src)
+	file := filepath.Join(src, "Prueba.json")
+	os.WriteFile(file, []byte(`{"name": "Prueba", "quotes": [{"text": "Una frase de prueba para importar."}]}`), 0o644)
+	a.write("import")
+	time.Sleep(2 * time.Second)
+	press(0x0D)
+	time.Sleep(time.Second)
+	typeText(file)
+	press(0x0D)
+	imported := a.answer("import")
+	check(strings.Contains(imported, "collection=file:Prueba.json visible=true"), "importing a file selects it: "+imported)
+	a.send("hide")
 	measure("Idle, hidden again", idleCPUBudget, idle(10*time.Second))
 
 	peak, private := a.stat("peak_ws_kb")/1024, a.stat("private_kb")/1024
