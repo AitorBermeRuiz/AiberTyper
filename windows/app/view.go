@@ -466,8 +466,9 @@ func (v *view) line(target, typed []rune, span typer.Span, x, y float32, dimmed 
 	const margin = 6
 	pw := int(float32(cardWidth-2*28+2*margin) * c.scale)
 	ph := int((f.height + 2*margin) * c.scale)
-	key := fmt.Sprint(c.scale, runs, string(target[span.Lo:span.Hi]))
+	var key string
 	if dimmed {
+		key = fmt.Sprint(c.scale, runs, string(target[span.Lo:span.Hi]))
 		if bmp, ok := blurredLines[key]; ok {
 			v.c.image(bmp, v.ox+x-margin, v.oy+y-margin, pw, ph)
 			return
