@@ -20,8 +20,8 @@ cp "$bin/AiberTyper" "$app/Contents/MacOS/"
 iconset=$(mktemp -d)/AppIcon.iconset
 mkdir "$iconset"
 for s in 16 32 128 256 512; do
-    sips -z $s $s ../../Brand/icon-1024.png --out "$iconset/icon_${s}x${s}.png" > /dev/null
-    sips -z $((s * 2)) $((s * 2)) ../../Brand/icon-1024.png --out "$iconset/icon_${s}x${s}@2x.png" > /dev/null
+    sips -z $s $s ../../design/brand/icon-1024.png --out "$iconset/icon_${s}x${s}.png" > /dev/null
+    sips -z $((s * 2)) $((s * 2)) ../../design/brand/icon-1024.png --out "$iconset/icon_${s}x${s}@2x.png" > /dev/null
 done
 iconutil -c icns "$iconset" -o "$app/Contents/Resources/AppIcon.icns"
 cat > "$app/Contents/Info.plist" <<EOF

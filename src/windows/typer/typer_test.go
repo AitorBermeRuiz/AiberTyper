@@ -408,7 +408,7 @@ func TestInstall(t *testing.T) {
 		t.Errorf("replace %v %v", err, trashed)
 	}
 	// The documented example parses.
-	data, _ := os.ReadFile(filepath.Join("..", "..", "..", "Examples", "Programming.json"))
+	data, _ := os.ReadFile(filepath.Join("..", "..", "..", "examples", "Programming.json"))
 	if c, skipped, err := Parse(data, "file:Programming.json"); err != nil || skipped != 0 || len(c.ES) < 8 {
 		t.Errorf("example %v", err)
 	}

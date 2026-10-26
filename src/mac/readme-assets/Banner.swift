@@ -5,7 +5,7 @@ import SwiftUI
 
 private let muted = G.muted(.standard), edge = G.border(.standard)
 
-/// Logo 1B at any size (G.brand draws it at 16 pt only). Geometry from Brand/README.md.
+/// Logo 1B at any size (G.brand draws it at 16 pt only). Geometry from design/brand/README.md.
 struct Mark: View {
     var size: CGFloat
     var body: some View {

@@ -1,7 +1,7 @@
 import AppKit
 import SwiftUI
 
-/// Aiber Bermejo palette and brand mark (see Brand/README.md).
+/// Aiber Bermejo palette and brand mark (see design/brand/README.md).
 enum G {
     static let bg = Color(0x1B1113), fg = Color(0xF6EEF0), pink = Color(0xF497A9), neon = Color(0xE83A59)
     static let yellow = Color(0xF5D547)

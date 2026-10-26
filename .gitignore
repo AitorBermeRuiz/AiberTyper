@@ -1,5 +1,6 @@
 .build/
 build/
+design/mockups/out/
 odd/tasks/*
 src/windows/app/*.syso
 

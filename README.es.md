@@ -198,7 +198,7 @@ Los archivos viven en `~/Library/Application Support/AiberTyper/Colecciones`. De
 - **Importar colección…** (también en el selector) explica primero el formato (con la casilla "No volver a mostrar este mensaje nunca más"), luego comprueba los archivos que elijas y copia los válidos en esa carpeta. Si ya existe un archivo con el mismo nombre, se mueve a la Papelera (la Papelera de reciclaje en Windows) antes de escribir el nuevo; reimportar un archivo de la propia carpeta es seguro.
 - **Abrir carpeta de colecciones** abre la carpeta para editar o borrar archivos a mano. Los cambios aparecen la próxima vez que abras el selector.
 
-Mira [`Examples/Programming.json`](Examples/Programming.json) para un ejemplo listo para importar.
+Mira [`examples/Programming.json`](examples/Programming.json) para un ejemplo listo para importar.
 
 ## Tus datos
 
@@ -256,7 +256,7 @@ Secretos del repositorio que lee (todos opcionales):
 
 <div align="center">
 <br/>
-<img src="Brand/logo.svg" width="48" alt="Logo de Aiber" />
+<img src="design/brand/logo.svg" width="48" alt="Logo de Aiber" />
 <br/>
 <sub>Un producto <strong>Aiber</strong> · <a href="#top">volver arriba ↑</a></sub>
 </div>
