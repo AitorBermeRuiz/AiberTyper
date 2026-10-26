@@ -1,6 +1,6 @@
 //go:build windows
 
-// AiberTyper for Windows: a tray app with a floating typing panel. The counterpart of Sources/AiberTyper/main.swift;
+// AiberTyper for Windows: a tray app with a floating typing panel. The counterpart of src/mac/Sources/AiberTyper/main.swift;
 // the typing rules live in ../typer and are shared with the Mac app through the vectors in ../shared.
 package main
 
