@@ -17,6 +17,18 @@ jobs:
           persist-credentials: false
       - name: Self-check
         run: ./test.sh
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: windows/go.mod
+          cache-dependency-path: windows/go.mod
+      # The Windows port shares the Mac rules through files generated from the Swift sources.
+      - name: Windows shared files are up to date
+        run: |
+          scripts/export-shared.sh
+          git diff --exit-code windows/shared || { echo "Run scripts/export-shared.sh and commit windows/shared."; exit 1; }
+      - name: Windows logic tests
+        working-directory: windows
+        run: go test ./...
       - name: Build universal app
         run: UNIVERSAL=1 ./build.sh
       - name: Cask template
@@ -32,3 +44,30 @@ jobs:
       - name: Benchmark (fails over budget)
         shell: bash # with pipefail, so tee keeps the benchmark's exit code
         run: scripts/bench.sh | tee -a "$GITHUB_STEP_SUMMARY"
+
+  # The Windows app on a real Windows desktop: tests, build, then the end-to-end bench with screenshots.
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: windows/go.mod
+          cache-dependency-path: windows/go.mod
+      - name: Logic tests
+        working-directory: windows
+        run: go test ./...
+      - name: Build
+        shell: bash
+        run: windows/build.sh
+      - name: End-to-end bench (fails over budget)
+        working-directory: windows
+        shell: bash
+        run: go run ./bench ../build/windows/AiberTyper.exe ../build/windows/shots | tee -a "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: windows-screenshots
+          path: build/windows/shots
