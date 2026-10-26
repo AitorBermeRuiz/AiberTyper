@@ -1,0 +1,5548 @@
+{
+  "charsFor" : [
+    {
+      "out" : 300,
+      "seconds" : 90,
+      "wpm" : 40
+    },
+    {
+      "out" : 100,
+      "seconds" : 30,
+      "wpm" : 40
+    },
+    {
+      "out" : 150,
+      "seconds" : 90,
+      "wpm" : 20
+    },
+    {
+      "out" : 289,
+      "seconds" : 47.2,
+      "wpm" : 73.5
+    },
+    {
+      "out" : 600,
+      "seconds" : 60,
+      "wpm" : 120
+    }
+  ],
+  "contains" : [
+    {
+      "hay" : "Estoicismo",
+      "needle" : "est",
+      "out" : true
+    },
+    {
+      "hay" : "Estoicismo",
+      "needle" : "EST",
+      "out" : true
+    },
+    {
+      "hay" : "Programación",
+      "needle" : "programacion",
+      "out" : true
+    },
+    {
+      "hay" : "Programacion",
+      "needle" : "ación",
+      "out" : true
+    },
+    {
+      "hay" : "El arte de la guerra",
+      "needle" : "ARTE DE",
+      "out" : true
+    },
+    {
+      "hay" : "Libros de culto",
+      "needle" : "x",
+      "out" : false
+    },
+    {
+      "hay" : "Cine",
+      "needle" : "",
+      "out" : true
+    },
+    {
+      "hay" : "Pingüino",
+      "needle" : "pinguino",
+      "out" : true
+    },
+    {
+      "hay" : "Ñandú",
+      "needle" : "nandu",
+      "out" : true
+    },
+    {
+      "hay" : "niño",
+      "needle" : "NIÑO",
+      "out" : true
+    },
+    {
+      "hay" : "Çava",
+      "needle" : "ca",
+      "out" : true
+    },
+    {
+      "hay" : "node.js",
+      "needle" : "node.js",
+      "out" : true
+    },
+    {
+      "hay" : "Ærø",
+      "needle" : "aero",
+      "out" : false
+    },
+    {
+      "hay" : "straße",
+      "needle" : "STRASSE",
+      "out" : true
+    },
+    {
+      "hay" : "İstanbul",
+      "needle" : "istanbul",
+      "out" : true
+    },
+    {
+      "hay" : "Œuvre",
+      "needle" : "oeuvre",
+      "out" : false
+    },
+    {
+      "hay" : "Crème brûlée",
+      "needle" : "creme brulee",
+      "out" : true
+    },
+    {
+      "hay" : "Zoë",
+      "needle" : "zoe",
+      "out" : true
+    }
+  ],
+  "lineWindow" : [
+    {
+      "after" : 3,
+      "cursor" : 0,
+      "focus" : {
+        "lower" : 0,
+        "upper" : 3
+      },
+      "lines" : [
+        {
+          "lower" : 0,
+          "upper" : 10
+        },
+        {
+          "lower" : 10,
+          "upper" : 20
+        },
+        {
+          "lower" : 20,
+          "upper" : 30
+        },
+        {
+          "lower" : 30,
+          "upper" : 40
+        },
+        {
+          "lower" : 40,
+          "upper" : 50
+        },
+        {
+          "lower" : 50,
+          "upper" : 60
+        }
+      ]
+    },
+    {
+      "after" : 3,
+      "cursor" : 9,
+      "focus" : {
+        "lower" : 0,
+        "upper" : 3
+      },
+      "lines" : [
+        {
+          "lower" : 0,
+          "upper" : 10
+        },
+        {
+          "lower" : 10,
+          "upper" : 20
+        },
+        {
+          "lower" : 20,
+          "upper" : 30
+        },
+        {
+          "lower" : 30,
+          "upper" : 40
+        },
+        {
+          "lower" : 40,
+          "upper" : 50
+        },
+        {
+          "lower" : 50,
+          "upper" : 60
+        }
+      ]
+    },
+    {
+      "after" : 3,
+      "cursor" : 10,
+      "focus" : {
+        "lower" : 0,
+        "upper" : 3
+      },
+      "lines" : [
+        {
+          "lower" : 0,
+          "upper" : 10
+        },
+        {
+          "lower" : 10,
+          "upper" : 20
+        },
+        {
+          "lower" : 20,
+          "upper" : 30
+        },
+        {
+          "lower" : 30,
+          "upper" : 40
+        },
+        {
+          "lower" : 40,
+          "upper" : 50
+        },
+        {
+          "lower" : 50,
+          "upper" : 60
+        }
+      ]
+    },
+    {
+      "after" : 4,
+      "before" : 0,
+      "cursor" : 25,
+      "focus" : {
+        "lower" : 1,
+        "upper" : 4
+      },
+      "lines" : [
+        {
+          "lower" : 0,
+          "upper" : 10
+        },
+        {
+          "lower" : 10,
+          "upper" : 20
+        },
+        {
+          "lower" : 20,
+          "upper" : 30
+        },
+        {
+          "lower" : 30,
+          "upper" : 40
+        },
+        {
+          "lower" : 40,
+          "upper" : 50
+        },
+        {
+          "lower" : 50,
+          "upper" : 60
+        }
+      ]
+    },
+    {
+      "after" : 5,
+      "before" : 1,
+      "cursor" : 35,
+      "focus" : {
+        "lower" : 2,
+        "upper" : 5
+      },
+      "lines" : [
+        {
+          "lower" : 0,
+          "upper" : 10
+        },
+        {
+          "lower" : 10,
+          "upper" : 20
+        },
+        {
+          "lower" : 20,
+          "upper" : 30
+        },
+        {
+          "lower" : 30,
+          "upper" : 40
+        },
+        {
+          "lower" : 40,
+          "upper" : 50
+        },
+        {
+          "lower" : 50,
+          "upper" : 60
+        }
+      ]
+    },
+    {
+      "before" : 2,
+      "cursor" : 51,
+      "focus" : {
+        "lower" : 3,
+        "upper" : 6
+      },
+      "lines" : [
+        {
+          "lower" : 0,
+          "upper" : 10
+        },
+        {
+          "lower" : 10,
+          "upper" : 20
+        },
+        {
+          "lower" : 20,
+          "upper" : 30
+        },
+        {
+          "lower" : 30,
+          "upper" : 40
+        },
+        {
+          "lower" : 40,
+          "upper" : 50
+        },
+        {
+          "lower" : 50,
+          "upper" : 60
+        }
+      ]
+    },
+    {
+      "before" : 2,
+      "cursor" : 60,
+      "focus" : {
+        "lower" : 3,
+        "upper" : 6
+      },
+      "lines" : [
+        {
+          "lower" : 0,
+          "upper" : 10
+        },
+        {
+          "lower" : 10,
+          "upper" : 20
+        },
+        {
+          "lower" : 20,
+          "upper" : 30
+        },
+        {
+          "lower" : 30,
+          "upper" : 40
+        },
+        {
+          "lower" : 40,
+          "upper" : 50
+        },
+        {
+          "lower" : 50,
+          "upper" : 60
+        }
+      ]
+    },
+    {
+      "cursor" : 0,
+      "focus" : {
+        "lower" : 0,
+        "upper" : 2
+      },
+      "lines" : [
+        {
+          "lower" : 0,
+          "upper" : 5
+        },
+        {
+          "lower" : 5,
+          "upper" : 9
+        }
+      ]
+    },
+    {
+      "cursor" : 6,
+      "focus" : {
+        "lower" : 0,
+        "upper" : 2
+      },
+      "lines" : [
+        {
+          "lower" : 0,
+          "upper" : 5
+        },
+        {
+          "lower" : 5,
+          "upper" : 9
+        }
+      ]
+    },
+    {
+      "cursor" : 9,
+      "focus" : {
+        "lower" : 0,
+        "upper" : 2
+      },
+      "lines" : [
+        {
+          "lower" : 0,
+          "upper" : 5
+        },
+        {
+          "lower" : 5,
+          "upper" : 9
+        }
+      ]
+    },
+    {
+      "cursor" : 0,
+      "focus" : {
+        "lower" : 0,
+        "upper" : 0
+      },
+      "lines" : [
+
+      ]
+    },
+    {
+      "cursor" : 0,
+      "focus" : {
+        "lower" : 0,
+        "upper" : 1
+      },
+      "lines" : [
+        {
+          "lower" : 0,
+          "upper" : 4
+        }
+      ]
+    },
+    {
+      "cursor" : 4,
+      "focus" : {
+        "lower" : 0,
+        "upper" : 1
+      },
+      "lines" : [
+        {
+          "lower" : 0,
+          "upper" : 4
+        }
+      ]
+    }
+  ],
+  "markRuns" : [
+    {
+      "out" : [
+        {
+          "mark" : "correct",
+          "range" : {
+            "lower" : 1,
+            "upper" : 2
+          }
+        },
+        {
+          "mark" : "wrong",
+          "range" : {
+            "lower" : 2,
+            "upper" : 3
+          }
+        },
+        {
+          "mark" : "correct",
+          "range" : {
+            "lower" : 3,
+            "upper" : 4
+          }
+        },
+        {
+          "mark" : "wrong",
+          "range" : {
+            "lower" : 4,
+            "upper" : 5
+          }
+        },
+        {
+          "mark" : "cursor",
+          "range" : {
+            "lower" : 5,
+            "upper" : 6
+          }
+        },
+        {
+          "mark" : "pending",
+          "range" : {
+            "lower" : 6,
+            "upper" : 8
+          }
+        }
+      ],
+      "range" : {
+        "lower" : 1,
+        "upper" : 8
+      },
+      "target" : "abcdefgh",
+      "typed" : "abXdY"
+    },
+    {
+      "out" : [
+        {
+          "mark" : "correct",
+          "range" : {
+            "lower" : 0,
+            "upper" : 4
+          }
+        }
+      ],
+      "range" : {
+        "lower" : 0,
+        "upper" : 4
+      },
+      "target" : "abcd",
+      "typed" : "abcd"
+    },
+    {
+      "out" : [
+        {
+          "mark" : "pending",
+          "range" : {
+            "lower" : 2,
+            "upper" : 4
+          }
+        }
+      ],
+      "range" : {
+        "lower" : 2,
+        "upper" : 4
+      },
+      "target" : "abcd",
+      "typed" : ""
+    },
+    {
+      "out" : [
+        {
+          "mark" : "wrong",
+          "range" : {
+            "lower" : 0,
+            "upper" : 2
+          }
+        },
+        {
+          "mark" : "cursor",
+          "range" : {
+            "lower" : 2,
+            "upper" : 3
+          }
+        },
+        {
+          "mark" : "pending",
+          "range" : {
+            "lower" : 3,
+            "upper" : 4
+          }
+        }
+      ],
+      "range" : {
+        "lower" : 0,
+        "upper" : 4
+      },
+      "target" : "abcd",
+      "typed" : "xy"
+    },
+    {
+      "out" : [
+        {
+          "mark" : "correct",
+          "range" : {
+            "lower" : 0,
+            "upper" : 2
+          }
+        },
+        {
+          "mark" : "wrong",
+          "range" : {
+            "lower" : 2,
+            "upper" : 3
+          }
+        },
+        {
+          "mark" : "cursor",
+          "range" : {
+            "lower" : 3,
+            "upper" : 4
+          }
+        }
+      ],
+      "range" : {
+        "lower" : 0,
+        "upper" : 4
+      },
+      "target" : "añ é",
+      "typed" : "añx"
+    }
+  ],
+  "maxChars" : 300,
+  "parse" : [
+    {
+      "json" : "{\"name\": \" Programación \", \"quotes\": [{\"text\": \" Talk is cheap. \", \"source\": \"Linus Torvalds\"}, {\"text\": \"Sin fuente.\"}]}",
+      "name" : "Programación",
+      "quotes" : [
+        {
+          "source" : "Linus Torvalds",
+          "text" : "Talk is cheap."
+        },
+        {
+          "text" : "Sin fuente."
+        }
+      ],
+      "skipped" : 0
+    },
+    {
+      "json" : "{\"name\": \"A\", \"quotes\": [{\"text\": \"ok\"}, {\"text\": \"  \"}, {\"text\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"}]}",
+      "name" : "A",
+      "quotes" : [
+        {
+          "text" : "ok"
+        }
+      ],
+      "skipped" : 2
+    },
+    {
+      "json" : "{\"name\": \"W\", \"quotes\": [{\"text\": \"a\\n\\tb  c\"}, {\"text\": \"hola 😀\"}, {\"text\": \"日本\"}, {\"text\": \"한국\"}, {\"text\": \"カナ\"}, {\"text\": \"ＡＢ\"}, {\"text\": \"te ❤️\"}, {\"text\": \"ojo ⚠️\"}, {\"text\": \"te ❤ sí\"}, {\"text\": \"fin de　línea\"}]}",
+      "name" : "W",
+      "quotes" : [
+        {
+          "text" : "a b c"
+        },
+        {
+          "text" : "te ❤ sí"
+        },
+        {
+          "text" : "fin de línea"
+        }
+      ],
+      "skipped" : 7
+    },
+    {
+      "json" : "{\"name\": \"S\", \"quotes\": [{\"text\": \"con fuente nula\", \"source\": null}], \"extra\": 1}",
+      "name" : "S",
+      "quotes" : [
+        {
+          "text" : "con fuente nula"
+        }
+      ],
+      "skipped" : 0
+    },
+    {
+      "error" : "falta \"name\"",
+      "json" : "{\"name\": \"  \", \"quotes\": [{\"text\": \"a\"}]}"
+    },
+    {
+      "error" : "no tiene frases de hasta 300 caracteres",
+      "json" : "{\"name\": \"Vacía\", \"quotes\": []}"
+    },
+    {
+      "error" : "no tiene frases de hasta 300 caracteres",
+      "json" : "{\"name\": \"Larga\", \"quotes\": [{\"text\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"}]}"
+    },
+    {
+      "error" : "JSON no válido",
+      "json" : "{\"quotes\": [{\"text\": \"sin nombre\"}]}"
+    },
+    {
+      "error" : "JSON no válido",
+      "json" : "{\"name\": \"Sin frases\"}"
+    },
+    {
+      "error" : "JSON no válido",
+      "json" : "{\"name\": \"Sin texto\", \"quotes\": [{\"source\": \"x\"}]}"
+    },
+    {
+      "error" : "JSON no válido",
+      "json" : "{\"NAME\": \"Mayúsculas\", \"QUOTES\": [{\"TEXT\": \"claves\"}]}"
+    },
+    {
+      "error" : "JSON no válido",
+      "json" : "{\"name\": 5, \"quotes\": []}"
+    },
+    {
+      "error" : "JSON no válido",
+      "json" : "[\"no\", \"es\", \"objeto\"]"
+    },
+    {
+      "error" : "JSON no válido",
+      "json" : "not json"
+    },
+    {
+      "error" : "JSON no válido",
+      "json" : ""
+    }
+  ],
+  "rounds" : [
+    {
+      "name" : "score",
+      "quotes" : [
+        {
+          "text" : "hola mundo"
+        }
+      ],
+      "steps" : [
+        {
+          "correct" : 9,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 0
+          },
+          "t" : 0,
+          "text" : "hola mund",
+          "typed" : "hola mund"
+        },
+        {
+          "correct" : 9,
+          "errors" : 1,
+          "live" : {
+            "accuracy" : 0.9,
+            "wpm" : 18
+          },
+          "result" : {
+            "accuracy" : 0.9,
+            "seconds" : 6,
+            "wpm" : 18
+          },
+          "t" : 6,
+          "text" : "hola mundx",
+          "typed" : "hola mundx"
+        },
+        {
+          "correct" : 9,
+          "errors" : 1,
+          "live" : {
+            "accuracy" : 0.9,
+            "wpm" : 15.428571428571429
+          },
+          "t" : 7,
+          "text" : "hola mundo",
+          "typed" : "hola mundx"
+        }
+      ]
+    },
+    {
+      "name" : "corrected",
+      "quotes" : [
+        {
+          "text" : "añ"
+        }
+      ],
+      "steps" : [
+        {
+          "correct" : 0,
+          "errors" : 1,
+          "live" : {
+            "accuracy" : 0,
+            "wpm" : 0
+          },
+          "t" : 0,
+          "text" : "x",
+          "typed" : "x"
+        },
+        {
+          "correct" : 0,
+          "errors" : 1,
+          "live" : {
+            "accuracy" : 0,
+            "wpm" : 0
+          },
+          "t" : 0,
+          "text" : "",
+          "typed" : ""
+        },
+        {
+          "correct" : 1,
+          "errors" : 1,
+          "live" : {
+            "accuracy" : 0.5,
+            "wpm" : 0
+          },
+          "t" : 0,
+          "text" : "a",
+          "typed" : "a"
+        },
+        {
+          "correct" : 2,
+          "errors" : 1,
+          "live" : {
+            "accuracy" : 0.6666666666666666,
+            "wpm" : 24
+          },
+          "result" : {
+            "accuracy" : 0.6666666666666666,
+            "seconds" : 1,
+            "wpm" : 24
+          },
+          "t" : 1,
+          "text" : "añ",
+          "typed" : "añ"
+        }
+      ]
+    },
+    {
+      "name" : "dead key",
+      "quotes" : [
+        {
+          "text" : "á"
+        }
+      ],
+      "steps" : [
+        {
+          "correct" : 0,
+          "errors" : 1,
+          "live" : {
+            "accuracy" : 0,
+            "wpm" : 0
+          },
+          "t" : 0,
+          "text" : "´",
+          "typed" : "´"
+        },
+        {
+          "correct" : 1,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 12
+          },
+          "result" : {
+            "accuracy" : 1,
+            "seconds" : 1,
+            "wpm" : 12
+          },
+          "t" : 1,
+          "text" : "á",
+          "typed" : "á"
+        }
+      ]
+    },
+    {
+      "name" : "dead key wrong",
+      "quotes" : [
+        {
+          "text" : "ab"
+        }
+      ],
+      "steps" : [
+        {
+          "correct" : 1,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 0
+          },
+          "t" : 0,
+          "text" : "a",
+          "typed" : "a"
+        },
+        {
+          "correct" : 0,
+          "errors" : 1,
+          "live" : {
+            "accuracy" : 0,
+            "wpm" : 0
+          },
+          "t" : 1,
+          "text" : "´",
+          "typed" : "´"
+        },
+        {
+          "correct" : 0,
+          "errors" : 1,
+          "live" : {
+            "accuracy" : 0,
+            "wpm" : 0
+          },
+          "t" : 2,
+          "text" : "é",
+          "typed" : "é"
+        },
+        {
+          "correct" : 2,
+          "errors" : 1,
+          "live" : {
+            "accuracy" : 0.5,
+            "wpm" : 8
+          },
+          "result" : {
+            "accuracy" : 0.5,
+            "seconds" : 3,
+            "wpm" : 8
+          },
+          "t" : 3,
+          "text" : "ab",
+          "typed" : "ab"
+        }
+      ]
+    },
+    {
+      "name" : "overflow",
+      "quotes" : [
+        {
+          "text" : "abc"
+        }
+      ],
+      "steps" : [
+        {
+          "correct" : 3,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 0
+          },
+          "result" : {
+            "accuracy" : 1,
+            "seconds" : 0,
+            "wpm" : 0
+          },
+          "t" : 2,
+          "text" : "abcdef",
+          "typed" : "abc"
+        }
+      ]
+    },
+    {
+      "name" : "sources",
+      "quotes" : [
+        {
+          "source" : "Séneca, Sobre la brevedad de la vida, 1",
+          "text" : "No es que tengamos poco tiempo, sino que perdemos mucho."
+        },
+        {
+          "source" : "Séneca, Sobre la brevedad de la vida, 10",
+          "text" : "La vida se divide en tres tiempos: el que fue, el que es y el que será. De estos, el presente es breve; el futuro, dudoso; el pasado, cierto."
+        },
+        {
+          "source" : "Séneca, Cartas de un estoico, 1",
+          "text" : "Mientras se difiere, la vida transcurre."
+        }
+      ],
+      "steps" : [
+        {
+          "correct" : 10,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 0
+          },
+          "source" : "Séneca, Sobre la brevedad de la vida, 1",
+          "t" : 1,
+          "text" : "No es que ",
+          "typed" : "No es que "
+        },
+        {
+          "correct" : 57,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 171
+          },
+          "source" : "Séneca, Sobre la brevedad de la vida, 10",
+          "t" : 5,
+          "text" : "No es que tengamos poco tiempo, sino que perdemos mucho. ",
+          "typed" : "No es que tengamos poco tiempo, sino que perdemos mucho. "
+        },
+        {
+          "correct" : 199,
+          "errors" : 1,
+          "live" : {
+            "accuracy" : 0.995,
+            "wpm" : 298.5
+          },
+          "source" : "Séneca, Cartas de un estoico, 1",
+          "t" : 9,
+          "text" : "No es que tengamos poco tiempo, sino que perdemos mucho. La vida se divide en tres tiempos: el que fue, el que es y el que será. De estos, el presente es breve; el futuro, dudoso; el pasado, cierto. x",
+          "typed" : "No es que tengamos poco tiempo, sino que perdemos mucho. La vida se divide en tres tiempos: el que fue, el que es y el que será. De estos, el presente es breve; el futuro, dudoso; el pasado, cierto. x"
+        }
+      ]
+    },
+    {
+      "name" : "simulated stoic",
+      "quotes" : [
+        {
+          "source" : "Epicteto, Disertaciones, III.23",
+          "text" : "Primero di quién quieres ser; después haz lo que tengas que hacer."
+        },
+        {
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "text" : "Poco hace falta para arruinarlo y trastornarlo todo: basta un ligero extravío de la razón."
+        }
+      ],
+      "steps" : [
+        {
+          "correct" : 1,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 0
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 0.158,
+          "text" : "P",
+          "typed" : "P"
+        },
+        {
+          "correct" : 2,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 55.42725576065857
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 0.591,
+          "text" : "Pr",
+          "typed" : "Pr"
+        },
+        {
+          "correct" : 3,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 41.95803999929974
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 1.016,
+          "text" : "Pri",
+          "typed" : "Pri"
+        },
+        {
+          "correct" : 3,
+          "errors" : 1,
+          "live" : {
+            "accuracy" : 0.75,
+            "wpm" : 29.950082648136135
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 1.3599999999999999,
+          "text" : "Pri#",
+          "typed" : "Pri#"
+        },
+        {
+          "correct" : 4,
+          "errors" : 1,
+          "live" : {
+            "accuracy" : 0.8,
+            "wpm" : 35.087718515502786
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 1.5259999999999998,
+          "text" : "Pri#e",
+          "typed" : "Pri#e"
+        },
+        {
+          "correct" : 5,
+          "errors" : 1,
+          "live" : {
+            "accuracy" : 0.8333333333333334,
+            "wpm" : 34.82298216662289
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 1.8809999999999998,
+          "text" : "Pri#er",
+          "typed" : "Pri#er"
+        },
+        {
+          "correct" : 6,
+          "errors" : 1,
+          "live" : {
+            "accuracy" : 0.8571428571428571,
+            "wpm" : 38.236855751506305
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 2.041,
+          "text" : "Pri#ero",
+          "typed" : "Pri#ero"
+        },
+        {
+          "correct" : 7,
+          "errors" : 1,
+          "live" : {
+            "accuracy" : 0.875,
+            "wpm" : 39.529411764705884
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 2.283,
+          "text" : "Pri#ero ",
+          "typed" : "Pri#ero "
+        },
+        {
+          "correct" : 7,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.7777777777777778,
+            "wpm" : 36.45833301642496
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 2.4619999999999997,
+          "text" : "Pri#ero #",
+          "typed" : "Pri#ero #"
+        },
+        {
+          "correct" : 8,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.8,
+            "wpm" : 38.09523838357501
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 2.678,
+          "text" : "Pri#ero #i",
+          "typed" : "Pri#ero #i"
+        },
+        {
+          "correct" : 9,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.8181818181818182,
+            "wpm" : 40.69329246979096
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 2.812,
+          "text" : "Pri#ero #i ",
+          "typed" : "Pri#ero #i "
+        },
+        {
+          "correct" : 9,
+          "errors" : 3,
+          "live" : {
+            "accuracy" : 0.75,
+            "wpm" : 36.15667908060943
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 3.145,
+          "text" : "Pri#ero #i #",
+          "typed" : "Pri#ero #i #"
+        },
+        {
+          "correct" : 9,
+          "errors" : 3,
+          "live" : {
+            "accuracy" : 0.75,
+            "wpm" : 33.88766826856719
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 3.345,
+          "text" : "Pri#ero #i ",
+          "typed" : "Pri#ero #i "
+        },
+        {
+          "correct" : 10,
+          "errors" : 3,
+          "live" : {
+            "accuracy" : 0.7692307692307693,
+            "wpm" : 33.22259146738715
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 3.77,
+          "text" : "Pri#ero #i q",
+          "typed" : "Pri#ero #i q"
+        },
+        {
+          "correct" : 11,
+          "errors" : 3,
+          "live" : {
+            "accuracy" : 0.7857142857142857,
+            "wpm" : 35.44575746812272
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 3.882,
+          "text" : "Pri#ero #i qu",
+          "typed" : "Pri#ero #i qu"
+        },
+        {
+          "correct" : 12,
+          "errors" : 3,
+          "live" : {
+            "accuracy" : 0.8,
+            "wpm" : 34.94297456939875
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 4.279,
+          "text" : "Pri#ero #i qui",
+          "typed" : "Pri#ero #i qui"
+        },
+        {
+          "correct" : 13,
+          "errors" : 3,
+          "live" : {
+            "accuracy" : 0.8125,
+            "wpm" : 36.48269391136048
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 4.434,
+          "text" : "Pri#ero #i quié",
+          "typed" : "Pri#ero #i quié"
+        },
+        {
+          "correct" : 14,
+          "errors" : 3,
+          "live" : {
+            "accuracy" : 0.8235294117647058,
+            "wpm" : 35.78274720407246
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 4.853,
+          "text" : "Pri#ero #i quién",
+          "typed" : "Pri#ero #i quién"
+        },
+        {
+          "correct" : 15,
+          "errors" : 3,
+          "live" : {
+            "accuracy" : 0.8333333333333334,
+            "wpm" : 36.870135420972396
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 5.04,
+          "text" : "Pri#ero #i quién ",
+          "typed" : "Pri#ero #i quién "
+        },
+        {
+          "correct" : 16,
+          "errors" : 3,
+          "live" : {
+            "accuracy" : 0.8421052631578947,
+            "wpm" : 37.54399714438504
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 5.272,
+          "text" : "Pri#ero #i quién q",
+          "typed" : "Pri#ero #i quién q"
+        },
+        {
+          "correct" : 17,
+          "errors" : 3,
+          "live" : {
+            "accuracy" : 0.85,
+            "wpm" : 38.28110342391271
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 5.487,
+          "text" : "Pri#ero #i quién qu",
+          "typed" : "Pri#ero #i quién qu"
+        },
+        {
+          "correct" : 18,
+          "errors" : 3,
+          "live" : {
+            "accuracy" : 0.8571428571428571,
+            "wpm" : 38.44100402439024
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 5.777,
+          "text" : "Pri#ero #i quién qui",
+          "typed" : "Pri#ero #i quién qui"
+        },
+        {
+          "correct" : 18,
+          "errors" : 4,
+          "live" : {
+            "accuracy" : 0.8181818181818182,
+            "wpm" : 35.74383594466054
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 6.2010000000000005,
+          "text" : "Pri#ero #i quién qui#",
+          "typed" : "Pri#ero #i quién qui#"
+        },
+        {
+          "correct" : 18,
+          "errors" : 4,
+          "live" : {
+            "accuracy" : 0.8181818181818182,
+            "wpm" : 34.59875043154412
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 6.401000000000001,
+          "text" : "Pri#ero #i quién qui",
+          "typed" : "Pri#ero #i quién qui"
+        },
+        {
+          "correct" : 19,
+          "errors" : 4,
+          "live" : {
+            "accuracy" : 0.8260869565217391,
+            "wpm" : 35.24501478414485
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 6.627000000000001,
+          "text" : "Pri#ero #i quién quie",
+          "typed" : "Pri#ero #i quién quie"
+        },
+        {
+          "correct" : 20,
+          "errors" : 4,
+          "live" : {
+            "accuracy" : 0.8333333333333334,
+            "wpm" : 34.67706976848974
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 7.079000000000001,
+          "text" : "Pri#ero #i quién quier",
+          "typed" : "Pri#ero #i quién quier"
+        },
+        {
+          "correct" : 21,
+          "errors" : 4,
+          "live" : {
+            "accuracy" : 0.84,
+            "wpm" : 35.20536466451462
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 7.316000000000001,
+          "text" : "Pri#ero #i quién quiere",
+          "typed" : "Pri#ero #i quién quiere"
+        },
+        {
+          "correct" : 22,
+          "errors" : 4,
+          "live" : {
+            "accuracy" : 0.8461538461538461,
+            "wpm" : 36.1050326438139
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 7.470000000000001,
+          "text" : "Pri#ero #i quién quieres",
+          "typed" : "Pri#ero #i quién quieres"
+        },
+        {
+          "correct" : 22,
+          "errors" : 5,
+          "live" : {
+            "accuracy" : 0.8148148148148148,
+            "wpm" : 34.736841996290686
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 7.758000000000001,
+          "text" : "Pri#ero #i quién quieres#",
+          "typed" : "Pri#ero #i quién quieres#"
+        },
+        {
+          "correct" : 22,
+          "errors" : 5,
+          "live" : {
+            "accuracy" : 0.8148148148148148,
+            "wpm" : 33.84615405306543
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 7.958000000000001,
+          "text" : "Pri#ero #i quién quieres",
+          "typed" : "Pri#ero #i quién quieres"
+        },
+        {
+          "correct" : 23,
+          "errors" : 5,
+          "live" : {
+            "accuracy" : 0.8214285714285714,
+            "wpm" : 34.1457376986537
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 8.241000000000001,
+          "text" : "Pri#ero #i quién quieres ",
+          "typed" : "Pri#ero #i quién quieres "
+        },
+        {
+          "correct" : 24,
+          "errors" : 5,
+          "live" : {
+            "accuracy" : 0.8275862068965517,
+            "wpm" : 34.715525538521064
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 8.454,
+          "text" : "Pri#ero #i quién quieres s",
+          "typed" : "Pri#ero #i quién quieres s"
+        },
+        {
+          "correct" : 25,
+          "errors" : 5,
+          "live" : {
+            "accuracy" : 0.8333333333333334,
+            "wpm" : 34.73830462111717
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 8.794,
+          "text" : "Pri#ero #i quién quieres se",
+          "typed" : "Pri#ero #i quién quieres se"
+        },
+        {
+          "correct" : 25,
+          "errors" : 6,
+          "live" : {
+            "accuracy" : 0.8064516129032258,
+            "wpm" : 33.704078106794164
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 9.059000000000001,
+          "text" : "Pri#ero #i quién quieres se#",
+          "typed" : "Pri#ero #i quién quieres se#"
+        },
+        {
+          "correct" : 26,
+          "errors" : 6,
+          "live" : {
+            "accuracy" : 0.8125,
+            "wpm" : 34.1618306631066
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 9.291,
+          "text" : "Pri#ero #i quién quieres se#;",
+          "typed" : "Pri#ero #i quién quieres se#;"
+        },
+        {
+          "correct" : 27,
+          "errors" : 6,
+          "live" : {
+            "accuracy" : 0.8181818181818182,
+            "wpm" : 34.711806331469234
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 9.492,
+          "text" : "Pri#ero #i quién quieres se#; ",
+          "typed" : "Pri#ero #i quién quieres se#; "
+        },
+        {
+          "correct" : 28,
+          "errors" : 6,
+          "live" : {
+            "accuracy" : 0.8235294117647058,
+            "wpm" : 34.553681693837
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 9.882000000000001,
+          "text" : "Pri#ero #i quién quieres se#; d",
+          "typed" : "Pri#ero #i quién quieres se#; d"
+        },
+        {
+          "correct" : 29,
+          "errors" : 6,
+          "live" : {
+            "accuracy" : 0.8285714285714286,
+            "wpm" : 35.46677524609635
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 9.97,
+          "text" : "Pri#ero #i quién quieres se#; de",
+          "typed" : "Pri#ero #i quién quieres se#; de"
+        },
+        {
+          "correct" : 30,
+          "errors" : 6,
+          "live" : {
+            "accuracy" : 0.8333333333333334,
+            "wpm" : 35.96403599829968
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 10.168000000000001,
+          "text" : "Pri#ero #i quién quieres se#; des",
+          "typed" : "Pri#ero #i quién quieres se#; des"
+        },
+        {
+          "correct" : 31,
+          "errors" : 6,
+          "live" : {
+            "accuracy" : 0.8378378378378378,
+            "wpm" : 36.6863905843001
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 10.298000000000002,
+          "text" : "Pri#ero #i quién quieres se#; desp",
+          "typed" : "Pri#ero #i quién quieres se#; desp"
+        },
+        {
+          "correct" : 32,
+          "errors" : 6,
+          "live" : {
+            "accuracy" : 0.8421052631578947,
+            "wpm" : 36.73937994586106
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 10.610000000000001,
+          "text" : "Pri#ero #i quién quieres se#; despu",
+          "typed" : "Pri#ero #i quién quieres se#; despu"
+        },
+        {
+          "correct" : 32,
+          "errors" : 7,
+          "live" : {
+            "accuracy" : 0.8205128205128205,
+            "wpm" : 35.861038261917884
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 10.866000000000001,
+          "text" : "Pri#ero #i quién quieres se#; despu#",
+          "typed" : "Pri#ero #i quién quieres se#; despu#"
+        },
+        {
+          "correct" : 33,
+          "errors" : 7,
+          "live" : {
+            "accuracy" : 0.825,
+            "wpm" : 35.3982299738251
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 11.345,
+          "text" : "Pri#ero #i quién quieres se#; despu#s",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s"
+        },
+        {
+          "correct" : 34,
+          "errors" : 7,
+          "live" : {
+            "accuracy" : 0.8292682926829268,
+            "wpm" : 35.99788250476198
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 11.492,
+          "text" : "Pri#ero #i quién quieres se#; despu#s ",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s "
+        },
+        {
+          "correct" : 35,
+          "errors" : 7,
+          "live" : {
+            "accuracy" : 0.8333333333333334,
+            "wpm" : 36.22875856384242
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 11.751000000000001,
+          "text" : "Pri#ero #i quién quieres se#; despu#s h",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s h"
+        },
+        {
+          "correct" : 36,
+          "errors" : 7,
+          "live" : {
+            "accuracy" : 0.8372093023255814,
+            "wpm" : 36.01800913051324
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 12.152000000000001,
+          "text" : "Pri#ero #i quién quieres se#; despu#s ha",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s ha"
+        },
+        {
+          "correct" : 37,
+          "errors" : 7,
+          "live" : {
+            "accuracy" : 0.8409090909090909,
+            "wpm" : 35.725780572415616
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 12.586,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz"
+        },
+        {
+          "correct" : 38,
+          "errors" : 7,
+          "live" : {
+            "accuracy" : 0.8444444444444444,
+            "wpm" : 35.44225073882936
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 13.024000000000001,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz ",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz "
+        },
+        {
+          "correct" : 39,
+          "errors" : 7,
+          "live" : {
+            "accuracy" : 0.8478260869565217,
+            "wpm" : 35.93917997319082
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 13.180000000000001,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz l",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz l"
+        },
+        {
+          "correct" : 40,
+          "errors" : 7,
+          "live" : {
+            "accuracy" : 0.851063829787234,
+            "wpm" : 35.59510563521008
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 13.643,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo"
+        },
+        {
+          "correct" : 41,
+          "errors" : 7,
+          "live" : {
+            "accuracy" : 0.8541666666666666,
+            "wpm" : 36.25377648854618
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 13.729000000000001,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo ",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo "
+        },
+        {
+          "correct" : 42,
+          "errors" : 7,
+          "live" : {
+            "accuracy" : 0.8571428571428571,
+            "wpm" : 36.460970966436435
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 13.981000000000002,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo q",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo q"
+        },
+        {
+          "correct" : 43,
+          "errors" : 7,
+          "live" : {
+            "accuracy" : 0.86,
+            "wpm" : 36.45612536390459
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 14.312000000000001,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo qu",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo qu"
+        },
+        {
+          "correct" : 44,
+          "errors" : 7,
+          "live" : {
+            "accuracy" : 0.8627450980392157,
+            "wpm" : 36.82521954405116
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 14.496,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que"
+        },
+        {
+          "correct" : 45,
+          "errors" : 7,
+          "live" : {
+            "accuracy" : 0.8653846153846154,
+            "wpm" : 37.26965293575687
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 14.647,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que ",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que "
+        },
+        {
+          "correct" : 45,
+          "errors" : 8,
+          "live" : {
+            "accuracy" : 0.8490566037735849,
+            "wpm" : 37.05737023129711
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 14.73,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que #",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que #"
+        },
+        {
+          "correct" : 45,
+          "errors" : 8,
+          "live" : {
+            "accuracy" : 0.8490566037735849,
+            "wpm" : 36.555645927330254
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 14.93,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que ",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que "
+        },
+        {
+          "correct" : 46,
+          "errors" : 8,
+          "live" : {
+            "accuracy" : 0.8518518518518519,
+            "wpm" : 36.66068928050864
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 15.215,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que t",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que t"
+        },
+        {
+          "correct" : 47,
+          "errors" : 8,
+          "live" : {
+            "accuracy" : 0.8545454545454545,
+            "wpm" : 37.05893952766286
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 15.377,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que te",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que te"
+        },
+        {
+          "correct" : 48,
+          "errors" : 8,
+          "live" : {
+            "accuracy" : 0.8571428571428571,
+            "wpm" : 36.90178750698557
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 15.767000000000001,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que ten",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que ten"
+        },
+        {
+          "correct" : 49,
+          "errors" : 8,
+          "live" : {
+            "accuracy" : 0.8596491228070176,
+            "wpm" : 36.71328663895944
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 16.174,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que teng",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que teng"
+        },
+        {
+          "correct" : 50,
+          "errors" : 8,
+          "live" : {
+            "accuracy" : 0.8620689655172413,
+            "wpm" : 36.598755523082566
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 16.552,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tenga",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tenga"
+        },
+        {
+          "correct" : 50,
+          "errors" : 9,
+          "live" : {
+            "accuracy" : 0.847457627118644,
+            "wpm" : 35.62099267664721
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 17.002,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tenga#",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tenga#"
+        },
+        {
+          "correct" : 50,
+          "errors" : 9,
+          "live" : {
+            "accuracy" : 0.847457627118644,
+            "wpm" : 35.203003928611935
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 17.201999999999998,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tenga",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tenga"
+        },
+        {
+          "correct" : 51,
+          "errors" : 9,
+          "live" : {
+            "accuracy" : 0.85,
+            "wpm" : 35.09576793622304
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 17.595999999999997,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas"
+        },
+        {
+          "correct" : 52,
+          "errors" : 9,
+          "live" : {
+            "accuracy" : 0.8524590163934426,
+            "wpm" : 35.073913759707615
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 17.948999999999998,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas ",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas "
+        },
+        {
+          "correct" : 53,
+          "errors" : 9,
+          "live" : {
+            "accuracy" : 0.8548387096774194,
+            "wpm" : 34.98349822137511
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 18.337999999999997,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas q",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas q"
+        },
+        {
+          "correct" : 54,
+          "errors" : 9,
+          "live" : {
+            "accuracy" : 0.8571428571428571,
+            "wpm" : 35.177243356267816
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 18.578999999999997,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas qu",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas qu"
+        },
+        {
+          "correct" : 55,
+          "errors" : 9,
+          "live" : {
+            "accuracy" : 0.859375,
+            "wpm" : 35.56801035802553
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 18.714,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que"
+        },
+        {
+          "correct" : 56,
+          "errors" : 9,
+          "live" : {
+            "accuracy" : 0.8615384615384616,
+            "wpm" : 35.595105770066816
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 19.037,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que ",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que "
+        },
+        {
+          "correct" : 57,
+          "errors" : 9,
+          "live" : {
+            "accuracy" : 0.8636363636363636,
+            "wpm" : 35.787160505269505
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 19.271,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h"
+        },
+        {
+          "correct" : 57,
+          "errors" : 10,
+          "live" : {
+            "accuracy" : 0.8507462686567164,
+            "wpm" : 35.60089511762854
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 19.371000000000002,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#"
+        },
+        {
+          "correct" : 58,
+          "errors" : 10,
+          "live" : {
+            "accuracy" : 0.8529411764705882,
+            "wpm" : 35.55555546894401
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 19.733,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#c",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#c"
+        },
+        {
+          "correct" : 59,
+          "errors" : 10,
+          "live" : {
+            "accuracy" : 0.855072463768116,
+            "wpm" : 35.74313414402672
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 19.966,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#ce",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#ce"
+        },
+        {
+          "correct" : 60,
+          "errors" : 10,
+          "live" : {
+            "accuracy" : 0.8571428571428571,
+            "wpm" : 35.740878663772804
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 20.303,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer"
+        },
+        {
+          "correct" : 61,
+          "errors" : 10,
+          "live" : {
+            "accuracy" : 0.8591549295774648,
+            "wpm" : 35.55814637233033
+          },
+          "source" : "Epicteto, Disertaciones, III.23",
+          "t" : 20.744,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer.",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer."
+        },
+        {
+          "correct" : 62,
+          "errors" : 10,
+          "live" : {
+            "accuracy" : 0.8611111111111112,
+            "wpm" : 35.32595794931789
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 21.219,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. ",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. "
+        },
+        {
+          "correct" : 63,
+          "errors" : 10,
+          "live" : {
+            "accuracy" : 0.863013698630137,
+            "wpm" : 35.58316851019125
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 21.404,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. P",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. P"
+        },
+        {
+          "correct" : 64,
+          "errors" : 10,
+          "live" : {
+            "accuracy" : 0.8648648648648649,
+            "wpm" : 35.448880745546624
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 21.823,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Po",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Po"
+        },
+        {
+          "correct" : 65,
+          "errors" : 10,
+          "live" : {
+            "accuracy" : 0.8666666666666667,
+            "wpm" : 35.227170147728316
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 22.3,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poc",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poc"
+        },
+        {
+          "correct" : 66,
+          "errors" : 10,
+          "live" : {
+            "accuracy" : 0.868421052631579,
+            "wpm" : 35.43782723214048
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 22.507,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco"
+        },
+        {
+          "correct" : 67,
+          "errors" : 10,
+          "live" : {
+            "accuracy" : 0.8701298701298701,
+            "wpm" : 35.846448761964304
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 22.587,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco ",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco "
+        },
+        {
+          "correct" : 68,
+          "errors" : 10,
+          "live" : {
+            "accuracy" : 0.8717948717948718,
+            "wpm" : 35.96297919533635
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 22.848,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco h",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco h"
+        },
+        {
+          "correct" : 69,
+          "errors" : 10,
+          "live" : {
+            "accuracy" : 0.8734177215189873,
+            "wpm" : 35.74975171722678
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 23.319,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco ha",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco ha"
+        },
+        {
+          "correct" : 70,
+          "errors" : 10,
+          "live" : {
+            "accuracy" : 0.875,
+            "wpm" : 35.787321059032536
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 23.63,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hac",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hac"
+        },
+        {
+          "correct" : 71,
+          "errors" : 10,
+          "live" : {
+            "accuracy" : 0.8765432098765432,
+            "wpm" : 35.59640684325968
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 24.093,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace"
+        },
+        {
+          "correct" : 72,
+          "errors" : 10,
+          "live" : {
+            "accuracy" : 0.8780487804878049,
+            "wpm" : 35.41999753058443
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 24.551,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace ",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace "
+        },
+        {
+          "correct" : 73,
+          "errors" : 10,
+          "live" : {
+            "accuracy" : 0.8795180722891566,
+            "wpm" : 35.57938337873028
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 24.779,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace f",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace f"
+        },
+        {
+          "correct" : 74,
+          "errors" : 10,
+          "live" : {
+            "accuracy" : 0.8809523809523809,
+            "wpm" : 35.65262768249618
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 25.065,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace fa",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace fa"
+        },
+        {
+          "correct" : 75,
+          "errors" : 10,
+          "live" : {
+            "accuracy" : 0.8823529411764706,
+            "wpm" : 35.948234523088324
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 25.194000000000003,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace fal",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace fal"
+        },
+        {
+          "correct" : 76,
+          "errors" : 10,
+          "live" : {
+            "accuracy" : 0.8837209302325582,
+            "wpm" : 36.27684966264695
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 25.298000000000002,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falt",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falt"
+        },
+        {
+          "correct" : 77,
+          "errors" : 10,
+          "live" : {
+            "accuracy" : 0.8850574712643678,
+            "wpm" : 36.333608596119014
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 25.589000000000002,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta"
+        },
+        {
+          "correct" : 78,
+          "errors" : 10,
+          "live" : {
+            "accuracy" : 0.8863636363636364,
+            "wpm" : 36.63548471922986
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 25.707,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta ",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta "
+        },
+        {
+          "correct" : 78,
+          "errors" : 11,
+          "live" : {
+            "accuracy" : 0.8764044943820225,
+            "wpm" : 36.11807838617771
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 26.073,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #"
+        },
+        {
+          "correct" : 79,
+          "errors" : 11,
+          "live" : {
+            "accuracy" : 0.8777777777777778,
+            "wpm" : 36.3455123136779
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 26.241,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #a",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #a"
+        },
+        {
+          "correct" : 80,
+          "errors" : 11,
+          "live" : {
+            "accuracy" : 0.8791208791208791,
+            "wpm" : 36.184086515561084
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 26.689,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ar",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ar"
+        },
+        {
+          "correct" : 81,
+          "errors" : 11,
+          "live" : {
+            "accuracy" : 0.8804347826086957,
+            "wpm" : 36.19976916169462
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 27.009,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara"
+        },
+        {
+          "correct" : 82,
+          "errors" : 11,
+          "live" : {
+            "accuracy" : 0.8817204301075269,
+            "wpm" : 36.312642933028904
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 27.256,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara ",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara "
+        },
+        {
+          "correct" : 83,
+          "errors" : 11,
+          "live" : {
+            "accuracy" : 0.8829787234042553,
+            "wpm" : 36.338428931341674
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 27.567,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara a",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara a"
+        },
+        {
+          "correct" : 84,
+          "errors" : 11,
+          "live" : {
+            "accuracy" : 0.8842105263157894,
+            "wpm" : 36.44383378195244
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 27.817,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara ar",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara ar"
+        },
+        {
+          "correct" : 85,
+          "errors" : 11,
+          "live" : {
+            "accuracy" : 0.8854166666666666,
+            "wpm" : 36.42857142857143
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 28.158,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arr",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arr"
+        },
+        {
+          "correct" : 86,
+          "errors" : 11,
+          "live" : {
+            "accuracy" : 0.8865979381443299,
+            "wpm" : 36.75213669596757
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 28.238,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arru",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arru"
+        },
+        {
+          "correct" : 87,
+          "errors" : 11,
+          "live" : {
+            "accuracy" : 0.8877551020408163,
+            "wpm" : 37.07123065736473
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 28.32,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arrui",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arrui"
+        },
+        {
+          "correct" : 88,
+          "errors" : 11,
+          "live" : {
+            "accuracy" : 0.8888888888888888,
+            "wpm" : 37.10210103084874
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 28.62,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruin",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruin"
+        },
+        {
+          "correct" : 89,
+          "errors" : 11,
+          "live" : {
+            "accuracy" : 0.89,
+            "wpm" : 37.01778107519491
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 29.009,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina"
+        },
+        {
+          "correct" : 89,
+          "errors" : 12,
+          "live" : {
+            "accuracy" : 0.8811881188118812,
+            "wpm" : 36.68968364387854
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 29.267,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#"
+        },
+        {
+          "correct" : 90,
+          "errors" : 12,
+          "live" : {
+            "accuracy" : 0.8823529411764706,
+            "wpm" : 36.91550445894735
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 29.413999999999998,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#l",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#l"
+        },
+        {
+          "correct" : 91,
+          "errors" : 12,
+          "live" : {
+            "accuracy" : 0.883495145631068,
+            "wpm" : 37.156759258172706
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 29.546999999999997,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo"
+        },
+        {
+          "correct" : 92,
+          "errors" : 12,
+          "live" : {
+            "accuracy" : 0.8846153846153846,
+            "wpm" : 37.134207847013826
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 29.887999999999998,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo ",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo "
+        },
+        {
+          "correct" : 93,
+          "errors" : 12,
+          "live" : {
+            "accuracy" : 0.8857142857142857,
+            "wpm" : 37.42078267488139
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 29.980999999999998,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y"
+        },
+        {
+          "correct" : 94,
+          "errors" : 12,
+          "live" : {
+            "accuracy" : 0.8867924528301887,
+            "wpm" : 37.65271371901113
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 30.116,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y ",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y "
+        },
+        {
+          "correct" : 95,
+          "errors" : 12,
+          "live" : {
+            "accuracy" : 0.8878504672897196,
+            "wpm" : 37.936772106787565
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 30.208,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y t",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y t"
+        },
+        {
+          "correct" : 96,
+          "errors" : 12,
+          "live" : {
+            "accuracy" : 0.8888888888888888,
+            "wpm" : 37.81512606699338
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 30.622,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y tr",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y tr"
+        },
+        {
+          "correct" : 97,
+          "errors" : 12,
+          "live" : {
+            "accuracy" : 0.8899082568807339,
+            "wpm" : 38.08152851472479
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 30.724,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y tra",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y tra"
+        },
+        {
+          "correct" : 97,
+          "errors" : 13,
+          "live" : {
+            "accuracy" : 0.8818181818181818,
+            "wpm" : 37.71995207955755
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 31.017,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y tra#",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y tra#"
+        },
+        {
+          "correct" : 97,
+          "errors" : 13,
+          "live" : {
+            "accuracy" : 0.8818181818181818,
+            "wpm" : 37.47705977102113
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 31.217,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y tra",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y tra"
+        },
+        {
+          "correct" : 98,
+          "errors" : 13,
+          "live" : {
+            "accuracy" : 0.8828828828828829,
+            "wpm" : 37.664542104607996
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 31.381,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y tras",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y tras"
+        },
+        {
+          "correct" : 99,
+          "errors" : 13,
+          "live" : {
+            "accuracy" : 0.8839285714285714,
+            "wpm" : 37.50355141848104
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 31.835,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trast",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trast"
+        },
+        {
+          "correct" : 100,
+          "errors" : 13,
+          "live" : {
+            "accuracy" : 0.8849557522123894,
+            "wpm" : 37.338975654138075
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 32.296,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trasto",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trasto"
+        },
+        {
+          "correct" : 101,
+          "errors" : 13,
+          "live" : {
+            "accuracy" : 0.8859649122807017,
+            "wpm" : 37.43282473329508
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 32.536,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastor",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastor"
+        },
+        {
+          "correct" : 102,
+          "errors" : 13,
+          "live" : {
+            "accuracy" : 0.8869565217391304,
+            "wpm" : 37.2534696112914
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 33.014,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastorn",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastorn"
+        },
+        {
+          "correct" : 103,
+          "errors" : 13,
+          "live" : {
+            "accuracy" : 0.8879310344827587,
+            "wpm" : 37.214343714798346
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 33.371,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastorna",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastorna"
+        },
+        {
+          "correct" : 104,
+          "errors" : 13,
+          "live" : {
+            "accuracy" : 0.8888888888888888,
+            "wpm" : 37.298266544446626
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 33.618,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornar",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornar"
+        },
+        {
+          "correct" : 105,
+          "errors" : 13,
+          "live" : {
+            "accuracy" : 0.8898305084745762,
+            "wpm" : 37.16266040593518
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 34.063,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarl",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarl"
+        },
+        {
+          "correct" : 106,
+          "errors" : 13,
+          "live" : {
+            "accuracy" : 0.8907563025210085,
+            "wpm" : 37.27581765742294
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 34.282000000000004,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo"
+        },
+        {
+          "correct" : 106,
+          "errors" : 14,
+          "live" : {
+            "accuracy" : 0.8833333333333333,
+            "wpm" : 37.127845894748354
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 34.418000000000006,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo#",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo#"
+        },
+        {
+          "correct" : 106,
+          "errors" : 14,
+          "live" : {
+            "accuracy" : 0.8833333333333333,
+            "wpm" : 36.91236211816324
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 34.61800000000001,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo"
+        },
+        {
+          "correct" : 107,
+          "errors" : 14,
+          "live" : {
+            "accuracy" : 0.8842975206611571,
+            "wpm" : 36.87112336218806
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 34.982000000000006,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo ",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo "
+        },
+        {
+          "correct" : 108,
+          "errors" : 14,
+          "live" : {
+            "accuracy" : 0.8852459016393442,
+            "wpm" : 37.0137658607059
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 35.172000000000004,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo t",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo t"
+        },
+        {
+          "correct" : 109,
+          "errors" : 14,
+          "live" : {
+            "accuracy" : 0.8861788617886179,
+            "wpm" : 37.090599759835115
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 35.423,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo to",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo to"
+        },
+        {
+          "correct" : 110,
+          "errors" : 14,
+          "live" : {
+            "accuracy" : 0.8870967741935484,
+            "wpm" : 36.97271859248842
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 35.86,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo tod",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo tod"
+        },
+        {
+          "correct" : 111,
+          "errors" : 14,
+          "live" : {
+            "accuracy" : 0.888,
+            "wpm" : 36.818973334288664
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 36.335,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo"
+        },
+        {
+          "correct" : 112,
+          "errors" : 14,
+          "live" : {
+            "accuracy" : 0.8888888888888888,
+            "wpm" : 36.68022157721259
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 36.799,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo:",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo:"
+        },
+        {
+          "correct" : 113,
+          "errors" : 14,
+          "live" : {
+            "accuracy" : 0.889763779527559,
+            "wpm" : 36.82881120587914
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 36.977,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: ",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: "
+        },
+        {
+          "correct" : 114,
+          "errors" : 14,
+          "live" : {
+            "accuracy" : 0.890625,
+            "wpm" : 36.696263268600845
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 37.437,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: b",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: b"
+        },
+        {
+          "correct" : 115,
+          "errors" : 14,
+          "live" : {
+            "accuracy" : 0.8914728682170543,
+            "wpm" : 36.83732848068174
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 37.62,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: ba",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: ba"
+        },
+        {
+          "correct" : 116,
+          "errors" : 14,
+          "live" : {
+            "accuracy" : 0.8923076923076924,
+            "wpm" : 36.84879286204463
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 37.934,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: bas",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: bas"
+        },
+        {
+          "correct" : 117,
+          "errors" : 14,
+          "live" : {
+            "accuracy" : 0.8931297709923665,
+            "wpm" : 37.07126446400983
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 38.031,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: bast",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: bast"
+        },
+        {
+          "correct" : 118,
+          "errors" : 14,
+          "live" : {
+            "accuracy" : 0.8939393939393939,
+            "wpm" : 37.28081723576632
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 38.14,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta"
+        },
+        {
+          "correct" : 119,
+          "errors" : 14,
+          "live" : {
+            "accuracy" : 0.8947368421052632,
+            "wpm" : 37.21948551107513
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 38.525,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta ",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta "
+        },
+        {
+          "correct" : 120,
+          "errors" : 14,
+          "live" : {
+            "accuracy" : 0.8955223880597015,
+            "wpm" : 37.070408004618535
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 39.003,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta u",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta u"
+        },
+        {
+          "correct" : 121,
+          "errors" : 14,
+          "live" : {
+            "accuracy" : 0.8962962962962963,
+            "wpm" : 37.077704846785295
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 39.319,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un"
+        },
+        {
+          "correct" : 122,
+          "errors" : 14,
+          "live" : {
+            "accuracy" : 0.8970588235294118,
+            "wpm" : 37.08488487146271
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 39.635000000000005,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un "
+        },
+        {
+          "correct" : 123,
+          "errors" : 14,
+          "live" : {
+            "accuracy" : 0.8978102189781022,
+            "wpm" : 37.31230095490836
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 39.71600000000001,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un l",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un l"
+        },
+        {
+          "correct" : 124,
+          "errors" : 14,
+          "live" : {
+            "accuracy" : 0.8985507246376812,
+            "wpm" : 37.23910099656049
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 40.11600000000001,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un li",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un li"
+        },
+        {
+          "correct" : 125,
+          "errors" : 14,
+          "live" : {
+            "accuracy" : 0.8992805755395683,
+            "wpm" : 37.165510393170045
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 40.51800000000001,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un lig",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un lig"
+        },
+        {
+          "correct" : 126,
+          "errors" : 14,
+          "live" : {
+            "accuracy" : 0.9,
+            "wpm" : 37.12433702455282
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 40.88600000000001,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un lige",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un lige"
+        },
+        {
+          "correct" : 127,
+          "errors" : 14,
+          "live" : {
+            "accuracy" : 0.900709219858156,
+            "wpm" : 37.0811942102903
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 41.25700000000001,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un liger",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un liger"
+        },
+        {
+          "correct" : 128,
+          "errors" : 14,
+          "live" : {
+            "accuracy" : 0.9014084507042254,
+            "wpm" : 37.10144929672869
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 41.558000000000014,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero"
+        },
+        {
+          "correct" : 129,
+          "errors" : 14,
+          "live" : {
+            "accuracy" : 0.9020979020979021,
+            "wpm" : 37.003394375809215
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 41.99200000000001,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero ",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero "
+        },
+        {
+          "correct" : 130,
+          "errors" : 14,
+          "live" : {
+            "accuracy" : 0.9027777777777778,
+            "wpm" : 37.153472389468526
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 42.146000000000015,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero e",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero e"
+        },
+        {
+          "correct" : 131,
+          "errors" : 14,
+          "live" : {
+            "accuracy" : 0.903448275862069,
+            "wpm" : 37.055370926450074
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 42.58100000000002,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero ex",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero ex"
+        },
+        {
+          "correct" : 132,
+          "errors" : 14,
+          "live" : {
+            "accuracy" : 0.9041095890410958,
+            "wpm" : 37.15431706419058
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 42.79100000000002,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero ext",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero ext"
+        },
+        {
+          "correct" : 133,
+          "errors" : 14,
+          "live" : {
+            "accuracy" : 0.9047619047619048,
+            "wpm" : 37.31587563038915
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 42.92800000000002,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extr",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extr"
+        },
+        {
+          "correct" : 134,
+          "errors" : 14,
+          "live" : {
+            "accuracy" : 0.9054054054054054,
+            "wpm" : 37.344109232220305
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 43.21700000000002,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra"
+        },
+        {
+          "correct" : 134,
+          "errors" : 15,
+          "live" : {
+            "accuracy" : 0.8993288590604027,
+            "wpm" : 37.2067193756644
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 43.37600000000002,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra#",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra#"
+        },
+        {
+          "correct" : 135,
+          "errors" : 15,
+          "live" : {
+            "accuracy" : 0.9,
+            "wpm" : 37.151702770126995
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 43.76300000000002,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra#í",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra#í"
+        },
+        {
+          "correct" : 136,
+          "errors" : 15,
+          "live" : {
+            "accuracy" : 0.9006622516556292,
+            "wpm" : 37.23137291416616
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 43.99200000000002,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra#ío",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra#ío"
+        },
+        {
+          "correct" : 137,
+          "errors" : 15,
+          "live" : {
+            "accuracy" : 0.9013157894736842,
+            "wpm" : 37.38827867549492
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 44.12900000000002,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra#ío ",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra#ío "
+        },
+        {
+          "correct" : 138,
+          "errors" : 15,
+          "live" : {
+            "accuracy" : 0.9019607843137255,
+            "wpm" : 37.428803941112356
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 44.40200000000002,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra#ío d",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra#ío d"
+        },
+        {
+          "correct" : 139,
+          "errors" : 15,
+          "live" : {
+            "accuracy" : 0.9025974025974026,
+            "wpm" : 37.43435524884658
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 44.71600000000002,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra#ío de",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra#ío de"
+        },
+        {
+          "correct" : 140,
+          "errors" : 15,
+          "live" : {
+            "accuracy" : 0.9032258064516129,
+            "wpm" : 37.474069307128545
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 44.989000000000026,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra#ío de ",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra#ío de "
+        },
+        {
+          "correct" : 141,
+          "errors" : 15,
+          "live" : {
+            "accuracy" : 0.9038461538461539,
+            "wpm" : 37.54660038181521
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 45.22200000000002,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra#ío de l",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra#ío de l"
+        },
+        {
+          "correct" : 142,
+          "errors" : 15,
+          "live" : {
+            "accuracy" : 0.9044585987261147,
+            "wpm" : 37.53469315671193
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 45.556000000000026,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra#ío de la",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra#ío de la"
+        },
+        {
+          "correct" : 143,
+          "errors" : 15,
+          "live" : {
+            "accuracy" : 0.9050632911392406,
+            "wpm" : 37.446808471672604
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 45.983000000000025,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra#ío de la ",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra#ío de la "
+        },
+        {
+          "correct" : 144,
+          "errors" : 15,
+          "live" : {
+            "accuracy" : 0.9056603773584906,
+            "wpm" : 37.4999999650754
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 46.23800000000003,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra#ío de la r",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra#ío de la r"
+        },
+        {
+          "correct" : 145,
+          "errors" : 15,
+          "live" : {
+            "accuracy" : 0.90625,
+            "wpm" : 37.50970077543191
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 46.54600000000003,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra#ío de la ra",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra#ío de la ra"
+        },
+        {
+          "correct" : 146,
+          "errors" : 15,
+          "live" : {
+            "accuracy" : 0.906832298136646,
+            "wpm" : 37.520077053902845
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 46.85300000000003,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra#ío de la raz",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra#ío de la raz"
+        },
+        {
+          "correct" : 147,
+          "errors" : 15,
+          "live" : {
+            "accuracy" : 0.9074074074074074,
+            "wpm" : 37.44507421541858
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 47.26700000000003,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra#ío de la razó",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra#ío de la razó"
+        },
+        {
+          "correct" : 148,
+          "errors" : 15,
+          "live" : {
+            "accuracy" : 0.9079754601226994,
+            "wpm" : 37.509504058035475
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 47.50600000000003,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra#ío de la razón",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra#ío de la razón"
+        },
+        {
+          "correct" : 149,
+          "errors" : 15,
+          "live" : {
+            "accuracy" : 0.9085365853658537,
+            "wpm" : 37.38786779816157
+          },
+          "result" : {
+            "accuracy" : 0.9085365853658537,
+            "seconds" : 47.82299995422363,
+            "wpm" : 37.38786779816157
+          },
+          "source" : "Epicteto, Disertaciones, IV.3",
+          "t" : 47.98100000000003,
+          "text" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra#ío de la razón.",
+          "typed" : "Pri#ero #i quién quieres se#; despu#s haz lo que tengas que h#cer. Poco hace falta #ara arruina#lo y trastornarlo todo: basta un ligero extra#ío de la razón."
+        }
+      ]
+    },
+    {
+      "name" : "simulated general",
+      "quotes" : [
+        {
+          "text" : "The agent is still thinking, so I might as well practice typing for a minute."
+        },
+        {
+          "text" : "She left the window open, and by morning the whole room smelled of rain."
+        }
+      ],
+      "steps" : [
+        {
+          "correct" : 1,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 0
+          },
+          "t" : 0.214,
+          "text" : "T",
+          "typed" : "T"
+        },
+        {
+          "correct" : 2,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 57.4162703005158
+          },
+          "t" : 0.632,
+          "text" : "Th",
+          "typed" : "Th"
+        },
+        {
+          "correct" : 3,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 45.45454228000996
+          },
+          "t" : 1.006,
+          "text" : "The",
+          "typed" : "The"
+        },
+        {
+          "correct" : 4,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 46.109509706281365
+          },
+          "t" : 1.255,
+          "text" : "The ",
+          "typed" : "The "
+        },
+        {
+          "correct" : 5,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 40.34969768780474
+          },
+          "t" : 1.7009999999999998,
+          "text" : "The a",
+          "typed" : "The a"
+        },
+        {
+          "correct" : 6,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 43.08797117632103
+          },
+          "t" : 1.8849999999999998,
+          "text" : "The ag",
+          "typed" : "The ag"
+        },
+        {
+          "correct" : 7,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 45.8265123141631
+          },
+          "t" : 2.0469999999999997,
+          "text" : "The age",
+          "typed" : "The age"
+        },
+        {
+          "correct" : 8,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 45.69252583312312
+          },
+          "t" : 2.3149999999999995,
+          "text" : "The agen",
+          "typed" : "The agen"
+        },
+        {
+          "correct" : 9,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 45.1693845819264
+          },
+          "t" : 2.6049999999999995,
+          "text" : "The agent",
+          "typed" : "The agent"
+        },
+        {
+          "correct" : 10,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 42.25352063015373
+          },
+          "t" : 3.0539999999999994,
+          "text" : "The agent ",
+          "typed" : "The agent "
+        },
+        {
+          "correct" : 11,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 41.6535180714924
+          },
+          "t" : 3.3829999999999996,
+          "text" : "The agent i",
+          "typed" : "The agent i"
+        },
+        {
+          "correct" : 12,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 42.56576982261425
+          },
+          "t" : 3.5969999999999995,
+          "text" : "The agent is",
+          "typed" : "The agent is"
+        },
+        {
+          "correct" : 13,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 43.0582387224081
+          },
+          "t" : 3.8369999999999997,
+          "text" : "The agent is ",
+          "typed" : "The agent is "
+        },
+        {
+          "correct" : 14,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 42.11581889356385
+          },
+          "t" : 4.202999999999999,
+          "text" : "The agent is s",
+          "typed" : "The agent is s"
+        },
+        {
+          "correct" : 15,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 41.657024030148555
+          },
+          "t" : 4.534999999999999,
+          "text" : "The agent is st",
+          "typed" : "The agent is st"
+        },
+        {
+          "correct" : 16,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 41.069518088230836
+          },
+          "t" : 4.888999999999999,
+          "text" : "The agent is sti",
+          "typed" : "The agent is sti"
+        },
+        {
+          "correct" : 17,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 41.60717930227189
+          },
+          "t" : 5.116999999999999,
+          "text" : "The agent is stil",
+          "typed" : "The agent is stil"
+        },
+        {
+          "correct" : 18,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 40.53293303708405
+          },
+          "t" : 5.542999999999999,
+          "text" : "The agent is still",
+          "typed" : "The agent is still"
+        },
+        {
+          "correct" : 19,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 39.70741912987723
+          },
+          "t" : 5.9559999999999995,
+          "text" : "The agent is still ",
+          "typed" : "The agent is still "
+        },
+        {
+          "correct" : 20,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 40.8232687933017
+          },
+          "t" : 6.093,
+          "text" : "The agent is still t",
+          "typed" : "The agent is still t"
+        },
+        {
+          "correct" : 21,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 40.955631418360966
+          },
+          "t" : 6.367,
+          "text" : "The agent is still th",
+          "typed" : "The agent is still th"
+        },
+        {
+          "correct" : 22,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 40.13377884527701
+          },
+          "t" : 6.792,
+          "text" : "The agent is still thi",
+          "typed" : "The agent is still thi"
+        },
+        {
+          "correct" : 23,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 40.06386959926246
+          },
+          "t" : 7.103,
+          "text" : "The agent is still thin",
+          "typed" : "The agent is still thin"
+        },
+        {
+          "correct" : 24,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 39.966694585286085
+          },
+          "t" : 7.42,
+          "text" : "The agent is still think",
+          "typed" : "The agent is still think"
+        },
+        {
+          "correct" : 25,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 39.745628096423005
+          },
+          "t" : 7.762,
+          "text" : "The agent is still thinki",
+          "typed" : "The agent is still thinki"
+        },
+        {
+          "correct" : 26,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 40.656762964802446
+          },
+          "t" : 7.888,
+          "text" : "The agent is still thinkin",
+          "typed" : "The agent is still thinkin"
+        },
+        {
+          "correct" : 27,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 41.43752394972408
+          },
+          "t" : 8.033,
+          "text" : "The agent is still thinking",
+          "typed" : "The agent is still thinking"
+        },
+        {
+          "correct" : 28,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 41.6253715174037
+          },
+          "t" : 8.286,
+          "text" : "The agent is still thinking,",
+          "typed" : "The agent is still thinking,"
+        },
+        {
+          "correct" : 29,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 42.207398398876826
+          },
+          "t" : 8.459,
+          "text" : "The agent is still thinking, ",
+          "typed" : "The agent is still thinking, "
+        },
+        {
+          "correct" : 30,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 43.13960440572391
+          },
+          "t" : 8.559,
+          "text" : "The agent is still thinking, s",
+          "typed" : "The agent is still thinking, s"
+        },
+        {
+          "correct" : 31,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 42.17687049747564
+          },
+          "t" : 9.033999999999999,
+          "text" : "The agent is still thinking, so",
+          "typed" : "The agent is still thinking, so"
+        },
+        {
+          "correct" : 32,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 41.916821246627016
+          },
+          "t" : 9.374999999999998,
+          "text" : "The agent is still thinking, so ",
+          "typed" : "The agent is still thinking, so "
+        },
+        {
+          "correct" : 33,
+          "errors" : 0,
+          "live" : {
+            "accuracy" : 1,
+            "wpm" : 41.46596827582437
+          },
+          "t" : 9.763999999999998,
+          "text" : "The agent is still thinking, so I",
+          "typed" : "The agent is still thinking, so I"
+        },
+        {
+          "correct" : 33,
+          "errors" : 1,
+          "live" : {
+            "accuracy" : 0.9705882352941176,
+            "wpm" : 39.75504481125199
+          },
+          "t" : 10.174999999999997,
+          "text" : "The agent is still thinking, so I#",
+          "typed" : "The agent is still thinking, so I#"
+        },
+        {
+          "correct" : 33,
+          "errors" : 1,
+          "live" : {
+            "accuracy" : 0.9705882352941176,
+            "wpm" : 38.97254202142116
+          },
+          "t" : 10.374999999999996,
+          "text" : "The agent is still thinking, so I",
+          "typed" : "The agent is still thinking, so I"
+        },
+        {
+          "correct" : 34,
+          "errors" : 1,
+          "live" : {
+            "accuracy" : 0.9714285714285714,
+            "wpm" : 38.48330504370883
+          },
+          "t" : 10.815999999999997,
+          "text" : "The agent is still thinking, so I ",
+          "typed" : "The agent is still thinking, so I "
+        },
+        {
+          "correct" : 35,
+          "errors" : 1,
+          "live" : {
+            "accuracy" : 0.9722222222222222,
+            "wpm" : 38.61003853556988
+          },
+          "t" : 11.091999999999997,
+          "text" : "The agent is still thinking, so I m",
+          "typed" : "The agent is still thinking, so I m"
+        },
+        {
+          "correct" : 36,
+          "errors" : 1,
+          "live" : {
+            "accuracy" : 0.972972972972973,
+            "wpm" : 38.17940767259008
+          },
+          "t" : 11.528999999999996,
+          "text" : "The agent is still thinking, so I mi",
+          "typed" : "The agent is still thinking, so I mi"
+        },
+        {
+          "correct" : 37,
+          "errors" : 1,
+          "live" : {
+            "accuracy" : 0.9736842105263158,
+            "wpm" : 38.89618935468873
+          },
+          "t" : 11.628999999999996,
+          "text" : "The agent is still thinking, so I mig",
+          "typed" : "The agent is still thinking, so I mig"
+        },
+        {
+          "correct" : 38,
+          "errors" : 1,
+          "live" : {
+            "accuracy" : 0.9743589743589743,
+            "wpm" : 38.94440177079703
+          },
+          "t" : 11.922999999999996,
+          "text" : "The agent is still thinking, so I migh",
+          "typed" : "The agent is still thinking, so I migh"
+        },
+        {
+          "correct" : 39,
+          "errors" : 1,
+          "live" : {
+            "accuracy" : 0.975,
+            "wpm" : 38.62979774094904
+          },
+          "t" : 12.328999999999997,
+          "text" : "The agent is still thinking, so I might",
+          "typed" : "The agent is still thinking, so I might"
+        },
+        {
+          "correct" : 40,
+          "errors" : 1,
+          "live" : {
+            "accuracy" : 0.975609756097561,
+            "wpm" : 39.046611947472506
+          },
+          "t" : 12.506999999999998,
+          "text" : "The agent is still thinking, so I might ",
+          "typed" : "The agent is still thinking, so I might "
+        },
+        {
+          "correct" : 40,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.9523809523809523,
+            "wpm" : 37.81909855103889
+          },
+          "t" : 12.905999999999999,
+          "text" : "The agent is still thinking, so I might #",
+          "typed" : "The agent is still thinking, so I might #"
+        },
+        {
+          "correct" : 41,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.9534883720930233,
+            "wpm" : 37.63481998950396
+          },
+          "t" : 13.286999999999999,
+          "text" : "The agent is still thinking, so I might #s",
+          "typed" : "The agent is still thinking, so I might #s"
+        },
+        {
+          "correct" : 42,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.9545454545454546,
+            "wpm" : 37.81796347043458
+          },
+          "t" : 13.540999999999999,
+          "text" : "The agent is still thinking, so I might #s ",
+          "typed" : "The agent is still thinking, so I might #s "
+        },
+        {
+          "correct" : 43,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.9555555555555556,
+            "wpm" : 38.39000078757421
+          },
+          "t" : 13.655,
+          "text" : "The agent is still thinking, so I might #s w",
+          "typed" : "The agent is still thinking, so I might #s w"
+        },
+        {
+          "correct" : 44,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.9565217391304348,
+            "wpm" : 38.27196287721108
+          },
+          "t" : 14.01,
+          "text" : "The agent is still thinking, so I might #s we",
+          "typed" : "The agent is still thinking, so I might #s we"
+        },
+        {
+          "correct" : 45,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.9574468085106383,
+            "wpm" : 38.79310356787496
+          },
+          "t" : 14.134,
+          "text" : "The agent is still thinking, so I might #s wel",
+          "typed" : "The agent is still thinking, so I might #s wel"
+        },
+        {
+          "correct" : 46,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.9583333333333334,
+            "wpm" : 38.873239306083065
+          },
+          "t" : 14.414,
+          "text" : "The agent is still thinking, so I might #s well",
+          "typed" : "The agent is still thinking, so I might #s well"
+        },
+        {
+          "correct" : 47,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.9591836734693877,
+            "wpm" : 39.446076434832165
+          },
+          "t" : 14.512,
+          "text" : "The agent is still thinking, so I might #s well ",
+          "typed" : "The agent is still thinking, so I might #s well "
+        },
+        {
+          "correct" : 48,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.96,
+            "wpm" : 38.99532861157156
+          },
+          "t" : 14.985000000000001,
+          "text" : "The agent is still thinking, so I might #s well p",
+          "typed" : "The agent is still thinking, so I might #s well p"
+        },
+        {
+          "correct" : 49,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.9607843137254902,
+            "wpm" : 39.28643012629574
+          },
+          "t" : 15.181000000000001,
+          "text" : "The agent is still thinking, so I might #s well pr",
+          "typed" : "The agent is still thinking, so I might #s well pr"
+        },
+        {
+          "correct" : 50,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.9615384615384616,
+            "wpm" : 39.18751227294712
+          },
+          "t" : 15.525,
+          "text" : "The agent is still thinking, so I might #s well pra",
+          "typed" : "The agent is still thinking, so I might #s well pra"
+        },
+        {
+          "correct" : 51,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.9622641509433962,
+            "wpm" : 39.26600804235156
+          },
+          "t" : 15.8,
+          "text" : "The agent is still thinking, so I might #s well prac",
+          "typed" : "The agent is still thinking, so I might #s well prac"
+        },
+        {
+          "correct" : 52,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.9629629629629629,
+            "wpm" : 38.90274323466471
+          },
+          "t" : 16.254,
+          "text" : "The agent is still thinking, so I might #s well pract",
+          "typed" : "The agent is still thinking, so I might #s well pract"
+        },
+        {
+          "correct" : 53,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.9636363636363636,
+            "wpm" : 39.346696278714326
+          },
+          "t" : 16.378,
+          "text" : "The agent is still thinking, so I might #s well practi",
+          "typed" : "The agent is still thinking, so I might #s well practi"
+        },
+        {
+          "correct" : 54,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.9642857142857143,
+            "wpm" : 39.752162446347505
+          },
+          "t" : 16.515,
+          "text" : "The agent is still thinking, so I might #s well practic",
+          "typed" : "The agent is still thinking, so I might #s well practic"
+        },
+        {
+          "correct" : 55,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.9649122807017544,
+            "wpm" : 39.59920788442099
+          },
+          "t" : 16.881,
+          "text" : "The agent is still thinking, so I might #s well practice",
+          "typed" : "The agent is still thinking, so I might #s well practice"
+        },
+        {
+          "correct" : 56,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.9655172413793104,
+            "wpm" : 40.088289658248875
+          },
+          "t" : 16.977,
+          "text" : "The agent is still thinking, so I might #s well practice ",
+          "typed" : "The agent is still thinking, so I might #s well practice "
+        },
+        {
+          "correct" : 57,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.9661016949152542,
+            "wpm" : 39.96027345024564
+          },
+          "t" : 17.331,
+          "text" : "The agent is still thinking, so I might #s well practice t",
+          "typed" : "The agent is still thinking, so I might #s well practice t"
+        },
+        {
+          "correct" : 58,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.9666666666666667,
+            "wpm" : 40.39231602008259
+          },
+          "t" : 17.445,
+          "text" : "The agent is still thinking, so I might #s well practice ty",
+          "typed" : "The agent is still thinking, so I might #s well practice ty"
+        },
+        {
+          "correct" : 59,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.9672131147540983,
+            "wpm" : 40.77636344878001
+          },
+          "t" : 17.577,
+          "text" : "The agent is still thinking, so I might #s well practice typ",
+          "typed" : "The agent is still thinking, so I might #s well practice typ"
+        },
+        {
+          "correct" : 60,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.967741935483871,
+            "wpm" : 41.213508804858165
+          },
+          "t" : 17.684,
+          "text" : "The agent is still thinking, so I might #s well practice typi",
+          "typed" : "The agent is still thinking, so I might #s well practice typi"
+        },
+        {
+          "correct" : 61,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.9682539682539683,
+            "wpm" : 41.7022731791472
+          },
+          "t" : 17.767,
+          "text" : "The agent is still thinking, so I might #s well practice typin",
+          "typed" : "The agent is still thinking, so I might #s well practice typin"
+        },
+        {
+          "correct" : 62,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.96875,
+            "wpm" : 41.35171190920482
+          },
+          "t" : 18.206,
+          "text" : "The agent is still thinking, so I might #s well practice typing",
+          "typed" : "The agent is still thinking, so I might #s well practice typing"
+        },
+        {
+          "correct" : 63,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.9692307692307692,
+            "wpm" : 41.17422784635502
+          },
+          "t" : 18.575,
+          "text" : "The agent is still thinking, so I might #s well practice typing ",
+          "typed" : "The agent is still thinking, so I might #s well practice typing "
+        },
+        {
+          "correct" : 64,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.9696969696969697,
+            "wpm" : 41.45077720847321
+          },
+          "t" : 18.742,
+          "text" : "The agent is still thinking, so I might #s well practice typing f",
+          "typed" : "The agent is still thinking, so I might #s well practice typing f"
+        },
+        {
+          "correct" : 65,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.9701492537313433,
+            "wpm" : 41.59334501825505
+          },
+          "t" : 18.967000000000002,
+          "text" : "The agent is still thinking, so I might #s well practice typing fo",
+          "typed" : "The agent is still thinking, so I might #s well practice typing fo"
+        },
+        {
+          "correct" : 66,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.9705882352941176,
+            "wpm" : 41.66885890838284
+          },
+          "t" : 19.221000000000004,
+          "text" : "The agent is still thinking, so I might #s well practice typing for",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for"
+        },
+        {
+          "correct" : 67,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.9710144927536232,
+            "wpm" : 42.105263094808
+          },
+          "t" : 19.309000000000005,
+          "text" : "The agent is still thinking, so I might #s well practice typing for ",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for "
+        },
+        {
+          "correct" : 68,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.9714285714285714,
+            "wpm" : 42.39401490588049
+          },
+          "t" : 19.462000000000003,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a"
+        },
+        {
+          "correct" : 69,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.971830985915493,
+            "wpm" : 42.049667393307956
+          },
+          "t" : 19.905000000000005,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a ",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a "
+        },
+        {
+          "correct" : 70,
+          "errors" : 2,
+          "live" : {
+            "accuracy" : 0.9722222222222222,
+            "wpm" : 41.94547083990534
+          },
+          "t" : 20.240000000000006,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a m",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a m"
+        },
+        {
+          "correct" : 70,
+          "errors" : 3,
+          "live" : {
+            "accuracy" : 0.958904109589041,
+            "wpm" : 41.732909336467046
+          },
+          "t" : 20.342000000000006,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a m#",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a m#"
+        },
+        {
+          "correct" : 70,
+          "errors" : 3,
+          "live" : {
+            "accuracy" : 0.958904109589041,
+            "wpm" : 41.32231391000698
+          },
+          "t" : 20.542000000000005,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a m",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a m"
+        },
+        {
+          "correct" : 71,
+          "errors" : 3,
+          "live" : {
+            "accuracy" : 0.9594594594594594,
+            "wpm" : 41.451785500138094
+          },
+          "t" : 20.768000000000004,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a mi",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a mi"
+        },
+        {
+          "correct" : 72,
+          "errors" : 3,
+          "live" : {
+            "accuracy" : 0.96,
+            "wpm" : 41.71696207002261
+          },
+          "t" : 20.925000000000004,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a min",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a min"
+        },
+        {
+          "correct" : 73,
+          "errors" : 3,
+          "live" : {
+            "accuracy" : 0.9605263157894737,
+            "wpm" : 42.1315889606373
+          },
+          "t" : 21.006000000000004,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minu",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minu"
+        },
+        {
+          "correct" : 74,
+          "errors" : 3,
+          "live" : {
+            "accuracy" : 0.961038961038961,
+            "wpm" : 42.247490258515654
+          },
+          "t" : 21.233000000000004,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minut",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minut"
+        },
+        {
+          "correct" : 75,
+          "errors" : 3,
+          "live" : {
+            "accuracy" : 0.9615384615384616,
+            "wpm" : 42.16839233977183
+          },
+          "t" : 21.557000000000006,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute"
+        },
+        {
+          "correct" : 76,
+          "errors" : 3,
+          "live" : {
+            "accuracy" : 0.9620253164556962,
+            "wpm" : 42.054781907275306
+          },
+          "t" : 21.900000000000006,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute.",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute."
+        },
+        {
+          "correct" : 76,
+          "errors" : 4,
+          "live" : {
+            "accuracy" : 0.95,
+            "wpm" : 41.330553821746314
+          },
+          "t" : 22.280000000000005,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute.#",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute.#"
+        },
+        {
+          "correct" : 76,
+          "errors" : 4,
+          "live" : {
+            "accuracy" : 0.95,
+            "wpm" : 40.95931009933968
+          },
+          "t" : 22.480000000000004,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute.",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute."
+        },
+        {
+          "correct" : 77,
+          "errors" : 4,
+          "live" : {
+            "accuracy" : 0.9506172839506173,
+            "wpm" : 40.67438480827922
+          },
+          "t" : 22.931000000000004,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. ",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. "
+        },
+        {
+          "correct" : 77,
+          "errors" : 5,
+          "live" : {
+            "accuracy" : 0.9390243902439024,
+            "wpm" : 39.95848456598509
+          },
+          "t" : 23.338000000000005,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. #",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. #"
+        },
+        {
+          "correct" : 77,
+          "errors" : 5,
+          "live" : {
+            "accuracy" : 0.9390243902439024,
+            "wpm" : 39.6158463369156
+          },
+          "t" : 23.538000000000004,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. ",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. "
+        },
+        {
+          "correct" : 78,
+          "errors" : 5,
+          "live" : {
+            "accuracy" : 0.9397590361445783,
+            "wpm" : 39.86031855319378
+          },
+          "t" : 23.696000000000005,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. S",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. S"
+        },
+        {
+          "correct" : 79,
+          "errors" : 5,
+          "live" : {
+            "accuracy" : 0.9404761904761905,
+            "wpm" : 40.03885619661134
+          },
+          "t" : 23.891000000000005,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. Sh",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. Sh"
+        },
+        {
+          "correct" : 80,
+          "errors" : 5,
+          "live" : {
+            "accuracy" : 0.9411764705882353,
+            "wpm" : 40.33105075313848
+          },
+          "t" : 24.017000000000007,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She"
+        },
+        {
+          "correct" : 81,
+          "errors" : 5,
+          "live" : {
+            "accuracy" : 0.9418604651162791,
+            "wpm" : 40.28514585356366
+          },
+          "t" : 24.342000000000006,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She ",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She "
+        },
+        {
+          "correct" : 82,
+          "errors" : 5,
+          "live" : {
+            "accuracy" : 0.9425287356321839,
+            "wpm" : 40.3196066852511
+          },
+          "t" : 24.619000000000007,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She l",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She l"
+        },
+        {
+          "correct" : 83,
+          "errors" : 5,
+          "live" : {
+            "accuracy" : 0.9431818181818182,
+            "wpm" : 40.397485343978154
+          },
+          "t" : 24.869000000000007,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She le",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She le"
+        },
+        {
+          "correct" : 84,
+          "errors" : 5,
+          "live" : {
+            "accuracy" : 0.9438202247191011,
+            "wpm" : 40.47217534998201
+          },
+          "t" : 25.120000000000008,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She lef",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She lef"
+        },
+        {
+          "correct" : 85,
+          "errors" : 5,
+          "live" : {
+            "accuracy" : 0.9444444444444444,
+            "wpm" : 40.74295991052299
+          },
+          "t" : 25.24900000000001,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left"
+        },
+        {
+          "correct" : 86,
+          "errors" : 5,
+          "live" : {
+            "accuracy" : 0.945054945054945,
+            "wpm" : 41.020748879599466
+          },
+          "t" : 25.37200000000001,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left ",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left "
+        },
+        {
+          "correct" : 87,
+          "errors" : 5,
+          "live" : {
+            "accuracy" : 0.9456521739130435,
+            "wpm" : 41.353085552974
+          },
+          "t" : 25.46000000000001,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left t",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left t"
+        },
+        {
+          "correct" : 88,
+          "errors" : 5,
+          "live" : {
+            "accuracy" : 0.946236559139785,
+            "wpm" : 41.437764924800526
+          },
+          "t" : 25.69800000000001,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left th",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left th"
+        },
+        {
+          "correct" : 89,
+          "errors" : 5,
+          "live" : {
+            "accuracy" : 0.9468085106382979,
+            "wpm" : 41.57421462742299
+          },
+          "t" : 25.90300000000001,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the"
+        },
+        {
+          "correct" : 90,
+          "errors" : 5,
+          "live" : {
+            "accuracy" : 0.9473684210526315,
+            "wpm" : 41.575239638114425
+          },
+          "t" : 26.19100000000001,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the ",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the "
+        },
+        {
+          "correct" : 91,
+          "errors" : 5,
+          "live" : {
+            "accuracy" : 0.9479166666666666,
+            "wpm" : 41.349539868348145
+          },
+          "t" : 26.623000000000008,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the w",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the w"
+        },
+        {
+          "correct" : 92,
+          "errors" : 5,
+          "live" : {
+            "accuracy" : 0.9484536082474226,
+            "wpm" : 41.289550398049926
+          },
+          "t" : 26.95200000000001,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the wi",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the wi"
+        },
+        {
+          "correct" : 93,
+          "errors" : 5,
+          "live" : {
+            "accuracy" : 0.9489795918367347,
+            "wpm" : 41.2859309404723
+          },
+          "t" : 27.245000000000008,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the win",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the win"
+        },
+        {
+          "correct" : 94,
+          "errors" : 5,
+          "live" : {
+            "accuracy" : 0.9494949494949495,
+            "wpm" : 41.55767600201056
+          },
+          "t" : 27.357000000000006,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the wind",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the wind"
+        },
+        {
+          "correct" : 95,
+          "errors" : 5,
+          "live" : {
+            "accuracy" : 0.95,
+            "wpm" : 41.81491396843584
+          },
+          "t" : 27.477000000000007,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the windo",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the windo"
+        },
+        {
+          "correct" : 96,
+          "errors" : 5,
+          "live" : {
+            "accuracy" : 0.9504950495049505,
+            "wpm" : 42.06989735667908
+          },
+          "t" : 27.59700000000001,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window"
+        },
+        {
+          "correct" : 97,
+          "errors" : 5,
+          "live" : {
+            "accuracy" : 0.9509803921568627,
+            "wpm" : 42.07634465570501
+          },
+          "t" : 27.878000000000007,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window ",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window "
+        },
+        {
+          "correct" : 97,
+          "errors" : 6,
+          "live" : {
+            "accuracy" : 0.941747572815534,
+            "wpm" : 41.56400643450072
+          },
+          "t" : 28.21900000000001,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #"
+        },
+        {
+          "correct" : 97,
+          "errors" : 6,
+          "live" : {
+            "accuracy" : 0.941747572815534,
+            "wpm" : 41.26927843392713
+          },
+          "t" : 28.419000000000008,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window ",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window "
+        },
+        {
+          "correct" : 97,
+          "errors" : 7,
+          "live" : {
+            "accuracy" : 0.9326923076923077,
+            "wpm" : 40.803449264182575
+          },
+          "t" : 28.741000000000007,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #"
+        },
+        {
+          "correct" : 98,
+          "errors" : 7,
+          "live" : {
+            "accuracy" : 0.9333333333333333,
+            "wpm" : 40.754089177926154
+          },
+          "t" : 29.070000000000007,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #p",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #p"
+        },
+        {
+          "correct" : 99,
+          "errors" : 7,
+          "live" : {
+            "accuracy" : 0.9339622641509434,
+            "wpm" : 40.902048605795336
+          },
+          "t" : 29.259000000000007,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pe",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pe"
+        },
+        {
+          "correct" : 100,
+          "errors" : 7,
+          "live" : {
+            "accuracy" : 0.9345794392523364,
+            "wpm" : 41.156497490517104
+          },
+          "t" : 29.371000000000006,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen"
+        },
+        {
+          "correct" : 100,
+          "errors" : 8,
+          "live" : {
+            "accuracy" : 0.9259259259259259,
+            "wpm" : 40.49539362681706
+          },
+          "t" : 29.847000000000005,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen#",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen#"
+        },
+        {
+          "correct" : 101,
+          "errors" : 8,
+          "live" : {
+            "accuracy" : 0.926605504587156,
+            "wpm" : 40.78473599922055
+          },
+          "t" : 29.931000000000004,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# ",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# "
+        },
+        {
+          "correct" : 102,
+          "errors" : 8,
+          "live" : {
+            "accuracy" : 0.9272727272727272,
+            "wpm" : 40.79048226229968
+          },
+          "t" : 30.221000000000004,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# a",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# a"
+        },
+        {
+          "correct" : 103,
+          "errors" : 8,
+          "live" : {
+            "accuracy" : 0.9279279279279279,
+            "wpm" : 40.89735953553676
+          },
+          "t" : 30.436000000000003,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# an",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# an"
+        },
+        {
+          "correct" : 104,
+          "errors" : 8,
+          "live" : {
+            "accuracy" : 0.9285714285714286,
+            "wpm" : 41.158234908678736
+          },
+          "t" : 30.536000000000005,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and"
+        },
+        {
+          "correct" : 105,
+          "errors" : 8,
+          "live" : {
+            "accuracy" : 0.9292035398230089,
+            "wpm" : 40.97161249765491
+          },
+          "t" : 30.967000000000006,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and ",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and "
+        },
+        {
+          "correct" : 106,
+          "errors" : 8,
+          "live" : {
+            "accuracy" : 0.9298245614035088,
+            "wpm" : 41.19170985092025
+          },
+          "t" : 31.094000000000005,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and b",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and b"
+        },
+        {
+          "correct" : 107,
+          "errors" : 8,
+          "live" : {
+            "accuracy" : 0.9304347826086956,
+            "wpm" : 41.379310382980066
+          },
+          "t" : 31.244000000000003,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by"
+        },
+        {
+          "correct" : 108,
+          "errors" : 8,
+          "live" : {
+            "accuracy" : 0.9310344827586207,
+            "wpm" : 41.38856070960642
+          },
+          "t" : 31.527000000000005,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by ",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by "
+        },
+        {
+          "correct" : 109,
+          "errors" : 8,
+          "live" : {
+            "accuracy" : 0.9316239316239316,
+            "wpm" : 41.5739622237803
+          },
+          "t" : 31.676000000000005,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by m",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by m"
+        },
+        {
+          "correct" : 109,
+          "errors" : 9,
+          "live" : {
+            "accuracy" : 0.923728813559322,
+            "wpm" : 41.20204113520318
+          },
+          "t" : 31.960000000000004,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by m#",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by m#"
+        },
+        {
+          "correct" : 109,
+          "errors" : 9,
+          "live" : {
+            "accuracy" : 0.923728813559322,
+            "wpm" : 40.94409318287091
+          },
+          "t" : 32.160000000000004,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by m",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by m"
+        },
+        {
+          "correct" : 110,
+          "errors" : 9,
+          "live" : {
+            "accuracy" : 0.9243697478991597,
+            "wpm" : 40.739483320500824
+          },
+          "t" : 32.615,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by mo",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by mo"
+        },
+        {
+          "correct" : 111,
+          "errors" : 9,
+          "live" : {
+            "accuracy" : 0.925,
+            "wpm" : 40.72647224374835
+          },
+          "t" : 32.92,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by mor",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by mor"
+        },
+        {
+          "correct" : 112,
+          "errors" : 9,
+          "live" : {
+            "accuracy" : 0.9256198347107438,
+            "wpm" : 40.827485609920714
+          },
+          "t" : 33.133,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morn",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morn"
+        },
+        {
+          "correct" : 113,
+          "errors" : 9,
+          "live" : {
+            "accuracy" : 0.9262295081967213,
+            "wpm" : 40.688951599619045
+          },
+          "t" : 33.54,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morni",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morni"
+        },
+        {
+          "correct" : 114,
+          "errors" : 9,
+          "live" : {
+            "accuracy" : 0.926829268292683,
+            "wpm" : 40.822416474640555
+          },
+          "t" : 33.725,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by mornin",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by mornin"
+        },
+        {
+          "correct" : 115,
+          "errors" : 9,
+          "live" : {
+            "accuracy" : 0.9274193548387096,
+            "wpm" : 40.66957439385307
+          },
+          "t" : 34.146,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning"
+        },
+        {
+          "correct" : 116,
+          "errors" : 9,
+          "live" : {
+            "accuracy" : 0.928,
+            "wpm" : 40.45335662162965
+          },
+          "t" : 34.624,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning ",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning "
+        },
+        {
+          "correct" : 117,
+          "errors" : 9,
+          "live" : {
+            "accuracy" : 0.9285714285714286,
+            "wpm" : 40.4610950452641
+          },
+          "t" : 34.914,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning t",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning t"
+        },
+        {
+          "correct" : 118,
+          "errors" : 9,
+          "live" : {
+            "accuracy" : 0.9291338582677166,
+            "wpm" : 40.32924147812648
+          },
+          "t" : 35.325,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning th",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning th"
+        },
+        {
+          "correct" : 119,
+          "errors" : 9,
+          "live" : {
+            "accuracy" : 0.9296875,
+            "wpm" : 40.423484147719016
+          },
+          "t" : 35.540000000000006,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the"
+        },
+        {
+          "correct" : 120,
+          "errors" : 9,
+          "live" : {
+            "accuracy" : 0.9302325581395349,
+            "wpm" : 40.22683459414882
+          },
+          "t" : 36.011,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the ",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the "
+        },
+        {
+          "correct" : 121,
+          "errors" : 9,
+          "live" : {
+            "accuracy" : 0.9307692307692308,
+            "wpm" : 40.45131636081759
+          },
+          "t" : 36.109,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the w",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the w"
+        },
+        {
+          "correct" : 121,
+          "errors" : 10,
+          "live" : {
+            "accuracy" : 0.9236641221374046,
+            "wpm" : 40.221606621635516
+          },
+          "t" : 36.314,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the w#",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the w#"
+        },
+        {
+          "correct" : 121,
+          "errors" : 10,
+          "live" : {
+            "accuracy" : 0.9236641221374046,
+            "wpm" : 39.99999992118394
+          },
+          "t" : 36.514,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the w",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the w"
+        },
+        {
+          "correct" : 122,
+          "errors" : 10,
+          "live" : {
+            "accuracy" : 0.9242424242424242,
+            "wpm" : 40.23525527685148
+          },
+          "t" : 36.6,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the wh",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the wh"
+        },
+        {
+          "correct" : 123,
+          "errors" : 10,
+          "live" : {
+            "accuracy" : 0.924812030075188,
+            "wpm" : 40.17419704999644
+          },
+          "t" : 36.954,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the who",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the who"
+        },
+        {
+          "correct" : 124,
+          "errors" : 10,
+          "live" : {
+            "accuracy" : 0.9253731343283582,
+            "wpm" : 40.01721168753727
+          },
+          "t" : 37.398,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whol",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whol"
+        },
+        {
+          "correct" : 125,
+          "errors" : 10,
+          "live" : {
+            "accuracy" : 0.9259259259259259,
+            "wpm" : 40.209087181765284
+          },
+          "t" : 37.519000000000005,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole"
+        },
+        {
+          "correct" : 126,
+          "errors" : 10,
+          "live" : {
+            "accuracy" : 0.9264705882352942,
+            "wpm" : 40.275964935785105
+          },
+          "t" : 37.755,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole ",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole "
+        },
+        {
+          "correct" : 126,
+          "errors" : 11,
+          "live" : {
+            "accuracy" : 0.9197080291970803,
+            "wpm" : 39.97673309006679
+          },
+          "t" : 38.036,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #"
+        },
+        {
+          "correct" : 127,
+          "errors" : 11,
+          "live" : {
+            "accuracy" : 0.9202898550724637,
+            "wpm" : 40.158102716340245
+          },
+          "t" : 38.164,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #o",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #o"
+        },
+        {
+          "correct" : 128,
+          "errors" : 11,
+          "live" : {
+            "accuracy" : 0.920863309352518,
+            "wpm" : 40.33613440832355
+          },
+          "t" : 38.294000000000004,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oo",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oo"
+        },
+        {
+          "correct" : 129,
+          "errors" : 11,
+          "live" : {
+            "accuracy" : 0.9214285714285714,
+            "wpm" : 40.18065719463058
+          },
+          "t" : 38.74,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom"
+        },
+        {
+          "correct" : 130,
+          "errors" : 11,
+          "live" : {
+            "accuracy" : 0.9219858156028369,
+            "wpm" : 40.30799439604837
+          },
+          "t" : 38.916000000000004,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom ",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom "
+        },
+        {
+          "correct" : 131,
+          "errors" : 11,
+          "live" : {
+            "accuracy" : 0.9225352112676056,
+            "wpm" : 40.35114732331525
+          },
+          "t" : 39.172000000000004,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom s",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom s"
+        },
+        {
+          "correct" : 132,
+          "errors" : 11,
+          "live" : {
+            "accuracy" : 0.9230769230769231,
+            "wpm" : 40.448405287402146
+          },
+          "t" : 39.37500000000001,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom sm",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom sm"
+        },
+        {
+          "correct" : 133,
+          "errors" : 11,
+          "live" : {
+            "accuracy" : 0.9236111111111112,
+            "wpm" : 40.488089469621606
+          },
+          "t" : 39.63300000000001,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom sme",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom sme"
+        },
+        {
+          "correct" : 134,
+          "errors" : 11,
+          "live" : {
+            "accuracy" : 0.9241379310344827,
+            "wpm" : 40.51704584704507
+          },
+          "t" : 39.90100000000001,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom smel",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom smel"
+        },
+        {
+          "correct" : 135,
+          "errors" : 11,
+          "live" : {
+            "accuracy" : 0.9246575342465754,
+            "wpm" : 40.39900246974596
+          },
+          "t" : 40.31400000000001,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom smell",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom smell"
+        },
+        {
+          "correct" : 135,
+          "errors" : 12,
+          "live" : {
+            "accuracy" : 0.9183673469387755,
+            "wpm" : 40.082143597568646
+          },
+          "t" : 40.63100000000001,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom smell#",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom smell#"
+        },
+        {
+          "correct" : 135,
+          "errors" : 13,
+          "live" : {
+            "accuracy" : 0.9121621621621622,
+            "wpm" : 39.6854560347563
+          },
+          "t" : 41.03500000000001,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom smell##",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom smell##"
+        },
+        {
+          "correct" : 136,
+          "errors" : 13,
+          "live" : {
+            "accuracy" : 0.912751677852349,
+            "wpm" : 39.77286574960258
+          },
+          "t" : 41.247000000000014,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom smell## ",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom smell## "
+        },
+        {
+          "correct" : 137,
+          "errors" : 13,
+          "live" : {
+            "accuracy" : 0.9133333333333333,
+            "wpm" : 39.98637937167936
+          },
+          "t" : 41.32800000000002,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom smell## o",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom smell## o"
+        },
+        {
+          "correct" : 138,
+          "errors" : 13,
+          "live" : {
+            "accuracy" : 0.9139072847682119,
+            "wpm" : 39.94211284313385
+          },
+          "t" : 41.674000000000014,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom smell## of",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom smell## of"
+        },
+        {
+          "correct" : 139,
+          "errors" : 13,
+          "live" : {
+            "accuracy" : 0.9144736842105263,
+            "wpm" : 39.823325782017065
+          },
+          "t" : 42.09900000000001,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom smell## of ",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom smell## of "
+        },
+        {
+          "correct" : 140,
+          "errors" : 13,
+          "live" : {
+            "accuracy" : 0.9150326797385621,
+            "wpm" : 39.84158222771926
+          },
+          "t" : 42.38100000000001,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom smell## of r",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom smell## of r"
+        },
+        {
+          "correct" : 141,
+          "errors" : 13,
+          "live" : {
+            "accuracy" : 0.9155844155844156,
+            "wpm" : 39.92920353982301
+          },
+          "t" : 42.589000000000006,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom smell## of ra",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom smell## of ra"
+        },
+        {
+          "correct" : 142,
+          "errors" : 13,
+          "live" : {
+            "accuracy" : 0.9161290322580645,
+            "wpm" : 40.01502912698318
+          },
+          "t" : 42.79800000000001,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom smell## of rai",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom smell## of rai"
+        },
+        {
+          "correct" : 143,
+          "errors" : 13,
+          "live" : {
+            "accuracy" : 0.9166666666666666,
+            "wpm" : 40.109389250543686
+          },
+          "t" : 42.99700000000001,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom smell## of rain",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom smell## of rain"
+        },
+        {
+          "correct" : 144,
+          "errors" : 13,
+          "live" : {
+            "accuracy" : 0.9171974522292994,
+            "wpm" : 40.16643032214814
+          },
+          "result" : {
+            "accuracy" : 0.9171974522292994,
+            "seconds" : 43.021000027656555,
+            "wpm" : 40.16643032214814
+          },
+          "t" : 43.23500000000001,
+          "text" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom smell## of rain.",
+          "typed" : "The agent is still thinking, so I might #s well practice typing for a minute. She left the window #pen# and by morning the whole #oom smell## of rain."
+        }
+      ]
+    }
+  ],
+  "wrapLines" : [
+    {
+      "out" : [
+        {
+          "lower" : 0,
+          "upper" : 8
+        },
+        {
+          "lower" : 8,
+          "upper" : 11
+        }
+      ],
+      "text" : "aaa bbb ccc",
+      "width" : 7
+    },
+    {
+      "out" : [
+        {
+          "lower" : 0,
+          "upper" : 4
+        },
+        {
+          "lower" : 4,
+          "upper" : 8
+        },
+        {
+          "lower" : 8,
+          "upper" : 10
+        }
+      ],
+      "text" : "aaaaaaaaaa",
+      "width" : 4
+    },
+    {
+      "out" : [
+        {
+          "lower" : 0,
+          "upper" : 2
+        }
+      ],
+      "text" : "ab",
+      "width" : 7
+    },
+    {
+      "out" : [
+
+      ],
+      "text" : "",
+      "width" : 5
+    },
+    {
+      "out" : [
+        {
+          "lower" : 0,
+          "upper" : 3
+        },
+        {
+          "lower" : 3,
+          "upper" : 6
+        },
+        {
+          "lower" : 6,
+          "upper" : 8
+        }
+      ],
+      "text" : "a  b   c",
+      "width" : 2
+    },
+    {
+      "out" : [
+        {
+          "lower" : 0,
+          "upper" : 4
+        },
+        {
+          "lower" : 4,
+          "upper" : 7
+        }
+      ],
+      "text" : "uno dos",
+      "width" : 3
+    },
+    {
+      "out" : [
+        {
+          "lower" : 0,
+          "upper" : 10
+        },
+        {
+          "lower" : 10,
+          "upper" : 19
+        },
+        {
+          "lower" : 19,
+          "upper" : 24
+        },
+        {
+          "lower" : 24,
+          "upper" : 32
+        },
+        {
+          "lower" : 32,
+          "upper" : 41
+        },
+        {
+          "lower" : 41,
+          "upper" : 50
+        },
+        {
+          "lower" : 50,
+          "upper" : 60
+        },
+        {
+          "lower" : 60,
+          "upper" : 68
+        },
+        {
+          "lower" : 68,
+          "upper" : 78
+        },
+        {
+          "lower" : 78,
+          "upper" : 83
+        },
+        {
+          "lower" : 83,
+          "upper" : 92
+        },
+        {
+          "lower" : 92,
+          "upper" : 99
+        },
+        {
+          "lower" : 99,
+          "upper" : 107
+        },
+        {
+          "lower" : 107,
+          "upper" : 116
+        },
+        {
+          "lower" : 116,
+          "upper" : 123
+        },
+        {
+          "lower" : 123,
+          "upper" : 132
+        },
+        {
+          "lower" : 132,
+          "upper" : 142
+        },
+        {
+          "lower" : 142,
+          "upper" : 151
+        },
+        {
+          "lower" : 151,
+          "upper" : 161
+        },
+        {
+          "lower" : 161,
+          "upper" : 172
+        },
+        {
+          "lower" : 172,
+          "upper" : 183
+        },
+        {
+          "lower" : 183,
+          "upper" : 191
+        },
+        {
+          "lower" : 191,
+          "upper" : 199
+        },
+        {
+          "lower" : 199,
+          "upper" : 208
+        },
+        {
+          "lower" : 208,
+          "upper" : 211
+        },
+        {
+          "lower" : 211,
+          "upper" : 220
+        },
+        {
+          "lower" : 220,
+          "upper" : 228
+        },
+        {
+          "lower" : 228,
+          "upper" : 238
+        },
+        {
+          "lower" : 238,
+          "upper" : 246
+        },
+        {
+          "lower" : 246,
+          "upper" : 255
+        },
+        {
+          "lower" : 255,
+          "upper" : 265
+        },
+        {
+          "lower" : 265,
+          "upper" : 276
+        },
+        {
+          "lower" : 276,
+          "upper" : 283
+        },
+        {
+          "lower" : 283,
+          "upper" : 294
+        },
+        {
+          "lower" : 294,
+          "upper" : 300
+        },
+        {
+          "lower" : 300,
+          "upper" : 306
+        },
+        {
+          "lower" : 306,
+          "upper" : 316
+        },
+        {
+          "lower" : 316,
+          "upper" : 321
+        },
+        {
+          "lower" : 321,
+          "upper" : 331
+        },
+        {
+          "lower" : 331,
+          "upper" : 341
+        },
+        {
+          "lower" : 341,
+          "upper" : 351
+        },
+        {
+          "lower" : 351,
+          "upper" : 354
+        },
+        {
+          "lower" : 354,
+          "upper" : 365
+        },
+        {
+          "lower" : 365,
+          "upper" : 376
+        },
+        {
+          "lower" : 376,
+          "upper" : 382
+        },
+        {
+          "lower" : 382,
+          "upper" : 389
+        },
+        {
+          "lower" : 389,
+          "upper" : 398
+        },
+        {
+          "lower" : 398,
+          "upper" : 406
+        }
+      ],
+      "text" : "No es que tengamos poco tiempo, sino que perdemos mucho. La vida se divide en tres tiempos: el que fue, el que es y el que será. De estos, el presente es breve; el futuro, dudoso; el pasado, cierto. Mientras se difiere, la vida transcurre. No es pobre el que tiene poco, sino el que ansía más. Nadie puede tener una vida tranquila si piensa demasiado en alargarla. Cesarás de temer cuando ceses de esperar.",
+      "width" : 10
+    },
+    {
+      "out" : [
+        {
+          "lower" : 0,
+          "upper" : 10
+        },
+        {
+          "lower" : 10,
+          "upper" : 19
+        },
+        {
+          "lower" : 19,
+          "upper" : 29
+        },
+        {
+          "lower" : 29,
+          "upper" : 40
+        },
+        {
+          "lower" : 40,
+          "upper" : 48
+        },
+        {
+          "lower" : 48,
+          "upper" : 57
+        },
+        {
+          "lower" : 57,
+          "upper" : 68
+        },
+        {
+          "lower" : 68,
+          "upper" : 78
+        },
+        {
+          "lower" : 78,
+          "upper" : 87
+        },
+        {
+          "lower" : 87,
+          "upper" : 98
+        },
+        {
+          "lower" : 98,
+          "upper" : 108
+        },
+        {
+          "lower" : 108,
+          "upper" : 119
+        },
+        {
+          "lower" : 119,
+          "upper" : 129
+        },
+        {
+          "lower" : 129,
+          "upper" : 134
+        },
+        {
+          "lower" : 134,
+          "upper" : 145
+        },
+        {
+          "lower" : 145,
+          "upper" : 156
+        },
+        {
+          "lower" : 156,
+          "upper" : 162
+        },
+        {
+          "lower" : 162,
+          "upper" : 171
+        },
+        {
+          "lower" : 171,
+          "upper" : 180
+        },
+        {
+          "lower" : 180,
+          "upper" : 185
+        },
+        {
+          "lower" : 185,
+          "upper" : 196
+        },
+        {
+          "lower" : 196,
+          "upper" : 207
+        },
+        {
+          "lower" : 207,
+          "upper" : 218
+        },
+        {
+          "lower" : 218,
+          "upper" : 229
+        },
+        {
+          "lower" : 229,
+          "upper" : 239
+        },
+        {
+          "lower" : 239,
+          "upper" : 250
+        },
+        {
+          "lower" : 250,
+          "upper" : 260
+        },
+        {
+          "lower" : 260,
+          "upper" : 269
+        },
+        {
+          "lower" : 269,
+          "upper" : 276
+        },
+        {
+          "lower" : 276,
+          "upper" : 287
+        },
+        {
+          "lower" : 287,
+          "upper" : 296
+        }
+      ],
+      "text" : "The agent is still thinking, so I might as well practice typing for a minute. She left the window open, and by morning the whole room smelled of rain. Good tests describe what the code should do, not how it happens to do it. The bakery on the corner sells out of bread before nine every Saturday.",
+      "width" : 10
+    },
+    {
+      "out" : [
+        {
+          "lower" : 0,
+          "upper" : 37
+        },
+        {
+          "lower" : 37,
+          "upper" : 75
+        },
+        {
+          "lower" : 75,
+          "upper" : 111
+        },
+        {
+          "lower" : 111,
+          "upper" : 142
+        },
+        {
+          "lower" : 142,
+          "upper" : 180
+        },
+        {
+          "lower" : 180,
+          "upper" : 211
+        },
+        {
+          "lower" : 211,
+          "upper" : 246
+        },
+        {
+          "lower" : 246,
+          "upper" : 283
+        },
+        {
+          "lower" : 283,
+          "upper" : 321
+        },
+        {
+          "lower" : 321,
+          "upper" : 354
+        },
+        {
+          "lower" : 354,
+          "upper" : 389
+        },
+        {
+          "lower" : 389,
+          "upper" : 406
+        }
+      ],
+      "text" : "No es que tengamos poco tiempo, sino que perdemos mucho. La vida se divide en tres tiempos: el que fue, el que es y el que será. De estos, el presente es breve; el futuro, dudoso; el pasado, cierto. Mientras se difiere, la vida transcurre. No es pobre el que tiene poco, sino el que ansía más. Nadie puede tener una vida tranquila si piensa demasiado en alargarla. Cesarás de temer cuando ceses de esperar.",
+      "width" : 37
+    },
+    {
+      "out" : [
+        {
+          "lower" : 0,
+          "upper" : 34
+        },
+        {
+          "lower" : 34,
+          "upper" : 70
+        },
+        {
+          "lower" : 70,
+          "upper" : 108
+        },
+        {
+          "lower" : 108,
+          "upper" : 145
+        },
+        {
+          "lower" : 145,
+          "upper" : 180
+        },
+        {
+          "lower" : 180,
+          "upper" : 218
+        },
+        {
+          "lower" : 218,
+          "upper" : 256
+        },
+        {
+          "lower" : 256,
+          "upper" : 287
+        },
+        {
+          "lower" : 287,
+          "upper" : 296
+        }
+      ],
+      "text" : "The agent is still thinking, so I might as well practice typing for a minute. She left the window open, and by morning the whole room smelled of rain. Good tests describe what the code should do, not how it happens to do it. The bakery on the corner sells out of bread before nine every Saturday.",
+      "width" : 37
+    },
+    {
+      "out" : [
+        {
+          "lower" : 0,
+          "upper" : 41
+        },
+        {
+          "lower" : 41,
+          "upper" : 83
+        },
+        {
+          "lower" : 83,
+          "upper" : 123
+        },
+        {
+          "lower" : 123,
+          "upper" : 164
+        },
+        {
+          "lower" : 164,
+          "upper" : 199
+        },
+        {
+          "lower" : 199,
+          "upper" : 240
+        },
+        {
+          "lower" : 240,
+          "upper" : 279
+        },
+        {
+          "lower" : 279,
+          "upper" : 321
+        },
+        {
+          "lower" : 321,
+          "upper" : 354
+        },
+        {
+          "lower" : 354,
+          "upper" : 395
+        },
+        {
+          "lower" : 395,
+          "upper" : 406
+        }
+      ],
+      "text" : "No es que tengamos poco tiempo, sino que perdemos mucho. La vida se divide en tres tiempos: el que fue, el que es y el que será. De estos, el presente es breve; el futuro, dudoso; el pasado, cierto. Mientras se difiere, la vida transcurre. No es pobre el que tiene poco, sino el que ansía más. Nadie puede tener una vida tranquila si piensa demasiado en alargarla. Cesarás de temer cuando ceses de esperar.",
+      "width" : 41
+    },
+    {
+      "out" : [
+        {
+          "lower" : 0,
+          "upper" : 40
+        },
+        {
+          "lower" : 40,
+          "upper" : 82
+        },
+        {
+          "lower" : 82,
+          "upper" : 123
+        },
+        {
+          "lower" : 123,
+          "upper" : 162
+        },
+        {
+          "lower" : 162,
+          "upper" : 204
+        },
+        {
+          "lower" : 204,
+          "upper" : 243
+        },
+        {
+          "lower" : 243,
+          "upper" : 281
+        },
+        {
+          "lower" : 281,
+          "upper" : 296
+        }
+      ],
+      "text" : "The agent is still thinking, so I might as well practice typing for a minute. She left the window open, and by morning the whole room smelled of rain. Good tests describe what the code should do, not how it happens to do it. The bakery on the corner sells out of bread before nine every Saturday.",
+      "width" : 41
+    },
+    {
+      "out" : [
+        {
+          "lower" : 0,
+          "upper" : 50
+        },
+        {
+          "lower" : 50,
+          "upper" : 99
+        },
+        {
+          "lower" : 99,
+          "upper" : 142
+        },
+        {
+          "lower" : 142,
+          "upper" : 191
+        },
+        {
+          "lower" : 191,
+          "upper" : 240
+        },
+        {
+          "lower" : 240,
+          "upper" : 289
+        },
+        {
+          "lower" : 289,
+          "upper" : 334
+        },
+        {
+          "lower" : 334,
+          "upper" : 382
+        },
+        {
+          "lower" : 382,
+          "upper" : 406
+        }
+      ],
+      "text" : "No es que tengamos poco tiempo, sino que perdemos mucho. La vida se divide en tres tiempos: el que fue, el que es y el que será. De estos, el presente es breve; el futuro, dudoso; el pasado, cierto. Mientras se difiere, la vida transcurre. No es pobre el que tiene poco, sino el que ansía más. Nadie puede tener una vida tranquila si piensa demasiado en alargarla. Cesarás de temer cuando ceses de esperar.",
+      "width" : 50
+    },
+    {
+      "out" : [
+        {
+          "lower" : 0,
+          "upper" : 48
+        },
+        {
+          "lower" : 48,
+          "upper" : 98
+        },
+        {
+          "lower" : 98,
+          "upper" : 145
+        },
+        {
+          "lower" : 145,
+          "upper" : 196
+        },
+        {
+          "lower" : 196,
+          "upper" : 243
+        },
+        {
+          "lower" : 243,
+          "upper" : 287
+        },
+        {
+          "lower" : 287,
+          "upper" : 296
+        }
+      ],
+      "text" : "The agent is still thinking, so I might as well practice typing for a minute. She left the window open, and by morning the whole room smelled of rain. Good tests describe what the code should do, not how it happens to do it. The bakery on the corner sells out of bread before nine every Saturday.",
+      "width" : 50
+    }
+  ]
+}

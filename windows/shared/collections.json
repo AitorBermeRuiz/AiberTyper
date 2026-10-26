@@ -1,0 +1,2298 @@
+[
+  {
+    "en" : [
+      {
+        "text" : "The agent is still thinking, so I might as well practice typing for a minute."
+      },
+      {
+        "text" : "She left the window open, and by morning the whole room smelled of rain."
+      },
+      {
+        "text" : "Good tests describe what the code should do, not how it happens to do it."
+      },
+      {
+        "text" : "The bakery on the corner sells out of bread before nine every Saturday."
+      },
+      {
+        "text" : "He spent the afternoon fixing a bug that turned out to be a missing comma."
+      },
+      {
+        "text" : "A quiet desk, a cup of tea, and a clear plan make most problems smaller."
+      },
+      {
+        "text" : "The train was late again, so we sat on the platform and watched the clouds."
+      },
+      {
+        "text" : "Typing fast is useless if every other word needs to be corrected."
+      },
+      {
+        "text" : "Our neighbor grows tomatoes, peppers, and far too many zucchini each summer."
+      },
+      {
+        "text" : "The meeting could have been an email, but at least the coffee was good."
+      },
+      {
+        "text" : "Every river starts somewhere small, usually as a trickle high in the hills."
+      },
+      {
+        "text" : "Write the simplest thing that works, then make it clear for the next reader."
+      },
+      {
+        "text" : "The old library has creaky floors and a reading room that smells of paper."
+      },
+      {
+        "text" : "When the power went out, we lit candles and played cards until midnight."
+      },
+      {
+        "text" : "Most deadlines feel urgent until the day after they pass."
+      },
+      {
+        "text" : "The cat ignored its new bed and slept in the cardboard box it came in."
+      },
+      {
+        "text" : "A short walk after lunch does more for focus than another cup of coffee."
+      },
+      {
+        "text" : "They hiked for six hours and reached the summit just before the fog rolled in."
+      },
+      {
+        "text" : "Naming things is hard, but renaming them later is even harder."
+      },
+      {
+        "text" : "The city looks different at dawn, when the streets are empty and quiet."
+      },
+      {
+        "text" : "She kept a notebook of every mistake she made, and rarely made one twice."
+      },
+      {
+        "text" : "Slow is smooth, and smooth is fast, as the old saying goes."
+      },
+      {
+        "text" : "The kids built a fort out of blankets and refused to come out for dinner."
+      },
+      {
+        "text" : "Our flight landed early, which almost never happens on a Friday night."
+      },
+      {
+        "text" : "Read the error message twice before searching for the answer online."
+      },
+      {
+        "text" : "Autumn leaves covered the path, crunching softly under our boots."
+      },
+      {
+        "text" : "The best keyboard is the one you stop noticing after a few minutes."
+      },
+      {
+        "text" : "He set an alarm for six, then reset it for seven, and finally woke at eight."
+      },
+      {
+        "text" : "Small, steady progress beats a heroic effort that you never repeat."
+      },
+      {
+        "text" : "The lighthouse blinked through the storm, guiding the last boats home."
+      },
+      {
+        "text" : "My brother is always late, but he brings the best dessert to every dinner."
+      },
+      {
+        "text" : "The market opens early, and by eight it smells of fruit, fish, and coffee."
+      },
+      {
+        "text" : "I turned off my phone for an hour and the world kept spinning without me."
+      },
+      {
+        "text" : "The teacher drew a map on the board and traced the route of the first voyage."
+      },
+      {
+        "text" : "In summer we eat dinner outside until the mosquitoes chase us back indoors."
+      },
+      {
+        "text" : "My umbrella flipped inside out in the wind, and I got soaked anyway."
+      },
+      {
+        "text" : "Mondays at the office are quiet, as if nobody wants to talk just yet."
+      },
+      {
+        "text" : "I read the novel in two nights because I could not stop turning the pages."
+      },
+      {
+        "text" : "The recipe said thirty minutes in the oven, but the cake needed forty."
+      },
+      {
+        "text" : "The bus comes every fifteen minutes, except when you are in a hurry."
+      },
+      {
+        "text" : "Our neighbor plays the piano in the evening, and the whole building listens."
+      },
+      {
+        "text" : "Before the trip, I checked three times that my passport was in my bag."
+      },
+      {
+        "text" : "The river ran high after a whole week of thunderstorms."
+      },
+      {
+        "text" : "Nobody remembered who started the argument, but everyone wanted to win it."
+      },
+      {
+        "text" : "The first cup of coffee in the morning is the only one I drink slowly."
+      },
+      {
+        "text" : "The cat sleeps in the sunny window and only moves when the sun does."
+      },
+      {
+        "text" : "I learned to cook rice by watching my father, measuring nothing and tasting a lot."
+      },
+      {
+        "text" : "The harbor lights shimmered on the water like small, trembling stars."
+      },
+      {
+        "text" : "The report ran to forty pages, though the important part fit in a paragraph."
+      },
+      {
+        "text" : "When the concert ended, the audience sat in silence for a few seconds."
+      },
+      {
+        "text" : "My first computer was very loud and took a full minute to start up."
+      },
+      {
+        "text" : "The bike shop fixes flat tires in ten minutes, no appointment needed."
+      },
+      {
+        "text" : "We wrote a long shopping list and came home without half the things on it."
+      },
+      {
+        "text" : "The lighthouse has warned ships away from the rocky coast for over a century."
+      },
+      {
+        "text" : "Every time it rains, the school playground turns into a small lake."
+      },
+      {
+        "text" : "I like to write notes by hand before I start any new project."
+      },
+      {
+        "text" : "Grandpa told stories that never ended the same way twice."
+      },
+      {
+        "text" : "The last page of every notebook fills up with doodles and stray numbers."
+      },
+      {
+        "text" : "The team celebrated the win with pizza and a song nobody could sing."
+      },
+      {
+        "text" : "To learn a language, you have to make lots of mistakes without shame."
+      },
+      {
+        "text" : "The elevator got stuck between floors for twenty very long minutes."
+      },
+      {
+        "text" : "From the hill you could see the whole town, the church, and the soccer field."
+      },
+      {
+        "text" : "The printer decided to jam at the exact moment we needed it most."
+      },
+      {
+        "text" : "We planted lettuce in pots, and the snails ate all of it in one night."
+      },
+      {
+        "text" : "A good book, a warm blanket, and a rainy afternoon make a perfect plan."
+      },
+      {
+        "text" : "The doctor told me to walk more and stare at my phone a little less."
+      },
+      {
+        "text" : "The coastal road has sharp bends and incredible views of the sea."
+      },
+      {
+        "text" : "My friend speaks four languages and still says English spelling is a mystery."
+      },
+      {
+        "text" : "The clock in the square has been slow for years, and nobody fixes it."
+      },
+      {
+        "text" : "Today I learned that saving your work often prevents a lot of grief."
+      },
+      {
+        "text" : "This year the cherries came out sweet, large, and very dark."
+      },
+      {
+        "text" : "The taxi driver knew a shortcut that saved us twenty minutes of traffic."
+      },
+      {
+        "text" : "At night the desert gets so cold that you need a heavy coat."
+      },
+      {
+        "text" : "The meeting started on time, which had not happened in months."
+      },
+      {
+        "text" : "My niece wants to be an astronaut, a vet, and a singer, all at once."
+      },
+      {
+        "text" : "Snow covered the cars, and the kids built a snowman on every corner."
+      },
+      {
+        "text" : "Review your changes before you send them; the next reader will thank you."
+      },
+      {
+        "text" : "The museum was almost empty, so we looked at the paintings without hurry."
+      },
+      {
+        "text" : "At the station, a violinist played for commuters rushing to their trains."
+      },
+      {
+        "text" : "We moved the furniture around, and the living room looks twice as big."
+      },
+      {
+        "text" : "The birthday cake had so many candles that it set off the smoke alarm."
+      },
+      {
+        "text" : "Writing every day, even a little, is the surest way to get better."
+      },
+      {
+        "text" : "The storm knocked out the power, and dinner became a picnic in the dark."
+      },
+      {
+        "text" : "The baker starts work at four so that everything is ready by seven."
+      },
+      {
+        "text" : "My favorite keyboard has soft keys and a quiet, muffled sound."
+      },
+      {
+        "text" : "Waves crashed against the pier and soaked anyone who came too close."
+      },
+      {
+        "text" : "The cyclist climbed the pass slowly but never stopped once."
+      },
+      {
+        "text" : "At the end of summer, the village empties out and grows calm again."
+      },
+      {
+        "text" : "It took us an afternoon to build the wardrobe, and six screws were left over."
+      },
+      {
+        "text" : "The public library lends books, movies, and even power tools."
+      },
+      {
+        "text" : "When you do not know where to begin, begin with the smallest step."
+      },
+      {
+        "text" : "The city wakes up to the sound of shutters and the smell of fresh bread."
+      },
+      {
+        "text" : "I took the wrong train and discovered a lovely town by the sea."
+      },
+      {
+        "text" : "The exam was easier than I expected, but the time still ran short."
+      },
+      {
+        "text" : "Birds start singing long before the sun comes up."
+      },
+      {
+        "text" : "My grandmother's garden had roses, fig trees, and an old stone well."
+      },
+      {
+        "text" : "One short, clear message is worth more than three long, confusing emails."
+      },
+      {
+        "text" : "We built a fire on the beach and stayed up watching the stars."
+      },
+      {
+        "text" : "The match ended in a draw, and both teams went home unhappy."
+      },
+      {
+        "text" : "Every morning I water the plants before I turn on the computer."
+      }
+    ],
+    "es" : [
+      {
+        "text" : "El agente sigue pensando, así que aprovecho para escribir sin mirar el teclado."
+      },
+      {
+        "text" : "La mañana empezó con lluvia, pero a mediodía el sol ya calentaba las calles."
+      },
+      {
+        "text" : "Mi abuela guardaba las recetas en una libreta llena de manchas de aceite."
+      },
+      {
+        "text" : "¿Cuántas veces revisaste el mismo error antes de leer el mensaje completo?"
+      },
+      {
+        "text" : "El tren salió con diez minutos de retraso y nadie pareció sorprenderse."
+      },
+      {
+        "text" : "Aprender a escribir rápido no sirve de nada si cada palabra lleva una errata."
+      },
+      {
+        "text" : "La biblioteca del barrio cierra los domingos, pero abre hasta tarde los jueves."
+      },
+      {
+        "text" : "Compré pan, queso y un par de tomates para cenar algo sencillo en casa."
+      },
+      {
+        "text" : "El niño preguntó por qué el cielo es azul y nadie supo responder del todo."
+      },
+      {
+        "text" : "Después de la reunión, el equipo decidió dividir el proyecto en partes pequeñas."
+      },
+      {
+        "text" : "¡Qué bien sienta un café caliente cuando el invierno se mete en los huesos!"
+      },
+      {
+        "text" : "La montaña parecía cerca desde el pueblo, pero llegar a la cima llevó seis horas."
+      },
+      {
+        "text" : "Cada otoño los árboles del parque se tiñen de rojo, naranja y amarillo."
+      },
+      {
+        "text" : "Ella leyó la carta dos veces antes de decidir si debía contestarla."
+      },
+      {
+        "text" : "El código compilaba sin errores, aunque nadie entendía del todo por qué."
+      },
+      {
+        "text" : "Un buen descanso vale más que tres horas extra frente a la pantalla."
+      },
+      {
+        "text" : "El perro del vecino ladra cada vez que pasa la furgoneta del correo."
+      },
+      {
+        "text" : "Nos perdimos dos veces por culpa del mapa, pero encontramos una playa preciosa."
+      },
+      {
+        "text" : "La música sonaba bajita mientras la ciudad se iba quedando en silencio."
+      },
+      {
+        "text" : "Si practicas un poco cada día, la mejora llega sin que te des cuenta."
+      },
+      {
+        "text" : "El año pasado plantamos un limonero en el patio y ya tiene sus primeros frutos."
+      },
+      {
+        "text" : "Guardé la contraseña en un lugar seguro y luego olvidé cuál era ese lugar."
+      },
+      {
+        "text" : "La señora del quiosco conoce a todo el barrio por su nombre y su periódico."
+      },
+      {
+        "text" : "El vuelo aterrizó de madrugada y el aeropuerto estaba casi vacío."
+      },
+      {
+        "text" : "Escribir con calma y sin errores es más rápido que corregir a toda prisa."
+      },
+      {
+        "text" : "Los domingos por la tarde la plaza se llena de familias y bicicletas."
+      },
+      {
+        "text" : "Tardé una hora en encontrar el fallo: era una coma en el sitio equivocado."
+      },
+      {
+        "text" : "El cocinero probó la salsa, añadió una pizca de sal y sonrió satisfecho."
+      },
+      {
+        "text" : "A veces la mejor solución es borrar código en lugar de escribir más."
+      },
+      {
+        "text" : "La niebla cubrió el valle toda la mañana y el pueblo pareció desaparecer."
+      },
+      {
+        "text" : "Mi hermano siempre llega tarde, pero trae el mejor postre de la familia."
+      },
+      {
+        "text" : "El mercado abre temprano y a las ocho ya huele a fruta, pescado y café."
+      },
+      {
+        "text" : "Apagué el móvil una hora y descubrí que el mundo seguía girando sin mí."
+      },
+      {
+        "text" : "La profesora dibujó un mapa en la pizarra y explicó el viaje de Magallanes."
+      },
+      {
+        "text" : "En verano cenamos en la terraza hasta que los mosquitos nos echan a casa."
+      },
+      {
+        "text" : "El paraguas se dio la vuelta con el viento y acabé empapado igualmente."
+      },
+      {
+        "text" : "Los lunes la oficina está tranquila, como si nadie quisiera hablar todavía."
+      },
+      {
+        "text" : "Leí la novela en dos noches porque no podía dejar de pasar páginas."
+      },
+      {
+        "text" : "La receta pedía media hora de horno, pero el bizcocho necesitó cuarenta minutos."
+      },
+      {
+        "text" : "El autobús pasa cada quince minutos, salvo cuando más prisa tienes."
+      },
+      {
+        "text" : "Mi vecina toca el piano por las tardes y el edificio entero se calla para escucharla."
+      },
+      {
+        "text" : "Antes de salir de viaje, revisé tres veces que el pasaporte estaba en la mochila."
+      },
+      {
+        "text" : "El río bajaba crecido después de una semana entera de tormentas."
+      },
+      {
+        "text" : "Nadie recordaba quién había empezado la discusión, pero todos querían ganarla."
+      },
+      {
+        "text" : "La primera taza de café del día es la única que bebo despacio."
+      },
+      {
+        "text" : "El gato duerme al sol en la ventana y solo se mueve cuando el sol cambia de sitio."
+      },
+      {
+        "text" : "Aprendí a cocinar arroz viendo a mi padre, sin medir nada y probando mucho."
+      },
+      {
+        "text" : "Las luces del puerto se reflejaban en el agua como pequeñas estrellas temblorosas."
+      },
+      {
+        "text" : "El documento tenía cuarenta páginas, aunque lo importante cabía en un párrafo."
+      },
+      {
+        "text" : "Cuando terminó el concierto, el público se quedó en silencio unos segundos."
+      },
+      {
+        "text" : "Mi primer ordenador hacía un ruido enorme y tardaba un minuto en encenderse."
+      },
+      {
+        "text" : "La tienda de bicicletas arregla pinchazos en diez minutos y sin cita previa."
+      },
+      {
+        "text" : "Hicimos una lista de la compra muy larga y volvimos sin la mitad de las cosas."
+      },
+      {
+        "text" : "El faro lleva más de cien años avisando a los barcos de la costa rocosa."
+      },
+      {
+        "text" : "Cada vez que llueve, el patio del colegio se convierte en un pequeño lago."
+      },
+      {
+        "text" : "Me gusta escribir notas a mano antes de empezar cualquier proyecto nuevo."
+      },
+      {
+        "text" : "El abuelo contaba historias de la guerra que nunca terminaban igual dos veces."
+      },
+      {
+        "text" : "La última página del cuaderno siempre acaba llena de dibujos y números sueltos."
+      },
+      {
+        "text" : "El equipo celebró la victoria con pizza y una canción que nadie cantaba bien."
+      },
+      {
+        "text" : "Para aprender un idioma hay que equivocarse mucho y sin vergüenza."
+      },
+      {
+        "text" : "El ascensor se quedó parado entre dos pisos durante veinte minutos eternos."
+      },
+      {
+        "text" : "Desde la colina se veía todo el pueblo, la iglesia y el campo de fútbol."
+      },
+      {
+        "text" : "La impresora decidió atascarse justo cuando más falta hacía."
+      },
+      {
+        "text" : "Sembramos lechugas en macetas y los caracoles se las comieron en una noche."
+      },
+      {
+        "text" : "Un buen libro, una manta y una tarde de lluvia son un plan perfecto."
+      },
+      {
+        "text" : "El médico me recomendó caminar más y mirar menos la pantalla del móvil."
+      },
+      {
+        "text" : "La carretera de la costa tiene curvas cerradas y unas vistas increíbles."
+      },
+      {
+        "text" : "Mi amiga habla cuatro idiomas y aun así dice que el castellano es el más difícil."
+      },
+      {
+        "text" : "El reloj de la plaza lleva años atrasado y nadie se decide a arreglarlo."
+      },
+      {
+        "text" : "Hoy he aprendido que guardar los cambios a menudo ahorra muchos disgustos."
+      },
+      {
+        "text" : "Las cerezas de este año salieron dulces, grandes y muy oscuras."
+      },
+      {
+        "text" : "El taxista conocía un atajo que nos ahorró veinte minutos de atasco."
+      },
+      {
+        "text" : "Por la noche el desierto se enfría tanto que hace falta un buen abrigo."
+      },
+      {
+        "text" : "La reunión empezó puntual, algo que no ocurría desde hacía meses."
+      },
+      {
+        "text" : "Mi sobrina quiere ser astronauta, veterinaria y cantante, todo a la vez."
+      },
+      {
+        "text" : "La nieve cubrió los coches y los niños hicieron muñecos en cada esquina."
+      },
+      {
+        "text" : "Revisa los cambios antes de enviarlos; el compañero que los lea te lo agradecerá."
+      },
+      {
+        "text" : "El museo estaba casi vacío y pudimos ver los cuadros sin prisa ninguna."
+      },
+      {
+        "text" : "En la estación, un músico tocaba el violín para los viajeros con prisa."
+      },
+      {
+        "text" : "Cambiamos los muebles de sitio y el salón parece el doble de grande."
+      },
+      {
+        "text" : "El pastel de cumpleaños llevaba tantas velas que hizo saltar la alarma."
+      },
+      {
+        "text" : "Escribir todos los días, aunque sea poco, es la mejor forma de mejorar."
+      },
+      {
+        "text" : "La tormenta cortó la luz y la cena acabó siendo un pícnic a oscuras."
+      },
+      {
+        "text" : "El panadero empieza a trabajar a las cuatro para tener todo listo a las siete."
+      },
+      {
+        "text" : "Mi teclado favorito tiene teclas suaves y un sonido apagado muy agradable."
+      },
+      {
+        "text" : "Las olas rompían contra el muelle y salpicaban a quien se acercaba demasiado."
+      },
+      {
+        "text" : "El ciclista subió el puerto despacio, pero sin detenerse ni una sola vez."
+      },
+      {
+        "text" : "Al final del verano, el pueblo se vacía y vuelve a quedarse en calma."
+      },
+      {
+        "text" : "Tardamos una tarde en montar el armario y nos sobraron seis tornillos."
+      },
+      {
+        "text" : "La biblioteca municipal presta libros, películas y hasta herramientas."
+      },
+      {
+        "text" : "Cuando no sepas por dónde empezar, empieza por lo más pequeño."
+      },
+      {
+        "text" : "La ciudad se despierta con el ruido de las persianas y el olor a pan."
+      },
+      {
+        "text" : "Me equivoqué de tren y acabé descubriendo un pueblo precioso junto al mar."
+      },
+      {
+        "text" : "El examen era más fácil de lo que esperaba, pero el tiempo se me hizo corto."
+      },
+      {
+        "text" : "Los pájaros empiezan a cantar mucho antes de que salga el sol."
+      },
+      {
+        "text" : "El jardín de mi abuela tenía rosas, higueras y un pozo de piedra."
+      },
+      {
+        "text" : "Un mensaje claro y corto vale más que tres correos largos y confusos."
+      },
+      {
+        "text" : "Hicimos una hoguera en la playa y nos quedamos mirando las estrellas."
+      },
+      {
+        "text" : "El partido terminó en empate y los dos equipos se marcharon descontentos."
+      },
+      {
+        "text" : "Cada mañana riego las plantas antes de encender el ordenador."
+      }
+    ],
+    "id" : "general",
+    "name" : "General"
+  },
+  {
+    "en" : [
+      {
+        "source" : "Seneca, On the Shortness of Life, 1 (tr. Basore)",
+        "text" : "It is not that we have a short space of time, but that we waste much of it. Life is long enough."
+      },
+      {
+        "source" : "Seneca, On the Shortness of Life, 10 (tr. Basore)",
+        "text" : "Life is divided into three periods, that which has been, that which is, that which will be. Of these the present time is short, the future is doubtful, the past is certain."
+      },
+      {
+        "source" : "Seneca, Letters from a Stoic, 1 (tr. Gummere)",
+        "text" : "While we are postponing, life speeds by."
+      },
+      {
+        "source" : "Seneca, Letters from a Stoic, 2 (tr. Gummere)",
+        "text" : "It is not the man who has too little, but the man who craves more, that is poor."
+      },
+      {
+        "source" : "Seneca, Letters from a Stoic, 4 (tr. Gummere)",
+        "text" : "No man can have a peaceful life who thinks too much about lengthening it."
+      },
+      {
+        "source" : "Seneca, Letters from a Stoic, 5 (tr. Gummere)",
+        "text" : "Cease to hope, and you will cease to fear."
+      },
+      {
+        "source" : "Seneca, Letters from a Stoic, 7 (tr. Gummere)",
+        "text" : "Withdraw into yourself, as far as you can. Associate with those who will make a better man of you. Welcome those whom you yourself can improve."
+      },
+      {
+        "source" : "Seneca, Letters from a Stoic, 7 (tr. Gummere)",
+        "text" : "Men learn while they teach."
+      },
+      {
+        "source" : "Seneca, Letters from a Stoic, 9 (tr. Gummere)",
+        "text" : "If you would be loved, love."
+      },
+      {
+        "source" : "Seneca, Letters from a Stoic, 10 (tr. Gummere)",
+        "text" : "Live among men as if God beheld you; speak with God as if men were listening."
+      },
+      {
+        "source" : "Seneca, Letters from a Stoic, 13 (tr. Gummere)",
+        "text" : "There are more things, Lucilius, likely to frighten us than there are to crush us; we suffer more often in imagination than in reality."
+      },
+      {
+        "source" : "Seneca, Letters from a Stoic, 18 (tr. Gummere)",
+        "text" : "If you would not have a man flinch when the crisis comes, train him before it comes."
+      },
+      {
+        "source" : "Seneca, Letters from a Stoic, 19 (tr. Gummere)",
+        "text" : "A trifling debt makes a man your debtor; a large one makes him an enemy."
+      },
+      {
+        "source" : "Seneca, Letters from a Stoic, 22 (tr. Gummere)",
+        "text" : "Men do not care how nobly they live, but only how long, although it is within the reach of every man to live nobly, but within no man's power to live long."
+      },
+      {
+        "source" : "Seneca, Letters from a Stoic, 28 (tr. Gummere)",
+        "text" : "You need a change of soul rather than a change of climate."
+      },
+      {
+        "source" : "Seneca, Letters from a Stoic, 30 (tr. Gummere)",
+        "text" : "A great pilot can sail even when his canvas is rent."
+      },
+      {
+        "source" : "Seneca, Letters from a Stoic, 61 (tr. Gummere)",
+        "text" : "Before I became old I tried to live well; now that I am old, I shall try to die well; but dying well means dying gladly."
+      },
+      {
+        "source" : "Seneca, Letters from a Stoic, 70 (tr. Gummere)",
+        "text" : "The wise man will live as long as he ought, not as long as he can."
+      },
+      {
+        "source" : "Seneca, Letters from a Stoic, 71 (tr. Gummere)",
+        "text" : "Our plans miscarry because they have no aim. When a man does not know what harbour he is making for, no wind is the right wind."
+      },
+      {
+        "source" : "Seneca, Letters from a Stoic, 81",
+        "text" : "The reward for a good deed is to have done it."
+      },
+      {
+        "source" : "Seneca, Letters from a Stoic, 84 (tr. Gummere)",
+        "text" : "It is a rough road that leads to the heights of greatness."
+      },
+      {
+        "source" : "Seneca, Letters from a Stoic, 98",
+        "text" : "He suffers more than is necessary, who suffers before it is necessary."
+      },
+      {
+        "source" : "Seneca, Letters from a Stoic, 104",
+        "text" : "It is not because things are difficult that we do not dare; it is because we do not dare that they are difficult."
+      },
+      {
+        "source" : "Seneca, On Clemency, I.1 (tr. Basore)",
+        "text" : "No one can wear a mask for long."
+      },
+      {
+        "source" : "Seneca, On Anger, I.16 (tr. Basore)",
+        "text" : "A good judge condemns wrongful acts, but does not hate them."
+      },
+      {
+        "source" : "Seneca, On Anger, III.43 (tr. Basore)",
+        "text" : "While we are among human beings, let us cherish humanity."
+      },
+      {
+        "source" : "Seneca, On Tranquillity of Mind, 11 (tr. Basore)",
+        "text" : "He who fears death will never do anything worthy of a man who is alive."
+      },
+      {
+        "source" : "Seneca, On Providence, 5 (tr. Basore)",
+        "text" : "Fire tests gold, misfortune brave men."
+      },
+      {
+        "source" : "Marcus Aurelius, Meditations, II.4 (tr. Hays)",
+        "text" : "There is a limit to the time assigned you, and if you don't use it to free yourself it will be gone and never return."
+      },
+      {
+        "source" : "Marcus Aurelius, Meditations, II.14 (tr. Long)",
+        "text" : "Though thou shouldst be going to live three thousand years, and as many times ten thousand years, still remember that no man loses any other life than this which he now lives, nor lives any other than this which he now loses."
+      },
+      {
+        "source" : "Marcus Aurelius, Meditations, III.5 (tr. Long)",
+        "text" : "A man then must stand erect, not be kept erect by others."
+      },
+      {
+        "source" : "Marcus Aurelius, Meditations, III.7 (tr. Long)",
+        "text" : "Never value anything as profitable to thyself which shall compel thee to break thy promise, to lose thy self-respect."
+      },
+      {
+        "source" : "Marcus Aurelius, Meditations, IV.3 (tr. Long)",
+        "text" : "For nowhere either with more quiet or more freedom from trouble does a man retire than into his own soul."
+      },
+      {
+        "source" : "Marcus Aurelius, Meditations, IV.3 (tr. Long)",
+        "text" : "The universe is transformation: life is opinion."
+      },
+      {
+        "source" : "Marcus Aurelius, Meditations, IV.17 (tr. Long)",
+        "text" : "Do not act as if thou wert going to live ten thousand years. Death hangs over thee. While thou livest, while it is in thy power, be good."
+      },
+      {
+        "source" : "Marcus Aurelius, Meditations, IV.43 (tr. Long)",
+        "text" : "Time is like a river made up of the events which happen, and a violent stream; for as soon as a thing has been seen, it is carried away, and another comes in its place, and this will be carried away too."
+      },
+      {
+        "source" : "Marcus Aurelius, Meditations, V.16 (tr. Hays)",
+        "text" : "The things you think about determine the quality of your mind. Your soul takes on the color of your thoughts."
+      },
+      {
+        "source" : "Marcus Aurelius, Meditations, V.18 (tr. Long)",
+        "text" : "Nothing happens to any man which he is not formed by nature to bear."
+      },
+      {
+        "source" : "Marcus Aurelius, Meditations, V.22 (tr. Long)",
+        "text" : "That which does no harm to the state, does no harm to the citizen."
+      },
+      {
+        "source" : "Marcus Aurelius, Meditations, VI.6 (tr. Long)",
+        "text" : "The best way of avenging thyself is not to become like the wrong doer."
+      },
+      {
+        "source" : "Marcus Aurelius, Meditations, VI.19 (tr. Long)",
+        "text" : "If a thing is difficult to be accomplished by thyself, do not think that it is impossible for man: but if anything is possible for man and conformable to his nature, think that this can be attained by thyself too."
+      },
+      {
+        "source" : "Marcus Aurelius, Meditations, VI.36 (tr. Long)",
+        "text" : "Asia, Europe are corners of the universe: all the sea a drop in the universe; Athos a little clod of the universe: all the present time is a point in eternity."
+      },
+      {
+        "source" : "Marcus Aurelius, Meditations, VI.39 (tr. Long)",
+        "text" : "Adapt thyself to the things with which thy lot has been cast: and the men among whom thou hast received thy portion, love them, but do it truly, sincerely."
+      },
+      {
+        "source" : "Marcus Aurelius, Meditations, VI.54 (tr. Long)",
+        "text" : "That which is not good for the swarm, neither is it good for the bee."
+      },
+      {
+        "source" : "Marcus Aurelius, Meditations, VII.8 (tr. Staniforth)",
+        "text" : "Never let the future disturb you. You will meet it, if you have to, with the same weapons of reason which today arm you against the present."
+      },
+      {
+        "source" : "Marcus Aurelius, Meditations, VII.21 (tr. Long)",
+        "text" : "Near is thy forgetfulness of all things; and near the forgetfulness of thee by all."
+      },
+      {
+        "source" : "Marcus Aurelius, Meditations, VII.59 (tr. Long)",
+        "text" : "Look within. Within is the fountain of good, and it will ever bubble up, if thou wilt ever dig."
+      },
+      {
+        "source" : "Marcus Aurelius, Meditations, VII.61 (tr. Long)",
+        "text" : "The art of life is more like the wrestler's art than the dancer's, in respect of this, that it should stand ready and firm to meet onsets which are sudden and unexpected."
+      },
+      {
+        "source" : "Marcus Aurelius, Meditations, VII.71 (tr. Long)",
+        "text" : "It is a ridiculous thing for a man not to fly from his own badness, which is indeed possible, but to fly from other men's badness, which is impossible."
+      },
+      {
+        "source" : "Marcus Aurelius, Meditations, VIII.59 (tr. Long)",
+        "text" : "Men exist for the sake of one another. Teach them then or bear with them."
+      },
+      {
+        "source" : "Marcus Aurelius, Meditations, X.16 (tr. Long)",
+        "text" : "No longer talk at all about the kind of man that a good man ought to be, but be such."
+      },
+      {
+        "source" : "Marcus Aurelius, Meditations, XII.17 (tr. Long)",
+        "text" : "If it is not right, do not do it: if it is not true, do not say it."
+      },
+      {
+        "source" : "Marcus Aurelius, Meditations, XII.26 (tr. Long)",
+        "text" : "Thou hast forgotten this too, that everything is opinion; and this, that every man lives the present time only, and loses only this."
+      },
+      {
+        "source" : "Epictetus, Enchiridion, 5 (tr. Carter)",
+        "text" : "Men are disturbed not by things, but by the principles and notions which they form concerning things."
+      },
+      {
+        "source" : "Epictetus, Enchiridion, 5 (tr. Long)",
+        "text" : "It is the act of an ill-instructed man to blame others for his own bad condition; it is the act of one who has begun to be instructed, to lay the blame on himself; and of one whose instruction is completed, neither to blame another, nor himself."
+      },
+      {
+        "source" : "Epictetus, Enchiridion, 8 (tr. Long)",
+        "text" : "Seek not that the things which happen should happen as you wish; but wish the things which happen to be as they are, and you will have a tranquil flow of life."
+      },
+      {
+        "source" : "Epictetus, Enchiridion, 20 (tr. Long)",
+        "text" : "Remember that it is not he who reviles you or strikes you, who insults you, but it is your opinion about these things as being insulting."
+      },
+      {
+        "source" : "Epictetus, Enchiridion, 43 (tr. Carter)",
+        "text" : "Every thing has two handles, the one by which it may be borne, the other by which it may not."
+      },
+      {
+        "source" : "Epictetus, Discourses, I.15 (tr. Long)",
+        "text" : "No great thing is produced suddenly, since not even the bunch of grapes or the fig is. If you say to me now that you want a fig, I will answer to you that it requires time."
+      },
+      {
+        "source" : "Epictetus, Discourses, I.18",
+        "text" : "Practice yourself, for heaven's sake, in little things; and thence proceed to greater."
+      },
+      {
+        "source" : "Epictetus, Discourses, II.1",
+        "text" : "For it is not death or pain that is to be feared, but the fear of pain or death."
+      },
+      {
+        "source" : "Epictetus, Discourses, II.17",
+        "text" : "What is the first business of one who practices philosophy? To get rid of self-conceit. For it is impossible for anyone to begin to learn that which he thinks he already knows."
+      },
+      {
+        "source" : "Epictetus, Discourses, II.18",
+        "text" : "Every habit and faculty is confirmed and strengthened by the corresponding actions, that of walking by walking, that of running by running. If you would be a good reader, read; if a writer, write."
+      },
+      {
+        "source" : "Epictetus, Discourses, III.23",
+        "text" : "First say to yourself what you would be; and then do what you have to do."
+      },
+      {
+        "source" : "Epictetus, Discourses, IV.3",
+        "text" : "Little is needed to ruin and upset everything, only a slight aberration from reason."
+      }
+    ],
+    "es" : [
+      {
+        "source" : "Séneca, Sobre la brevedad de la vida, 1",
+        "text" : "No es que tengamos poco tiempo, sino que perdemos mucho."
+      },
+      {
+        "source" : "Séneca, Sobre la brevedad de la vida, 10",
+        "text" : "La vida se divide en tres tiempos: el que fue, el que es y el que será. De estos, el presente es breve; el futuro, dudoso; el pasado, cierto."
+      },
+      {
+        "source" : "Séneca, Cartas de un estoico, 1",
+        "text" : "Mientras se difiere, la vida transcurre."
+      },
+      {
+        "source" : "Séneca, Cartas de un estoico, 2",
+        "text" : "No es pobre el que tiene poco, sino el que ansía más."
+      },
+      {
+        "source" : "Séneca, Cartas de un estoico, 4",
+        "text" : "Nadie puede tener una vida tranquila si piensa demasiado en alargarla."
+      },
+      {
+        "source" : "Séneca, Cartas de un estoico, 5",
+        "text" : "Cesarás de temer cuando ceses de esperar."
+      },
+      {
+        "source" : "Séneca, Cartas de un estoico, 7",
+        "text" : "Recógete en ti mismo cuando puedas, busca a quienes pueden hacerte mejor, y recibe también a quienes puedas tú mejorar."
+      },
+      {
+        "source" : "Séneca, Cartas de un estoico, 7",
+        "text" : "Los hombres, mientras enseñan, aprenden."
+      },
+      {
+        "source" : "Séneca, Cartas de un estoico, 9",
+        "text" : "Si quieres ser amado, ama."
+      },
+      {
+        "source" : "Séneca, Cartas de un estoico, 10",
+        "text" : "Vive con los hombres como si Dios te viera; habla con Dios como si los hombres te escucharan."
+      },
+      {
+        "source" : "Séneca, Cartas de un estoico, 13",
+        "text" : "Más son las cosas que nos atemorizan que las que nos oprimen, y más a menudo padecemos por aprensión que por realidad."
+      },
+      {
+        "source" : "Séneca, Cartas de un estoico, 18",
+        "text" : "Si no quieres que un hombre flaquee cuando llegue la crisis, ejercítalo antes de que llegue."
+      },
+      {
+        "source" : "Séneca, Cartas de un estoico, 19",
+        "text" : "Una deuda pequeña hace de un hombre tu deudor; una grande, tu enemigo."
+      },
+      {
+        "source" : "Séneca, Cartas de un estoico, 22",
+        "text" : "Los hombres no se preocupan de vivir noblemente, sino de vivir mucho, aunque vivir noblemente está al alcance de todos y vivir mucho no está en poder de nadie."
+      },
+      {
+        "source" : "Séneca, Cartas de un estoico, 28",
+        "text" : "Hay que cambiar de alma, no de clima."
+      },
+      {
+        "source" : "Séneca, Cartas de un estoico, 30",
+        "text" : "Un gran piloto sabe navegar aun con la vela rota."
+      },
+      {
+        "source" : "Séneca, Cartas de un estoico, 61",
+        "text" : "Antes de envejecer procuré vivir bien; ahora que soy viejo, procuraré morir bien; y morir bien es morir de buen grado."
+      },
+      {
+        "source" : "Séneca, Cartas de un estoico, 70",
+        "text" : "El sabio vive tanto como debe, no tanto como puede."
+      },
+      {
+        "source" : "Séneca, Cartas de un estoico, 71",
+        "text" : "Cuando uno no sabe a qué puerto se dirige, ningún viento le es favorable."
+      },
+      {
+        "source" : "Séneca, Cartas de un estoico, 81",
+        "text" : "La recompensa de una buena acción es haberla hecho."
+      },
+      {
+        "source" : "Séneca, Cartas de un estoico, 84",
+        "text" : "Es áspero el camino que conduce a las alturas de la grandeza."
+      },
+      {
+        "source" : "Séneca, Cartas de un estoico, 98",
+        "text" : "Se duele más de lo necesario quien se duele antes de lo necesario."
+      },
+      {
+        "source" : "Séneca, Cartas de un estoico, 104",
+        "text" : "No nos atrevemos a muchas cosas porque son difíciles, pero son difíciles porque no nos atrevemos a hacerlas."
+      },
+      {
+        "source" : "Séneca, Sobre la clemencia, I.1",
+        "text" : "Nadie puede llevar la máscara durante mucho tiempo."
+      },
+      {
+        "source" : "Séneca, Sobre la ira, I.16",
+        "text" : "Un buen juez condena los actos reprobables, pero no los odia."
+      },
+      {
+        "source" : "Séneca, Sobre la ira, III.43",
+        "text" : "Mientras nos encontremos entre los hombres, practiquemos la humanidad."
+      },
+      {
+        "source" : "Séneca, Sobre la tranquilidad del ánimo, 11",
+        "text" : "Quien teme a la muerte nunca hará nada propio de un hombre vivo."
+      },
+      {
+        "source" : "Séneca, Sobre la providencia, 5",
+        "text" : "El fuego prueba el oro; la desgracia, a los hombres fuertes."
+      },
+      {
+        "source" : "Marco Aurelio, Meditaciones, II.4",
+        "text" : "Tu tiempo tiene un límite fijado y, si no lo aprovechas para alcanzar la serenidad, pasará, y ya no volverá."
+      },
+      {
+        "source" : "Marco Aurelio, Meditaciones, II.14",
+        "text" : "Aunque debieras vivir tres mil años y aun diez veces otros tantos, acuérdate siempre que no se pierde otra vida que la que se vive y que sólo se vive la que se pierde."
+      },
+      {
+        "source" : "Marco Aurelio, Meditaciones, III.5",
+        "text" : "Hay que ser derecho, no enderezado."
+      },
+      {
+        "source" : "Marco Aurelio, Meditaciones, III.7",
+        "text" : "Nunca estimes como útil para ti lo que un día te obligue a romper tu palabra o a perder el respeto de ti mismo."
+      },
+      {
+        "source" : "Marco Aurelio, Meditaciones, IV.3",
+        "text" : "En ninguna parte puede hallar el hombre un retiro tan apacible y tranquilo como en la intimidad de su alma."
+      },
+      {
+        "source" : "Marco Aurelio, Meditaciones, IV.3",
+        "text" : "El mundo no es más que transformación, y la vida, opinión solamente."
+      },
+      {
+        "source" : "Marco Aurelio, Meditaciones, IV.17",
+        "text" : "No actúes en la idea de que vas a vivir diez mil años. La necesidad ineludible pende sobre ti. Mientras vives, mientras es posible, sé virtuoso."
+      },
+      {
+        "source" : "Marco Aurelio, Meditaciones, IV.43",
+        "text" : "El tiempo es como un río, formado por los hechos, que adquiere violenta corriente. Apenas se advierte uno, cuando otro ocupa su lugar, para dejar enseguida paso al que le sigue."
+      },
+      {
+        "source" : "Marco Aurelio, Meditaciones, V.16",
+        "text" : "Tal como sean tus pensamientos habituales, así será tu mente, porque el alma se tiñe del color de sus pensamientos."
+      },
+      {
+        "source" : "Marco Aurelio, Meditaciones, V.18",
+        "text" : "A nadie le sucede nada que no esté por naturaleza capacitado para soportar."
+      },
+      {
+        "source" : "Marco Aurelio, Meditaciones, V.22",
+        "text" : "Lo que no es dañino a la ciudad tampoco daña al ciudadano."
+      },
+      {
+        "source" : "Marco Aurelio, Meditaciones, VI.6",
+        "text" : "El mejor modo de vengar la injuria es no parecerse al que la infirió."
+      },
+      {
+        "source" : "Marco Aurelio, Meditaciones, VI.19",
+        "text" : "Si algo te resulta difícil de realizar, no pienses que es imposible para el hombre; y si algo es posible y propio del hombre, piensa que también está a tu alcance."
+      },
+      {
+        "source" : "Marco Aurelio, Meditaciones, VI.36",
+        "text" : "Asia y Europa, rincones del mundo; todo el océano, una gota del universo; el Atos, un terrón del universo; todo el presente, un instante en la eternidad."
+      },
+      {
+        "source" : "Marco Aurelio, Meditaciones, VI.39",
+        "text" : "Adáptate a las cosas que te han tocado en suerte; y a los hombres con quienes te ha tocado vivir, ámalos, pero de verdad, sinceramente."
+      },
+      {
+        "source" : "Marco Aurelio, Meditaciones, VI.54",
+        "text" : "Lo que no es útil al enjambre tampoco lo es para la abeja."
+      },
+      {
+        "source" : "Marco Aurelio, Meditaciones, VII.8",
+        "text" : "No te inquiete el futuro. Llegarás a él, si es preciso, con la misma razón de la que ahora te sirves para el presente."
+      },
+      {
+        "source" : "Marco Aurelio, Meditaciones, VII.21",
+        "text" : "Pronto lo habrás olvidado todo; pronto todos te habrán olvidado."
+      },
+      {
+        "source" : "Marco Aurelio, Meditaciones, VII.59",
+        "text" : "Mira bien dentro de ti. Allí está la fuente del bien, jamás exhausta si la vas ahondando."
+      },
+      {
+        "source" : "Marco Aurelio, Meditaciones, VII.61",
+        "text" : "El arte de vivir se asemeja más a la lucha que a la danza en lo que se refiere a estar firmemente dispuesto a hacer frente a los accidentes incluso imprevistos."
+      },
+      {
+        "source" : "Marco Aurelio, Meditaciones, VII.71",
+        "text" : "Es ridículo no intentar evitar tu propia maldad, lo cual es posible, y en cambio intentar evitar la de los demás, lo cual es imposible."
+      },
+      {
+        "source" : "Marco Aurelio, Meditaciones, VIII.59",
+        "text" : "Los hombres fueron hechos los unos para los otros, así que, instrúyelos o sopórtalos."
+      },
+      {
+        "source" : "Marco Aurelio, Meditaciones, X.16",
+        "text" : "No discutas más sobre cómo debe ser el hombre bueno, sino sé tú uno."
+      },
+      {
+        "source" : "Marco Aurelio, Meditaciones, XII.17",
+        "text" : "Si no conviene, no lo hagas; si no es verdad, no lo digas."
+      },
+      {
+        "source" : "Marco Aurelio, Meditaciones, XII.26",
+        "text" : "Olvidaste también que todo es opinión; que cada uno vive únicamente el momento presente, y eso es lo único que pierde."
+      },
+      {
+        "source" : "Epicteto, Enquiridión, 5",
+        "text" : "Lo que perturba al hombre no son las cosas, sino los juicios relativos a las cosas."
+      },
+      {
+        "source" : "Epicteto, Enquiridión, 5",
+        "text" : "Acusar a otros de los propios males es propio del ignorante; acusarse a sí mismo, del que empieza a instruirse; y no acusar ni a otro ni a sí mismo, del que ya está instruido."
+      },
+      {
+        "source" : "Epicteto, Enquiridión, 8",
+        "text" : "Nunca pidas que las cosas se hagan como quieres, mas procura quererlas como ellas se hacen. Por este medio todo te sucederá como lo deseas."
+      },
+      {
+        "source" : "Epicteto, Enquiridión, 20",
+        "text" : "Recuerda que no te ultraja quien te insulta o te golpea, sino tu opinión de que esas cosas son ultrajantes."
+      },
+      {
+        "source" : "Epicteto, Enquiridión, 43",
+        "text" : "Todo tiene dos asas: una por la que se la puede llevar y otra por la que no se puede."
+      },
+      {
+        "source" : "Epicteto, Disertaciones, I.15",
+        "text" : "Ninguna cosa grande se produce de repente, como tampoco el racimo de uvas o el higo. Si me dices que quieres un higo, te responderé que hace falta tiempo."
+      },
+      {
+        "source" : "Epicteto, Disertaciones, I.18",
+        "text" : "Ejercítate, por los dioses, en las cosas pequeñas, y desde ahí pasa a las mayores."
+      },
+      {
+        "source" : "Epicteto, Disertaciones, II.1",
+        "text" : "El dolor y la muerte no son terribles, sino el miedo al dolor o a la muerte."
+      },
+      {
+        "source" : "Epicteto, Disertaciones, II.17",
+        "text" : "¿Cuál es la primera tarea del que filosofa? Desprenderse de la presunción, porque es imposible empezar a aprender lo que uno cree que ya sabe."
+      },
+      {
+        "source" : "Epicteto, Disertaciones, II.18",
+        "text" : "Todo hábito y facultad se mantiene y se acrecienta con las acciones correspondientes: el de caminar, caminando; el de correr, corriendo. Si quieres leer bien, lee; si escribir, escribe."
+      },
+      {
+        "source" : "Epicteto, Disertaciones, III.23",
+        "text" : "Primero di quién quieres ser; después haz lo que tengas que hacer."
+      },
+      {
+        "source" : "Epicteto, Disertaciones, IV.3",
+        "text" : "Poco hace falta para arruinarlo y trastornarlo todo: basta un ligero extravío de la razón."
+      }
+    ],
+    "id" : "stoic",
+    "name" : "Estoicismo"
+  },
+  {
+    "en" : [
+      {
+        "source" : "Donald Knuth, Computer Programming as an Art (1974)",
+        "text" : "Premature optimization is the root of all evil (or at least most of it) in programming."
+      },
+      {
+        "source" : "Harold Abelson and Gerald Jay Sussman, SICP",
+        "text" : "Programs must be written for people to read, and only incidentally for machines to execute."
+      },
+      {
+        "source" : "Edsger W. Dijkstra, EWD498",
+        "text" : "Simplicity is prerequisite for reliability."
+      },
+      {
+        "source" : "Edsger W. Dijkstra, Notes on Structured Programming",
+        "text" : "Program testing can be used to show the presence of bugs, but never to show their absence!"
+      },
+      {
+        "source" : "Edsger W. Dijkstra, EWD898",
+        "text" : "The question of whether Machines Can Think is about as relevant as the question of whether Submarines Can Swim."
+      },
+      {
+        "source" : "Edsger W. Dijkstra, The Humble Programmer (EWD340)",
+        "text" : "The competent programmer is fully aware of the strictly limited size of his own skull."
+      },
+      {
+        "source" : "Edsger W. Dijkstra, The Humble Programmer (EWD340)",
+        "text" : "As long as there were no machines, programming was no problem at all; when we had a few weak computers, programming became a mild problem, and now we have gigantic computers, programming has become an equally gigantic problem."
+      },
+      {
+        "source" : "Linus Torvalds, linux-kernel (2000)",
+        "text" : "Talk is cheap. Show me the code."
+      },
+      {
+        "source" : "Eric S. Raymond, The Cathedral and the Bazaar",
+        "text" : "Good programmers know what to write. Great ones know what to rewrite (and reuse)."
+      },
+      {
+        "source" : "Eric S. Raymond, The Cathedral and the Bazaar",
+        "text" : "Given enough eyeballs, all bugs are shallow."
+      },
+      {
+        "source" : "Martin Fowler, Refactoring",
+        "text" : "Any fool can write code that a computer can understand. Good programmers write code that humans can understand."
+      },
+      {
+        "source" : "Fred Brooks, The Mythical Man-Month",
+        "text" : "Adding manpower to a late software project makes it later."
+      },
+      {
+        "source" : "Fred Brooks, No Silver Bullet (1986)",
+        "text" : "The hardest single part of building a software system is deciding precisely what to build."
+      },
+      {
+        "source" : "Fred Brooks, The Mythical Man-Month",
+        "text" : "Show me your flowcharts and conceal your tables, and I shall continue to be mystified. Show me your tables, and I won't usually need your flowcharts; they'll be obvious."
+      },
+      {
+        "source" : "Fred Brooks, The Mythical Man-Month",
+        "text" : "Representation is the essence of programming."
+      },
+      {
+        "source" : "Brian Kernighan and P. J. Plauger, The Elements of Programming Style",
+        "text" : "Everyone knows that debugging is twice as hard as writing a program in the first place. So if you're as clever as you can be when you write it, how will you ever debug it?"
+      },
+      {
+        "source" : "Brian Kernighan, Unix for Beginners (1979)",
+        "text" : "The most effective debugging tool is still careful thought, coupled with judiciously placed print statements."
+      },
+      {
+        "source" : "Brian Kernighan and P. J. Plauger, Software Tools",
+        "text" : "Controlling complexity is the essence of computer programming."
+      },
+      {
+        "source" : "C. A. R. Hoare, Turing Award Lecture (1980)",
+        "text" : "There are two ways of constructing a software design: one way is to make it so simple that there are obviously no deficiencies, and the other way is to make it so complicated that there are no obvious deficiencies."
+      },
+      {
+        "source" : "C. A. R. Hoare, QCon London (2009)",
+        "text" : "I call it my billion-dollar mistake. It was the invention of the null reference in 1965."
+      },
+      {
+        "source" : "Ken Thompson, quoted in Jon Bentley, Programming Pearls",
+        "text" : "When in doubt, use brute force."
+      },
+      {
+        "source" : "Ken Thompson, quoted in Eric S. Raymond, The Art of Unix Programming",
+        "text" : "One of my most productive days was throwing away a thousand lines of code."
+      },
+      {
+        "source" : "Douglas McIlroy, Bell System Technical Journal (1978)",
+        "text" : "Make each program do one thing well. To do a new job, build afresh rather than complicate old programs by adding new features."
+      },
+      {
+        "source" : "Rob Pike, Notes on Programming in C (1989)",
+        "text" : "Data dominates. If you've chosen the right data structures and organized things well, the algorithms will almost always be self-evident."
+      },
+      {
+        "source" : "Rob Pike, Notes on Programming in C (1989)",
+        "text" : "Measure. Don't tune for speed until you've measured, and even then don't unless one part of the code overwhelms the rest."
+      },
+      {
+        "source" : "Niklaus Wirth, A Plea for Lean Software (1995)",
+        "text" : "Software is getting slower more rapidly than hardware becomes faster."
+      },
+      {
+        "source" : "Alan J. Perlis, Epigrams on Programming (1982)",
+        "text" : "A language that doesn't affect the way you think about programming, is not worth knowing."
+      },
+      {
+        "source" : "Alan Kay, Xerox PARC (1971)",
+        "text" : "The best way to predict the future is to invent it."
+      },
+      {
+        "source" : "Alan J. Perlis, Epigrams on Programming (1982)",
+        "text" : "It is better to have 100 functions operate on one data structure than 10 functions on 10 data structures."
+      },
+      {
+        "source" : "Grace Hopper, Computerworld (1976)",
+        "text" : "The most damaging phrase in the language is: It's always been done that way."
+      },
+      {
+        "source" : "Grace Hopper, Chips Ahoy interview (1986)",
+        "text" : "It's easier to ask forgiveness than it is to get permission."
+      },
+      {
+        "source" : "Melvin Conway, How Do Committees Invent? (1968)",
+        "text" : "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations."
+      },
+      {
+        "source" : "Kent Beck, Extreme Programming Explained",
+        "text" : "Optimism is an occupational hazard of programming; feedback is the treatment."
+      },
+      {
+        "source" : "Kent Beck, Twitter (2012)",
+        "text" : "First make the change easy (warning: this might be hard), then make the easy change."
+      },
+      {
+        "source" : "Bjarne Stroustrup, Bjarne Stroustrup's FAQ",
+        "text" : "There are only two kinds of languages: the ones people complain about and the ones nobody uses."
+      }
+    ],
+    "es" : [
+      {
+        "source" : "Donald Knuth, Computer Programming as an Art (1974)",
+        "text" : "La optimización prematura es la raíz de todos los males (o al menos de la mayoría de ellos) en la programación."
+      },
+      {
+        "source" : "Harold Abelson y Gerald Jay Sussman, SICP",
+        "text" : "Los programas deben escribirse para que los lean las personas, y solo incidentalmente para que los ejecuten las máquinas."
+      },
+      {
+        "source" : "Edsger W. Dijkstra, EWD498",
+        "text" : "La simplicidad es un requisito previo para la fiabilidad."
+      },
+      {
+        "source" : "Edsger W. Dijkstra, Notes on Structured Programming",
+        "text" : "Las pruebas de programas pueden usarse para mostrar la presencia de errores, pero nunca para mostrar su ausencia."
+      },
+      {
+        "source" : "Edsger W. Dijkstra, EWD898",
+        "text" : "La cuestión de si las máquinas pueden pensar es tan relevante como la cuestión de si los submarinos pueden nadar."
+      },
+      {
+        "source" : "Edsger W. Dijkstra, The Humble Programmer (EWD340)",
+        "text" : "El programador competente es plenamente consciente del tamaño estrictamente limitado de su propio cráneo."
+      },
+      {
+        "source" : "Edsger W. Dijkstra, The Humble Programmer (EWD340)",
+        "text" : "Mientras no hubo máquinas, programar no era ningún problema; cuando tuvimos unos pocos ordenadores débiles, se convirtió en un problema leve, y ahora que tenemos ordenadores gigantescos, se ha convertido en un problema igual de gigantesco."
+      },
+      {
+        "source" : "Linus Torvalds, linux-kernel (2000)",
+        "text" : "Hablar es barato. Enséñame el código."
+      },
+      {
+        "source" : "Eric S. Raymond, La catedral y el bazar",
+        "text" : "Los buenos programadores saben qué escribir. Los grandes saben qué reescribir y qué reutilizar."
+      },
+      {
+        "source" : "Eric S. Raymond, La catedral y el bazar",
+        "text" : "Dado un número suficiente de ojos, todos los errores son superficiales."
+      },
+      {
+        "source" : "Martin Fowler, Refactoring",
+        "text" : "Cualquier tonto puede escribir código que un ordenador entienda. Los buenos programadores escriben código que los humanos entienden."
+      },
+      {
+        "source" : "Fred Brooks, El mítico hombre-mes",
+        "text" : "Añadir más personas a un proyecto de software retrasado solo lo retrasa más."
+      },
+      {
+        "source" : "Fred Brooks, No Silver Bullet (1986)",
+        "text" : "La parte más difícil de construir un sistema de software es decidir con precisión qué construir."
+      },
+      {
+        "source" : "Fred Brooks, El mítico hombre-mes",
+        "text" : "Muéstrame tus diagramas de flujo y oculta tus tablas, y seguiré desconcertado. Muéstrame tus tablas y no necesitaré tus diagramas: serán obvios."
+      },
+      {
+        "source" : "Fred Brooks, El mítico hombre-mes",
+        "text" : "La representación es la esencia de la programación."
+      },
+      {
+        "source" : "Brian Kernighan y P. J. Plauger, The Elements of Programming Style",
+        "text" : "Todo el mundo sabe que depurar es el doble de difícil que escribir un programa. Así que, si eres todo lo ingenioso que puedes ser al escribirlo, ¿cómo vas a depurarlo?"
+      },
+      {
+        "source" : "Brian Kernighan, Unix for Beginners (1979)",
+        "text" : "La herramienta de depuración más eficaz sigue siendo el pensamiento cuidadoso, acompañado de sentencias de impresión bien colocadas."
+      },
+      {
+        "source" : "Brian Kernighan y P. J. Plauger, Software Tools",
+        "text" : "Controlar la complejidad es la esencia de la programación de computadoras."
+      },
+      {
+        "source" : "C. A. R. Hoare, Discurso del Premio Turing (1980)",
+        "text" : "Hay dos maneras de construir un diseño de software: una es hacerlo tan simple que obviamente no tenga deficiencias, y la otra es hacerlo tan complicado que no tenga deficiencias obvias."
+      },
+      {
+        "source" : "C. A. R. Hoare, QCon London (2009)",
+        "text" : "Lo llamo mi error de mil millones de dólares. Fue la invención de la referencia nula en 1965."
+      },
+      {
+        "source" : "Ken Thompson, citado en Jon Bentley, Programming Pearls",
+        "text" : "En caso de duda, usa la fuerza bruta."
+      },
+      {
+        "source" : "Ken Thompson, citado en Eric S. Raymond, The Art of Unix Programming",
+        "text" : "Uno de mis días más productivos fue tirar mil líneas de código."
+      },
+      {
+        "source" : "Douglas McIlroy, Bell System Technical Journal (1978)",
+        "text" : "Haz que cada programa haga una sola cosa bien. Para hacer un trabajo nuevo, construye de nuevo en lugar de complicar programas antiguos añadiéndoles nuevas funciones."
+      },
+      {
+        "source" : "Rob Pike, Notes on Programming in C (1989)",
+        "text" : "Los datos dominan. Si has elegido las estructuras de datos adecuadas y organizado todo bien, los algoritmos serán casi siempre evidentes."
+      },
+      {
+        "source" : "Rob Pike, Notes on Programming in C (1989)",
+        "text" : "Mide. No optimices la velocidad hasta haber medido, e incluso entonces no lo hagas salvo que una parte del código abrume al resto."
+      },
+      {
+        "source" : "Niklaus Wirth, A Plea for Lean Software (1995)",
+        "text" : "El software se vuelve más lento más rápido de lo que el hardware se vuelve más rápido."
+      },
+      {
+        "source" : "Alan J. Perlis, Epigrams on Programming (1982)",
+        "text" : "Un lenguaje que no afecta a tu manera de pensar sobre la programación no merece la pena conocerlo."
+      },
+      {
+        "source" : "Alan Kay, Xerox PARC (1971)",
+        "text" : "La mejor manera de predecir el futuro es inventarlo."
+      },
+      {
+        "source" : "Alan J. Perlis, Epigrams on Programming (1982)",
+        "text" : "Es mejor tener 100 funciones que operen sobre una estructura de datos que 10 funciones sobre 10 estructuras de datos."
+      },
+      {
+        "source" : "Grace Hopper, entrevista en Computerworld (1976)",
+        "text" : "La frase más dañina del lenguaje es: siempre se ha hecho así."
+      },
+      {
+        "source" : "Grace Hopper, entrevista en Chips Ahoy (1986)",
+        "text" : "Es más fácil pedir perdón que conseguir permiso."
+      },
+      {
+        "source" : "Melvin Conway, How Do Committees Invent? (1968)",
+        "text" : "Las organizaciones que diseñan sistemas están limitadas a producir diseños que son copias de las estructuras de comunicación de esas organizaciones."
+      },
+      {
+        "source" : "Kent Beck, Extreme Programming Explained",
+        "text" : "El optimismo es un riesgo laboral de la programación; la retroalimentación es el tratamiento."
+      },
+      {
+        "source" : "Kent Beck, Twitter (2012)",
+        "text" : "Primero haz que el cambio sea fácil (aviso: esto puede ser difícil), y luego haz el cambio fácil."
+      },
+      {
+        "source" : "Bjarne Stroustrup, Bjarne Stroustrup's FAQ",
+        "text" : "Solo hay dos tipos de lenguajes: aquellos de los que la gente se queja y aquellos que nadie usa."
+      }
+    ],
+    "id" : "programming",
+    "name" : "Programación"
+  },
+  {
+    "en" : [
+      {
+        "source" : "Sun Tzu, The Art of War, I (tr. Giles)",
+        "text" : "The art of war is of vital importance to the State. It is a matter of life and death, a road either to safety or to ruin."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, I (tr. Giles)",
+        "text" : "All warfare is based on deception."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, I (tr. Giles)",
+        "text" : "Hence, when able to attack, we must seem unable; when using our forces, we must seem inactive."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, I (tr. Giles)",
+        "text" : "When we are near, we must make the enemy believe we are far away; when far away, we must make him believe we are near."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, I (tr. Giles)",
+        "text" : "If your opponent is of choleric temper, seek to irritate him. Pretend to be weak, that he may grow arrogant."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, I (tr. Giles)",
+        "text" : "Attack him where he is unprepared, appear where you are not expected."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, I (tr. Giles)",
+        "text" : "The general who wins a battle makes many calculations in his temple ere the battle is fought."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, II (tr. Giles)",
+        "text" : "There is no instance of a country having benefited from prolonged warfare."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, II (tr. Giles)",
+        "text" : "In war, then, let your great object be victory, not lengthy campaigns."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, III (tr. Giles)",
+        "text" : "Supreme excellence consists in breaking the enemy's resistance without fighting."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, III (tr. Giles)",
+        "text" : "In the practical art of war, the best thing of all is to take the enemy's country whole and intact; to shatter and destroy it is not so good."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, III (tr. Giles)",
+        "text" : "The worst policy of all is to besiege walled cities."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, III (tr. Giles)",
+        "text" : "The skillful leader subdues the enemy's troops without any fighting; he captures their cities without laying siege to them; he overthrows their kingdom without lengthy operations in the field."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, III (tr. Giles)",
+        "text" : "He will win who knows when to fight and when not to fight."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, III (tr. Giles)",
+        "text" : "If you know the enemy and know yourself, you need not fear the result of a hundred battles."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, III (tr. Giles)",
+        "text" : "If you know yourself but not the enemy, for every victory gained you will also suffer a defeat."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, III (tr. Giles)",
+        "text" : "If you know neither the enemy nor yourself, you will succumb in every battle."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, IV (tr. Giles)",
+        "text" : "The good fighters of old first put themselves beyond the possibility of defeat, and then waited for an opportunity of defeating the enemy."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, IV (tr. Giles)",
+        "text" : "To secure ourselves against defeat lies in our own hands, but the opportunity of defeating the enemy is provided by the enemy himself."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, IV (tr. Giles)",
+        "text" : "In war the victorious strategist only seeks battle after the victory has been won, whereas he who is destined to defeat first fights and afterwards looks for victory."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, V (tr. Giles)",
+        "text" : "In battle, there are not more than two methods of attack: the direct and the indirect; yet these two in combination give rise to an endless series of maneuvers."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, V (tr. Giles)",
+        "text" : "Simulated disorder postulates perfect discipline; simulated fear postulates courage; simulated weakness postulates strength."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, V (tr. Giles)",
+        "text" : "The clever combatant looks to the effect of combined energy, and does not require too much from individuals."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, VI (tr. Giles)",
+        "text" : "Whoever is first in the field and awaits the coming of the enemy, will be fresh for the fight; whoever is second in the field and has to hasten to battle will arrive exhausted."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, VI (tr. Giles)",
+        "text" : "Appear at points which the enemy must hasten to defend; march swiftly to places where you are not expected."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, VI (tr. Giles)",
+        "text" : "O divine art of subtlety and secrecy! Through you we learn to be invisible, through you inaudible; and hence we can hold the enemy's fate in our hands."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, VI (tr. Giles)",
+        "text" : "Military tactics are like unto water; for water in its natural course runs away from high places and hastens downwards."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, VI (tr. Giles)",
+        "text" : "Just as water retains no constant shape, so in warfare there are no constant conditions."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, VI (tr. Giles)",
+        "text" : "He who can modify his tactics in relation to his opponent and thereby succeed in winning, may be called a heaven-born captain."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, VII (tr. Giles)",
+        "text" : "Let your rapidity be that of the wind, your compactness that of the forest. In raiding and plundering be like fire, in immovability like a mountain."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, VII (tr. Giles)",
+        "text" : "Let your plans be dark and impenetrable as night, and when you move, fall like a thunderbolt."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, VII (tr. Giles)",
+        "text" : "Ponder and deliberate before you make a move."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, VII (tr. Giles)",
+        "text" : "When you surround an army, leave an outlet free. Do not press a desperate foe too hard."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, VIII (tr. Giles)",
+        "text" : "The art of war teaches us to rely not on the likelihood of the enemy's not coming, but on our own readiness to receive him."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, XI (tr. Giles)",
+        "text" : "Rapidity is the essence of war: take advantage of the enemy's unreadiness, make your way by unexpected routes, and attack unguarded spots."
+      },
+      {
+        "source" : "Sun Tzu, The Art of War, XIII (tr. Giles)",
+        "text" : "Foreknowledge cannot be elicited from spirits; it cannot be obtained inductively from experience, nor by any deductive calculation. Knowledge of the enemy's dispositions can only be obtained from other men."
+      }
+    ],
+    "es" : [
+      {
+        "source" : "Sun Tzu, El arte de la guerra, I",
+        "text" : "El arte de la guerra es de vital importancia para el Estado. Es una cuestión de vida o muerte, un camino hacia la seguridad o hacia la ruina."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, I",
+        "text" : "Todo el arte de la guerra está basado en el engaño."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, I",
+        "text" : "Cuando seas capaz de atacar, aparenta incapacidad; cuando uses tus fuerzas, aparenta inactividad."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, I",
+        "text" : "Cuando estés cerca, haz creer al enemigo que estás lejos; cuando estés lejos, hazle creer que estás cerca."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, I",
+        "text" : "Si tu oponente es de temperamento colérico, busca irritarlo. Finge ser débil para que se vuelva arrogante."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, I",
+        "text" : "Atácalo donde no esté preparado; aparece donde no te espere."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, I",
+        "text" : "El general que gana una batalla hace muchos cálculos en su templo antes de que se libre el combate."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, II",
+        "text" : "Nunca ha habido una guerra prolongada de la que un país se haya beneficiado."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, II",
+        "text" : "En la guerra, pues, que tu gran objetivo sea la victoria, no las campañas prolongadas."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, III",
+        "text" : "La suprema excelencia consiste en quebrar la resistencia del enemigo sin luchar."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, III",
+        "text" : "En el arte práctico de la guerra, lo mejor de todo es tomar intacto el país del enemigo; destrozarlo y destruirlo no es tan bueno."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, III",
+        "text" : "La peor política de todas es sitiar ciudades amuralladas."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, III",
+        "text" : "El líder hábil somete a las tropas del enemigo sin combate; captura sus ciudades sin sitiarlas y derroca su reino sin operaciones prolongadas."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, III",
+        "text" : "Gana quien sabe cuándo luchar y cuándo no luchar."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, III",
+        "text" : "Si conoces al enemigo y te conoces a ti mismo, no debes temer el resultado de cien batallas."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, III",
+        "text" : "Si te conoces a ti mismo pero no al enemigo, por cada victoria que ganes sufrirás también una derrota."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, III",
+        "text" : "Si no conoces ni al enemigo ni a ti mismo, sucumbirás en cada batalla."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, IV",
+        "text" : "Los antiguos guerreros expertos se ponían primero más allá de la posibilidad de la derrota y después esperaban la ocasión de derrotar al enemigo."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, IV",
+        "text" : "Asegurarnos contra la derrota está en nuestras propias manos, pero la oportunidad de derrotar al enemigo la proporciona el propio enemigo."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, IV",
+        "text" : "En la guerra, el estratega victorioso solo busca la batalla cuando la victoria ya se ha ganado, mientras que el destinado a la derrota primero lucha y después busca la victoria."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, V",
+        "text" : "En la batalla no hay más que dos métodos de ataque: el directo y el indirecto; pero estos dos, en combinación, dan lugar a una serie interminable de maniobras."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, V",
+        "text" : "El desorden simulado presupone una disciplina perfecta; el miedo simulado requiere valor; la debilidad simulada exige fuerza."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, V",
+        "text" : "El combatiente inteligente busca el efecto de la energía combinada y no exige demasiado de los individuos."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, VI",
+        "text" : "Quien llega primero al campo de batalla y espera la llegada del enemigo estará fresco para el combate; quien llega segundo y tiene que apresurarse a la batalla llegará agotado."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, VI",
+        "text" : "Aparece en puntos que el enemigo se vea obligado a acudir a defender; marcha con rapidez hacia lugares donde no se te espere."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, VI",
+        "text" : "¡Oh divino arte de la sutileza y el secreto! Gracias a ti aprendemos a ser invisibles e inaudibles, y así podemos tener en nuestras manos el destino del enemigo."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, VI",
+        "text" : "Las tácticas militares son como el agua: en su curso natural huye de los lugares altos y se apresura hacia los bajos."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, VI",
+        "text" : "Así como el agua no conserva una forma constante, en la guerra no existen condiciones permanentes."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, VI",
+        "text" : "Quien sabe modificar su táctica según su adversario y logra así la victoria puede ser llamado un capitán nacido del cielo."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, VII",
+        "text" : "Que tu rapidez sea como la del viento y tu compacidad como la del bosque. En el ataque y el saqueo sé como el fuego; en la firmeza, como la montaña."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, VII",
+        "text" : "Que tus planes sean oscuros e impenetrables como la noche, y cuando te muevas, cae como un rayo."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, VII",
+        "text" : "Pondera y delibera antes de hacer un movimiento."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, VII",
+        "text" : "A un ejército rodeado debes dejarle una vía de salida; no presiones a un enemigo desesperado."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, VIII",
+        "text" : "El arte de la guerra nos enseña a no confiar en la probabilidad de que el enemigo no venga, sino en nuestra propia disposición para recibirlo."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, XI",
+        "text" : "La velocidad es la esencia misma de la guerra: aprovecha la falta de preparación del enemigo, avanza por rutas inesperadas y ataca los puntos desprotegidos."
+      },
+      {
+        "source" : "Sun Tzu, El arte de la guerra, XIII",
+        "text" : "Este conocimiento previo no puede obtenerse de los espíritus, ni por inducción de la experiencia, ni por ningún cálculo deductivo. El conocimiento de las disposiciones del enemigo solo puede obtenerse de otros hombres."
+      }
+    ],
+    "id" : "art-of-war",
+    "name" : "El arte de la guerra"
+  },
+  {
+    "en" : [
+      {
+        "source" : "Blade Runner (1982)",
+        "text" : "I've seen things you people wouldn't believe. All those moments will be lost in time, like tears in rain."
+      },
+      {
+        "source" : "The Matrix (1999)",
+        "text" : "You take the blue pill, the story ends, you wake up in your bed and believe whatever you want to believe. You take the red pill, you stay in Wonderland, and I show you how deep the rabbit hole goes."
+      },
+      {
+        "source" : "The Matrix (1999)",
+        "text" : "Do not try and bend the spoon. That's impossible. Instead, only try to realize the truth: there is no spoon."
+      },
+      {
+        "source" : "The Godfather (1972)",
+        "text" : "I'm gonna make him an offer he can't refuse."
+      },
+      {
+        "source" : "The Godfather Part II (1974)",
+        "text" : "Keep your friends close, but your enemies closer."
+      },
+      {
+        "source" : "Star Wars: The Empire Strikes Back (1980)",
+        "text" : "Do. Or do not. There is no try."
+      },
+      {
+        "source" : "Star Wars: The Phantom Menace (1999)",
+        "text" : "Fear is the path to the dark side. Fear leads to anger. Anger leads to hate. Hate leads to suffering."
+      },
+      {
+        "source" : "The Lord of the Rings: The Fellowship of the Ring (2001)",
+        "text" : "A wizard is never late, nor is he early. He arrives precisely when he means to."
+      },
+      {
+        "source" : "The Lord of the Rings: The Fellowship of the Ring (2001)",
+        "text" : "Even the smallest person can change the course of the future."
+      },
+      {
+        "source" : "The Lord of the Rings: The Fellowship of the Ring (2001)",
+        "text" : "All we have to decide is what to do with the time that is given us."
+      },
+      {
+        "source" : "Fight Club (1999)",
+        "text" : "The things you own end up owning you."
+      },
+      {
+        "source" : "Fight Club (1999)",
+        "text" : "It's only after we've lost everything that we're free to do anything."
+      },
+      {
+        "source" : "The Dark Knight (2008)",
+        "text" : "You either die a hero, or you live long enough to see yourself become the villain."
+      },
+      {
+        "source" : "The Dark Knight (2008)",
+        "text" : "Some men just want to watch the world burn."
+      },
+      {
+        "source" : "Batman Begins (2005)",
+        "text" : "Why do we fall? So we can learn to pick ourselves up."
+      },
+      {
+        "source" : "Gladiator (2000)",
+        "text" : "What we do in life echoes in eternity."
+      },
+      {
+        "source" : "V for Vendetta (2005)",
+        "text" : "Beneath this mask there is more than flesh. Beneath this mask there is an idea, and ideas are bulletproof."
+      },
+      {
+        "source" : "V for Vendetta (2005)",
+        "text" : "People should not be afraid of their governments. Governments should be afraid of their people."
+      },
+      {
+        "source" : "The Shawshank Redemption (1994)",
+        "text" : "Hope is a good thing, maybe the best of things, and no good thing ever dies."
+      },
+      {
+        "source" : "The Shawshank Redemption (1994)",
+        "text" : "Get busy living, or get busy dying."
+      },
+      {
+        "source" : "Jurassic Park (1993)",
+        "text" : "Your scientists were so preoccupied with whether or not they could, they didn't stop to think if they should."
+      },
+      {
+        "source" : "2001: A Space Odyssey (1968)",
+        "text" : "I'm sorry, Dave. I'm afraid I can't do that."
+      },
+      {
+        "source" : "Terminator 2: Judgment Day (1991)",
+        "text" : "There is no fate but what we make for ourselves."
+      },
+      {
+        "source" : "Interstellar (2014)",
+        "text" : "Do not go gentle into that good night; old age should burn and rave at close of day; rage, rage against the dying of the light."
+      },
+      {
+        "source" : "Back to the Future (1985)",
+        "text" : "Roads? Where we're going, we don't need roads."
+      },
+      {
+        "source" : "No Country for Old Men (2007)",
+        "text" : "What's the most you ever lost on a coin toss?"
+      },
+      {
+        "source" : "Goodfellas (1990)",
+        "text" : "As far back as I can remember, I always wanted to be a gangster."
+      },
+      {
+        "source" : "Star Wars: The Phantom Menace (1999)",
+        "text" : "The ability to speak does not make you intelligent."
+      },
+      {
+        "source" : "Casablanca (1942)",
+        "text" : "We'll always have Paris. We didn't have, we'd lost it until you came to Casablanca."
+      },
+      {
+        "source" : "Inception (2010)",
+        "text" : "What is the most resilient parasite? Bacteria? A virus? An intestinal worm? An idea. Resilient, highly contagious. Once an idea has taken hold of the brain, it's almost impossible to eradicate."
+      },
+      {
+        "source" : "Watchmen (2009)",
+        "text" : "None of you seem to understand. I'm not locked in here with you. You're locked in here with me."
+      },
+      {
+        "source" : "Alien (1979), tagline",
+        "text" : "In space no one can hear you scream."
+      },
+      {
+        "source" : "Apocalypse Now (1979)",
+        "text" : "I love the smell of napalm in the morning."
+      },
+      {
+        "source" : "Troy (2004)",
+        "text" : "Let them say I lived in the time of Hector, tamer of horses. Let them say I lived in the time of Achilles."
+      },
+      {
+        "source" : "Jaws (1975)",
+        "text" : "You're gonna need a bigger boat."
+      }
+    ],
+    "es" : [
+      {
+        "source" : "Blade Runner (1982)",
+        "text" : "He visto cosas que vosotros no creeríais. Todos esos momentos se perderán en el tiempo, como lágrimas en la lluvia."
+      },
+      {
+        "source" : "Matrix (1999)",
+        "text" : "Si tomas la pastilla azul, fin de la historia: despertarás en tu cama y creerás lo que quieras creer. Si tomas la roja, te quedas en el País de las Maravillas y te enseñaré hasta dónde llega la madriguera."
+      },
+      {
+        "source" : "Matrix (1999)",
+        "text" : "No intentes doblar la cuchara. Eso es imposible. En su lugar, intenta solo darte cuenta de la verdad: no hay cuchara."
+      },
+      {
+        "source" : "El Padrino (1972)",
+        "text" : "Le haré una oferta que no podrá rechazar."
+      },
+      {
+        "source" : "El Padrino II (1974)",
+        "text" : "Mantén cerca a tus amigos, pero aún más cerca a tus enemigos."
+      },
+      {
+        "source" : "Star Wars: El Imperio contraataca (1980)",
+        "text" : "Hazlo o no lo hagas, pero no lo intentes."
+      },
+      {
+        "source" : "Star Wars: La amenaza fantasma (1999)",
+        "text" : "El miedo es el camino hacia el lado oscuro. El miedo lleva a la ira, la ira lleva al odio, el odio lleva al sufrimiento."
+      },
+      {
+        "source" : "El Señor de los Anillos: La Comunidad del Anillo (2001)",
+        "text" : "Un mago nunca llega tarde, ni pronto; llega exactamente cuando se lo propone."
+      },
+      {
+        "source" : "El Señor de los Anillos: La Comunidad del Anillo (2001)",
+        "text" : "Incluso la persona más pequeña puede cambiar el curso del futuro."
+      },
+      {
+        "source" : "El Señor de los Anillos: La Comunidad del Anillo (2001)",
+        "text" : "Lo único que debemos decidir es qué hacer con el tiempo que se nos ha dado."
+      },
+      {
+        "source" : "El club de la lucha (1999)",
+        "text" : "Las cosas que posees acaban poseyéndote."
+      },
+      {
+        "source" : "El club de la lucha (1999)",
+        "text" : "Solo después de haberlo perdido todo somos libres para hacer cualquier cosa."
+      },
+      {
+        "source" : "El caballero oscuro (2008)",
+        "text" : "O mueres como un héroe, o vives lo suficiente para verte convertido en el villano."
+      },
+      {
+        "source" : "El caballero oscuro (2008)",
+        "text" : "Algunos hombres solo quieren ver arder el mundo."
+      },
+      {
+        "source" : "Batman Begins (2005)",
+        "text" : "¿Por qué caemos? Para aprender a levantarnos."
+      },
+      {
+        "source" : "Gladiator (2000)",
+        "text" : "Lo que hacemos en la vida tiene su eco en la eternidad."
+      },
+      {
+        "source" : "V de Vendetta (2005)",
+        "text" : "Debajo de esta máscara hay más que carne. Debajo de esta máscara hay una idea, y las ideas son a prueba de balas."
+      },
+      {
+        "source" : "V de Vendetta (2005)",
+        "text" : "El pueblo no debería temer a sus gobernantes; son los gobernantes los que deberían temer al pueblo."
+      },
+      {
+        "source" : "Cadena perpetua (1994)",
+        "text" : "La esperanza es algo bueno, quizá lo mejor de todo, y las cosas buenas nunca mueren."
+      },
+      {
+        "source" : "Cadena perpetua (1994)",
+        "text" : "O te empeñas en vivir o te empeñas en morir."
+      },
+      {
+        "source" : "Parque Jurásico (1993)",
+        "text" : "Tus científicos estaban tan preocupados por si podían o no hacerlo que no se detuvieron a pensar si debían."
+      },
+      {
+        "source" : "2001: Una odisea del espacio (1968)",
+        "text" : "Lo siento, Dave. Me temo que no puedo hacer eso."
+      },
+      {
+        "source" : "Terminator 2: El juicio final (1991)",
+        "text" : "No hay destino sino el que nosotros mismos nos forjamos."
+      },
+      {
+        "source" : "Interstellar (2014)",
+        "text" : "No entres dócilmente en esa buena noche; la vejez debería arder y delirar al caer el día; enfurécete, enfurécete contra la agonía de la luz."
+      },
+      {
+        "source" : "Regreso al futuro (1985)",
+        "text" : "¿Carreteras? A donde vamos no necesitamos carreteras."
+      },
+      {
+        "source" : "No es país para viejos (2007)",
+        "text" : "¿Qué es lo más que has llegado a perder a cara o cruz?"
+      },
+      {
+        "source" : "Uno de los nuestros (1990)",
+        "text" : "Desde que tengo uso de razón, siempre quise ser un gánster."
+      },
+      {
+        "source" : "Star Wars: La amenaza fantasma (1999)",
+        "text" : "Que tengas la capacidad de hablar no te hace inteligente."
+      },
+      {
+        "source" : "Casablanca (1942)",
+        "text" : "Siempre nos quedará París. No lo teníamos, lo habíamos perdido hasta que viniste a Casablanca."
+      },
+      {
+        "source" : "Origen (2010)",
+        "text" : "¿Cuál es el parásito más resistente? ¿Una bacteria? ¿Un virus? ¿Una lombriz intestinal? Una idea. Resistente, muy contagiosa. Cuando una idea se apodera del cerebro, es casi imposible erradicarla."
+      },
+      {
+        "source" : "Watchmen (2009)",
+        "text" : "Ninguno de vosotros parece entenderlo. No estoy encerrado aquí con vosotros. Vosotros estáis encerrados aquí conmigo."
+      },
+      {
+        "source" : "Alien, el octavo pasajero (1979), eslogan",
+        "text" : "En el espacio nadie puede oír tus gritos."
+      },
+      {
+        "source" : "Apocalypse Now (1979)",
+        "text" : "Me encanta el olor del napalm por la mañana."
+      },
+      {
+        "source" : "Troya (2004)",
+        "text" : "Que digan que viví en los tiempos de Héctor, domador de caballos. Que digan que viví en los tiempos de Aquiles."
+      },
+      {
+        "source" : "Tiburón (1975)",
+        "text" : "Vas a necesitar un barco más grande."
+      }
+    ],
+    "id" : "cinema",
+    "name" : "Cine"
+  },
+  {
+    "en" : [
+      {
+        "source" : "Frank Herbert, Dune",
+        "text" : "I must not fear. Fear is the mind-killer. Fear is the little-death that brings total obliteration."
+      },
+      {
+        "source" : "Frank Herbert, Dune",
+        "text" : "I will face my fear. I will permit it to pass over me and through me. And when it has gone past I will turn the inner eye to see its path."
+      },
+      {
+        "source" : "Frank Herbert, Dune",
+        "text" : "He who can destroy a thing, controls a thing."
+      },
+      {
+        "source" : "J. R. R. Tolkien, The Fellowship of the Ring",
+        "text" : "All that is gold does not glitter, not all those who wander are lost."
+      },
+      {
+        "source" : "J. R. R. Tolkien, The Fellowship of the Ring",
+        "text" : "Many that live deserve death. And some that die deserve life. Can you give it to them? Then do not be too eager to deal out death in judgement."
+      },
+      {
+        "source" : "J. R. R. Tolkien, The Fellowship of the Ring",
+        "text" : "One Ring to rule them all, One Ring to find them, One Ring to bring them all and in the darkness bind them."
+      },
+      {
+        "source" : "J. R. R. Tolkien, The Hobbit",
+        "text" : "In a hole in the ground there lived a hobbit. Not a nasty, dirty, wet hole, filled with the ends of worms and an oozy smell, nor yet a dry, bare, sandy hole with nothing in it to sit down on or to eat: it was a hobbit-hole, and that means comfort."
+      },
+      {
+        "source" : "George Orwell, Nineteen Eighty-Four",
+        "text" : "Who controls the past controls the future: who controls the present controls the past."
+      },
+      {
+        "source" : "George Orwell, Nineteen Eighty-Four",
+        "text" : "War is peace. Freedom is slavery. Ignorance is strength."
+      },
+      {
+        "source" : "George Orwell, Nineteen Eighty-Four",
+        "text" : "If you want a picture of the future, imagine a boot stamping on a human face — for ever."
+      },
+      {
+        "source" : "George Orwell, Animal Farm",
+        "text" : "All animals are equal, but some animals are more equal than others."
+      },
+      {
+        "source" : "Aldous Huxley, Brave New World (Foreword)",
+        "text" : "A really efficient totalitarian state would be one in which the all-powerful executive of political bosses and their army of managers control a population of slaves who do not have to be coerced, because they love their servitude."
+      },
+      {
+        "source" : "Aldous Huxley, Brave New World",
+        "text" : "Words can be like X-rays, if you use them properly — they'll go through anything. You read and you're pierced."
+      },
+      {
+        "source" : "Ray Bradbury, Fahrenheit 451",
+        "text" : "It was a pleasure to burn. It was a special pleasure to see things eaten, to see things blackened and changed."
+      },
+      {
+        "source" : "Ray Bradbury, Fahrenheit 451",
+        "text" : "It's not books you need, it's some of the things that once were in books."
+      },
+      {
+        "source" : "Isaac Asimov, Foundation",
+        "text" : "Violence is the last refuge of the incompetent."
+      },
+      {
+        "source" : "Isaac Asimov, Foundation",
+        "text" : "Never let your sense of morals prevent you from doing what is right."
+      },
+      {
+        "source" : "William Gibson, Neuromancer",
+        "text" : "The sky above the port was the color of television, tuned to a dead channel."
+      },
+      {
+        "source" : "Philip K. Dick, How to Build a Universe That Doesn't Fall Apart Two Days Later",
+        "text" : "Reality is that which, when you stop believing in it, doesn't go away."
+      },
+      {
+        "source" : "Douglas Adams, The Restaurant at the End of the Universe",
+        "text" : "In the beginning the Universe was created. This has made a lot of people very angry and been widely regarded as a bad move."
+      },
+      {
+        "source" : "Douglas Adams, Life, the Universe and Everything",
+        "text" : "It is a mistake to think you can solve any major problems just with potatoes."
+      },
+      {
+        "source" : "Ursula K. Le Guin, A Wizard of Earthsea",
+        "text" : "To light a candle is to cast a shadow."
+      },
+      {
+        "source" : "Ursula K. Le Guin, The Left Hand of Darkness",
+        "text" : "The only thing that makes life possible is permanent, intolerable uncertainty: not knowing what comes next."
+      },
+      {
+        "source" : "H. P. Lovecraft, Supernatural Horror in Literature",
+        "text" : "The oldest and strongest emotion of mankind is fear, and the oldest and strongest kind of fear is fear of the unknown."
+      },
+      {
+        "source" : "H. P. Lovecraft, The Call of Cthulhu",
+        "text" : "That is not dead which can eternal lie, and with strange aeons even death may die."
+      },
+      {
+        "source" : "Franz Kafka, The Metamorphosis",
+        "text" : "As Gregor Samsa awoke one morning from uneasy dreams he found himself transformed in his bed into a gigantic insect."
+      },
+      {
+        "source" : "Franz Kafka, Letter to Oskar Pollak (1904)",
+        "text" : "A book must be the axe for the frozen sea inside us."
+      },
+      {
+        "source" : "Jorge Luis Borges, The Library of Babel",
+        "text" : "The universe (which others call the Library) is composed of an indefinite and perhaps infinite number of hexagonal galleries."
+      },
+      {
+        "source" : "Jorge Luis Borges, Tlön, Uqbar, Orbis Tertius (tr. Irby)",
+        "text" : "Mirrors and copulation are abominable, because they increase the number of men."
+      },
+      {
+        "source" : "Arthur C. Clarke, Profiles of the Future",
+        "text" : "Any sufficiently advanced technology is indistinguishable from magic."
+      },
+      {
+        "source" : "Stanisław Lem, Solaris",
+        "text" : "We don't want to conquer the cosmos, we simply want to extend the boundaries of Earth to the frontiers of the cosmos."
+      },
+      {
+        "source" : "Antoine de Saint-Exupéry, The Little Prince",
+        "text" : "It is only with the heart that one can see rightly; what is essential is invisible to the eye."
+      },
+      {
+        "source" : "George R. R. Martin, A Dance with Dragons",
+        "text" : "A reader lives a thousand lives before he dies. The man who never reads lives only one."
+      },
+      {
+        "source" : "Kurt Vonnegut, Slaughterhouse-Five",
+        "text" : "Listen: Billy Pilgrim has come unstuck in time."
+      },
+      {
+        "source" : "Cormac McCarthy, The Road",
+        "text" : "You have to carry the fire."
+      }
+    ],
+    "es" : [
+      {
+        "source" : "Frank Herbert, Dune",
+        "text" : "No conoceré el miedo. El miedo mata la mente. El miedo es la pequeña muerte que conduce a la destrucción total."
+      },
+      {
+        "source" : "Frank Herbert, Dune",
+        "text" : "Afrontaré mi miedo. Permitiré que pase sobre mí y a través de mí. Y cuando haya pasado, giraré mi ojo interior para escrutar su camino."
+      },
+      {
+        "source" : "Frank Herbert, Dune",
+        "text" : "Quien puede destruir una cosa, la controla."
+      },
+      {
+        "source" : "J. R. R. Tolkien, La Comunidad del Anillo",
+        "text" : "No todo lo que es oro reluce, ni toda la gente errante anda perdida."
+      },
+      {
+        "source" : "J. R. R. Tolkien, La Comunidad del Anillo",
+        "text" : "Muchos de los que viven merecen la muerte, y algunos de los que mueren merecen la vida. ¿Puedes devolvérsela? Entonces no te apresures a dispensar la muerte en nombre de la justicia."
+      },
+      {
+        "source" : "J. R. R. Tolkien, La Comunidad del Anillo",
+        "text" : "Un Anillo para gobernarlos a todos. Un Anillo para encontrarlos, un Anillo para atraerlos a todos y atarlos en las tinieblas."
+      },
+      {
+        "source" : "J. R. R. Tolkien, El Hobbit",
+        "text" : "En un agujero en el suelo, vivía un hobbit. No un agujero húmedo, sucio, repugnante, con restos de gusanos y olor a fango, ni tampoco un agujero seco, desnudo y arenoso, sin nada en que sentarse o que comer: era un agujero-hobbit, y eso significa comodidad."
+      },
+      {
+        "source" : "George Orwell, 1984",
+        "text" : "Quien controla el pasado controla el futuro; quien controla el presente controla el pasado."
+      },
+      {
+        "source" : "George Orwell, 1984",
+        "text" : "La guerra es la paz. La libertad es la esclavitud. La ignorancia es la fuerza."
+      },
+      {
+        "source" : "George Orwell, 1984",
+        "text" : "Si quieres hacerte una idea de cómo será el futuro, figúrate una bota aplastando un rostro humano incesantemente."
+      },
+      {
+        "source" : "George Orwell, Rebelión en la granja",
+        "text" : "Todos los animales son iguales, pero algunos animales son más iguales que otros."
+      },
+      {
+        "source" : "Aldous Huxley, Un mundo feliz (prólogo)",
+        "text" : "Un Estado totalitario realmente eficaz sería aquel en el que el todopoderoso ejecutivo de jefes políticos y su ejército de administradores controlaran a una población de esclavos a los que no hiciera falta coaccionar, porque amarían su servidumbre."
+      },
+      {
+        "source" : "Aldous Huxley, Un mundo feliz",
+        "text" : "Las palabras pueden ser como los rayos X si se emplean adecuadamente: atraviesan cualquier cosa. Lees y te traspasan."
+      },
+      {
+        "source" : "Ray Bradbury, Fahrenheit 451",
+        "text" : "Era un placer quemar. Era un placer especial ver las cosas consumidas, ver los objetos ennegrecidos y cambiados."
+      },
+      {
+        "source" : "Ray Bradbury, Fahrenheit 451",
+        "text" : "No son libros lo que necesitas, sino algunas de las cosas que antes había en los libros."
+      },
+      {
+        "source" : "Isaac Asimov, Fundación",
+        "text" : "La violencia es el último recurso del incompetente."
+      },
+      {
+        "source" : "Isaac Asimov, Fundación",
+        "text" : "Nunca permitas que el sentido de la moral te impida hacer lo que está bien."
+      },
+      {
+        "source" : "William Gibson, Neuromante",
+        "text" : "El cielo sobre el puerto tenía el color de una pantalla de televisor sintonizada en un canal muerto."
+      },
+      {
+        "source" : "Philip K. Dick, Cómo construir un universo que no se derrumbe dos días después",
+        "text" : "La realidad es aquello que, cuando dejas de creer en ello, no desaparece."
+      },
+      {
+        "source" : "Douglas Adams, El restaurante del fin del mundo",
+        "text" : "En un principio fue creado el Universo. Esto ha enfadado a mucha gente y ha sido ampliamente considerado como una mala jugada."
+      },
+      {
+        "source" : "Douglas Adams, La vida, el universo y todo lo demás",
+        "text" : "Es un error pensar que puedes resolver cualquier problema importante usando solo patatas."
+      },
+      {
+        "source" : "Ursula K. Le Guin, Un mago de Terramar",
+        "text" : "Encender una vela es proyectar una sombra."
+      },
+      {
+        "source" : "Ursula K. Le Guin, La mano izquierda de la oscuridad",
+        "text" : "Lo único que hace posible la vida es la incertidumbre permanente e intolerable: no saber lo que vendrá después."
+      },
+      {
+        "source" : "H. P. Lovecraft, El horror sobrenatural en la literatura",
+        "text" : "La emoción más antigua y más intensa de la humanidad es el miedo, y el más antiguo y más intenso de los miedos es el miedo a lo desconocido."
+      },
+      {
+        "source" : "H. P. Lovecraft, La llamada de Cthulhu",
+        "text" : "No está muerto lo que puede yacer eternamente, y con el paso de extraños eones incluso la muerte puede morir."
+      },
+      {
+        "source" : "Franz Kafka, La metamorfosis",
+        "text" : "Cuando Gregor Samsa se despertó una mañana después de un sueño intranquilo, se encontró sobre su cama convertido en un monstruoso insecto."
+      },
+      {
+        "source" : "Franz Kafka, Carta a Oskar Pollak (1904)",
+        "text" : "Un libro debe ser el hacha que rompa el mar helado dentro de nosotros."
+      },
+      {
+        "source" : "Jorge Luis Borges, La biblioteca de Babel",
+        "text" : "El universo (que otros llaman la Biblioteca) se compone de un número indefinido, y tal vez infinito, de galerías hexagonales."
+      },
+      {
+        "source" : "Jorge Luis Borges, Tlön, Uqbar, Orbis Tertius",
+        "text" : "Los espejos y la cópula son abominables, porque multiplican el número de los hombres."
+      },
+      {
+        "source" : "Arthur C. Clarke, Perfiles del futuro",
+        "text" : "Cualquier tecnología suficientemente avanzada es indistinguible de la magia."
+      },
+      {
+        "source" : "Stanisław Lem, Solaris",
+        "text" : "No queremos conquistar el cosmos; solo queremos extender la Tierra hasta los confines del cosmos."
+      },
+      {
+        "source" : "Antoine de Saint-Exupéry, El principito",
+        "text" : "Solo se ve bien con el corazón. Lo esencial es invisible a los ojos."
+      },
+      {
+        "source" : "George R. R. Martin, Danza de dragones",
+        "text" : "Un lector vive mil vidas antes de morir. Aquel que nunca lee vive solo una."
+      },
+      {
+        "source" : "Kurt Vonnegut, Matadero cinco",
+        "text" : "Escuchad: Billy Pilgrim se ha desprendido del tiempo."
+      },
+      {
+        "source" : "Cormac McCarthy, La carretera",
+        "text" : "Tienes que llevar el fuego."
+      }
+    ],
+    "id" : "books",
+    "name" : "Libros de culto"
+  }
+]
