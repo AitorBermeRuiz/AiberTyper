@@ -30,6 +30,8 @@ type app struct {
 	taskbarMsg uintptr
 	trayIcon   uintptr
 	bench      *bench
+	// inDialog: an import or shortcut dialog is open; the shortcut and the tray wait, so the panel never covers it.
+	inDialog bool
 }
 
 func supportDir() string {
@@ -126,6 +128,8 @@ func (a *app) createOwner() {
 
 func (a *app) ownerProc(hwnd, m, wparam, lparam uintptr) uintptr {
 	switch {
+	case (m == wmHotKey || m == wmAppTray || m == wmAppShow) && a.inDialog:
+		return 0
 	case m == wmHotKey:
 		if fg, _, _ := pGetForegroundWindow.Call(); fg == a.panel.hwnd && a.panel.visible() {
 			a.hide(true)

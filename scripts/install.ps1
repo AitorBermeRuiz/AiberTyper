@@ -7,16 +7,21 @@
 param([switch]$Uninstall, [string]$Zip)
 $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue' # Windows PowerShell 5.1 downloads slowly with the progress bar
+# Older Windows PowerShell 5.1 builds offer TLS 1.0 first, which GitHub refuses.
+[Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
 $repo = 'AitorBermeRuiz/AitorTyper'
 $dir = Join-Path $env:LOCALAPPDATA 'Programs\AiberTyper'
 $exe = Join-Path $dir 'AiberTyper.exe'
 $shortcut = Join-Path ([Environment]::GetFolderPath('Programs')) 'Aiber Typer.lnk'
 
-# An open copy would keep running the old version (and lock the file).
-Get-Process AiberTyper -ErrorAction SilentlyContinue | Stop-Process -Force
-Start-Sleep -Milliseconds 300
+# An open copy would keep running the old version and lock the file. Called only once the new one is at hand.
+function Stop-AiberTyper {
+    Get-Process AiberTyper -ErrorAction SilentlyContinue | Stop-Process -Force -PassThru -ErrorAction SilentlyContinue |
+        Wait-Process -Timeout 10 -ErrorAction SilentlyContinue
+}
 
 if ($Uninstall) {
+    Stop-AiberTyper
     Remove-Item $dir -Recurse -Force -ErrorAction SilentlyContinue
     Remove-Item $shortcut -Force -ErrorAction SilentlyContinue
     Write-Host "AiberTyper uninstalled. Your history and collections are still in $env:APPDATA\AiberTyper."
@@ -38,6 +43,7 @@ try {
     Expand-Archive "$tmp\AiberTyper.zip" $tmp
     if (-not (Test-Path "$tmp\AiberTyper.exe")) { throw 'The download has no AiberTyper.exe' }
     New-Item -ItemType Directory $dir -Force | Out-Null
+    Stop-AiberTyper
     Move-Item "$tmp\AiberTyper.exe" $exe -Force
     Unblock-File $exe
 } finally {

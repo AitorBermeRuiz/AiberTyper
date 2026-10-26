@@ -77,6 +77,10 @@ jobs:
           if (-not (Test-Path $exe) -or -not (Test-Path $link)) { throw 'not installed' }
           Start-Sleep 2
           if (-not (Get-Process AiberTyper -ErrorAction SilentlyContinue)) { throw 'not running after install' }
+          # Again over the running copy, as an update does: it is closed, replaced and opened.
+          & ([scriptblock]::Create((Get-Content -Raw scripts/install.ps1))) -Zip build/windows/AiberTyper-0.0.0-windows-x64.zip
+          Start-Sleep 2
+          if (@(Get-Process AiberTyper -ErrorAction SilentlyContinue).Count -ne 1) { throw 'not running once after reinstall' }
           ./scripts/install.ps1 -Uninstall
           if ((Test-Path $exe) -or (Test-Path $link) -or (Get-Process AiberTyper -ErrorAction SilentlyContinue)) { throw 'not uninstalled' }
       - uses: actions/upload-artifact@v4
