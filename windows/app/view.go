@@ -190,9 +190,11 @@ func (v *view) draw() float32 {
 // background draws the shadow and the card: plum fill, the pink glow from the top-left corner and the border.
 func drawBackground(c *canvas, h float32) {
 	x, y, w := float32(shadowMargin), float32(shadowMargin), float32(cardWidth)
-	// A soft drop shadow: stacked translucent rounded rectangles, darkest next to the card.
-	for i := float32(shadowMargin) - 2; i > 0; i -= 2 {
-		c.fillRound(x-i, y-i+6, w+2*i, h+2*i, cardRadius+i, rgb(0, 0.022))
+	// A soft drop shadow, a little lower than the card: stacked translucent rounded rectangles whose opacity grows
+	// toward the card, so it fades out smoothly.
+	for i := float32(shadowMargin) - 4; i > 0; i -= 2 {
+		t := 1 - i/(shadowMargin-4)
+		c.fillRound(x-i, y-i+8, w+2*i, h+2*i, cardRadius+i, rgb(0, 0.05*float64(t*t)))
 	}
 	c.fillRound(x, y, w, h, cardRadius, rgb(gBg, 1))
 	glow := ellipse(x-420, y-420, 840, 840)
@@ -323,7 +325,7 @@ func (v *view) pill(id, text string, selected bool, x, cy float32, action func()
 	name := strings.TrimSuffix(text, " ▾")
 	tw := v.width(name, f)
 	if arrow {
-		tw += v.width(" ", f) + v.width("▾", symbol(9))
+		tw += v.width(" ", f) + v.width("▾", symbol(11))
 	}
 	pad := float32(0)
 	if selected {
@@ -345,7 +347,7 @@ func (v *view) pill(id, text string, selected bool, x, cy float32, action func()
 	}
 	v.text(name, f, x+pad, cy-f.height/2, fg)
 	if arrow {
-		v.text("▾", symbol(9), x+pad+v.width(name+" ", f), cy-symbol(9).height/2+1, fg)
+		v.text("▾", symbol(11), x+pad+v.width(name+" ", f), cy-symbol(11).height/2+1, fg)
 	}
 	return w
 }
@@ -396,7 +398,7 @@ func (v *view) typing() float32 {
 	if progress > 0 && !v.dry {
 		fw := barW * progress
 		for i := float32(6); i >= 1; i-- {
-			v.fillRound(pad-i, y-i, fw+2*i, 4+2*i, 2+i, rgb(gNeon, 0.8*0.07))
+			v.fillRound(pad-i, y-i, fw+2*i, 4+2*i, 2+i, rgb(gNeon, 0.8*0.035))
 		}
 		b := linear(pointF{v.ox + pad - 1, 0}, pointF{v.ox + pad + fw + 1, 0}, rgb(gPink, 1), rgb(gNeon, 1))
 		v.c.fillRoundBrush(v.ox+pad, v.oy+y, fw, 4, 2, b)
@@ -487,7 +489,7 @@ func (v *view) line(target, typed []rune, span typer.Span, x, y float32, dimmed 
 		c.textColor(string(target[run.Span.Lo:run.Span.Hi]), f, rx, oy, fg.times(opacity))
 	}
 	if tmp != nil {
-		blur(tmp.bmp, 1.5*1.6*tmp.scale)
+		blur(tmp.bmp, 1.5*2.2*tmp.scale)
 		v.c.image(tmp.bmp, v.ox+x-margin, v.oy+y-margin, int(float32(cardWidth-2*28+2*margin)*tmp.scale), int((f.height+2*margin)*tmp.scale))
 		tmp.close()
 	}
@@ -643,10 +645,9 @@ func (v *view) results(r typer.RoundResult) float32 {
 	v.fillRound(pad+half, y+6, 1, topH-12, 0, rgb(border(), 1))
 
 	gx, gy := pad+half+1+36, y+(topH-rightH)/2
-	colW := float32(0)
-	for _, s := range []string{fmt.Sprintf("%d%%", accuracy), fmt.Sprint(s.Round.Correct()), "precisión", "correctas"} {
-		colW = max(colW, v.width(s, mono(30, true)), v.width(s, ui(12, regular)))
-	}
+	// The grid's first column is as wide as its widest cell.
+	colW := max(v.width(fmt.Sprintf("%d%%", accuracy), mono(30, true)), v.width(fmt.Sprint(s.Round.Correct()), mono(30, true)),
+		v.width("precisión", ui(12, regular)), v.width("correctas", ui(12, regular)))
 	v.cell(fmt.Sprintf("%d%%", accuracy), "precisión", 30, rgb(gPink, 1), gx, gy)
 	v.cell(fmt.Sprintf("%ds", seconds), "tiempo", 30, rgb(gPink, 1), gx+colW+40, gy)
 	v.cell(fmt.Sprint(s.Round.Correct()), "correctas", 30, rgb(gPink, 1), gx, gy+cellH+22)

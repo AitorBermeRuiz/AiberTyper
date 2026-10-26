@@ -66,6 +66,19 @@ jobs:
         working-directory: windows
         shell: bash
         run: go run ./bench ../build/windows/AiberTyper.exe ../build/windows/shots | tee -a "$GITHUB_STEP_SUMMARY"
+      # Windows PowerShell 5.1, what `irm … | iex` runs in on a fresh Windows.
+      - name: Installer (per user, from the built zip)
+        shell: powershell
+        run: |
+          Compress-Archive build/windows/AiberTyper.exe build/windows/AiberTyper-0.0.0-windows-x64.zip
+          ./scripts/install.ps1 -Zip build/windows/AiberTyper-0.0.0-windows-x64.zip
+          $exe = "$env:LOCALAPPDATA\Programs\AiberTyper\AiberTyper.exe"
+          $link = Join-Path ([Environment]::GetFolderPath('Programs')) 'Aiber Typer.lnk'
+          if (-not (Test-Path $exe) -or -not (Test-Path $link)) { throw 'not installed' }
+          Start-Sleep 2
+          if (-not (Get-Process AiberTyper -ErrorAction SilentlyContinue)) { throw 'not running after install' }
+          ./scripts/install.ps1 -Uninstall
+          if ((Test-Path $exe) -or (Test-Path $link) -or (Get-Process AiberTyper -ErrorAction SilentlyContinue)) { throw 'not uninstalled' }
       - uses: actions/upload-artifact@v4
         if: always()
         with:

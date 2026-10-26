@@ -1,6 +1,7 @@
 name: Release
 
-# Push a tag like v0.2.0 to publish AiberTyper-0.2.0.zip on GitHub Releases and update the Homebrew tap.
+# Push a tag like v0.2.0 to publish AiberTyper-0.2.0.zip (macOS) and AiberTyper-0.2.0-windows-x64.zip on GitHub Releases
+# and update the Homebrew tap.
 # Every secret is optional: without the Apple ones the app is ad-hoc signed and not notarized;
 # without HOMEBREW_TAP_TOKEN the tap is not updated.
 on:
@@ -62,6 +63,18 @@ jobs:
       - name: Zip
         run: ditto -c -k --keepParent build/AiberTyper.app "$ZIP"
 
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: windows/go.mod
+          cache-dependency-path: windows/go.mod
+
+      # Cross-compiled here: the Windows app needs Go only.
+      - name: Build Windows app
+        run: |
+          windows/build.sh
+          echo "WINZIP=AiberTyper-$VERSION-windows-x64.zip" >> "$GITHUB_ENV"
+          (cd build/windows && zip -q "../../AiberTyper-$VERSION-windows-x64.zip" AiberTyper.exe)
+
       - name: Notarize
         if: env.SIGN_IDENTITY != '' && env.NOTARY_APPLE_ID != '' && env.NOTARY_TEAM_ID != '' && env.NOTARY_PASSWORD != ''
         run: |
@@ -77,16 +90,17 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           echo "SHA256=$(shasum -a 256 "$ZIP" | cut -d' ' -f1)" >> "$GITHUB_ENV"
+          windows="Windows: run \`irm https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/scripts/install.ps1 | iex\` in PowerShell (no administrator rights needed)."
           if [[ "${NOTARIZED:-0}" == 1 ]]; then
-            notes="Install with \`curl -fsSL https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/scripts/install.sh | bash\` or see the README. You can also unzip it and move AiberTyper.app to Applications."
+            notes="Install with \`curl -fsSL https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/scripts/install.sh | bash\` or see the README. You can also unzip it and move AiberTyper.app to Applications. $windows"
           else
-            notes="Install with \`curl -fsSL https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/scripts/install.sh | bash\` or see the README. This build is not notarized by Apple: if you download the zip with a browser, run \`xattr -dr com.apple.quarantine /Applications/AiberTyper.app\` after moving it to Applications."
+            notes="Install with \`curl -fsSL https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/scripts/install.sh | bash\` or see the README. This build is not notarized by Apple: if you download the zip with a browser, run \`xattr -dr com.apple.quarantine /Applications/AiberTyper.app\` after moving it to Applications. $windows"
           fi
           # A re-run after a failed tap update replaces the asset instead of failing.
           if gh release view "$GITHUB_REF_NAME" > /dev/null 2>&1; then
-            gh release upload "$GITHUB_REF_NAME" "$ZIP" --clobber
+            gh release upload "$GITHUB_REF_NAME" "$ZIP" "$WINZIP" --clobber
           else
-            gh release create "$GITHUB_REF_NAME" "$ZIP" --title "AiberTyper $VERSION" --notes "$notes" --generate-notes
+            gh release create "$GITHUB_REF_NAME" "$ZIP" "$WINZIP" --title "AiberTyper $VERSION" --notes "$notes" --generate-notes
           fi
 
       - name: Update Homebrew tap

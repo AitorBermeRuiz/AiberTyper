@@ -26,6 +26,7 @@ import (
 //	shot <file.png>         saves the last frame, transparent shadow included
 //	state                   visible, picking, result and foreground
 //	stats                   CPU time and memory of this process
+//	scale <n>               draws at n× from now on, whatever the monitor (screenshots of high-DPI rendering)
 //
 // End of input deletes the temporary folder and quits.
 type bench struct {
@@ -150,6 +151,11 @@ func (b *bench) command(f []string, done chan struct{}) {
 			return
 		}
 		reply("shot %s", path)
+	case "scale":
+		n, _ := strconv.ParseFloat(arg(f, 1, "0"), 32)
+		p.scaleOverride = float32(n)
+		p.render()
+		reply("scale %v", n)
 	case "state":
 		fg, _, _ := pGetForegroundWindow.Call()
 		reply("visible=%v picking=%v result=%v foreground=%v hotkey=%v chars=%d", p.visible(), a.session.Picking, a.session.Result != nil,
