@@ -71,7 +71,20 @@ jobs:
         shell: powershell
         run: |
           Compress-Archive build/windows/AiberTyper.exe build/windows/AiberTyper-0.0.0-windows-x64.zip
-          ./scripts/install.ps1 -Zip build/windows/AiberTyper-0.0.0-windows-x64.zip
+          # The runner is an administrator: the first install runs with a basic-user token (runas /trustlevel),
+          # where administrator rights are denied, so a step that needs them fails here.
+          $zip = (Resolve-Path build/windows/AiberTyper-0.0.0-windows-x64.zip).Path
+          $log = "$env:TEMP\install-basic-user.log"
+          Set-Content "$env:TEMP\install-basic-user.ps1" @"
+          `$admin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+          try { & '$((Resolve-Path scripts/install.ps1).Path)' -Zip '$zip' *> `$null; `$r = 'ok' } catch { `$r = "error: `$_" }
+          "admin=`$admin `$r" | Set-Content '$log'
+          "@
+          runas /trustlevel:0x20000 "powershell -NoProfile -ExecutionPolicy Bypass -File $env:TEMP\install-basic-user.ps1"
+          for ($i = 0; $i -lt 60 -and -not (Test-Path $log); $i++) { Start-Sleep 1 }
+          $result = Get-Content $log -ErrorAction SilentlyContinue
+          "runner admin=$(([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)), basic-user install: $result"
+          if ($result -ne 'admin=False ok') { throw "install without administrator rights failed: $result" }
           $exe = "$env:LOCALAPPDATA\Programs\AiberTyper\AiberTyper.exe"
           $link = Join-Path ([Environment]::GetFolderPath('Programs')) 'Aiber Typer.lnk'
           if (-not (Test-Path $exe) -or -not (Test-Path $link)) { throw 'not installed' }
