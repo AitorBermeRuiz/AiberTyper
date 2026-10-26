@@ -37,7 +37,8 @@ func typesCharacter(vk uint32) bool {
 
 // HotKeyAllowed needs Ctrl, Alt or Win: a plain or Shift-only key would steal normal typing in every app. It refuses
 // Ctrl or Ctrl+Shift plus a letter or number (app shortcuts), Alt plus a key that types (menu access keys and Alt
-// codes), and Ctrl+Alt plus a key that types: Ctrl+Alt is AltGr, which types @, € or # on a Spanish keyboard.
+// codes), and Ctrl+Alt plus a key that types: Ctrl+Alt is AltGr, which types @, € or # on a Spanish keyboard. It also
+// refuses the window shortcuts Ctrl or Alt plus Tab, Esc or F4, and Alt+Space, which RegisterHotKey would take over.
 func HotKeyAllowed(mods, vk uint32) bool {
 	if mods&(ModControl|ModAlt|ModWin) == 0 || isModifierKey(vk) {
 		return false
@@ -50,6 +51,10 @@ func HotKeyAllowed(mods, vk uint32) bool {
 	case mods == ModAlt && typesCharacter(vk):
 		return false
 	case plain == ModControl|ModAlt && typesCharacter(vk):
+		return false
+	case mods&(ModControl|ModAlt) != 0 && (vk == VKTab || vk == VKEscape || vk == VKF1+3):
+		return false
+	case plain == ModAlt && vk == VKSpace:
 		return false
 	}
 	return true
