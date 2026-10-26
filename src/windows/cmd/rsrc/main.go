@@ -1,5 +1,5 @@
 // Command rsrc writes the Windows resources the Go linker embeds in AiberTyper.exe: the app icon (from
-// Brand/icon-1024.png) and the manifest (per-monitor DPI, Common Controls 6, GDI+ 1.1, no elevation).
+// design/brand/icon-1024.png) and the manifest (per-monitor DPI, Common Controls 6, GDI+ 1.1, no elevation).
 //
 //	go run ./cmd/rsrc <icon.png> <out.syso>
 //

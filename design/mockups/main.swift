@@ -1,4 +1,4 @@
-// Renders design mockups to PNG. Run ./designs.sh; output goes to Designs/out.
+// Renders design mockups to PNG. Run design/mockups.sh; output goes to design/mockups/out (not in git).
 // shortcut: materials and glass are faked with blurred shapes because ImageRenderer can't draw real
 // NSVisualEffectView or .glassEffect; the chosen design uses the real APIs in the app.
 import AppKit
@@ -719,7 +719,7 @@ struct Sheet: View {
     }
 }
 
-let out = URL(fileURLWithPath: CommandLine.arguments.dropFirst().first ?? "Designs/out")
+let out = URL(fileURLWithPath: CommandLine.arguments.dropFirst().first ?? "design/mockups/out")
 try! FileManager.default.createDirectory(at: out, withIntermediateDirectories: true)
 
 MainActor.assumeIsolated {

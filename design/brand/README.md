@@ -1,7 +1,7 @@
 # Aiber Brand & Design System
 
 Official brand identity for **Aiber** (Aitor Bermejo Ruiz) and its first product, **Aiber Typer**.
-This directory contains the canonical logo and color specifications, kept separate from historical UI explorations in `Designs/`.
+This directory contains the canonical logo and color specifications, kept separate from historical UI explorations in `design/mockups/`.
 
 ## Brand Architecture
 
@@ -45,12 +45,12 @@ The **Aiber** mark combines an ascending chevron (`^`, representing both the `A`
   - Rect: `x = 0.56`, `y = 0.7025`, `width = 0.30`, `height = 0.135`, `cornerRadius = 0.065`
   - Bottom edge aligns at `y = 0.8375` with the bottom cap of the left foot (`0.77 + 0.135 / 2`).
 
-## Files in `Brand/`
+## Files in `design/brand/`
 
 | File | Purpose |
 |------|---------|
-| `Brand/README.md` | This specification (palette tokens, geometry, brand naming). |
-| `Brand/logo.svg` | Full-color vector app icon (`1024×1024`) with `#1B1113` squircle background, radial glow, and Logo 1B. |
-| `Brand/menubar-template.svg` | Monochrome vector mark (`18×18`) for the macOS menu bar template icon. |
-| `Brand/icon-1024.png` | Master `1024×1024` PNG icon used by `build.sh` (via `sips` + `iconutil`) to build `AppIcon.icns`. |
-| `Brand/brand-sheet.png` | Official visual reference sheet showing the Aiber Bermejo palette, Logo 1B, and UI preview. |
+| `README.md` | This specification (palette tokens, geometry, brand naming). |
+| `logo.svg` | Full-color vector app icon (`1024×1024`) with `#1B1113` squircle background, radial glow, and Logo 1B. |
+| `menubar-template.svg` | Monochrome vector mark (`18×18`) for the macOS menu bar template icon. |
+| `icon-1024.png` | Master `1024×1024` PNG icon used by `src/mac/build.sh` (via `sips` + `iconutil`) to build `AppIcon.icns`, and by `src/windows/build.sh` for the `.exe` icon. |
+| `brand-sheet.png` | Official visual reference sheet showing the Aiber Bermejo palette, Logo 1B, and UI preview. |

@@ -198,7 +198,7 @@ Files live in `~/Library/Application Support/AiberTyper/Colecciones`. From the m
 - **Importar colección…** (also in the picker) first explains the format (with a "No volver a mostrar este mensaje nunca más" checkbox), then checks the files you pick and copies the valid ones into that folder. An existing file with the same name is moved to the Trash (the Recycle Bin on Windows) before the new one is written; re-importing a file from the folder itself is safe.
 - **Abrir carpeta de colecciones** opens the folder, to edit or delete files by hand. Changes show up the next time you open the picker.
 
-See [`Examples/Programming.json`](Examples/Programming.json) for a ready-to-import example.
+See [`examples/Programming.json`](examples/Programming.json) for a ready-to-import example.
 
 ## Your data
 
@@ -256,7 +256,7 @@ Repository secrets it reads (all optional):
 
 <div align="center">
 <br/>
-<img src="Brand/logo.svg" width="48" alt="Aiber logo" />
+<img src="design/brand/logo.svg" width="48" alt="Aiber logo" />
 <br/>
 <sub>An <strong>Aiber</strong> product · <a href="#top">back to top ↑</a></sub>
 </div>

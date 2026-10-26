@@ -14,7 +14,7 @@ import (
 // The panel's three screens, drawn by hand: the Windows counterpart of TyperView.swift. Sizes are in DIPs and
 // follow the SwiftUI layout (640 wide card, 28 padding, the same spacings and font sizes).
 
-// Aiber Bermejo palette (Brand/README.md).
+// Aiber Bermejo palette (design/brand/README.md).
 const (
 	gBg     = 0x1B1113
 	gFg     = 0xF6EEF0
