@@ -4,6 +4,7 @@ package main
 
 import (
 	"math"
+	"strings"
 	"syscall"
 	"unsafe"
 )
@@ -286,6 +287,13 @@ type memoryCounters struct {
 	PrivateUsage               uintptr
 }
 
+// utf16z is s NUL-terminated for Win32. A NUL inside s (a collection file can hold one) is dropped, since Windows
+// would end the string there and UTF16FromString refuses it.
+func utf16z(s string) []uint16 {
+	u, _ := syscall.UTF16FromString(strings.ReplaceAll(s, "\x00", ""))
+	return u
+}
+
 func wstr(s string) *uint16 {
 	p, _ := syscall.UTF16PtrFromString(s)
 	return p
@@ -324,7 +332,7 @@ func messageBox(owner uintptr, text, title string, flags uintptr) int {
 
 // normalizeNFC composes text so one typed letter is one character, as Swift's Character comparison assumes.
 func normalizeNFC(s string) string {
-	src, _ := syscall.UTF16FromString(s)
+	src := utf16z(s)
 	n, _, _ := pNormalizeString.Call(1, uintptr(unsafe.Pointer(&src[0])), uintptr(len(src)-1), 0, 0)
 	if int32(n) <= 0 {
 		return s

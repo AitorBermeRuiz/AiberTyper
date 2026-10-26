@@ -226,7 +226,7 @@ func (c *canvas) measure(s string, f *font) float32 {
 	if s == "" {
 		return 0
 	}
-	u, _ := syscall.UTF16FromString(s)
+	u := utf16z(s)
 	var bounds rectF
 	layout := rectF{}
 	gdip("GdipMeasureString", c.g, uintptr(unsafe.Pointer(&u[0])), uintptr(len(u)-1), f.handle, uintptr(unsafe.Pointer(&layout)),
@@ -252,7 +252,7 @@ func (c *canvas) text(s string, f *font, x, y float32, brush uintptr) {
 }
 
 func (c *canvas) text1(s string, f *font, x, y float32, brush uintptr) {
-	u, _ := syscall.UTF16FromString(s)
+	u := utf16z(s)
 	layout := rectF{X: x, Y: y}
 	gdip("GdipDrawString", c.g, uintptr(unsafe.Pointer(&u[0])), uintptr(len(u)-1), f.handle, uintptr(unsafe.Pointer(&layout)), stringFormat, brush)
 }
