@@ -453,24 +453,34 @@ func (v *view) textLines(x, y float32) float32 {
 }
 
 // line draws one wrapped line: correct text bright, mistakes in crimson, the cursor as a pink block, the rest muted.
+// blurredLines keeps the dimmed lines already blurred: they change only when the focus moves to another line, while
+// each keystroke and stats tick redraws the whole frame.
+var blurredLines = map[string]uintptr{}
+
 func (v *view) line(target, typed []rune, span typer.Span, x, y float32, dimmed bool) {
 	f := mono(textSize, false)
 	opacity := 1.0
 	c, ox, oy := v.c, v.ox+x, v.oy+y
+	runs := typer.MarkRuns(target, typed, span)
 	var tmp *canvas
 	const margin = 6
+	pw := int(float32(cardWidth-2*28+2*margin) * c.scale)
+	ph := int((f.height + 2*margin) * c.scale)
+	key := fmt.Sprint(c.scale, runs, string(target[span.Lo:span.Hi]))
 	if dimmed {
+		if bmp, ok := blurredLines[key]; ok {
+			v.c.image(bmp, v.ox+x-margin, v.oy+y-margin, pw, ph)
+			return
+		}
 		opacity = 0.45
 		if highContrast {
 			opacity = 0.7
 		}
 		// Blurred like the Mac's .blur(radius: 1.5): drawn on a scratch bitmap, softened, then copied.
-		pw := int(float32(cardWidth-2*28+2*margin) * c.scale)
-		ph := int((f.height + 2*margin) * c.scale)
 		tmp = newCanvas(newBitmap(pw, ph, pixelFormat32bppPARGB, nil), c.scale)
 		c, ox, oy = tmp, margin, margin
 	}
-	for _, run := range typer.MarkRuns(target, typed, span) {
+	for _, run := range runs {
 		rx := ox + float32(run.Span.Lo-span.Lo)*f.advance
 		rw := float32(run.Span.Hi-run.Span.Lo) * f.advance
 		var fg color
@@ -490,8 +500,15 @@ func (v *view) line(target, typed []rune, span typer.Span, x, y float32, dimmed 
 	}
 	if tmp != nil {
 		blur(tmp.bmp, 1.5*2.2*tmp.scale)
-		v.c.image(tmp.bmp, v.ox+x-margin, v.oy+y-margin, int(float32(cardWidth-2*28+2*margin)*tmp.scale), int((f.height+2*margin)*tmp.scale))
-		tmp.close()
+		gdip("GdipDeleteGraphics", tmp.g)
+		v.c.image(tmp.bmp, v.ox+x-margin, v.oy+y-margin, pw, ph)
+		if len(blurredLines) >= 4 { // the line before and after the focus, at one or two scales
+			for k, bmp := range blurredLines {
+				gdip("GdipDisposeImage", bmp)
+				delete(blurredLines, k)
+			}
+		}
+		blurredLines[key] = tmp.bmp
 	}
 }
 
