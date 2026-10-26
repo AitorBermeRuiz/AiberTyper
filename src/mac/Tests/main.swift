@@ -319,7 +319,7 @@ clicked.chooseMatch(at: 1)
 assert(clicked.collection == second && !clicked.picking, "clicked \(clicked.collection.id)")
 
 // The documented example parses.
-let example = try! Collection.parse(Data(contentsOf: URL(fileURLWithPath: "Examples/Programming.json")), id: "file:Programming.json")
+let example = try! Collection.parse(Data(contentsOf: URL(fileURLWithPath: "../../Examples/Programming.json")), id: "file:Programming.json")
 assert(example.skipped == 0 && example.collection.es.count >= 8 && example.collection.es.allSatisfy { $0.source != nil }, "example")
 
 // HotKey: only combinations with ⌘, ⌥ or ⌃ are accepted, and the label lists the modifiers in macOS order.

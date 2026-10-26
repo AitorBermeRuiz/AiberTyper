@@ -1,5 +1,5 @@
 // Renders the README screenshots and demo GIF from the real TyperView and Session.
-// Run scripts/readme-assets.sh; output goes to docs/assets. Uses a temporary history and settings,
+// Run src/mac/readme-assets.sh; output goes to docs/assets. Uses a temporary history and settings,
 // never the user's. The round is typed in real time, so the live and final WPM are real numbers.
 import AppKit
 import ImageIO

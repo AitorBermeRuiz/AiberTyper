@@ -1,6 +1,6 @@
 // Writes the data the Windows port shares with the Mac app into windows/shared/, using the Swift code as the reference:
 // the built-in collections, the Unicode tables Collection.parse relies on, and test vectors the Go tests replay.
-// Run it through scripts/export-shared.sh; CI fails when the committed files are out of date.
+// Run it through src/mac/export-shared.sh; CI fails when the committed files are out of date.
 import Foundation
 
 let out = URL(fileURLWithPath: CommandLine.arguments[1])

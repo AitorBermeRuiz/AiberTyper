@@ -1,5 +1,5 @@
 #!/bin/bash
-# Builds build/AiberTyper.app (menu bar app, no Dock icon).
+# Builds build/AiberTyper.app at the repo root (menu bar app, no Dock icon).
 # Optional environment (used by the release workflow):
 #   VERSION=1.2.3          version written to Info.plist (default 0.1)
 #   UNIVERSAL=1            build for Apple Silicon and Intel
@@ -13,15 +13,15 @@ archs=()
 
 swift build -c release ${archs[@]+"${archs[@]}"}
 bin=$(swift build -c release ${archs[@]+"${archs[@]}"} --show-bin-path)
-app=build/AiberTyper.app
+app=../../build/AiberTyper.app
 rm -rf "$app"
 mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources"
 cp "$bin/AiberTyper" "$app/Contents/MacOS/"
 iconset=$(mktemp -d)/AppIcon.iconset
 mkdir "$iconset"
 for s in 16 32 128 256 512; do
-    sips -z $s $s Brand/icon-1024.png --out "$iconset/icon_${s}x${s}.png" > /dev/null
-    sips -z $((s * 2)) $((s * 2)) Brand/icon-1024.png --out "$iconset/icon_${s}x${s}@2x.png" > /dev/null
+    sips -z $s $s ../../Brand/icon-1024.png --out "$iconset/icon_${s}x${s}.png" > /dev/null
+    sips -z $((s * 2)) $((s * 2)) ../../Brand/icon-1024.png --out "$iconset/icon_${s}x${s}@2x.png" > /dev/null
 done
 iconutil -c icns "$iconset" -o "$app/Contents/Resources/AppIcon.icns"
 cat > "$app/Contents/Info.plist" <<EOF
@@ -49,4 +49,4 @@ else
     # Ad-hoc signing is for local use; downloaded copies are blocked by Gatekeeper.
     codesign --force --sign - "$app"
 fi
-echo "Built $app ($version). Copy it to /Applications to keep it."
+echo "Built build/AiberTyper.app ($version). Copy it to /Applications to keep it."

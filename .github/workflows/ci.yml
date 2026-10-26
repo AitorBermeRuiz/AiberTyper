@@ -16,7 +16,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Self-check
-        run: ./test.sh
+        run: src/mac/test.sh
       - uses: actions/setup-go@v6
         with:
           go-version-file: windows/go.mod
@@ -24,13 +24,13 @@ jobs:
       # The Windows port shares the Mac rules through files generated from the Swift sources.
       - name: Windows shared files are up to date
         run: |
-          scripts/export-shared.sh
-          git diff --exit-code windows/shared || { echo "Run scripts/export-shared.sh and commit windows/shared."; exit 1; }
+          src/mac/export-shared.sh
+          git diff --exit-code windows/shared || { echo "Run src/mac/export-shared.sh and commit windows/shared."; exit 1; }
       - name: Windows logic tests
         working-directory: windows
         run: go test ./...
       - name: Build universal app
-        run: UNIVERSAL=1 ./build.sh
+        run: UNIVERSAL=1 src/mac/build.sh
       - name: Cask template
         run: scripts/test-cask.sh
 
@@ -43,7 +43,7 @@ jobs:
           persist-credentials: false
       - name: Benchmark (fails over budget)
         shell: bash # with pipefail, so tee keeps the benchmark's exit code
-        run: scripts/bench.sh | tee -a "$GITHUB_STEP_SUMMARY"
+        run: src/mac/bench.sh | tee -a "$GITHUB_STEP_SUMMARY"
 
   # The Windows app on a real Windows desktop: tests, build, then the end-to-end bench with screenshots.
   windows:

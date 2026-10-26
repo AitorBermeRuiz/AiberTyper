@@ -2,7 +2,7 @@ import AppKit
 import SwiftUI
 import UniformTypeIdentifiers
 
-/// `--bench`: scripts/bench.sh drives this instance through stdin, with a temporary history and settings, never the user's.
+/// `--bench`: bench.sh drives this instance through stdin, with a temporary history and settings, never the user's.
 let bench = CommandLine.arguments.contains("--bench")
 let benchDir = FileManager.default.temporaryDirectory.appendingPathComponent("aiber-bench-\(UUID().uuidString)")
 
