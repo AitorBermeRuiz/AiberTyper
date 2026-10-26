@@ -6,4 +6,4 @@ cd "$(dirname "$0")"
 ./build.sh > /dev/null
 bin=$(mktemp -d)/bench
 swiftc -O bench/main.swift -o "$bin"
-"$bin" ../../build/AiberTyper.app/Contents/MacOS/AiberTyper
+"$bin" "$(cd ../.. && pwd)/build/AiberTyper.app/Contents/MacOS/AiberTyper" # absolute: Process mishandles a leading ../
