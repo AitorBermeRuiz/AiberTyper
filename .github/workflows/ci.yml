@@ -19,16 +19,15 @@ jobs:
         run: src/mac/test.sh
       - uses: actions/setup-go@v6
         with:
-          go-version-file: windows/go.mod
-          cache-dependency-path: windows/go.mod
+          go-version-file: src/windows/go.mod
+          cache-dependency-path: src/windows/go.mod
       # The Windows port shares the Mac rules through files generated from the Swift sources.
       - name: Windows shared files are up to date
         run: |
           src/mac/export-shared.sh
-          git diff --exit-code windows/shared || { echo "Run src/mac/export-shared.sh and commit windows/shared."; exit 1; }
+          git diff --exit-code src/windows/shared || { echo "Run src/mac/export-shared.sh and commit src/windows/shared."; exit 1; }
       - name: Windows logic tests
-        working-directory: windows
-        run: go test ./...
+        run: src/windows/test.sh
       - name: Build universal app
         run: UNIVERSAL=1 src/mac/build.sh
       - name: Cask template
@@ -54,18 +53,18 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-go@v6
         with:
-          go-version-file: windows/go.mod
-          cache-dependency-path: windows/go.mod
+          go-version-file: src/windows/go.mod
+          cache-dependency-path: src/windows/go.mod
       - name: Logic tests
-        working-directory: windows
-        run: go test ./...
+        shell: bash
+        run: src/windows/test.sh
       - name: Build
         shell: bash
-        run: windows/build.sh
+        run: src/windows/build.sh
       - name: End-to-end bench (fails over budget)
-        working-directory: windows
+        working-directory: src/windows
         shell: bash
-        run: go run ./bench ../build/windows/AiberTyper.exe ../build/windows/shots | tee -a "$GITHUB_STEP_SUMMARY"
+        run: go run ./bench ../../build/windows/AiberTyper.exe ../../build/windows/shots | tee -a "$GITHUB_STEP_SUMMARY"
       # Windows PowerShell 5.1, what `irm … | iex` runs in on a fresh Windows.
       - name: Installer (per user, from the built zip)
         shell: powershell

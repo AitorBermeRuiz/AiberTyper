@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-// The vectors are what the Swift code returns for each input (scripts/export-shared.sh). A failure here means the
+// The vectors are what the Swift code returns for each input (src/mac/export-shared.sh). A failure here means the
 // Go port no longer behaves like the Mac app.
 type pair struct{ Lower, Upper int }
 

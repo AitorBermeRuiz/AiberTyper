@@ -65,13 +65,13 @@ jobs:
 
       - uses: actions/setup-go@v6
         with:
-          go-version-file: windows/go.mod
-          cache-dependency-path: windows/go.mod
+          go-version-file: src/windows/go.mod
+          cache-dependency-path: src/windows/go.mod
 
       # Cross-compiled here: the Windows app needs Go only.
       - name: Build Windows app
         run: |
-          windows/build.sh
+          src/windows/build.sh
           echo "WINZIP=AiberTyper-$VERSION-windows-x64.zip" >> "$GITHUB_ENV"
           (cd build/windows && zip -q "../../AiberTyper-$VERSION-windows-x64.zip" AiberTyper.exe)
 

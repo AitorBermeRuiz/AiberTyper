@@ -1,5 +1,5 @@
 // Package typer is the Windows port of the Mac logic: Typing.swift, Round.swift, Session.swift, Keys.swift and the
-// rules in HotKey.swift. Keep it in step with the Swift files of the same name; the vectors in windows/shared,
+// rules in HotKey.swift. Keep it in step with the Swift files of the same name; the vectors in src/windows/shared,
 // generated from Swift, check that it does.
 package typer
 

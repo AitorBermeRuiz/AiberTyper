@@ -1,6 +1,6 @@
 .build/
 build/
 odd/tasks/*
-windows/app/*.syso
+src/windows/app/*.syso
 
 .project-map/

@@ -3,7 +3,7 @@
 // Command bench launches AiberTyper.exe --bench and checks it end to end on a real Windows desktop: the global
 // shortcut, keyboard focus, a typed round, the picker, mouse clicks, the shortcut recorder, importing a collection
 // through the system dialogs and closing with Esc. It saves screenshots of each screen and
-// prints a Markdown table of CPU and memory per phase, failing over budget (the same budgets as scripts/bench.sh).
+// prints a Markdown table of CPU and memory per phase, failing over budget (the same budgets as src/mac/bench.sh).
 //
 //	go run ./bench <AiberTyper.exe> <screenshots folder>
 package main

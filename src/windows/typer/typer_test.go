@@ -11,7 +11,7 @@ import (
 	"unicode/utf16"
 )
 
-// Ports of the Session, History, collection, key and shortcut checks in Tests/main.swift. The pure functions are
+// Ports of the Session, History, collection, key and shortcut checks in src/mac/Tests/main.swift. The pure functions are
 // covered by the Swift vectors (vectors_test.go).
 
 var t0 = time.Unix(1_800_000_000, 0)
@@ -408,7 +408,7 @@ func TestInstall(t *testing.T) {
 		t.Errorf("replace %v %v", err, trashed)
 	}
 	// The documented example parses.
-	data, _ := os.ReadFile(filepath.Join("..", "..", "Examples", "Programming.json"))
+	data, _ := os.ReadFile(filepath.Join("..", "..", "..", "Examples", "Programming.json"))
 	if c, skipped, err := Parse(data, "file:Programming.json"); err != nil || skipped != 0 || len(c.ES) < 8 {
 		t.Errorf("example %v", err)
 	}
