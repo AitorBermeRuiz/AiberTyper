@@ -182,8 +182,12 @@ func (a *app) present(center bool) {
 	}
 	pShowWindow.Call(p.hwnd, swShow)
 	focus(p.hwnd)
-	if p.dpiScale() != p.scale { // centered on a monitor with another scale
+	if p.dpiScale() != p.scale { // centered on a monitor with another scale: its size changed, so center it again
 		p.render()
+		if center {
+			p.center()
+			p.present()
+		}
 	}
 }
 
@@ -268,6 +272,9 @@ func (a *app) showMenu() {
 	pGetCursorPos.Call(uintptr(unsafe.Pointer(&pt)))
 	// The owner must be foreground for the menu to close when clicking elsewhere.
 	pSetForegroundWindow.Call(a.owner)
+	if !a.panel.visible() {
+		a.previous = 0 // a panel opened from the menu has no window to give the keyboard back to; Windows picks one
+	}
 	cmd, _, _ := pTrackPopupMenu.Call(menu, tpmReturnCmd|tpmRightButton, uintptr(pt.X), uintptr(pt.Y), 0, a.owner, 0)
 	pPostMessageW.Call(a.owner, wmNull, 0, 0)
 	pDestroyMenu.Call(menu) // destroys the submenu too
