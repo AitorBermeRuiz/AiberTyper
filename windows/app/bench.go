@@ -27,6 +27,8 @@ import (
 //	state                   visible, picking, result and foreground
 //	stats                   CPU time and memory of this process
 //	scale <n>               draws at n× from now on, whatever the monitor (screenshots of high-DPI rendering)
+//	where <id>              screen pixel at the middle of a clickable area (ids in view.go: new, close, es, en, rowN…)
+//	import, hotkey          run the import or Cambiar atajo… flow; they answer once its dialogs close
 //
 // End of input deletes the temporary folder and quits.
 type bench struct {
@@ -158,8 +160,22 @@ func (b *bench) command(f []string, done chan struct{}) {
 		reply("scale %v", n)
 	case "state":
 		fg, _, _ := pGetForegroundWindow.Call()
-		reply("visible=%v picking=%v result=%v foreground=%v hotkey=%v chars=%d", p.visible(), a.session.Picking, a.session.Result != nil,
-			fg == p.hwnd, a.hotKeyOK, len(a.session.Round.Target))
+		reply("visible=%v picking=%v result=%v foreground=%v hotkey=%v chars=%d lang=%s collection=%s", p.visible(), a.session.Picking,
+			a.session.Result != nil, fg == p.hwnd, a.hotKeyOK, len(a.session.Round.Target), a.session.Lang, a.session.Collection.ID)
+	case "where":
+		for _, h := range p.hits {
+			if h.id == arg(f, 1, "") {
+				reply("at %d %d", p.x+int32((h.x+h.w/2)*p.scale), p.y+int32((h.y+h.h/2)*p.scale))
+				return
+			}
+		}
+		reply("none")
+	case "import":
+		a.importCollections()
+		reply("imported collection=%s visible=%v", a.session.Collection.ID, p.visible())
+	case "hotkey":
+		a.changeHotKey()
+		reply("hotkey %s ok=%v", a.hotKey.Label(), a.hotKeyOK)
 	case "stats":
 		var created, exited, kernel, user [8]byte
 		self, _ := syscallCurrentProcess()
