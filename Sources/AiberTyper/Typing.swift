@@ -54,7 +54,7 @@ struct Collection: Equatable {
 
     /// Emoji and CJK, kana, Hangul or fullwidth characters take two monospaced cells and break the manual wrap.
     // shortcut: a fixed list of ranges, not real glyph measurement; measure with text layout if other wide scripts show up.
-    private static func isWide(_ scalar: Unicode.Scalar) -> Bool {
+    static func isWide(_ scalar: Unicode.Scalar) -> Bool {
         // U+FE0F (VS16) turns a text-default symbol such as ❤ into a two-cell emoji.
         scalar.properties.isEmojiPresentation || scalar.properties.isIdeographic || scalar.value == 0xFE0F
             || [0x1100...0x11FF, 0xAC00...0xD7AF, 0x3040...0x30FF, 0xFF00...0xFF60].contains { $0.contains(scalar.value) }
