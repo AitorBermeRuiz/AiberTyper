@@ -141,7 +141,7 @@ func (b *bench) command(f []string, done chan struct{}) {
 		if act.Kind == typer.Pass && vk == typer.VKBack {
 			p.char(0x08)
 		} else {
-			b.key(act)
+			p.perform(act)
 		}
 		p.render()
 		reply("key")
@@ -189,31 +189,6 @@ func (b *bench) command(f []string, done chan struct{}) {
 		reply("stats cpu_ms=%d ws_kb=%d peak_ws_kb=%d private_kb=%d", cpu, mem.WorkingSetSize/1024, mem.PeakWorkingSetSize/1024, mem.PrivateUsage/1024)
 	default:
 		reply("unknown")
-	}
-}
-
-// key performs a panel action the way panel.key does.
-func (b *bench) key(act typer.PanelAction) {
-	a, s := b.app, b.app.session
-	switch act.Kind {
-	case typer.Hide:
-		a.hide(true)
-	case typer.OpenPicker:
-		s.OpenPicker()
-	case typer.ToggleLanguage:
-		s.ToggleLanguage()
-	case typer.NewRoundKey:
-		s.NewRound()
-	case typer.ClosePicker:
-		s.ClosePicker()
-	case typer.Choose:
-		s.ChoosePicked()
-	case typer.Favorite:
-		s.ToggleFavoritePicked()
-	case typer.Move:
-		s.MovePicker(act.Step)
-	case typer.Delete:
-		s.DeleteInPicker()
 	}
 }
 
