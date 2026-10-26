@@ -5,7 +5,9 @@ package main
 import (
 	"encoding/binary"
 	"fmt"
+	"path/filepath"
 	"runtime"
+	"strings"
 	"syscall"
 	"unsafe"
 
@@ -172,6 +174,11 @@ func (a *app) importCollections() {
 	}
 	imported := ""
 	for _, f := range files {
+		// The file filter is only a hint, and the folder loads *.json files only.
+		if !strings.EqualFold(filepath.Ext(f), ".json") {
+			alert(a.owner, "No se pudo importar "+baseName(f), "El archivo debe terminar en .json.")
+			continue
+		}
 		id, err := typer.Install(f, s.Folder)
 		if err != nil {
 			alert(a.owner, "No se pudo importar "+baseName(f), err.Error()+"\n\nFormato esperado:\n"+formatExample)
@@ -279,9 +286,14 @@ func recordKey(code, wparam, lparam uintptr) uintptr {
 			}
 		}
 		char, _, _ := pMapVirtualKeyW.Call(uintptr(k.VK), 2) // MAPVK_VK_TO_CHAR; dead keys set the top bit
-		if h, ok := typer.NewHotKey(k.VK, mods, rune(char&0x7FFFFFFF)); ok {
+		if h, ok := typer.NewHotKey(k.VK, mods, rune(char&0x7FFFFFFF)); ok && k.VK != vkDummy {
 			recorder.recorded = &h
 			pSendMessageW.Call(recorder.dialog, tdmSetElement, tdeInstruction, uintptr(unsafe.Pointer(wstr(h.Label()))))
+			if mods&typer.ModWin != 0 {
+				// The shell saw Win go down and up alone and would open Start: show it another key in between.
+				pKeybdEvent.Call(vkDummy, 0, 0, 0)
+				pKeybdEvent.Call(vkDummy, 0, keyeventfKeyUp, 0)
+			}
 			return 1
 		}
 	}

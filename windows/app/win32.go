@@ -58,6 +58,7 @@ var (
 	pGetKeyState                   = user32.NewProc("GetKeyState")
 	pGetAsyncKeyState              = user32.NewProc("GetAsyncKeyState")
 	pMapVirtualKeyW                = user32.NewProc("MapVirtualKeyW")
+	pKeybdEvent                    = user32.NewProc("keybd_event")
 	pSetWindowsHookExW             = user32.NewProc("SetWindowsHookExW")
 	pUnhookWindowsHookEx           = user32.NewProc("UnhookWindowsHookEx")
 	pCallNextHookEx                = user32.NewProc("CallNextHookEx")
@@ -93,6 +94,11 @@ var (
 	pGetOpenFileNameW     = comdlg32.NewProc("GetOpenFileNameW")
 	pTaskDialogIndirect   = comctl32.NewProc("TaskDialogIndirect")
 	pGetProcessMemoryInfo = psapi.NewProc("GetProcessMemoryInfo")
+)
+
+const (
+	vkDummy        = 0xE8 // unassigned virtual key
+	keyeventfKeyUp = 0x2
 )
 
 const (
