@@ -31,7 +31,7 @@ jobs:
       - name: Build universal app
         run: UNIVERSAL=1 src/mac/build.sh
       - name: Cask template
-        run: scripts/test-cask.sh
+        run: install/test-cask.sh
 
   # Separate from `check` (the required check) until it proves stable on GitHub's virtual Macs.
   bench:
@@ -76,7 +76,7 @@ jobs:
           $log = "$env:TEMP\install-basic-user.log"
           Set-Content "$env:TEMP\install-basic-user.ps1" @"
           `$admin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
-          try { & '$((Resolve-Path scripts/install.ps1).Path)' -Zip '$zip' *> `$null; `$r = 'ok' } catch { `$r = "error: `$_" }
+          try { & '$((Resolve-Path install/install.ps1).Path)' -Zip '$zip' *> `$null; `$r = 'ok' } catch { `$r = "error: `$_" }
           "admin=`$admin `$r" | Set-Content '$log'
           "@
           runas /trustlevel:0x20000 "powershell -NoProfile -ExecutionPolicy Bypass -File $env:TEMP\install-basic-user.ps1"
@@ -90,10 +90,10 @@ jobs:
           Start-Sleep 2
           if (-not (Get-Process AiberTyper -ErrorAction SilentlyContinue)) { throw 'not running after install' }
           # Again over the running copy, as an update does: it is closed, replaced and opened.
-          & ([scriptblock]::Create((Get-Content -Raw scripts/install.ps1))) -Zip build/windows/AiberTyper-0.0.0-windows-x64.zip
+          & ([scriptblock]::Create((Get-Content -Raw install/install.ps1))) -Zip build/windows/AiberTyper-0.0.0-windows-x64.zip
           Start-Sleep 2
           if (@(Get-Process AiberTyper -ErrorAction SilentlyContinue).Count -ne 1) { throw 'not running once after reinstall' }
-          ./scripts/install.ps1 -Uninstall
+          ./install/install.ps1 -Uninstall
           $left = "exe=$(Test-Path $exe) link=$(Test-Path $link) running=$([bool](Get-Process AiberTyper -ErrorAction SilentlyContinue))"
           if ($left -ne 'exe=False link=False running=False') { throw "not uninstalled: $left" }
       - uses: actions/upload-artifact@v4

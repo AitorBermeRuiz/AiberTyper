@@ -1,7 +1,7 @@
 # Installs the latest AiberTyper for Windows for the current user and opens it. No administrator rights needed:
-#   irm https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/scripts/install.ps1 | iex
+#   irm https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/install/install.ps1 | iex
 # Uninstall (keeps your history and collections in %APPDATA%\AiberTyper):
-#   & ([scriptblock]::Create((irm https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/scripts/install.ps1))) -Uninstall
+#   & ([scriptblock]::Create((irm https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/install/install.ps1))) -Uninstall
 # PowerShell downloads carry no "downloaded from the internet" mark, so SmartScreen does not stop the unsigned exe.
 # -Zip installs from a local AiberTyper-*-windows-x64.zip instead of the latest release (CI uses it).
 param([switch]$Uninstall, [string]$Zip)
