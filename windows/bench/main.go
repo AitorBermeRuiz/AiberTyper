@@ -144,7 +144,16 @@ func main() {
 	measure("Shown, round started (stats tick)", idleCPUBudget*2, idle(5*time.Second))
 	typed := a.send("type 80")
 	check(strings.Contains(typed, "finished=true") && strings.Contains(typed, "accuracy=100"), "the round finishes at 100%: "+typed)
+	// The record and the average compare with the rounds read before this one: a second, faster round shows them.
+	press(0x0D) // Enter: new round
+	a.send("type 400")
 	a.send("shot " + filepath.Join(shots, "results.png"))
+	a.send("scale 2")
+	a.send("shot " + filepath.Join(shots, "results@2x.png"))
+	a.send("key enter")
+	a.send("type 80 60")
+	a.send("shot " + filepath.Join(shots, "typing@2x.png"))
+	a.send("scale 0")
 
 	press(0x10, 0x09) // Shift+Tab: real keys reach the focused panel
 	state = a.send("state")
@@ -152,6 +161,9 @@ func main() {
 	a.send("key down")
 	a.send("key ctrl+f")
 	a.send("shot " + filepath.Join(shots, "picker.png"))
+	a.send("scale 2")
+	a.send("shot " + filepath.Join(shots, "picker@2x.png"))
+	a.send("scale 0")
 	press(0x1B) // Esc closes the picker
 	press(0x1B) // Esc hides
 	state = a.send("state")

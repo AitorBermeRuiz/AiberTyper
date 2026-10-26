@@ -4,13 +4,14 @@
 
 <img width="100%" alt="Banner de Aiber Typer: una cita de Marco Aurelio se escribe sola, con una errata corregida por el camino, mientras se actualizan las ppm, la precisión y el tiempo" src="docs/assets/banner-es.gif" />
 
-<p><strong>Práctica de mecanografía en la barra de menús de tu Mac.</strong><br/>
-Pulsa <kbd>⌥</kbd> <kbd>⇧</kbd> <kbd>T</kbd> desde cualquier sitio, escribe una cita y mira tus palabras por minuto y tu precisión. Luego, vuelve al trabajo.</p>
+<p><strong>Práctica de mecanografía en la barra de menús de tu Mac o en la bandeja de Windows.</strong><br/>
+Pulsa <kbd>⌥</kbd> <kbd>⇧</kbd> <kbd>T</kbd> (<kbd>Alt+Shift+T</kbd> en Windows) desde cualquier sitio, escribe una cita y mira tus palabras por minuto y tu precisión. Luego, vuelve al trabajo.</p>
 
 <p>
 <a href="https://github.com/AitorBermeRuiz/AitorTyper/releases"><img src="https://img.shields.io/github/v/release/AitorBermeRuiz/AitorTyper?style=for-the-badge&labelColor=1B1113&color=F497A9" alt="Versión"></a>
 <a href="https://github.com/AitorBermeRuiz/AitorTyper/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/AitorBermeRuiz/AitorTyper/ci.yml?branch=main&style=for-the-badge&labelColor=1B1113&color=F497A9&label=CI" alt="CI"></a>
 <img src="https://img.shields.io/badge/macOS-14%2B-E83A59?style=for-the-badge&labelColor=1B1113" alt="macOS 14 o posterior">
+<img src="https://img.shields.io/badge/Windows-10%20%7C%2011-E83A59?style=for-the-badge&labelColor=1B1113" alt="Windows 10 u 11">
 <img src="https://img.shields.io/badge/Swift-sin%20dependencias-E83A59?style=for-the-badge&labelColor=1B1113" alt="Swift, sin dependencias">
 <a href="LICENSE"><img src="https://img.shields.io/badge/licencia-MIT-AA989C?style=for-the-badge&labelColor=1B1113" alt="Licencia: MIT"></a>
 </p>
@@ -29,7 +30,7 @@ Pulsa <kbd>⌥</kbd> <kbd>⇧</kbd> <kbd>T</kbd> desde cualquier sitio, escribe 
 
 ---
 
-Las webs de mecanografía piden una pestaña, una cuenta y tu atención. **Aiber Typer** es un panel flotante a un atajo de distancia: una ronda de 30 a 60 segundos entre dos tareas, puntuada con honestidad, y fuera con <kbd>Esc</kbd>. Sin icono en el Dock, sin cuenta, sin red.
+Las webs de mecanografía piden una pestaña, una cuenta y tu atención. **Aiber Typer** es un panel flotante a un atajo de distancia: una ronda de 30 a 60 segundos entre dos tareas, puntuada con honestidad, y fuera con <kbd>Esc</kbd>. Sin icono en el Dock ni en la barra de tareas, sin cuenta, sin red.
 
 <div align="center">
 <img width="720" alt="Una ronda completa en Aiber Typer: la cita se escribe en tiempo real, se corrigen algunas erratas y la pantalla de resultados muestra las ppm, un nuevo récord y el historial" src="docs/assets/demo-es.gif" />
@@ -58,6 +59,8 @@ Las webs de mecanografía piden una pestaña, una cuenta y tu atención. **Aiber
 </table>
 
 ## Instalación
+
+### macOS
 
 En el Terminal (macOS 14 Sonoma o posterior):
 
@@ -92,8 +95,30 @@ xattr -dr com.apple.quarantine /Applications/AiberTyper.app
 
 </details>
 
+### Windows
+
+En PowerShell (Windows 10 u 11), sin permisos de administrador:
+
+```powershell
+irm https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/scripts/install.ps1 | iex
+```
+
+Instala la última versión solo para tu usuario, en `%LOCALAPPDATA%\Programs\AiberTyper`, añade **Aiber Typer** al menú Inicio y la abre. Vuelve a ejecutarlo para actualizar.
+
+Después, pulsa <kbd>Alt+Shift+T</kbd>. La app vive en el área de notificación (la bandeja), no en la barra de tareas; Windows puede esconder su icono bajo la flecha <kbd>^</kbd>.
+
+<details>
+<summary><b>Desinstalar, abrir al iniciar sesión, a mano</b></summary>
+
+- Desinstalar (tu historial y tus colecciones se quedan): `& ([scriptblock]::Create((irm https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/scripts/install.ps1))) -Uninstall`
+- Para abrirla al iniciar sesión, pon un acceso directo a `%LOCALAPPDATA%\Programs\AiberTyper\AiberTyper.exe` en `shell:startup`.
+- A mano: descarga `AiberTyper-<versión>-windows-x64.zip` desde [Releases](https://github.com/AitorBermeRuiz/AitorTyper/releases), descomprímelo donde quieras y ejecuta `AiberTyper.exe`. Aún no está firmada, así que SmartScreen puede avisar de un archivo descargado con el navegador: **Más información** → **Ejecutar de todas formas**.
+- Es una app de 64 bits (x64) de unos 3 MB, sin nada más que instalar. Windows 11 en ARM la ejecuta con su emulación x64.
+
+</details>
+
 > [!TIP]
-> El texto usa [IosevkaTerm Nerd Font](https://github.com/ryanoasis/nerd-fonts) si está instalada y, si no, la fuente monoespaciada del sistema.
+> El texto usa [IosevkaTerm Nerd Font](https://github.com/ryanoasis/nerd-fonts) si está instalada y, si no, la fuente monoespaciada del sistema (Cascadia Mono o Consolas en Windows).
 
 ## Cómo funciona
 
@@ -124,7 +149,7 @@ Cada colección temática tiene al menos 30 citas en cada idioma, todas con una 
 
 | Tecla | Acción |
 |-------|--------|
-| <kbd>⌥⇧T</kbd> | Abrir / cerrar (cámbialo con **Cambiar atajo…** en la barra de menús; debe incluir ⌘, ⌥ o ⌃, y se rechaza ⌘+letra o ⌘+número (con o sin ⇧) porque las apps los usan, igual que ⌥ más cualquier tecla que escriba un carácter, como ⌥+letra o ⌥+ (`]` en un teclado español)) |
+| <kbd>⌥⇧T</kbd><br/><kbd>Alt+Shift+T</kbd> en Windows | Abrir / cerrar (cámbialo con **Cambiar atajo…** en la barra de menús o en el menú de la bandeja). En macOS debe incluir ⌘, ⌥ o ⌃, y se rechaza ⌘+letra o ⌘+número (con o sin ⇧) porque las apps los usan, igual que ⌥ más cualquier tecla que escriba un carácter, como ⌥+letra o ⌥+ (`]` en un teclado español). En Windows debe incluir Ctrl, Alt o Win, y se rechaza Ctrl+letra o Ctrl+número (con o sin Shift), igual que Alt con una tecla que escribe (la usan los menús) y Ctrl+Alt con una tecla que escribe (Ctrl+Alt es AltGr: `@`, `€`, `#` en un teclado español). |
 | <kbd>Tab</kbd> | Cambiar de idioma (Español / English) |
 | <kbd>⇧Tab</kbd> | Elegir una colección |
 | <kbd>Enter</kbd> | Nueva ronda |
@@ -139,6 +164,8 @@ En el selector de colecciones:
 - <kbd>Ctrl+F</kbd> para marcar una favorita (las favoritas salen primero, con ★)
 - <kbd>Ctrl+I</kbd> o el botón **＋ Importar colección…** para importar
 - <kbd>Enter</kbd> para elegir, <kbd>Esc</kbd> para volver
+
+Mientras escribes, <kbd>⌥⌫</kbd> (<kbd>Ctrl+Retroceso</kbd> en Windows) borra la última palabra, como en cualquier campo de texto.
 
 Los botones **Otra ronda** y **Cerrar**, las píldoras de idioma y de colección y las filas del selector también admiten clic.
 
@@ -168,14 +195,14 @@ Una colección es un archivo JSON:
 
 Los archivos viven en `~/Library/Application Support/AiberTyper/Colecciones`. Desde el icono de la barra de menús:
 
-- **Importar colección…** (también en el selector) explica primero el formato (con la casilla "No volver a mostrar este mensaje nunca más"), luego comprueba los archivos que elijas y copia los válidos en esa carpeta. Si ya existe un archivo con el mismo nombre, se mueve a la Papelera antes de escribir el nuevo; reimportar un archivo de la propia carpeta es seguro.
+- **Importar colección…** (también en el selector) explica primero el formato (con la casilla "No volver a mostrar este mensaje nunca más"), luego comprueba los archivos que elijas y copia los válidos en esa carpeta. Si ya existe un archivo con el mismo nombre, se mueve a la Papelera (la Papelera de reciclaje en Windows) antes de escribir el nuevo; reimportar un archivo de la propia carpeta es seguro.
 - **Abrir carpeta de colecciones** abre la carpeta para editar o borrar archivos a mano. Los cambios aparecen la próxima vez que abras el selector.
 
 Mira [`Examples/Programming.json`](Examples/Programming.json) para un ejemplo listo para importar.
 
 ## Tus datos
 
-Todo se queda en tu Mac. La app no hace ninguna petición de red.
+Todo se queda en tu ordenador. La app no hace ninguna petición de red.
 
 | Qué | Dónde |
 |---|---|
@@ -184,6 +211,8 @@ Todo se queda en tu Mac. La app no hace ninguna petición de red.
 | Idioma, colección, favoritas, atajo | `defaults read com.aiber.AiberTyper` |
 
 `brew uninstall --zap aibertyper` lo borra todo. Sin Homebrew, borra la app y las rutas de arriba.
+
+En Windows los mismos archivos viven en `%APPDATA%\AiberTyper`: `history.json`, `Colecciones\` y `settings.json` (idioma, colección, favoritas, atajo). `history.json` tiene el mismo formato en los dos sistemas, así que puedes copiarlo de un ordenador a otro. Desinstalar conserva esta carpeta; bórrala para eliminar tus datos.
 
 ## Compilar desde el código
 
@@ -195,12 +224,21 @@ Basta con Swift 5.10 y las Command Line Tools; no hay dependencias.
 open build/AiberTyper.app
 ```
 
+La app de Windows está en [`windows/`](windows): Go, sin dependencias, Win32 y GDI+ (sin vista web). Se compila desde macOS, Linux o Windows:
+
+```sh
+windows/build.sh                # genera build/windows/AiberTyper.exe
+(cd windows && go test ./...)   # sus tests, incluidos los vectores exportados del código Swift
+```
+
+El código Swift es la referencia de las dos apps. `scripts/export-shared.sh` exporta de él las colecciones incluidas y los vectores de test a `windows/shared`, y el CI falla cuando están desactualizados o cuando el port en Go no coincide con ellos.
+
 `scripts/readme-assets.sh` renderiza el banner, las capturas y los GIF de [`docs/assets`](docs/assets) con las vistas reales de la app. Las notas para contribuir están en [`AGENTS.md`](AGENTS.md), el vocabulario en [`GLOSSARY.md`](GLOSSARY.md) y el trabajo previsto en [`ROADMAP.md`](ROADMAP.md) (en inglés).
 
 <details>
 <summary><b>Publicar una versión</b></summary>
 
-Sube una etiqueta como `v0.2.0` sobre `main` (`git tag -a v0.2.0 origin/main -m "AiberTyper 0.2.0" && git push origin v0.2.0`, o **Draft a new release** con destino `main`); las etiquetas sobre cualquier otro commit se rechazan. El [workflow de release](.github/workflows/release.yml) ejecuta la autocomprobación, compila una app universal, publica `AiberTyper-0.2.0.zip` en GitHub Releases y actualiza el cask en [AitorBermeRuiz/homebrew-tap](https://github.com/AitorBermeRuiz/homebrew-tap).
+Sube una etiqueta como `v0.2.0` sobre `main` (`git tag -a v0.2.0 origin/main -m "AiberTyper 0.2.0" && git push origin v0.2.0`, o **Draft a new release** con destino `main`); las etiquetas sobre cualquier otro commit se rechazan. El [workflow de release](.github/workflows/release.yml) ejecuta la autocomprobación, compila una app universal, publica `AiberTyper-0.2.0.zip` y `AiberTyper-0.2.0-windows-x64.zip` en GitHub Releases y actualiza el cask en [AitorBermeRuiz/homebrew-tap](https://github.com/AitorBermeRuiz/homebrew-tap).
 
 Secretos del repositorio que lee (todos opcionales):
 

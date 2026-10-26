@@ -25,7 +25,9 @@ type panel struct {
 	background []byte // shadow and card, copied in before each frame
 	bgKey      [3]int
 	scale      float32
-	x, y       int32 // window position, pixels
+	// scaleOverride renders at a fixed scale (bench screenshots at 2x).
+	scaleOverride float32
+	x, y          int32 // window position, pixels
 
 	hits           []hit
 	hover, pressed string
@@ -57,6 +59,9 @@ func (p *panel) visible() bool {
 }
 
 func (p *panel) dpiScale() float32 {
+	if p.scaleOverride > 0 {
+		return p.scaleOverride
+	}
 	dpi, _, _ := pGetDpiForWindow.Call(p.hwnd)
 	if dpi == 0 {
 		dpi = 96
@@ -88,6 +93,7 @@ func (p *panel) render() {
 	if p.bgKey != key || p.background == nil {
 		p.frame.clear()
 		drawBackground(p.frame, cardH)
+		gdip("GdipFlush", p.frame.g, 1)
 		p.background = append(p.background[:0], unsafe.Slice((*byte)(p.bits), w*h*4)...)
 		p.bgKey = key
 	} else {
