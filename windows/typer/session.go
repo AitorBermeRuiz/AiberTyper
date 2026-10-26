@@ -24,7 +24,7 @@ type Settings struct {
 func LoadSettings(path string) *Settings {
 	s := &Settings{path: path}
 	var keys map[string]json.RawMessage
-	if data, err := os.ReadFile(path); err == nil && json.Unmarshal(data, &keys) == nil {
+	if data, err := os.ReadFile(path); err == nil && json.Unmarshal(unicodeText(data), &keys) == nil {
 		// Each key on its own, like UserDefaults: a bad value falls back to its default and keeps the others.
 		setting(keys, "lang", &s.Lang)
 		setting(keys, "pack", &s.Pack)
