@@ -9,3 +9,4 @@ Known limits and work planned for later. Nothing here is scheduled.
 - Windows: code signing (SmartScreen warns on browser downloads), a start-at-sign-in option, a native arm64 build (needs GDI+ calls without float arguments), winget.
 - Windows: the panel is drawn by hand and exposes nothing to screen readers (the Mac app labels every element for VoiceOver); it needs a UI Automation provider.
 - Windows: the import help shows the JSON example in the task dialog's proportional font.
+- Windows: the Go port counts runes where Swift counts characters (grapheme clusters). Text is NFC-normalized, so this only shows with combining sequences that have no precomposed form: such a quote counts one extra character, and Backspace in the picker filter removes one code point.
