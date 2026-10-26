@@ -83,13 +83,42 @@ type mouseInput struct {
 	Extra  uintptr
 }
 
+func mouseButton(flags uint32) {
+	in := mouseInput{Flags: flags}
+	pSendInput.Call(1, uintptr(unsafe.Pointer(&in)), unsafe.Sizeof(in))
+	time.Sleep(100 * time.Millisecond)
+}
+
 // click moves the real pointer to x, y and presses the left button.
 func click(x, y int) {
 	pSetCursorPos.Call(uintptr(x), uintptr(y))
 	time.Sleep(200 * time.Millisecond)
-	in := []mouseInput{{Type: 0, Flags: 2}, {Type: 0, Flags: 4}} // LEFTDOWN, LEFTUP
-	pSendInput.Call(2, uintptr(unsafe.Pointer(&in[0])), unsafe.Sizeof(in[0]))
-	time.Sleep(700 * time.Millisecond)
+	mouseButton(2) // LEFTDOWN
+	mouseButton(4) // LEFTUP
+	time.Sleep(600 * time.Millisecond)
+}
+
+// drag holds the left button from x, y and moves the pointer by dx, dy in steps.
+func drag(x, y, dx, dy int) {
+	pSetCursorPos.Call(uintptr(x), uintptr(y))
+	time.Sleep(200 * time.Millisecond)
+	mouseButton(2)
+	for i := 1; i <= 10; i++ {
+		pSetCursorPos.Call(uintptr(x+dx*i/10), uintptr(y+dy*i/10))
+		time.Sleep(50 * time.Millisecond)
+	}
+	mouseButton(4)
+	time.Sleep(600 * time.Millisecond)
+}
+
+// field reads one value from an answer: "pos=10,20" gives "10,20".
+func field(answer, name string) string {
+	for _, f := range strings.Fields(answer) {
+		if v, ok := strings.CutPrefix(f, name+"="); ok {
+			return v
+		}
+	}
+	return ""
 }
 
 type app struct {
@@ -237,6 +266,7 @@ func main() {
 	press(0x1B) // Esc hides
 	state = a.send("state")
 	check(strings.Contains(state, "visible=false"), "Esc twice hides the panel: "+state)
+	beforeDialogs := a.stat("private_kb") / 1024
 
 	// Mouse: the language pill that is not selected switches the language.
 	a.send("show")
@@ -247,6 +277,17 @@ func main() {
 	check(a.clickOn(other), "the "+other+" pill is clickable")
 	state = a.send("state")
 	check(strings.Contains(state, "lang="+other), "clicking the "+other+" pill switches the language: "+state)
+
+	// Dragging the card's background moves the panel, and the next frame stays where it was dropped.
+	var x, y int
+	var scale float64
+	fmt.Sscanf(field(state, "pos"), "%d,%d", &x, &y)
+	fmt.Sscanf(field(state, "scale"), "%g", &scale)
+	inset := int(40 * scale) // inside the card, past the shadow, clear of the buttons
+	drag(x+inset, y+inset, 120, 80)
+	a.send("scale 0") // redraws
+	moved := field(a.send("state"), "pos")
+	check(moved == fmt.Sprintf("%d,%d", x+120, y+80), fmt.Sprintf("dragging moves the panel from %d,%d by 120,80: %s", x, y, moved))
 	a.send("hide")
 
 	// Cambiar atajo…: the recorder takes Alt+Shift+Y, Enter saves it, and the new shortcut opens the panel.
@@ -296,7 +337,9 @@ func main() {
 	for _, r := range rows {
 		fmt.Printf("| %s | %.2f %% | ≤ %.0f %% |\n", r.phase, r.cpu, r.limit)
 	}
-	fmt.Printf("| Memory: private (commit) | %.1f MB | ≤ %.0f MB |\n", private, ramBudgetMB)
+	fmt.Printf("| Memory: private, before any dialog | %.1f MB | |\n", beforeDialogs)
+	// The open-file dialog loads Explorer's shell into the process; that memory stays until quit.
+	fmt.Printf("| Memory: private, after the import dialog | %.1f MB | ≤ %.0f MB |\n", private, ramBudgetMB)
 	fmt.Printf("| Memory: peak working set | %.1f MB | |\n", peak)
 	if failed {
 		os.Exit(1)

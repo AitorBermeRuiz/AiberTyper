@@ -8,6 +8,7 @@ import (
 	"strings"
 	"testing"
 	"time"
+	"unicode/utf16"
 )
 
 // Ports of the Session, History, collection, key and shortcut checks in Tests/main.swift. The pure functions are
@@ -133,6 +134,12 @@ func TestHistoryReadOnly(t *testing.T) {
 	os.WriteFile(partial, []byte(`[{"date": "2026-10-25T20:08:58Z", "lang": "es", "wpm": 50}]`), 0o644)
 	if err := NewHistory(partial).Add(round); err == nil {
 		t.Error("partial round accepted")
+	}
+	// "null" is not a list of rounds: read-only, as Swift's decoder refuses it, never overwritten as empty.
+	null := filepath.Join(t.TempDir(), "history.json")
+	os.WriteFile(null, []byte("null"), 0o644)
+	if err := NewHistory(null).Add(round); err == nil {
+		t.Error("null history accepted a round")
 	}
 	// A file that turns corrupt while running is kept, not overwritten with the rounds in memory.
 	later := filepath.Join(t.TempDir(), "history.json")
@@ -496,5 +503,51 @@ func TestHotKey(t *testing.T) {
 	os.WriteFile(path, []byte("{"), 0o644)
 	if LoadSettings(path).SavedHotKey() != StandardHotKey {
 		t.Error("corrupt settings")
+	}
+}
+
+// Notepad saves UTF-8 with a BOM and Windows PowerShell 5 saves UTF-16: Swift's JSONDecoder reads both, so must Parse.
+func TestTextEncodings(t *testing.T) {
+	utf16le := func(s string, bom []byte) []byte {
+		out := slices.Clone(bom)
+		for _, u := range utf16.Encode([]rune(s)) {
+			out = append(out, byte(u), byte(u>>8))
+		}
+		return out
+	}
+	utf16be := func(s string) []byte {
+		out := []byte{0xFE, 0xFF}
+		for _, u := range utf16.Encode([]rune(s)) {
+			out = append(out, byte(u>>8), byte(u))
+		}
+		return out
+	}
+	for name, data := range map[string][]byte{
+		"utf-8 bom": append([]byte{0xEF, 0xBB, 0xBF}, valid...),
+		"utf-16 le": utf16le(valid, []byte{0xFF, 0xFE}),
+		"utf-16 be": utf16be(valid),
+	} {
+		if c, _, err := Parse(data, "file:x.json"); err != nil || c.Name != "Programación" {
+			t.Errorf("%s: %v %q", name, err, c.Name)
+		}
+	}
+	bom := filepath.Join(t.TempDir(), "history.json")
+	os.WriteFile(bom, append([]byte{0xEF, 0xBB, 0xBF}, `[{"date": "2026-10-25T20:08:58Z", "lang": "es", "wpm": 50, "accuracy": 1, "seconds": 40}]`...), 0o644)
+	if h := NewHistory(bom); len(h.Rounds) != 1 || h.Add(RoundResult{Date: t0, Lang: ES, WPM: 50, Accuracy: 1, Seconds: 40}) != nil {
+		t.Error("history with a BOM")
+	}
+}
+
+// Each setting is read on its own, like UserDefaults keys: one bad value never drops the others.
+func TestSettingsPerKey(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "settings.json")
+	os.WriteFile(path, []byte(`{"lang": "fr", "pack": "stoic", "favorites": ["books"], "hotKey": 7, "hideImportHelp": true}`), 0o644)
+	s := LoadSettings(path)
+	if s.Lang != "" || s.Pack != "stoic" || !slices.Equal(s.Favorites, []string{"books"}) || s.HotKey != nil || !s.HideImportHelp {
+		t.Errorf("settings %+v", s)
+	}
+	os.WriteFile(path, []byte("not json"), 0o644)
+	if s := LoadSettings(path); s.Pack != "" {
+		t.Errorf("corrupt settings %+v", s)
 	}
 }

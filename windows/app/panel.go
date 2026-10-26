@@ -110,13 +110,16 @@ func (p *panel) render() {
 func (p *panel) resize(w, h int) {
 	if p.frame != nil {
 		p.frame.close()
-		pDeleteObject.Call(p.dib)
 	}
+	old := p.dib
 	bi := bitmapInfoHeader{Width: int32(w), Height: -int32(h), Planes: 1, BitCount: 32}
 	bi.Size = uint32(unsafe.Sizeof(bi))
 	var bits unsafe.Pointer
 	p.dib, _, _ = pCreateDIBSection.Call(p.dc, uintptr(unsafe.Pointer(&bi)), 0, uintptr(unsafe.Pointer(&bits)), 0, 0)
 	pSelectObject.Call(p.dc, p.dib)
+	if old != 0 {
+		pDeleteObject.Call(old) // only once deselected: DeleteObject refuses a bitmap selected into a DC
+	}
 	p.bits, p.w, p.h = bits, w, h
 	p.frame = newCanvas(newBitmap(w, h, pixelFormat32bppPARGB, bits), p.scale)
 	p.background = nil
@@ -252,6 +255,10 @@ func (p *panel) wndProc(hwnd, m, wparam, lparam uintptr) uintptr {
 		return 0
 	case wmDpiChanged:
 		p.render()
+		return 0
+	case wmMove:
+		// Dragged by the card's background: later frames go where the user left the panel.
+		p.x, p.y = loword(lparam), hiword(lparam)
 		return 0
 	}
 	r, _, _ := pDefWindowProcW.Call(hwnd, m, wparam, lparam)

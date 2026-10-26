@@ -126,7 +126,7 @@ func (a *app) openFiles() []string {
 	buf := make([]uint16, 64*1024)
 	ofn := openFileName{
 		Owner:   a.owner,
-		Filter:  wstrs("Colecciones (*.json)\x00*.json\x00"),
+		Filter:  wstrs("Colecciones (*.json)", "*.json"),
 		File:    &buf[0],
 		MaxFile: uint32(len(buf)),
 		Title:   wstr("Importar colección"),
@@ -159,6 +159,8 @@ func (a *app) openFiles() []string {
 
 // importCollections validates each file before copying it into the folder, so a broken file never lands there.
 func (a *app) importCollections() {
+	a.inDialog = true
+	defer func() { a.inDialog = false }()
 	s := a.session
 	// The topmost panel would cover the dialogs; bring it back if nothing gets imported.
 	wasVisible := a.panel.visible()
@@ -205,29 +207,37 @@ var recorder struct {
 	recorded *typer.HotKey
 }
 
+// Callbacks are made once: Go never frees them and allows about 2000 per process.
+var (
+	recordKeyCallback  = syscall.NewCallback(recordKey)
+	recorderDialogProc = syscall.NewCallback(func(hwnd, n, w, l, data uintptr) uintptr {
+		switch n {
+		case tdnCreated:
+			recorder.dialog = hwnd
+		case tdnDestroyed:
+			recorder.dialog = 0
+		}
+		return 0
+	})
+)
+
 // changeHotKey records a new global shortcut: the next key pressed with Ctrl, Alt or Win while the dialog is open.
 func (a *app) changeHotKey() {
+	a.inDialog = true
+	defer func() { a.inDialog = false }()
 	old := a.settings.SavedHotKey()
 	recorder.recorded = nil
 	// Free the current shortcut so pressing it again records it instead of opening the panel.
 	pUnregisterHotKey.Call(a.owner, 1)
-	hook, _, _ := pSetWindowsHookExW.Call(whKeyboardLL, syscall.NewCallback(recordKey), 0, 0)
+	hook, _, _ := pSetWindowsHookExW.Call(whKeyboardLL, recordKeyCallback, 0, 0)
 	pSetForegroundWindow.Call(a.owner)
 	button, _ := taskDialog{
 		instruction: old.Label(),
 		content: "Pulsa la nueva combinación. Tiene que incluir Ctrl, Alt o Win. No se permiten Ctrl+letra o Ctrl+número " +
 			"(atajos de las apps), Alt con una tecla que escribe algo (menús) ni Ctrl+Alt con una tecla que escribe algo " +
 			"(es AltGr: @, €, #).",
-		buttons: []tdButton{{idOK, "Guardar"}, {idCancel, "Cancelar"}, {100, "Restablecer " + typer.StandardHotKey.Label()}},
-		callback: syscall.NewCallback(func(hwnd, n, w, l, data uintptr) uintptr {
-			switch n {
-			case tdnCreated:
-				recorder.dialog = hwnd
-			case tdnDestroyed:
-				recorder.dialog = 0
-			}
-			return 0
-		}),
+		buttons:  []tdButton{{idOK, "Guardar"}, {idCancel, "Cancelar"}, {100, "Restablecer " + typer.StandardHotKey.Label()}},
+		callback: recorderDialogProc,
 	}.show(a.owner)
 	pUnhookWindowsHookEx.Call(hook)
 	chosen := old

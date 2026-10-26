@@ -115,6 +115,7 @@ const (
 	wmNCHitTest        = 0x0084
 	wmHotKey           = 0x0312
 	wmDpiChanged       = 0x02E0
+	wmMove             = 0x0003
 	wmDisplayChange    = 0x007E
 	wmUser             = 0x0400
 	wmApp              = 0x8000

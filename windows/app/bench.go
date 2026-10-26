@@ -24,7 +24,7 @@ import (
 //	key <name>              performs a panel key: tab, shift+tab, esc, enter, back, down, ctrl+f
 //	char <text>             types text as WM_CHAR messages
 //	shot <file.png>         saves the last frame, transparent shadow included
-//	state                   visible, picking, result and foreground
+//	state                   visible, picking, result, foreground, window position…
 //	stats                   CPU time and memory of this process
 //	scale <n>               draws at n× from now on, whatever the monitor (screenshots of high-DPI rendering)
 //	where <id>              screen pixel at the middle of a clickable area (ids in view.go: new, close, es, en, rowN…)
@@ -160,8 +160,9 @@ func (b *bench) command(f []string, done chan struct{}) {
 		reply("scale %v", n)
 	case "state":
 		fg, _, _ := pGetForegroundWindow.Call()
-		reply("visible=%v picking=%v result=%v foreground=%v hotkey=%v chars=%d lang=%s collection=%s", p.visible(), a.session.Picking,
-			a.session.Result != nil, fg == p.hwnd, a.hotKeyOK, len(a.session.Round.Target), a.session.Lang, a.session.Collection.ID)
+		reply("visible=%v picking=%v result=%v foreground=%v hotkey=%v chars=%d lang=%s collection=%s pos=%d,%d scale=%v", p.visible(),
+			a.session.Picking, a.session.Result != nil, fg == p.hwnd, a.hotKeyOK, len(a.session.Round.Target), a.session.Lang,
+			a.session.Collection.ID, p.x, p.y, p.scale)
 	case "where":
 		for _, h := range p.hits {
 			if h.id == arg(f, 1, "") {

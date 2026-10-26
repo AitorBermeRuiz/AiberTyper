@@ -16,6 +16,10 @@ var (
 	gp      = map[string]*syscall.LazyProc{}
 )
 
+// gdip calls a GDI+ function. Callers pass pointers as uintptr(unsafe.Pointer(…)); uintptrescapes keeps what they
+// point to alive and in place until the call returns, as it does for LazyProc.Call.
+//
+//go:uintptrescapes
 func gdip(name string, args ...uintptr) uintptr {
 	p, ok := gp[name]
 	if !ok {

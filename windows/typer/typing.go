@@ -4,6 +4,7 @@
 package typer
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -14,6 +15,7 @@ import (
 	"strings"
 	"time"
 	"unicode"
+	"unicode/utf16"
 
 	"aibertyper/shared"
 )
@@ -124,6 +126,29 @@ func jsonString(raw json.RawMessage) (string, bool) {
 	return s, true
 }
 
+// unicodeText drops a byte order mark and turns UTF-16 into UTF-8, as JSONDecoder reads both: Notepad saves
+// UTF-8 with a BOM and Windows PowerShell 5 saves UTF-16.
+func unicodeText(data []byte) []byte {
+	big := false
+	switch {
+	case bytes.HasPrefix(data, []byte{0xEF, 0xBB, 0xBF}):
+		return data[3:]
+	case bytes.HasPrefix(data, []byte{0xFE, 0xFF}):
+		big = true
+	case !bytes.HasPrefix(data, []byte{0xFF, 0xFE}):
+		return data
+	}
+	units := make([]uint16, (len(data)-2)/2)
+	for i := range units {
+		lo, hi := data[2+2*i], data[3+2*i]
+		if big {
+			lo, hi = hi, lo
+		}
+		units[i] = uint16(lo) | uint16(hi)<<8
+	}
+	return []byte(string(utf16.Decode(units)))
+}
+
 // Parse reads the JSON format users write: {"name": "…", "quotes": [{"text": "…", "source": "…"}]}. Keys are
 // matched exactly, like Swift. The quotes are used whatever language is selected. Returns how many were skipped.
 func Parse(data []byte, id string) (Collection, int, error) {
@@ -132,7 +157,7 @@ func Parse(data []byte, id string) (Collection, int, error) {
 	}
 	invalid := CollectionError("JSON no válido")
 	var file map[string]json.RawMessage
-	if json.Unmarshal(data, &file) != nil || file == nil {
+	if json.Unmarshal(unicodeText(data), &file) != nil || file == nil {
 		return Collection{}, 0, invalid
 	}
 	name, ok := jsonString(file["name"])
@@ -452,7 +477,10 @@ func (h *History) read() {
 	}
 	var rounds []RoundResult
 	if err == nil {
-		err = json.Unmarshal(data, &rounds)
+		err = json.Unmarshal(unicodeText(data), &rounds)
+	}
+	if err == nil && rounds == nil {
+		err = errors.New("history.json: null is not a list of rounds") // Swift refuses it too
 	}
 	if err != nil {
 		h.writable = false
