@@ -20,9 +20,17 @@ function Stop-AiberTyper {
         Wait-Process -Timeout 10 -ErrorAction SilentlyContinue
 }
 
+# Windows can hold a closed program's exe for a moment: retry for up to 5 s.
+function Retry([scriptblock]$action) {
+    for ($i = 1; ; $i++) {
+        try { & $action; return } catch { if ($i -ge 20) { throw } }
+        Start-Sleep -Milliseconds 250
+    }
+}
+
 if ($Uninstall) {
     Stop-AiberTyper
-    Remove-Item $dir -Recurse -Force -ErrorAction SilentlyContinue
+    Retry { if (Test-Path $dir) { Remove-Item $dir -Recurse -Force } }
     Remove-Item $shortcut -Force -ErrorAction SilentlyContinue
     Write-Host "AiberTyper uninstalled. Your history and collections are still in $env:APPDATA\AiberTyper."
     return
@@ -44,7 +52,7 @@ try {
     if (-not (Test-Path "$tmp\AiberTyper.exe")) { throw 'The download has no AiberTyper.exe' }
     New-Item -ItemType Directory $dir -Force | Out-Null
     Stop-AiberTyper
-    Move-Item "$tmp\AiberTyper.exe" $exe -Force
+    Retry { Move-Item "$tmp\AiberTyper.exe" $exe -Force }
     Unblock-File $exe
 } finally {
     Remove-Item $tmp -Recurse -Force -ErrorAction SilentlyContinue
