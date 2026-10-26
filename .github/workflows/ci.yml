@@ -82,7 +82,8 @@ jobs:
           Start-Sleep 2
           if (@(Get-Process AiberTyper -ErrorAction SilentlyContinue).Count -ne 1) { throw 'not running once after reinstall' }
           ./scripts/install.ps1 -Uninstall
-          if ((Test-Path $exe) -or (Test-Path $link) -or (Get-Process AiberTyper -ErrorAction SilentlyContinue)) { throw 'not uninstalled' }
+          $left = "exe=$(Test-Path $exe) link=$(Test-Path $link) running=$([bool](Get-Process AiberTyper -ErrorAction SilentlyContinue))"
+          if ($left -ne 'exe=False link=False running=False') { throw "not uninstalled: $left" }
       - uses: actions/upload-artifact@v4
         if: always()
         with:
