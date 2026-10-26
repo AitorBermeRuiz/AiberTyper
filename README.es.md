@@ -149,7 +149,7 @@ Cada colección temática tiene al menos 30 citas en cada idioma, todas con una 
 
 | Tecla | Acción |
 |-------|--------|
-| <kbd>⌥⇧T</kbd><br/><kbd>Alt+Shift+T</kbd> en Windows | Abrir / cerrar (cámbialo con **Cambiar atajo…** en la barra de menús o en el menú de la bandeja). En macOS debe incluir ⌘, ⌥ o ⌃, y se rechaza ⌘+letra o ⌘+número (con o sin ⇧) porque las apps los usan, igual que ⌥ más cualquier tecla que escriba un carácter, como ⌥+letra o ⌥+ (`]` en un teclado español). En Windows debe incluir Ctrl, Alt o Win, y se rechaza Ctrl+letra o Ctrl+número (con o sin Shift), igual que Alt con una tecla que escribe (la usan los menús) y Ctrl+Alt con una tecla que escribe (Ctrl+Alt es AltGr: `@`, `€`, `#` en un teclado español). |
+| <kbd>⌥⇧T</kbd><br/><kbd>Alt+Shift+T</kbd> en Windows | Abrir / cerrar (cámbialo con **Cambiar atajo…** en la barra de menús o en el menú de la bandeja). En macOS debe incluir ⌘, ⌥ o ⌃, y se rechaza ⌘+letra o ⌘+número (con o sin ⇧) porque las apps los usan, igual que ⌥ más cualquier tecla que escriba un carácter, como ⌥+letra o ⌥+ (`]` en un teclado español). En Windows debe incluir Ctrl, Alt o Win, y se rechaza Ctrl+letra o Ctrl+número (con o sin Shift), igual que Alt con una tecla que escribe (la usan los menús) y Ctrl+Alt con una tecla que escribe (Ctrl+Alt es AltGr: `@`, `€`, `#` en un teclado español), además de los atajos de ventanas Ctrl o Alt con Tab, Esc o F4, y Alt+Espacio. |
 | <kbd>Tab</kbd> | Cambiar de idioma (Español / English) |
 | <kbd>⇧Tab</kbd> | Elegir una colección |
 | <kbd>Enter</kbd> | Nueva ronda |

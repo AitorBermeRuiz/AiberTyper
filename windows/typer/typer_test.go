@@ -467,6 +467,9 @@ func TestHotKey(t *testing.T) {
 		{'5', ModControl, "Ctrl+number"}, {'E', ModAlt, "Alt+letter (menus)"}, {0xBB, ModAlt, "Alt+symbol"},
 		{'Q', ModControl | ModAlt, "AltGr+Q types @"}, {'2', ModControl | ModAlt | ModShift, "AltGr+Shift"}, {0xBA, ModControl | ModAlt, "AltGr+symbol"},
 		{VKShift, ModControl, "a modifier alone"},
+		{VKTab, ModAlt, "Alt+Tab"}, {VKTab, ModAlt | ModShift, "Alt+Shift+Tab"}, {VKTab, ModControl, "Ctrl+Tab"},
+		{VKEscape, ModAlt, "Alt+Esc"}, {VKEscape, ModControl | ModShift, "Ctrl+Shift+Esc"}, {VKF1 + 3, ModAlt, "Alt+F4"},
+		{VKF1 + 3, ModControl, "Ctrl+F4"}, {VKSpace, ModAlt, "Alt+Space (window menu)"},
 	}
 	for _, r := range refused {
 		if _, ok := NewHotKey(r.vk, r.mods, 0); ok {

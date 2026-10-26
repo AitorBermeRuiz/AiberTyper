@@ -149,7 +149,7 @@ Every themed collection has at least 30 quotes in each language, each with a ver
 
 | Key | Action |
 |-----|--------|
-| <kbd>⌥⇧T</kbd><br/><kbd>Alt+Shift+T</kbd> on Windows | Open / close (change it with **Cambiar atajo…** in the menu bar or the tray menu). On macOS it must include ⌘, ⌥ or ⌃, and ⌘+letter or ⌘+number (with or without ⇧) is refused because apps use it, as is ⌥ plus any key that types a character, such as ⌥+letter or ⌥+ (`]` on a Spanish keyboard). On Windows it must include Ctrl, Alt or Win, and Ctrl+letter or Ctrl+number (with or without Shift) is refused, as are Alt plus a key that types (menus use it) and Ctrl+Alt plus a key that types (Ctrl+Alt is AltGr: `@`, `€`, `#` on a Spanish keyboard). |
+| <kbd>⌥⇧T</kbd><br/><kbd>Alt+Shift+T</kbd> on Windows | Open / close (change it with **Cambiar atajo…** in the menu bar or the tray menu). On macOS it must include ⌘, ⌥ or ⌃, and ⌘+letter or ⌘+number (with or without ⇧) is refused because apps use it, as is ⌥ plus any key that types a character, such as ⌥+letter or ⌥+ (`]` on a Spanish keyboard). On Windows it must include Ctrl, Alt or Win, and Ctrl+letter or Ctrl+number (with or without Shift) is refused, as are Alt plus a key that types (menus use it) and Ctrl+Alt plus a key that types (Ctrl+Alt is AltGr: `@`, `€`, `#` on a Spanish keyboard), as well as the window shortcuts Ctrl or Alt plus Tab, Esc or F4, and Alt+Space. |
 | <kbd>Tab</kbd> | Switch language (Español / English) |
 | <kbd>⇧Tab</kbd> | Choose a collection |
 | <kbd>Enter</kbd> | New round |
