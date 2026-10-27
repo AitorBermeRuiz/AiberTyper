@@ -1,7 +1,8 @@
 // Command rsrc writes the Windows resources the Go linker embeds in AiberTyper.exe: the app icon (from
-// design/brand/icon-1024.png) and the manifest (per-monitor DPI, Common Controls 6, GDI+ 1.1, no elevation).
+// design/brand/icon-1024.png), the manifest (per-monitor DPI, Common Controls 6, GDI+ 1.1, no elevation) and the
+// version info (product name and version, which code signing checks).
 //
-//	go run ./cmd/rsrc <icon.png> <out.syso>
+//	go run ./cmd/rsrc <icon.png> <out.syso> <version>
 //
 // A .syso file is a COFF object with a .rsrc section; build.sh runs this before go build.
 package main
@@ -14,6 +15,9 @@ import (
 	"image/png"
 	"os"
 	"sort"
+	"strconv"
+	"strings"
+	"unicode/utf16"
 )
 
 const manifest = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -44,6 +48,7 @@ const manifest = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 const (
 	rtIcon      = 3
 	rtGroupIcon = 14
+	rtVersion   = 16
 	rtManifest  = 24
 	langEnUS    = 0x0409
 )
@@ -54,8 +59,8 @@ type resource struct {
 }
 
 func main() {
-	if len(os.Args) != 3 {
-		os.Stderr.WriteString("usage: rsrc <icon.png> <out.syso>\n")
+	if len(os.Args) != 4 {
+		os.Stderr.WriteString("usage: rsrc <icon.png> <out.syso> <version>\n")
 		os.Exit(2)
 	}
 	f, err := os.Open(os.Args[1])
@@ -64,7 +69,7 @@ func main() {
 	check(err)
 	f.Close()
 
-	resources := []resource{{rtManifest, 1, []byte(manifest)}}
+	resources := []resource{{rtManifest, 1, []byte(manifest)}, {rtVersion, 1, versionInfo(os.Args[3])}}
 	group := new(bytes.Buffer)
 	sizes := []int{16, 20, 24, 32, 40, 48, 64, 256}
 	binary.Write(group, binary.LittleEndian, [3]uint16{0, 1, uint16(len(sizes))})
@@ -99,6 +104,65 @@ func check(err error) {
 	if err != nil {
 		panic(err)
 	}
+}
+
+// versionInfo is a VS_VERSIONINFO block: fixed file info, then US English strings (code page 1200, UTF-16).
+func versionInfo(version string) []byte {
+	var n [4]uint16
+	parts := strings.Split(version, ".")
+	if len(parts) > 4 {
+		panic("version has more than 4 parts: " + version)
+	}
+	for i, p := range parts {
+		v, err := strconv.ParseUint(p, 10, 16)
+		check(err)
+		n[i] = uint16(v)
+	}
+	ms, ls := uint32(n[0])<<16|uint32(n[1]), uint32(n[2])<<16|uint32(n[3])
+	fixed := new(bytes.Buffer)
+	// Signature, struct version, file and product version, flags mask, flags, VOS_NT_WINDOWS32, VFT_APP, subtype, date.
+	binary.Write(fixed, binary.LittleEndian, [13]uint32{0xFEEF04BD, 0x10000, ms, ls, ms, ls, 0x3F, 0, 0x40004, 1, 0, 0, 0})
+	var strs [][]byte
+	for _, kv := range [][2]string{
+		{"FileDescription", "Aiber Typer"},
+		{"FileVersion", version},
+		{"OriginalFilename", "AiberTyper.exe"},
+		{"ProductName", "AiberTyper"},
+		{"ProductVersion", version},
+	} {
+		v := wstr(kv[1])
+		strs = append(strs, block(kv[0], 1, len(v)/2, v))
+	}
+	translation := binary.LittleEndian.AppendUint32(nil, 0x04B0<<16|langEnUS)
+	return block("VS_VERSION_INFO", 0, fixed.Len(), fixed.Bytes(),
+		block("StringFileInfo", 1, 0, nil, block("040904B0", 1, 0, nil, strs...)),
+		block("VarFileInfo", 1, 0, nil, block("Translation", 0, len(translation), translation)))
+}
+
+// block is one version info node: length, value length (in words for text), type (1 text, 0 binary), key, value and
+// children, each starting on a 32-bit boundary.
+func block(key string, typ, valueLen int, value []byte, children ...[]byte) []byte {
+	b := binary.LittleEndian.AppendUint16(nil, 0)
+	b = binary.LittleEndian.AppendUint16(b, uint16(valueLen))
+	b = binary.LittleEndian.AppendUint16(b, uint16(typ))
+	b = append(b, wstr(key)...)
+	for _, part := range append([][]byte{value}, children...) {
+		if len(part) > 0 {
+			b = append(b, make([]byte, (4-len(b)%4)%4)...)
+			b = append(b, part...)
+		}
+	}
+	binary.LittleEndian.PutUint16(b, uint16(len(b)))
+	return b
+}
+
+// wstr is s in UTF-16LE with a terminating NUL.
+func wstr(s string) []byte {
+	var b []byte
+	for _, u := range append(utf16.Encode([]rune(s)), 0) {
+		b = binary.LittleEndian.AppendUint16(b, u)
+	}
+	return b
 }
 
 // scale shrinks src to s×s by averaging the source pixels each target pixel covers (premultiplied, so edges stay clean).

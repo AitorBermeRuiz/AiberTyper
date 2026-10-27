@@ -60,7 +60,14 @@ jobs:
         run: src/windows/test.sh
       - name: Build
         shell: bash
-        run: src/windows/build.sh
+        run: VERSION=1.2.3 src/windows/build.sh
+      # Code signing (SignPath) checks the product name and version, read here by Windows itself.
+      - name: Version info
+        shell: powershell
+        run: |
+          $v = (Get-Item build/windows/AiberTyper.exe).VersionInfo
+          "$($v.ProductName) $($v.ProductVersion) $($v.FileMajorPart).$($v.FileMinorPart).$($v.FileBuildPart)"
+          if ($v.ProductName -ne 'AiberTyper' -or $v.ProductVersion -ne '1.2.3' -or $v.FileBuildPart -ne 3) { throw 'wrong version info' }
       - name: End-to-end bench (fails over budget)
         working-directory: src/windows
         shell: bash
