@@ -3,13 +3,14 @@ name: Release
 # Push a tag like v0.2.0 to publish AiberTyper-0.2.0.zip (macOS) and AiberTyper-0.2.0-windows-x64.zip on GitHub Releases
 # and update the Homebrew tap.
 # Every secret is optional: without the Apple ones the app is ad-hoc signed and not notarized;
-# without HOMEBREW_TAP_TOKEN the tap is not updated.
+# without HOMEBREW_TAP_TOKEN the tap is not updated; without SIGNPATH_API_TOKEN the Windows exe is not signed.
 on:
   push:
     tags: ["v*"]
 
 permissions:
   contents: write
+  actions: read # SignPath fetches the unsigned exe from this run's artifacts
 
 jobs:
   release:
@@ -22,6 +23,7 @@ jobs:
       NOTARY_TEAM_ID: ${{ secrets.NOTARY_TEAM_ID }}
       NOTARY_PASSWORD: ${{ secrets.NOTARY_PASSWORD }}
       TAP_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+      SIGNPATH_TOKEN: ${{ secrets.SIGNPATH_API_TOKEN }}
     steps:
       - uses: actions/checkout@v5
         with:
@@ -70,8 +72,36 @@ jobs:
 
       # Cross-compiled here: the Windows app needs Go only.
       - name: Build Windows app
+        run: src/windows/build.sh
+
+      # Free code signing for open source (README "Code signing policy"). Each request waits on signpath.io until
+      # the owner approves it; the whole release waits with it, for up to an hour.
+      - name: Upload unsigned Windows app
+        id: unsigned
+        if: env.SIGNPATH_TOKEN != ''
+        uses: actions/upload-artifact@v7
+        with:
+          name: AiberTyper-windows-unsigned
+          path: build/windows/AiberTyper.exe
+          overwrite: true # a re-run uploads it again
+
+      - name: Sign Windows app
+        if: env.SIGNPATH_TOKEN != ''
+        uses: signpath/github-action-submit-signing-request@v3
+        with:
+          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          organization-id: ${{ vars.SIGNPATH_ORGANIZATION_ID }}
+          project-slug: AiberTyper
+          signing-policy-slug: release-signing
+          github-artifact-id: ${{ steps.unsigned.outputs.artifact-id }}
+          wait-for-completion-timeout-in-seconds: 3600
+          output-artifact-directory: build/windows/signed
+          parameters: |
+            version: ${{ toJSON(env.VERSION) }}
+
+      - name: Zip Windows app
         run: |
-          src/windows/build.sh
+          [[ -z "$SIGNPATH_TOKEN" ]] || mv build/windows/signed/AiberTyper.exe build/windows/AiberTyper.exe
           echo "WINZIP=AiberTyper-$VERSION-windows-x64.zip" >> "$GITHUB_ENV"
           (cd build/windows && zip -q "../../AiberTyper-$VERSION-windows-x64.zip" AiberTyper.exe)
 
@@ -90,7 +120,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           echo "SHA256=$(shasum -a 256 "$ZIP" | cut -d' ' -f1)" >> "$GITHUB_ENV"
-          windows="Windows: run \`irm https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/install/install.ps1 | iex\` in PowerShell (no administrator rights needed)."
+          windows="Windows: run \`irm https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/install/install.ps1 | iex\` in PowerShell (no administrator rights needed). [Code signing policy](https://github.com/AitorBermeRuiz/AiberTyper#code-signing-policy)."
           if [[ "${NOTARIZED:-0}" == 1 ]]; then
             notes="Install with \`curl -fsSL https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/install/install.sh | bash\` or see the README. You can also unzip it and move AiberTyper.app to Applications. $windows"
           else
