@@ -112,7 +112,7 @@ Then press <kbd>Alt+Shift+T</kbd>. The app lives in the notification area (the t
 
 - Uninstall (your history and collections stay): `& ([scriptblock]::Create((irm https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/install/install.ps1))) -Uninstall`
 - To open it when you sign in, put a shortcut to `%LOCALAPPDATA%\Programs\AiberTyper\AiberTyper.exe` in `shell:startup`.
-- By hand: download `AiberTyper-<version>-windows-x64.zip` from [Releases](https://github.com/AitorBermeRuiz/AitorTyper/releases), unzip it anywhere and run `AiberTyper.exe`. It is not signed yet, so SmartScreen may warn about a file from a browser: **More info** → **Run anyway**.
+- By hand: download `AiberTyper-<version>-windows-x64.zip` from [Releases](https://github.com/AitorBermeRuiz/AitorTyper/releases), unzip it anywhere and run `AiberTyper.exe`. It is not signed yet, so SmartScreen may warn about a file from a browser: **More info** → **Run anyway**. Smart App Control (Windows 11) blocks unsigned apps with no way to run them anyway.
 - It is a 64-bit (x64) app of about 3 MB with nothing else to install. Windows 11 on ARM runs it through its x64 emulation.
 
 </details>
@@ -248,7 +248,18 @@ Repository secrets it reads (all optional):
 | `MACOS_CERT_P12`, `MACOS_CERT_PASSWORD`, `MACOS_SIGN_IDENTITY` | Developer ID Application certificate (base64 `.p12`), its password and its name. Without them the app is ad-hoc signed. |
 | `NOTARY_APPLE_ID`, `NOTARY_TEAM_ID`, `NOTARY_PASSWORD` | Apple ID, team id and app-specific password for notarization (needs the certificate secrets too; all three or none). Once set, the cask stops removing the quarantine flag. |
 
+| `SIGNPATH_API_TOKEN` | SignPath API token of a submitter; with the repository variable `SIGNPATH_ORGANIZATION_ID`, the Windows exe is signed (see [Code signing policy](#code-signing-policy)). Without it the exe is not signed. |
+
 </details>
+
+## Code signing policy
+
+Free code signing provided by [SignPath.io](https://about.signpath.io), certificate by [SignPath Foundation](https://signpath.org).
+
+- Only `AiberTyper.exe` is signed, built from this repository by the [release workflow](.github/workflows/release.yml). Every signing request is approved by hand.
+- Committers and reviewers: [Aitor Bermejo Ruiz](https://github.com/AitorBermeRuiz)
+- Approvers: [Aitor Bermejo Ruiz](https://github.com/AitorBermeRuiz)
+- Privacy: this program will not transfer any information to other networked systems unless specifically requested by the user or the person installing or operating it. The installer downloads the app from GitHub; the app itself makes no network requests.
 
 ## License
 

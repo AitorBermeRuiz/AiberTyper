@@ -112,7 +112,7 @@ Después, pulsa <kbd>Alt+Shift+T</kbd>. La app vive en el área de notificación
 
 - Desinstalar (tu historial y tus colecciones se quedan): `& ([scriptblock]::Create((irm https://raw.githubusercontent.com/AitorBermeRuiz/AitorTyper/main/install/install.ps1))) -Uninstall`
 - Para abrirla al iniciar sesión, pon un acceso directo a `%LOCALAPPDATA%\Programs\AiberTyper\AiberTyper.exe` en `shell:startup`.
-- A mano: descarga `AiberTyper-<versión>-windows-x64.zip` desde [Releases](https://github.com/AitorBermeRuiz/AitorTyper/releases), descomprímelo donde quieras y ejecuta `AiberTyper.exe`. Aún no está firmada, así que SmartScreen puede avisar de un archivo descargado con el navegador: **Más información** → **Ejecutar de todas formas**.
+- A mano: descarga `AiberTyper-<versión>-windows-x64.zip` desde [Releases](https://github.com/AitorBermeRuiz/AitorTyper/releases), descomprímelo donde quieras y ejecuta `AiberTyper.exe`. Aún no está firmada, así que SmartScreen puede avisar de un archivo descargado con el navegador: **Más información** → **Ejecutar de todas formas**. El Control inteligente de aplicaciones (Windows 11) bloquea las apps sin firmar y no deja ejecutarlas de todas formas.
 - Es una app de 64 bits (x64) de unos 3 MB, sin nada más que instalar. Windows 11 en ARM la ejecuta con su emulación x64.
 
 </details>
@@ -248,7 +248,18 @@ Secretos del repositorio que lee (todos opcionales):
 | `MACOS_CERT_P12`, `MACOS_CERT_PASSWORD`, `MACOS_SIGN_IDENTITY` | Certificado Developer ID Application (`.p12` en base64), su contraseña y su nombre. Sin ellos la app se firma ad hoc. |
 | `NOTARY_APPLE_ID`, `NOTARY_TEAM_ID`, `NOTARY_PASSWORD` | Apple ID, team id y contraseña específica de app para la notarización (necesita también los secretos del certificado; los tres o ninguno). Una vez configurados, el cask deja de quitar la marca de cuarentena. |
 
+| `SIGNPATH_API_TOKEN` | Token de la API de SignPath de un usuario con permiso para enviar firmas; junto con la variable del repositorio `SIGNPATH_ORGANIZATION_ID`, firma el exe de Windows (ver [Code signing policy](#code-signing-policy)). Sin él el exe no se firma. |
+
 </details>
+
+## Code signing policy
+
+Firma de código gratuita de [SignPath.io](https://about.signpath.io), certificado de [SignPath Foundation](https://signpath.org).
+
+- Solo se firma `AiberTyper.exe`, compilado desde este repositorio por el [workflow de release](.github/workflows/release.yml). Cada solicitud de firma se aprueba a mano.
+- Autores y revisores: [Aitor Bermejo Ruiz](https://github.com/AitorBermeRuiz)
+- Aprobadores: [Aitor Bermejo Ruiz](https://github.com/AitorBermeRuiz)
+- Privacidad: este programa no transfiere información a otros sistemas en red salvo que lo pida expresamente el usuario o quien lo instala o lo usa. El instalador descarga la app desde GitHub; la app en sí no hace ninguna petición de red.
 
 ## Licencia
 
