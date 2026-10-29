@@ -21,6 +21,7 @@ AiberTyper is a macOS menu bar app for typing practice. The user presses a globa
 | `src/mac/Sources/AiberTyper/Session.swift` | `@Observable` state: the current `Round`, its saved result and record, collection picker, favorites, history. |
 | `src/mac/Sources/AiberTyper/Round.swift` | `Round`: one attempt at a text. Typing rules (dead keys, corrected errors), live score, current source. No history or settings. |
 | `src/mac/Sources/AiberTyper/TyperView.swift` | SwiftUI views: typing, picker, results. Palette `G` lives here. |
+| `src/mac/Sources/AiberTyper/SettingsView.swift` | Settings window (menu bar **Ajustes…**, ⌘,): Ajustes, Colecciones and Historial tabs. Mac only for now. |
 | `src/mac/Sources/AiberTyper/Typing.swift` | Pure logic: `Lang`, `Quote`, `Collection` (JSON parse and load), `History`, `wrapLines`, `lineWindow`, `pickQuotes`, `charsFor`. |
 | `src/mac/Sources/AiberTyper/HotKey.swift` | `HotKey` model, Carbon hot key registration. |
 | `src/mac/Sources/AiberTyper/Keys.swift` | `PanelKey(event:picking:)`: what each key does in the typing view and in the picker. |
@@ -78,7 +79,7 @@ Say in the report that the app was restarted and with which build. The user has 
 - **Focus rule**: every click handler goes through `act()` in `TyperView`, which hands focus back to the hidden field. A button that skips `act()` breaks typing until the panel reopens.
 - **Picker**: state lives in `Session` (`picking`, `filter`, `selection`, `matches`). `matches` is the filtered list with favorites first. Filtering uses `localizedStandardContains` (case and accent insensitive).
 - **Live stats**: `TimelineView` ticks twice a second only while the panel is visible and a round has started. Keep that cost; do not add timers.
-- **Manual wrap**: text is wrapped by hand, using the monospaced advance of the Iosevka font (fallback: system monospaced). `G.charsPerLine` is computed once. A proportional font would need real text layout measurement.
+- **Manual wrap**: text is wrapped by hand, using the monospaced advance of SF Mono (`G.mono`; UI text uses SF Pro Rounded). `G.charsPerLine` is computed once. A proportional font would need real text layout measurement.
 - **Score**: WPM counts correct characters only. Accuracy counts every keystroke, including corrected mistakes. The code is `Round.live`; test typing rules on a bare `Round`, without a `Session`.
 - **Round length**: quotes are picked to fill 30–60 s at the user's recent WPM (`History.recentWPM`, default 40), capped at 90 s.
 

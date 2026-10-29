@@ -28,7 +28,7 @@ struct Desk<Content: View>: View {
 }
 
 @MainActor func render(_ session: Session, scale: CGFloat) -> CGImage {
-    let renderer = ImageRenderer(content: Desk { TyperView(session: session, onImport: {}, onClose: {}) })
+    let renderer = ImageRenderer(content: Desk { TyperView(session: session, onImport: {}, onClose: {}, onSettings: {}) })
     renderer.scale = scale
     return renderer.cgImage!
 }

@@ -39,7 +39,7 @@ Typing websites want a tab, an account and your attention. **Aiber Typer** is a 
 
 ## Features
 
-- **One shortcut, anywhere.** <kbd>⌥⇧T</kbd> opens the panel over any app and <kbd>Esc</kbd> sends you back where you were. Change the shortcut from the menu bar.
+- **One shortcut, anywhere.** <kbd>⌥⇧T</kbd> opens the panel over any app and <kbd>Esc</kbd> sends you back where you were. Change the shortcut in **Ajustes…** (<kbd>⌘,</kbd>) on macOS or from the tray menu on Windows.
 - **Rounds sized to you.** Each round picks whole quotes to fill 30 to 60 seconds at your recent speed, so it never drags.
 - **Honest score.** WPM counts only correct characters. Accuracy counts every keystroke, even the mistakes you fixed.
 - **Types like a real text field.** Accents and dead keys (´ + a → á, ñ) compose as usual, so Spanish is first class.
@@ -118,7 +118,7 @@ Then press <kbd>Alt+Shift+T</kbd>. The app lives in the notification area (the t
 </details>
 
 > [!TIP]
-> The text uses [IosevkaTerm Nerd Font](https://github.com/ryanoasis/nerd-fonts) when it is installed, and the system monospaced font otherwise (Cascadia Mono or Consolas on Windows).
+> On macOS the text uses SF Mono and the interface SF Pro Rounded, nothing to install. On Windows the text uses [IosevkaTerm Nerd Font](https://github.com/ryanoasis/nerd-fonts) when it is installed, and Cascadia Mono or Consolas otherwise.
 
 ## How it works
 
@@ -149,11 +149,12 @@ Every themed collection has at least 30 quotes in each language, each with a ver
 
 | Key | Action |
 |-----|--------|
-| <kbd>⌥⇧T</kbd><br/><kbd>Alt+Shift+T</kbd> on Windows | Open / close (change it with **Cambiar atajo…** in the menu bar or the tray menu). On macOS it must include ⌘, ⌥ or ⌃, and ⌘+letter or ⌘+number (with or without ⇧) is refused because apps use it, as is ⌥ plus any key that types a character, such as ⌥+letter or ⌥+ (`]` on a Spanish keyboard). On Windows it must include Ctrl, Alt or Win, and Ctrl+letter or Ctrl+number (with or without Shift) is refused, as are Alt plus a key that types (menus use it) and Ctrl+Alt plus a key that types (Ctrl+Alt is AltGr: `@`, `€`, `#` on a Spanish keyboard), as well as the window shortcuts Ctrl or Alt plus Tab, Esc or F4, and Alt+Space. |
+| <kbd>⌥⇧T</kbd><br/><kbd>Alt+Shift+T</kbd> on Windows | Open / close (change it with **Cambiar** in **Ajustes…** on macOS, or **Cambiar atajo…** in the Windows tray menu). On macOS it must include ⌘, ⌥ or ⌃, and ⌘+letter or ⌘+number (with or without ⇧) is refused because apps use it, as is ⌥ plus any key that types a character, such as ⌥+letter or ⌥+ (`]` on a Spanish keyboard). On Windows it must include Ctrl, Alt or Win, and Ctrl+letter or Ctrl+number (with or without Shift) is refused, as are Alt plus a key that types (menus use it) and Ctrl+Alt plus a key that types (Ctrl+Alt is AltGr: `@`, `€`, `#` on a Spanish keyboard), as well as the window shortcuts Ctrl or Alt plus Tab, Esc or F4, and Alt+Space. |
 | <kbd>Tab</kbd> | Switch language (Español / English) |
 | <kbd>⇧Tab</kbd> | Choose a collection |
 | <kbd>Enter</kbd> | New round |
 | <kbd>Esc</kbd> | Close |
+| <kbd>⌘,</kbd> | macOS: open **Ajustes** (also the gear in the panel header) |
 
 <img align="right" width="380" alt="Collection picker: a filter field, favorites starred and listed first, the current collection checked, and the import button" src="docs/assets/picker.png" />
 
@@ -193,10 +194,12 @@ A collection is a JSON file:
 - Files over 1 MB are refused on import and ignored in the folder.
 - Your collections have no language: the same sentences are used whatever tab selects.
 
-Files live in `~/Library/Application Support/AiberTyper/Colecciones`. From the menu-bar icon:
+Files live in `~/Library/Application Support/AiberTyper/Colecciones`. In **Ajustes… → Colecciones** (macOS menu-bar icon) you can pick the active collection, star favorites (☆) and:
 
-- **Importar colección…** (also in the picker) first explains the format (with a "No volver a mostrar este mensaje nunca más" checkbox), then checks the files you pick and copies the valid ones into that folder. An existing file with the same name is moved to the Trash (the Recycle Bin on Windows) before the new one is written; re-importing a file from the folder itself is safe.
-- **Abrir carpeta de colecciones** opens the folder, to edit or delete files by hand. Changes show up the next time you open the picker.
+- **Importar…** (**Importar colección…** in the Windows tray menu; also in the picker) first explains the format (with a "No volver a mostrar este mensaje nunca más" checkbox), then checks the files you pick and copies the valid ones into that folder. An existing file with the same name is moved to the Trash before the new one is written; re-importing a file from the folder itself is safe.
+- **Abrir carpeta** (**Abrir carpeta de colecciones** in the Windows tray menu) opens the folder, to edit or delete files by hand. Changes show up the next time you open the picker or Ajustes.
+
+On macOS, **Ajustes → Ajustes** also holds the language and the "Mostrar el formato al importar" checkbox; **Ajustes → Historial** shows your average, record, mean accuracy, the last 20 rounds (click a bar to see that round's speed, accuracy and time) and the latest ones.
 
 See [`examples/Programming.json`](examples/Programming.json) for a ready-to-import example.
 

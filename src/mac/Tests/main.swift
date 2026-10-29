@@ -204,6 +204,18 @@ toggled.toggleLanguage()
 assert(toggled.lang == langBefore.toggled && toggled.roundNumber == roundBefore + 1 && toggled.round.typed.isEmpty, "toggle")
 toggled.toggleLanguage()
 
+// Settings window: a click on a collection's star toggles it as favorite, saved like ⌃F in the picker.
+let starDefaults = freshDefaults()
+let starred = Session(history: History(url: tempDir().appendingPathComponent("history.json")), folder: tempDir(), defaults: starDefaults)
+starred.toggleFavorite(Collection.cinema)
+assert(starred.favorites == ["cinema"] && starred.sortedCollections.first?.id == "cinema", "star \(starred.favorites)")
+assert(starDefaults.stringArray(forKey: "favorites") == ["cinema"], "star saved")
+starred.toggleFavorite(Collection.cinema)
+assert(starred.favorites.isEmpty && starDefaults.stringArray(forKey: "favorites") == [], "unstar")
+
+// Settings window: the Historial tab reads every saved round, including the one just finished.
+assert(chart.rounds.count == 26 && chart.rounds.last == chart.result, "rounds \(chart.rounds.count)")
+
 // A round never passes 90 seconds at the recent WPM.
 var slowHistory = History(url: tempDir().appendingPathComponent("history.json"))
 try! slowHistory.add(RoundResult(date: Date(), lang: .es, wpm: 20, accuracy: 1, seconds: 40))
@@ -444,6 +456,9 @@ assert(panelKey("\u{1b}", kVK_Escape, picking: true) == .closePicker && panelKey
     && panelKey("\t", kVK_Tab, .shift, picking: true) == .closePicker, "esc and tab close the picker")
 assert(panelKey("\r", kVK_Return, picking: true) == .choose && panelKey("\u{7f}", kVK_Delete, picking: true) == .delete)
 assert(panelKey("a", kVK_ANSI_A, .command, picking: true) == .ignore && panelKey("x", kVK_ANSI_X, .control, picking: true) == .ignore, "⌘ and other ⌃ keys do nothing")
+// ⌘, opens the settings window from the typing view and the picker; a plain comma still types and filters.
+assert(panelKey(",", kVK_ANSI_Comma, .command) == .settings && panelKey(",", kVK_ANSI_Comma, .command, picking: true) == .settings, "⌘,")
+assert(panelKey(",", kVK_ANSI_Comma) == .pass && panelKey(",", kVK_ANSI_Comma, picking: true) == .filter(","), "plain comma")
 
 for suite in suites { UserDefaults.standard.removePersistentDomain(forName: suite) }
 print("self-check OK")

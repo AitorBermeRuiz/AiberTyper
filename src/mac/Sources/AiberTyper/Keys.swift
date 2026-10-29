@@ -8,6 +8,8 @@ enum PanelKey: Equatable {
     /// Swallowed: reaches neither the field nor the picker.
     case ignore
     case hide, openPicker, toggleLanguage, newRound
+    /// ⌘, in both views, as in any Mac app.
+    case settings
     // Picker: every key lands here, never in the hidden field.
     case closePicker, choose, delete, favorite, importCollections
     case move(Int)
@@ -15,6 +17,10 @@ enum PanelKey: Equatable {
 
     init(event: NSEvent, picking: Bool) {
         let code = Int(event.keyCode)
+        if event.modifierFlags.contains(.command), event.charactersIgnoringModifiers == "," {
+            self = .settings
+            return
+        }
         guard picking else {
             switch code {
             case kVK_Escape: self = .hide

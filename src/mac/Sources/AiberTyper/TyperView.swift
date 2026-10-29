@@ -36,22 +36,65 @@ enum G {
     /// Official Aiber Logo 1B (chevron A with shortened right leg + base cursor bar) and product header.
     static var brand: some View {
         HStack(spacing: 8) {
-            Canvas { ctx, size in
-                let w = size.width, h = size.height, s = min(w, h)
-                let stroke = s * 0.135
-                var chevron = Path()
-                chevron.move(to: CGPoint(x: w * 0.18, y: h * 0.77))
-                chevron.addLine(to: CGPoint(x: w * 0.48, y: h * 0.21))
-                chevron.addLine(to: CGPoint(x: w * 0.65, y: h * 0.53))
-                ctx.stroke(chevron, with: .color(pink), style: StrokeStyle(lineWidth: stroke, lineCap: .round, lineJoin: .round))
-                let barY = h * 0.77 + stroke * 0.5 - stroke
-                let cursor = CGRect(x: w * 0.56, y: barY, width: w * 0.30, height: stroke)
-                ctx.fill(Path(roundedRect: cursor, cornerRadius: stroke * 0.48), with: .color(neon))
-            }
-            .frame(width: 16, height: 16)
-            .accessibilityHidden(true)
+            logo
             label("Aiber typer")
         }
+    }
+
+    static var logo: some View {
+        Canvas { ctx, size in
+            let w = size.width, h = size.height, s = min(w, h)
+            let stroke = s * 0.135
+            var chevron = Path()
+            chevron.move(to: CGPoint(x: w * 0.18, y: h * 0.77))
+            chevron.addLine(to: CGPoint(x: w * 0.48, y: h * 0.21))
+            chevron.addLine(to: CGPoint(x: w * 0.65, y: h * 0.53))
+            ctx.stroke(chevron, with: .color(pink), style: StrokeStyle(lineWidth: stroke, lineCap: .round, lineJoin: .round))
+            let barY = h * 0.77 + stroke * 0.5 - stroke
+            let cursor = CGRect(x: w * 0.56, y: barY, width: w * 0.30, height: stroke)
+            ctx.fill(Path(roundedRect: cursor, cornerRadius: stroke * 0.48), with: .color(neon))
+        }
+        .frame(width: 16, height: 16)
+        .accessibilityHidden(true)
+    }
+}
+
+/// One bar per round, oldest first; the selected one (the latest round by default) is highlighted.
+/// With `onSelect`, each bar lights up on hover and a click selects it.
+struct WPMBars: View {
+    let wpms: [Double]
+    var height: CGFloat = 48
+    var selected: Int? = nil
+    var onSelect: ((Int) -> Void)? = nil
+
+    var body: some View {
+        HStack(alignment: .bottom, spacing: 5) {
+            ForEach(wpms.indices, id: \.self) { i in
+                if let onSelect {
+                    HoverButton(action: { onSelect(i) }) { hovered in
+                        bar(i, hovered: hovered)
+                            .frame(maxWidth: 22, maxHeight: .infinity, alignment: .bottom)
+                            .contentShape(Rectangle()) // the whole column is clickable, not only the bar
+                    }
+                    .accessibilityLabel("Ronda \(i + 1): \(Int(wpms[i].rounded())) palabras por minuto")
+                    .accessibilityAddTraits(i == highlighted ? .isSelected : [])
+                } else {
+                    bar(i, hovered: false)
+                }
+            }
+        }
+        .frame(height: height, alignment: .bottom)
+    }
+
+    private var highlighted: Int { selected ?? wpms.count - 1 }
+
+    private func bar(_ i: Int, hovered: Bool) -> some View {
+        let top = wpms.max() ?? 0, low = (wpms.min() ?? 0) * 0.7
+        return RoundedRectangle(cornerRadius: 3)
+            .fill(i == highlighted ? AnyShapeStyle(LinearGradient(colors: [G.pink, G.neon], startPoint: .top, endPoint: .bottom))
+                  : AnyShapeStyle(G.pink.opacity(hovered ? 0.65 : 0.3)))
+            .frame(maxWidth: 22)
+            .frame(height: top > low ? 6 + (height - 6) * (wpms[i] - low) / (top - low) : height)
     }
 }
 
@@ -62,7 +105,7 @@ extension Color {
 }
 
 /// Plain button that reports hover (for a light highlight) and shows a pointing-hand cursor.
-private struct HoverButton<Label: View>: View {
+struct HoverButton<Label: View>: View {
     let action: () -> Void
     @ViewBuilder let label: (_ hovered: Bool) -> Label
     @StateObject private var hover = HoverState()
@@ -92,6 +135,7 @@ struct TyperView: View {
     let session: Session
     var onImport: () -> Void
     var onClose: () -> Void
+    var onSettings: () -> Void
     @FocusState private var focused: Bool
     @Environment(\.colorSchemeContrast) private var contrast
 
@@ -142,6 +186,14 @@ struct TyperView: View {
                 pills([Lang.es.label, Lang.en.label], selected: session.lang.label, spoken: "Idioma") {
                     session.toggleLanguage()
                 }
+                HoverButton(action: { act(onSettings) }) { hovered in
+                    Image(systemName: "gearshape").font(.system(size: 14, weight: .medium))
+                        .foregroundStyle(hovered ? G.pink : muted)
+                        .contentShape(Rectangle())
+                }
+                .focusable(false)
+                .help("Ajustes (⌘,)")
+                .accessibilityLabel("Ajustes")
             }
             textLines
             if let source = session.round.source {
@@ -400,23 +452,13 @@ struct TyperView: View {
 
     /// Bars for recent rounds; the last one (this round) is highlighted.
     private func historyChart(_ wpms: [Double]) -> some View {
-        let top = wpms.max()!, low = wpms.min()! * 0.7
-        return VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 10) {
             HStack {
                 G.label("Historial")
                 Spacer()
                 Text("últimas \(wpms.count) rondas").font(.system(size: 12, design: .rounded)).foregroundStyle(muted)
             }
-            HStack(alignment: .bottom, spacing: 5) {
-                ForEach(wpms.indices, id: \.self) { i in
-                    let isLast = i == wpms.count - 1
-                    RoundedRectangle(cornerRadius: 3)
-                        .fill(isLast ? AnyShapeStyle(LinearGradient(colors: [G.pink, G.neon], startPoint: .top, endPoint: .bottom)) : AnyShapeStyle(G.pink.opacity(0.3)))
-                        .frame(maxWidth: 22)
-                        .frame(height: top > low ? 6 + 42 * (wpms[i] - low) / (top - low) : 48)
-                }
-            }
-            .frame(height: 48, alignment: .bottom)
+            WPMBars(wpms: wpms)
         }
         .padding(.top, 14)
         .overlay(alignment: .top) { Rectangle().fill(border).frame(height: 1).accessibilityHidden(true) }
