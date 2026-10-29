@@ -1,0 +1,12 @@
+{
+  "title": "Opciones de fuente",
+  "brief": "Same AiberTyper specimen (typing panel, result, settings row) in several font pairings; Aiber Bermejo colors unchanged. Typing text stays monospaced because wrapping uses the monospaced advance.",
+  "artboards": [
+    { "file": "01-iosevka-sf.html", "title": "Iosevka Term + SF Pro (actual)", "tradeoff": "La de hoy; estrecha y compacta, pero hay que tenerla instalada o distribuirla", "width": 1000, "height": 780 },
+    { "file": "02-jetbrains-sf.html", "title": "JetBrains Mono + SF Pro", "tradeoff": "Más legible al escribir; más ancha, menos caracteres por línea; habría que distribuirla (OFL)", "width": 1000, "height": 780 },
+    { "file": "03-sfmono-sf.html", "title": "SF Mono + SF Pro", "tradeoff": "Nativa y sin distribuir nada; menos personalidad de marca", "width": 1000, "height": 780 },
+    { "file": "04-sfmono-rounded.html", "title": "SF Mono + SF Pro Rounded", "tradeoff": "Más amable y cifras suaves; menos terminal, se aleja del look actual", "width": 1000, "height": 780 },
+    { "file": "05-monaco-avenir.html", "title": "Monaco + Avenir Next", "tradeoff": "Carácter retro Mac; Monaco no tiene negrita real y se ve fechada", "width": 1000, "height": 780 },
+    { "file": "06-iosevka-newyork.html", "title": "Iosevka Term + New York", "tradeoff": "Tono editorial que pega con citas de libros; contraste serif/mono puede chocar en la interfaz", "width": 1000, "height": 780 }
+  ]
+}

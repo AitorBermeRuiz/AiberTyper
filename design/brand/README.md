@@ -7,7 +7,7 @@ This directory contains the canonical logo and color specifications, kept separa
 
 - **Umbrella brand**: `Aiber` (`Ai`tor `Ber`mejo)
 - **Product naming**: `Aiber <Product>` (e.g., `Aiber Typer`, bundle executable `AiberTyper`, bundle ID `com.aiber.AiberTyper`)
-- **UI header signature**: Logo mark + `AIBER TYPER` (`IosevkaTerm Nerd Font`, 12 pt, tracking +2, uppercase)
+- **UI header signature**: Logo mark + `AIBER TYPER` (SF Mono, 12 pt, tracking +2, uppercase; UI text in SF Pro Rounded)
 
 ## Color Palette — *Aiber Bermejo*
 
