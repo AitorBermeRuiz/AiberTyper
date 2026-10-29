@@ -5,7 +5,6 @@ import SwiftUI
 enum G {
     static let bg = Color(0x1B1113), fg = Color(0xF6EEF0), pink = Color(0xF497A9), neon = Color(0xE83A59)
     static let yellow = Color(0xF5D547)
-    static let fontName = "IosevkaTerm Nerd Font"
 
     static func muted(_ contrast: ColorSchemeContrast) -> Color { contrast == .increased ? Color(0xD9CCD0) : Color(0xAA989C) }
     static func border(_ contrast: ColorSchemeContrast) -> Color { contrast == .increased ? Color(0x7C5E66) : Color(0x3C262B) }
@@ -14,18 +13,13 @@ enum G {
     /// We wrap the text ourselves (to show only a few lines), so count how many monospaced characters fit
     /// the 584 pt text column (640 card minus 28 padding per side).
     static let charsPerLine: Int = {
-        let font = NSFont(name: fontName, size: textSize) ?? .monospacedSystemFont(ofSize: textSize, weight: .regular)
+        let font = NSFont.monospacedSystemFont(ofSize: textSize, weight: .regular)
         let advance = ("M" as NSString).size(withAttributes: [.font: font]).width
         return max(10, Int((584 - 2) / advance))
     }()
 
-    /// Looked up once, like `charsPerLine`: installing the font while the app runs needs a restart.
-    private static let hasFont = NSFont(name: fontName, size: textSize) != nil
-
-    /// IosevkaTerm when installed, otherwise the system monospaced font.
-    static func mono(_ size: CGFloat) -> Font {
-        hasFont ? .custom(fontName, size: size) : .system(size: size, design: .monospaced)
-    }
+    /// SF Mono: typed text, header signature, numbers.
+    static func mono(_ size: CGFloat) -> Font { .system(size: size, design: .monospaced) }
 
     /// Plum background with the soft pink glow from the top-left corner.
     static var background: some View {
@@ -151,7 +145,7 @@ struct TyperView: View {
             }
             textLines
             if let source = session.round.source {
-                Text("— \(source)").font(.system(size: 12)).foregroundStyle(muted)
+                Text("— \(source)").font(.system(size: 12, design: .rounded)).foregroundStyle(muted)
             }
             // Redraw twice a second so WPM keeps moving while you pause; idle when hidden or not started.
             if session.visible, session.round.live() != nil {
@@ -183,7 +177,7 @@ struct TyperView: View {
     private func actionButton(_ title: String, key: String, primary: Bool, action: @escaping () -> Void) -> some View {
         HoverButton(action: { act(action) }) { hovered in
             HStack(spacing: 8) {
-                Text(title).font(.system(size: 12, weight: .semibold))
+                Text(title).font(.system(size: 12, weight: .semibold, design: .rounded))
                 keycap(key, color: primary ? G.bg : hovered ? G.pink : muted)
             }
             .foregroundStyle(primary ? G.bg : hovered ? G.pink : muted)
@@ -198,7 +192,7 @@ struct TyperView: View {
     private func keyHint(_ key: String, _ action: String) -> some View {
         HStack(spacing: 6) {
             keycap(key, color: muted)
-            Text(action).font(.system(size: 12)).foregroundStyle(muted)
+            Text(action).font(.system(size: 12, design: .rounded)).foregroundStyle(muted)
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("\(key): \(action)")
@@ -206,7 +200,7 @@ struct TyperView: View {
 
     private func keycap(_ key: String, color: Color) -> some View {
         Text(key)
-            .font(.system(size: 10, weight: .semibold))
+            .font(.system(size: 10, weight: .semibold, design: .rounded))
             .foregroundStyle(color)
             .padding(.horizontal, 5).padding(.vertical, 1)
             .overlay(RoundedRectangle(cornerRadius: 4).strokeBorder(color.opacity(0.7), lineWidth: 1))
@@ -222,14 +216,14 @@ struct TyperView: View {
                 .accessibilityLabel("Filtro: \(session.filter)")
             VStack(alignment: .leading, spacing: 4) {
                 if session.matches.isEmpty {
-                    Text("Sin resultados").font(.system(size: 14)).foregroundStyle(muted)
+                    Text("Sin resultados").font(.system(size: 14, design: .rounded)).foregroundStyle(muted)
                 }
                 ForEach(Array(session.matches.enumerated()), id: \.element.id) { i, collection in
                     let selected = i == session.selection
                     HoverButton(action: { act { session.chooseMatch(at: i) } }) { hovered in
                         HStack {
                             if session.favorites.contains(collection.id) { Text("★").accessibilityLabel("favorita") }
-                            Text(collection.name).font(.system(size: 15, weight: selected ? .bold : .regular))
+                            Text(collection.name).font(.system(size: 15, weight: selected ? .bold : .regular, design: .rounded))
                             Spacer()
                             if collection.id == session.collection.id { Text("✓").foregroundStyle(G.neon).accessibilityLabel("actual") }
                         }
@@ -241,10 +235,10 @@ struct TyperView: View {
                     .accessibilityAddTraits(selected ? .isSelected : [])
                 }
             }
-            ForEach(session.problems, id: \.self) { Text($0).font(.system(size: 12)).foregroundStyle(G.neon) }
+            ForEach(session.problems, id: \.self) { Text($0).font(.system(size: 12, design: .rounded)).foregroundStyle(G.neon) }
             HoverButton(action: { act(onImport) }) { hovered in
                 Text("＋ Importar colección…")
-                    .font(.system(size: 13, weight: .medium))
+                    .font(.system(size: 13, weight: .medium, design: .rounded))
                     .foregroundStyle(hovered ? G.neon : G.pink)
             }
             .focusable(false)
@@ -268,7 +262,7 @@ struct TyperView: View {
                 // Clicking the already selected option of a group does nothing.
                 HoverButton(action: { if !isSelected || labels.count == 1 { act(action) } }) { hovered in
                     Text(label)
-                        .font(.system(size: 12, weight: isSelected ? .bold : .medium))
+                        .font(.system(size: 12, weight: isSelected ? .bold : .medium, design: .rounded))
                         .foregroundStyle(isSelected ? G.bg : hovered ? G.fg : muted)
                         .padding(.horizontal, isSelected ? 10 : 0).padding(.vertical, isSelected ? 3 : 0)
                         .background(Capsule().fill(isSelected ? (hovered ? G.neon : G.pink) : .clear))
@@ -361,7 +355,7 @@ struct TyperView: View {
             HStack(spacing: 0) {
                 VStack(alignment: .leading, spacing: 6) {
                     G.label("Palabras por minuto")
-                    Text("\(wpm)").font(.system(size: 104, weight: .heavy)).tracking(-3)
+                    Text("\(wpm)").font(.system(size: 104, weight: .heavy, design: .rounded)).tracking(-3)
                         .foregroundStyle(LinearGradient(colors: [G.fg, G.pink], startPoint: .top, endPoint: .bottom))
                         .accessibilityLabel("\(wpm) palabras por minuto")
                     HStack(spacing: 8) {
@@ -373,7 +367,7 @@ struct TyperView: View {
                         }
                         if let avg = session.averageBefore {
                             let delta = Int((r.wpm - avg).rounded())
-                            Text("\(delta >= 0 ? "+" : "−")\(abs(delta)) sobre tu media").font(.system(size: 13)).foregroundStyle(muted)
+                            Text("\(delta >= 0 ? "+" : "−")\(abs(delta)) sobre tu media").font(.system(size: 13, design: .rounded)).foregroundStyle(muted)
                         }
                     }
                 }
@@ -395,7 +389,7 @@ struct TyperView: View {
             if session.recentWPMs.count > 1 { historyChart(session.recentWPMs) }
             HStack {
                 if !session.note.isEmpty {
-                    Text(session.note).font(.system(size: 12)).foregroundStyle(G.neon)
+                    Text(session.note).font(.system(size: 12, design: .rounded)).foregroundStyle(G.neon)
                 }
                 Spacer()
                 roundActions
@@ -411,7 +405,7 @@ struct TyperView: View {
             HStack {
                 G.label("Historial")
                 Spacer()
-                Text("últimas \(wpms.count) rondas").font(.system(size: 12)).foregroundStyle(muted)
+                Text("últimas \(wpms.count) rondas").font(.system(size: 12, design: .rounded)).foregroundStyle(muted)
             }
             HStack(alignment: .bottom, spacing: 5) {
                 ForEach(wpms.indices, id: \.self) { i in
@@ -433,7 +427,7 @@ struct TyperView: View {
     private func cell(_ value: String, _ caption: String, _ color: Color = G.pink, size: CGFloat = 30, spoken: String) -> some View {
         VStack(alignment: .leading, spacing: 2) {
             Text(value).font(G.mono(size).bold()).foregroundStyle(color)
-            Text(caption).font(.system(size: 12)).foregroundStyle(muted)
+            Text(caption).font(.system(size: 12, design: .rounded)).foregroundStyle(muted)
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(spoken)
