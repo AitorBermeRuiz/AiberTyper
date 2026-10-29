@@ -6,7 +6,7 @@ import UniformTypeIdentifiers
 let bench = CommandLine.arguments.contains("--bench")
 let benchDir = FileManager.default.temporaryDirectory.appendingPathComponent("aiber-bench-\(UUID().uuidString)")
 
-final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWindowDelegate {
+final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     let session: Session = {
         guard bench else { return Session() }
         UserDefaults.standard.removePersistentDomain(forName: "aiber-bench")
@@ -17,6 +17,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
     var statusItem: NSStatusItem!
     var previousApp: NSRunningApplication?
     var practice: NSMenuItem!
+    var settings: NSWindow?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         panel = NSPanel(contentRect: .zero, styleMask: [.titled, .fullSizeContentView], backing: .buffered, defer: false)
@@ -35,7 +36,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
         panel.isReleasedWhenClosed = false
         panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
         panel.delegate = self
-        let host = NSHostingController(rootView: TyperView(session: session, onImport: { [weak self] in self?.importCollections() }, onClose: { [weak self] in self?.hide() }))
+        let host = NSHostingController(rootView: TyperView(session: session, onImport: { [weak self] in self?.importCollections() }, onClose: { [weak self] in self?.hide() },
+                                                           onSettings: { [weak self] in self?.hide(); self?.showSettings() }))
         host.sizingOptions = [.preferredContentSize]
         // Under the transparent titlebar, safe-area changes on every resize loop the layout and AppKit aborts.
         host.safeAreaRegions = []
@@ -48,13 +50,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
         practice = NSMenuItem(title: "Practicar", action: #selector(show), keyEquivalent: "")
         practice.target = self
         menu.addItem(practice)
-        menu.addItem(withTitle: "Cambiar atajo…", action: #selector(changeHotKey), keyEquivalent: "").target = self
+        menu.addItem(withTitle: "Ajustes…", action: #selector(showSettings), keyEquivalent: ",").target = self
         apply(HotKey.saved)
-        let packs = NSMenu()
-        packs.delegate = self
-        menu.addItem(withTitle: "Colección", action: nil, keyEquivalent: "").submenu = packs
-        menu.addItem(withTitle: "Importar colección…", action: #selector(importCollections), keyEquivalent: "").target = self
-        menu.addItem(withTitle: "Abrir carpeta de colecciones", action: #selector(openFolder), keyEquivalent: "").target = self
         menu.addItem(.separator())
         menu.addItem(withTitle: "Salir", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
         statusItem.menu = menu
@@ -68,6 +65,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
             case .openPicker: self.session.openPicker()
             case .toggleLanguage: self.session.toggleLanguage()
             case .newRound: self.session.newRound()
+            case .settings: self.hide(); self.showSettings()
             case .closePicker: self.session.closePicker()
             case .choose: self.session.choosePicked()
             case .delete: self.session.deleteInPicker()
@@ -126,24 +124,34 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
         session.visible = panel.occlusionState.contains(.visible)
     }
 
-    /// Rebuilt on every open so imported files and favorites show up.
-    func menuNeedsUpdate(_ menu: NSMenu) {
-        session.reloadCollections()
-        menu.removeAllItems()
-        for collection in session.sortedCollections {
-            let title = (session.favorites.contains(collection.id) ? "★ " : "") + collection.name
-            let item = NSMenuItem(title: title, action: #selector(choosePack(_:)), keyEquivalent: "")
-            item.target = self
-            item.representedObject = collection.id
-            item.state = collection.id == session.collection.id ? .on : .off
-            menu.addItem(item)
+    /// Settings window with the Ajustes, Colecciones and Historial tabs; created on first use.
+    @objc func showSettings() {
+        session.reloadCollections() // imported files and edits made in the folder show up
+        if settings == nil {
+            let window = NSWindow(contentRect: .zero, styleMask: [.titled, .closable, .fullSizeContentView], backing: .buffered, defer: false)
+            window.title = "Ajustes"
+            window.titleVisibility = .hidden
+            window.titlebarAppearsTransparent = true
+            window.appearance = NSAppearance(named: .darkAqua)
+            window.backgroundColor = NSColor(srgbRed: 0x1B / 255, green: 0x11 / 255, blue: 0x13 / 255, alpha: 1)
+            window.isReleasedWhenClosed = false
+            let host = NSHostingController(rootView: settingsView())
+            host.sizingOptions = [.preferredContentSize]
+            // Same as the panel: under the transparent titlebar, safe-area changes loop the layout.
+            host.safeAreaRegions = []
+            window.contentViewController = host
+            window.center()
+            settings = window
         }
+        NSApp.activate(ignoringOtherApps: true)
+        settings?.makeKeyAndOrderFront(nil)
     }
 
-    @objc func choosePack(_ sender: NSMenuItem) {
-        guard let collection = session.collections.first(where: { $0.id == sender.representedObject as? String }) else { return }
-        session.choose(collection)
-        show()
+    private func settingsView() -> SettingsView {
+        SettingsView(session: session, hotKey: HotKey.saved.label,
+                     onChangeHotKey: { [weak self] in self?.changeHotKey() },
+                     onImport: { [weak self] in self?.importCollections() },
+                     onOpenFolder: { [weak self] in self?.openFolder() })
     }
 
     /// Validates each file before copying it into the folder, so a broken file never lands there.
@@ -153,6 +161,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
         open.allowsMultipleSelection = true
         // The floating panel would cover the open panel; bring it back if nothing gets imported.
         let wasVisible = panel.isVisible
+        // From the settings window, an import stays there instead of opening the panel.
+        let fromSettings = settings?.isKeyWindow == true
         panel.orderOut(nil)
         // Accessory apps are not frontmost; without this the panel opens behind other windows.
         NSApp.activate(ignoringOtherApps: true)
@@ -177,7 +187,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
             return
         }
         session.choose(collection)
-        show()
+        fromSettings ? settings?.makeKeyAndOrderFront(nil) : show()
     }
 
     /// Explains the file format before the first import; false if the user cancels.
@@ -295,6 +305,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
             busy.informativeText = restored ? "Se mantiene \(old.label). Prueba otra combinación." : "Ningún atajo activo: \(old.label) también está ocupado."
             busy.runModal()
         }
+        (settings?.contentViewController as? NSHostingController<SettingsView>)?.rootView = settingsView()
     }
 
     @objc func openFolder() {

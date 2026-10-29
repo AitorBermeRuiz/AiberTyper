@@ -39,7 +39,7 @@ Las webs de mecanografía piden una pestaña, una cuenta y tu atención. **Aiber
 
 ## Características
 
-- **Un atajo, en cualquier app.** <kbd>⌥⇧T</kbd> abre el panel encima de lo que estés usando y <kbd>Esc</kbd> te devuelve donde estabas. Puedes cambiar el atajo desde la barra de menús.
+- **Un atajo, en cualquier app.** <kbd>⌥⇧T</kbd> abre el panel encima de lo que estés usando y <kbd>Esc</kbd> te devuelve donde estabas. Puedes cambiar el atajo en **Ajustes…** (<kbd>⌘,</kbd>) en macOS o desde el menú de la bandeja en Windows.
 - **Rondas a tu medida.** Cada ronda elige citas enteras para llenar de 30 a 60 segundos a tu velocidad reciente, así que nunca se hace larga.
 - **Puntuación honesta.** Las ppm cuentan solo los caracteres correctos. La precisión cuenta cada pulsación, incluidos los errores que corregiste.
 - **Escribe como un campo de texto normal.** Los acentos y las teclas muertas (´ + a → á, ñ) se componen como siempre: el español es de primera.
@@ -118,7 +118,7 @@ Después, pulsa <kbd>Alt+Shift+T</kbd>. La app vive en el área de notificación
 </details>
 
 > [!TIP]
-> El texto usa [IosevkaTerm Nerd Font](https://github.com/ryanoasis/nerd-fonts) si está instalada y, si no, la fuente monoespaciada del sistema (Cascadia Mono o Consolas en Windows).
+> En macOS el texto usa SF Mono y la interfaz SF Pro Rounded, sin instalar nada. En Windows el texto usa [IosevkaTerm Nerd Font](https://github.com/ryanoasis/nerd-fonts) si está instalada y, si no, Cascadia Mono o Consolas.
 
 ## Cómo funciona
 
@@ -149,11 +149,12 @@ Cada colección temática tiene al menos 30 citas en cada idioma, todas con una 
 
 | Tecla | Acción |
 |-------|--------|
-| <kbd>⌥⇧T</kbd><br/><kbd>Alt+Shift+T</kbd> en Windows | Abrir / cerrar (cámbialo con **Cambiar atajo…** en la barra de menús o en el menú de la bandeja). En macOS debe incluir ⌘, ⌥ o ⌃, y se rechaza ⌘+letra o ⌘+número (con o sin ⇧) porque las apps los usan, igual que ⌥ más cualquier tecla que escriba un carácter, como ⌥+letra o ⌥+ (`]` en un teclado español). En Windows debe incluir Ctrl, Alt o Win, y se rechaza Ctrl+letra o Ctrl+número (con o sin Shift), igual que Alt con una tecla que escribe (la usan los menús) y Ctrl+Alt con una tecla que escribe (Ctrl+Alt es AltGr: `@`, `€`, `#` en un teclado español), además de los atajos de ventanas Ctrl o Alt con Tab, Esc o F4, y Alt+Espacio. |
+| <kbd>⌥⇧T</kbd><br/><kbd>Alt+Shift+T</kbd> en Windows | Abrir / cerrar (cámbialo con **Cambiar** en **Ajustes…** en macOS, o con **Cambiar atajo…** en el menú de la bandeja de Windows). En macOS debe incluir ⌘, ⌥ o ⌃, y se rechaza ⌘+letra o ⌘+número (con o sin ⇧) porque las apps los usan, igual que ⌥ más cualquier tecla que escriba un carácter, como ⌥+letra o ⌥+ (`]` en un teclado español). En Windows debe incluir Ctrl, Alt o Win, y se rechaza Ctrl+letra o Ctrl+número (con o sin Shift), igual que Alt con una tecla que escribe (la usan los menús) y Ctrl+Alt con una tecla que escribe (Ctrl+Alt es AltGr: `@`, `€`, `#` en un teclado español), además de los atajos de ventanas Ctrl o Alt con Tab, Esc o F4, y Alt+Espacio. |
 | <kbd>Tab</kbd> | Cambiar de idioma (Español / English) |
 | <kbd>⇧Tab</kbd> | Elegir una colección |
 | <kbd>Enter</kbd> | Nueva ronda |
 | <kbd>Esc</kbd> | Cerrar |
+| <kbd>⌘,</kbd> | macOS: abrir **Ajustes** (también el engranaje de la cabecera del panel) |
 
 <img align="right" width="380" alt="Selector de colecciones: un campo de filtro, las favoritas con estrella y primero, la colección actual marcada y el botón de importar" src="docs/assets/picker.png" />
 
@@ -193,10 +194,12 @@ Una colección es un archivo JSON:
 - Los archivos de más de 1 MB se rechazan al importar y se ignoran en la carpeta.
 - Tus colecciones no tienen idioma: se usan las mismas frases sea cual sea la pestaña elegida.
 
-Los archivos viven en `~/Library/Application Support/AiberTyper/Colecciones`. Desde el icono de la barra de menús:
+Los archivos viven en `~/Library/Application Support/AiberTyper/Colecciones`. En **Ajustes… → Colecciones** (icono de la barra de menús de macOS) puedes elegir la colección activa, marcar favoritas (☆) y:
 
-- **Importar colección…** (también en el selector) explica primero el formato (con la casilla "No volver a mostrar este mensaje nunca más"), luego comprueba los archivos que elijas y copia los válidos en esa carpeta. Si ya existe un archivo con el mismo nombre, se mueve a la Papelera (la Papelera de reciclaje en Windows) antes de escribir el nuevo; reimportar un archivo de la propia carpeta es seguro.
-- **Abrir carpeta de colecciones** abre la carpeta para editar o borrar archivos a mano. Los cambios aparecen la próxima vez que abras el selector.
+- **Importar…** (**Importar colección…** en el menú de la bandeja de Windows; también en el selector) explica primero el formato (con la casilla "No volver a mostrar este mensaje nunca más"), luego comprueba los archivos que elijas y copia los válidos en esa carpeta. Si ya existe un archivo con el mismo nombre, se mueve a la Papelera antes de escribir el nuevo; reimportar un archivo de la propia carpeta es seguro.
+- **Abrir carpeta** (**Abrir carpeta de colecciones** en la bandeja de Windows) abre la carpeta para editar o borrar archivos a mano. Los cambios aparecen la próxima vez que abras el selector o Ajustes.
+
+En macOS, **Ajustes → Ajustes** también tiene el idioma y la casilla "Mostrar el formato al importar"; **Ajustes → Historial** muestra tu media, tu récord, la precisión media, las últimas 20 rondas (haz clic en una barra para ver la velocidad, la precisión y el tiempo de esa ronda) y las más recientes.
 
 Mira [`examples/Programming.json`](examples/Programming.json) para un ejemplo listo para importar.
 

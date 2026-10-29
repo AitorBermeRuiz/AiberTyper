@@ -103,9 +103,13 @@ import Observation
     func toggleFavoritePicked() {
         guard matches.indices.contains(selection) else { return }
         let picked = matches[selection]
-        if favorites.remove(picked.id) == nil { favorites.insert(picked.id) }
-        defaults.set(Array(favorites), forKey: "favorites")
+        toggleFavorite(picked)
         selection = matches.firstIndex { $0.id == picked.id } ?? 0
+    }
+
+    func toggleFavorite(_ collection: Collection) {
+        if favorites.remove(collection.id) == nil { favorites.insert(collection.id) }
+        defaults.set(Array(favorites), forKey: "favorites")
     }
 
     func closePicker() { picking = false }
@@ -154,4 +158,7 @@ import Observation
 
     /// WPM of the last 20 saved rounds, oldest first; after a round it ends with that round.
     var recentWPMs: [Double] { history.rounds.suffix(20).map(\.wpm) }
+
+    /// Every saved round, oldest first (the Historial tab).
+    var rounds: [RoundResult] { history.rounds }
 }

@@ -1,0 +1,27 @@
+{
+  "title": "Ventana de ajustes",
+  "brief": "Settings window inside AiberTyper instead of keeping every option in the menu bar menu: shortcut, phrase language, collection (favorites, import, folder) and import help. The menu shrinks to Practicar / Ajustes… / Salir.",
+  "artboards": [
+    {
+      "file": "01-sidebar.html",
+      "title": "Barra lateral (estilo Ajustes del Sistema)",
+      "tradeoff": "Escala bien con más secciones (temas, historial); una sección por vez, más clics",
+      "width": 1100,
+      "height": 720
+    },
+    {
+      "file": "02-single-page.html",
+      "title": "Pestañas: Ajustes, Colecciones e Historial",
+      "tradeoff": "Ajustes cortos como una página y la lista de colecciones con espacio y scroll; tres pestañas fijas, una más ya aprieta",
+      "width": 1100,
+      "height": 820
+    },
+    {
+      "file": "03-toolbar-tabs.html",
+      "title": "Pestañas en la barra (Preferencias clásicas)",
+      "tradeoff": "Lo más nativo en macOS y la lista de colecciones tiene espacio y scroll; pocas pestañas antes de saturarse",
+      "width": 1100,
+      "height": 720
+    }
+  ]
+}

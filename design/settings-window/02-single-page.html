@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Ajustes — pestañas con Ajustes, Colecciones e Historial</title>
+<style>
+:root{--bg:#1B1113;--fg:#F6EEF0;--pink:#F497A9;--neon:#E83A59;--muted:#AA989C;--muted-h:#D9CCD0;--border:#3C262B;--border-h:#7C5E66;--yellow:#F5D547;
+--mono:ui-monospace,"SF Mono",Menlo,monospace;--ui:ui-rounded,"SF Pro Rounded",-apple-system,system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;width:1100px;height:820px;background:var(--border);font-family:var(--ui);color:var(--fg);display:flex;align-items:center;justify-content:center}
+.win{width:640px;background:var(--bg);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+header{border-bottom:1px solid var(--border);padding:12px 16px 8px;background-image:radial-gradient(420px at 0 0,rgba(244,151,169,.22),transparent)}
+.lights{display:flex;gap:8px}.lights i{width:12px;height:12px;border-radius:50%;background:var(--border)}
+.title{display:flex;justify-content:center;gap:8px;align-items:center;font:600 12px var(--mono);letter-spacing:2px;color:var(--pink);margin-top:-12px}
+.tabs{display:flex;justify-content:center;gap:6px;margin-top:10px}
+.tabs button{all:unset;cursor:pointer;width:84px;padding:6px 0;border-radius:8px;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;color:var(--muted-h)}
+.tabs button:hover{background:rgba(244,151,169,.15)}
+.tabs button[aria-selected=true]{background:rgba(244,151,169,.18);color:var(--pink);font-weight:700}
+.tabs svg{width:22px;height:22px}
+button:focus-visible{outline:2px solid var(--neon);outline-offset:2px}
+section{padding:6px 28px 24px;min-height:360px}section[hidden]{display:none}
+h2{font:600 11px var(--mono);letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin:22px 0 10px}
+.line{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)}
+.line b{font:500 13px var(--ui)}.line small{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+kbd{font:600 13px var(--mono);padding:3px 7px;border:1px solid var(--border-h);border-radius:5px;margin-left:3px}
+kbd.s{font:600 10px var(--ui);padding:1px 5px;border-color:rgba(170,152,156,.7);color:var(--muted-h);margin:0}
+.rec{display:flex;align-items:center;gap:10px}
+.link{all:unset;cursor:pointer;font-size:12px;color:var(--pink);font-weight:600}
+.btn{all:unset;cursor:pointer;font-size:12px;font-weight:600;padding:5px 12px;border-radius:999px;border:1px solid var(--border-h)}
+.btn.p{background:var(--pink);color:var(--bg);border-color:var(--pink)}
+.seg{display:flex;border:1px solid var(--border-h);border-radius:999px;padding:2px}.seg button{all:unset;cursor:pointer;padding:3px 12px;border-radius:999px;font-size:12px;color:var(--muted-h)}
+.seg button[aria-pressed=true]{background:var(--pink);color:var(--bg);font-weight:700}
+.cb{display:flex;gap:10px;align-items:center;font-size:13px}.cb i{width:16px;height:16px;border-radius:4px;background:var(--pink);color:var(--bg);font:900 11px var(--ui);display:grid;place-items:center;font-style:normal}
+.foot{margin-top:18px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between}
+.list{border:1px solid var(--border);border-radius:10px;padding:6px;margin-top:20px;max-height:250px;overflow:auto}
+.item{display:flex;align-items:center;gap:10px;padding:6px 12px;border-radius:6px;font-size:15px}
+.item:hover{background:rgba(244,151,169,.15)}.item.sel{background:var(--pink);color:var(--bg);font-weight:700}
+.item .star{width:16px;color:var(--yellow)}.item.sel .star{color:var(--bg)}
+.item .meta{margin-left:auto;font-size:12px;color:var(--muted)}.item.sel .meta{color:var(--bg)}
+.item .src{font:11px var(--mono);border:1px solid var(--border-h);border-radius:3px;padding:1px 5px;color:var(--muted-h)}
+.bar{display:flex;align-items:center;gap:10px;margin-top:14px}.hint{margin-left:auto;font-size:12px;color:var(--muted)}
+.stats{display:flex;gap:34px;margin-top:22px}.stats b{display:block;font:700 26px var(--mono);color:var(--pink)}.stats span{font-size:12px;color:var(--muted)}
+.chart{display:flex;align-items:flex-end;gap:5px;height:90px;margin-top:20px;border-bottom:1px solid var(--border)}
+.chart i{flex:1;background:var(--pink);opacity:.55;border-radius:3px 3px 0 0}.chart i:last-child{opacity:1;background:var(--neon)}
+.rounds{margin-top:14px;font-size:13px}.rounds div{display:flex;padding:7px 0;border-bottom:1px solid var(--border)}
+.rounds span{color:var(--muted);width:120px}.rounds em{font:600 13px var(--mono);font-style:normal;margin-left:auto;width:70px;text-align:right}
+</style>
+</head>
+<body>
+<main class="win" aria-label="Ajustes de Aiber Typer">
+  <header>
+    <div class="lights" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="title"><svg width="16" height="16" viewBox="0 0 1 1" aria-hidden="true"><path d="M.18 .77L.48 .21L.65 .53" fill="none" stroke="#F497A9" stroke-width=".135" stroke-linecap="round" stroke-linejoin="round"/><rect x=".56" y=".7025" width=".3" height=".135" rx=".065" fill="#E83A59"/></svg><span id="ttl">AJUSTES</span></div>
+    <div class="tabs" role="tablist" aria-label="Secciones">
+      <button role="tab" id="t-a" aria-controls="p-a" aria-selected="true" data-t="AJUSTES"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12" rx="2.5"/><path d="M6 10h1M9 10h1M12 10h1M15 10h1M7 14h10"/></svg>Ajustes</button>
+      <button role="tab" id="t-c" aria-controls="p-c" aria-selected="false" tabindex="-1" data-t="COLECCIONES"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 5h6v14H4zM14 5h6v14h-6z"/><path d="M6 9h2M16 9h2"/></svg>Colecciones</button>
+      <button role="tab" id="t-h" aria-controls="p-h" aria-selected="false" tabindex="-1" data-t="HISTORIAL"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 5-6"/></svg>Historial</button>
+    </div>
+  </header>
+
+  <section role="tabpanel" id="p-a" aria-labelledby="t-a">
+    <h2>Atajo</h2>
+    <div class="line"><div><b>Abrir el panel</b><small>Funciona desde cualquier app.</small></div>
+      <div class="rec"><span><kbd>⌥</kbd><kbd>⇧</kbd><kbd>T</kbd></span><button class="link">Cambiar</button></div></div>
+    <h2>Frases</h2>
+    <div class="line"><div><b>Idioma</b><small>Tab lo cambia en el panel.</small></div>
+      <div class="seg" role="group" aria-label="Idioma"><button aria-pressed="true">Español</button><button aria-pressed="false">English</button></div></div>
+    <div class="line"><div><b>Colección activa</b><small>Se elige en Colecciones o con ⇧Tab en el panel.</small></div>
+      <button class="link" data-go="t-c">Estoicismo ›</button></div>
+    <h2>Importar</h2>
+    <div class="line"><div class="cb"><i aria-hidden="true">✓</i>Mostrar el formato al importar</div></div>
+    <div class="foot"><span>Aiber Typer</span><span>v0.3</span></div>
+  </section>
+
+  <section role="tabpanel" id="p-c" aria-labelledby="t-c" hidden>
+    <div class="list" role="listbox" aria-label="Colección activa">
+      <div class="item sel" role="option" aria-selected="true"><span class="star">★</span>Estoicismo<span class="meta">32 frases · activa</span></div>
+      <div class="item" role="option"><span class="star">★</span>Programación<span class="meta">30 frases</span></div>
+      <div class="item" role="option"><span class="star"></span>General<span class="meta">40 frases</span></div>
+      <div class="item" role="option"><span class="star"></span>El arte de la guerra<span class="meta">30 frases</span></div>
+      <div class="item" role="option"><span class="star"></span>Cine<span class="meta">30 frases</span></div>
+      <div class="item" role="option"><span class="star"></span>Libros de culto<span class="meta">30 frases</span></div>
+      <div class="item" role="option"><span class="star"></span>Rust <span class="src">rust.json</span><span class="meta">12 frases</span></div>
+    </div>
+    <div class="bar"><button class="btn p">Importar…</button><button class="btn">Abrir carpeta</button>
+      <span class="hint"><kbd class="s">F</kbd> favorito · <kbd class="s">⌫</kbd> borrar importada</span></div>
+  </section>
+
+  <section role="tabpanel" id="p-h" aria-labelledby="t-h" hidden>
+    <div class="stats"><div><b>74</b><span>media últimas 20</span></div><div><b>87</b><span>récord</span></div><div><b>95%</b><span>precisión media</span></div><div><b>142</b><span>rondas</span></div></div>
+    <div class="chart" role="img" aria-label="WPM de las últimas 20 rondas, la última en 87">
+      <i style="height:58%"></i><i style="height:62%"></i><i style="height:55%"></i><i style="height:66%"></i><i style="height:70%"></i><i style="height:64%"></i><i style="height:72%"></i><i style="height:68%"></i><i style="height:75%"></i><i style="height:71%"></i>
+      <i style="height:77%"></i><i style="height:73%"></i><i style="height:80%"></i><i style="height:76%"></i><i style="height:82%"></i><i style="height:79%"></i><i style="height:85%"></i><i style="height:81%"></i><i style="height:88%"></i><i style="height:100%"></i>
+    </div>
+    <div class="rounds">
+      <div><span>Hoy, 22:41</span>Estoicismo<em>87 wpm</em><em>96%</em></div>
+      <div><span>Hoy, 22:39</span>Estoicismo<em>78 wpm</em><em>94%</em></div>
+      <div><span>Ayer, 19:05</span>Programación<em>71 wpm</em><em>97%</em></div>
+    </div>
+  </section>
+</main>
+<script>
+const tabs=[...document.querySelectorAll('[role=tab]')];
+function pick(t){tabs.forEach(b=>{const on=b===t;b.setAttribute('aria-selected',on);b.tabIndex=on?0:-1;document.getElementById(b.getAttribute('aria-controls')).hidden=!on});
+document.getElementById('ttl').textContent=t.dataset.t;t.focus()}
+tabs.forEach((b,i)=>{b.onclick=()=>pick(b);b.onkeydown=e=>{const d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(d)pick(tabs[(i+d+tabs.length)%tabs.length])}});
+document.querySelector('[data-go]').onclick=()=>pick(document.getElementById('t-c'));
+</script>
+</body>
+</html>

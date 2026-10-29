@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "chosen": "02-single-page.html",
+  "handoffs": {
+    "02-single-page.html": {
+      "status": "implemented",
+      "queued": false,
+      "sentAt": "2026-10-29T16:43:59.540Z",
+      "startedAt": "2026-10-29T16:44:07.865Z",
+      "implementedAt": "2026-10-29T16:49:32.699Z",
+      "note": "SettingsView.swift: Ajustes / Colecciones / Historial tabs; menu bar is now Practicar, Ajustes… (⌘,), Salir. Native app, no loopback preview."
+    }
+  }
+}
