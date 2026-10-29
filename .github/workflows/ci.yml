@@ -108,3 +108,9 @@ jobs:
         with:
           name: windows-screenshots
           path: build/windows/shots
+      # The zip this run built and installed, to try it on a real PC: install.ps1 -Zip <file>.
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-app
+          path: build/windows/AiberTyper-0.0.0-windows-x64.zip
+          retention-days: 14
