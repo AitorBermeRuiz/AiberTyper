@@ -104,7 +104,9 @@ jobs:
         run: |
           [[ "$HAS_SIGNPATH" != true ]] || mv build/windows/signed/AiberTyper.exe build/windows/AiberTyper.exe
           winzip="$GITHUB_WORKSPACE/AiberTyper-$VERSION-windows-x64.zip"
-          zip -qj "$winzip" build/windows/AiberTyper.exe # -j: the exe sits at the zip root
+          # ditto, like the Mac zip: zip exits 0 without writing a file on the macos-26 runner. The exe sits at the zip root,
+          # and --norsrc --noextattr keep the ._AiberTyper.exe AppleDouble entry out.
+          ditto -c -k --norsrc --noextattr --noacl build/windows/AiberTyper.exe "$winzip"
           ls -l "$winzip"
           echo "WINZIP=$winzip" >> "$GITHUB_ENV"
 
