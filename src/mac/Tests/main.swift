@@ -152,6 +152,17 @@ do { try history.add(RoundResult(date: Date(), lang: .es, wpm: 50, accuracy: 1, 
 assert(corruptThrew && (try! String(contentsOf: corrupt, encoding: .utf8)) == "not json"
     && (try! FileManager.default.contentsOfDirectory(atPath: dir.path)) == ["history.json"], "corrupt history kept in place")
 
+// A round with values the app never writes (a hand edit, a synced file: 1e300) counts as corrupt too: the history is
+// read-only and kept in place, instead of trapping in Int() when the next round is sized.
+let outOfRange = tempDir().appendingPathComponent("history.json")
+let hugeJSON = #"[{"date": "2026-10-25T20:08:58Z", "lang": "es", "wpm": 1e300, "accuracy": 1, "seconds": 30}]"#
+try! Data(hugeJSON.utf8).write(to: outOfRange)
+var hugeHistory = History(url: outOfRange)
+assert(hugeHistory.rounds.isEmpty && hugeHistory.recentWPM == nil, "out-of-range history ignored")
+var hugeThrew = false
+do { try hugeHistory.add(RoundResult(date: Date(), lang: .es, wpm: 50, accuracy: 1, seconds: 40)) } catch { hugeThrew = true }
+assert(hugeThrew && (try! String(contentsOf: outOfRange, encoding: .utf8)) == hugeJSON, "out-of-range history kept in place")
+
 // A history that cannot be read is read-only: add() throws (so the note shows) and touches nothing.
 let unreadable = tempDir()
 var readOnly = History(url: unreadable)

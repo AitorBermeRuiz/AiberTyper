@@ -141,6 +141,17 @@ func TestHistoryReadOnly(t *testing.T) {
 	if err := NewHistory(null).Add(round); err == nil {
 		t.Error("null history accepted a round")
 	}
+	// A round with values the app never writes (1e300) is corrupt too: read-only and kept, as in Swift.
+	huge := filepath.Join(t.TempDir(), "history.json")
+	hugeJSON := `[{"date": "2026-10-25T20:08:58Z", "lang": "es", "wpm": 1e300, "accuracy": 1, "seconds": 30}]`
+	os.WriteFile(huge, []byte(hugeJSON), 0o644)
+	h = NewHistory(huge)
+	if _, ok := h.RecentWPM(); ok || h.Add(round) == nil {
+		t.Error("out-of-range history accepted")
+	}
+	if data, _ := os.ReadFile(huge); string(data) != hugeJSON {
+		t.Error("out-of-range history overwritten")
+	}
 	// A file that turns corrupt while running is kept, not overwritten with the rounds in memory.
 	later := filepath.Join(t.TempDir(), "history.json")
 	h = NewHistory(later)
