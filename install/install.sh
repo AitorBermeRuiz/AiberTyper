@@ -6,8 +6,8 @@ set -euo pipefail
 repo=AitorBermeRuiz/AitorTyper
 app=/Applications/AiberTyper.app
 
-# releases/latest redirects to .../releases/tag/vX.Y.Z
-tag=$(curl -fsSLI -o /dev/null -w '%{url_effective}' "https://github.com/$repo/releases/latest")
+# releases/latest redirects to .../releases/tag/vX.Y.Z; https only, even through redirects
+tag=$(curl -fsSLI --proto '=https' --proto-redir '=https' -o /dev/null -w '%{url_effective}' "https://github.com/$repo/releases/latest")
 tag=${tag##*/}
 version=${tag#v}
 [[ "$version" =~ ^[0-9]+(\.[0-9]+)*$ ]] || { echo "No AiberTyper release found on github.com/$repo" >&2; exit 1; }
@@ -15,7 +15,7 @@ version=${tag#v}
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT
 echo "Downloading AiberTyper $version..."
-curl -fL --progress-bar -o "$tmp/AiberTyper.zip" "https://github.com/$repo/releases/download/$tag/AiberTyper-$version.zip"
+curl -fL --proto '=https' --proto-redir '=https' --progress-bar -o "$tmp/AiberTyper.zip" "https://github.com/$repo/releases/download/$tag/AiberTyper-$version.zip"
 ditto -x -k "$tmp/AiberTyper.zip" "$tmp"
 [ -d "$tmp/AiberTyper.app" ] || { echo "The download has no AiberTyper.app" >&2; exit 1; }
 
