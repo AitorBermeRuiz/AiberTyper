@@ -35,6 +35,9 @@ type panel struct {
 	timer          bool
 	highSurrogate  uint16
 	dirty          bool
+	// Render timing, reported and reset by the bench's "stats".
+	renderN              int
+	renderSum, renderMax time.Duration
 }
 
 var now = time.Now
@@ -80,6 +83,7 @@ func (p *panel) invalidate() {
 // render lays out the current screen, resizes the window to the card and puts the new frame on screen.
 func (p *panel) render() {
 	p.dirty = false
+	start := now()
 	s := p.app.session
 	p.scale = p.dpiScale()
 	layout := &view{c: measurer, dry: true, app: p.app, s: s}
@@ -105,6 +109,10 @@ func (p *panel) render() {
 	gdip("GdipFlush", p.frame.g, 1)
 	p.present()
 	p.updateTimer()
+	d := now().Sub(start)
+	p.renderN++
+	p.renderSum += d
+	p.renderMax = max(p.renderMax, d)
 }
 
 func (p *panel) resize(w, h int) {
