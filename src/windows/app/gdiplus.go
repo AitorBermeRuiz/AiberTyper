@@ -220,16 +220,35 @@ func newFont(family uintptr, size float32, style int) *font {
 	return f
 }
 
+type measureKey struct {
+	s     string
+	f     *font
+	scale float32
+}
+
+// measured caches GdipMeasureString: a frame measures about a hundred strings, most of them constant, in the dry
+// layout and again in the real one. Cleared when the typed text's churn fills it.
+var measured = map[measureKey]float32{}
+
 func (c *canvas) measure(s string, f *font) float32 {
 	if s == "" {
 		return 0
+	}
+	key := measureKey{s, f, c.scale}
+	if w, ok := measured[key]; ok {
+		return w
 	}
 	u := utf16z(s)
 	var bounds rectF
 	layout := rectF{}
 	gdip("GdipMeasureString", c.g, uintptr(unsafe.Pointer(&u[0])), uintptr(len(u)-1), f.handle, uintptr(unsafe.Pointer(&layout)),
 		stringFormat, uintptr(unsafe.Pointer(&bounds)), 0, 0)
-	return bounds.W + f.tracking*float32(len([]rune(s)))
+	w := bounds.W + f.tracking*float32(len([]rune(s)))
+	if len(measured) >= 2000 {
+		clear(measured)
+	}
+	measured[key] = w
+	return w
 }
 
 // text draws s with its top-left at (x, y); y is the top of the line, so the baseline is at y + f.ascent.
