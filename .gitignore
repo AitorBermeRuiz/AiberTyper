@@ -1,7 +1,16 @@
+# Build output
 .build/
 build/
-design/mockups/out/
-odd/tasks/*
 src/windows/app/*.syso
 
+# Design: only brand/ and mockups/ are tracked (AGENTS.md "Layout"); the rest is scratch
+design/*
+!design/brand/
+!design/mockups/
+!design/mockups.sh
+design/mockups/out/
+
+# Local tooling
 .project-map/
+.vscode/
+odd/tasks/*
