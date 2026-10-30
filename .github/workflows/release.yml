@@ -16,16 +16,13 @@ jobs:
   release:
     runs-on: macos-latest
     env:
-      CERT_P12: ${{ secrets.MACOS_CERT_P12 }}
-      CERT_PASSWORD: ${{ secrets.MACOS_CERT_PASSWORD }}
-      CERT_IDENTITY: ${{ secrets.MACOS_SIGN_IDENTITY }}
-      NOTARY_APPLE_ID: ${{ secrets.NOTARY_APPLE_ID }}
-      NOTARY_TEAM_ID: ${{ secrets.NOTARY_TEAM_ID }}
-      NOTARY_PASSWORD: ${{ secrets.NOTARY_PASSWORD }}
-      TAP_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
-      SIGNPATH_TOKEN: ${{ secrets.SIGNPATH_API_TOKEN }}
+      # Presence flags only. Each secret goes to the step that uses it, so the third-party actions never see them.
+      HAS_CERT: ${{ secrets.MACOS_CERT_P12 != '' && secrets.MACOS_SIGN_IDENTITY != '' }}
+      HAS_NOTARY: ${{ secrets.NOTARY_APPLE_ID != '' && secrets.NOTARY_TEAM_ID != '' && secrets.NOTARY_PASSWORD != '' }}
+      HAS_TAP: ${{ secrets.HOMEBREW_TAP_TOKEN != '' }}
+      HAS_SIGNPATH: ${{ secrets.SIGNPATH_API_TOKEN != '' }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
         with:
           persist-credentials: false
           fetch-depth: 0 # full history, to check the tag is on main
@@ -45,7 +42,11 @@ jobs:
         run: src/mac/test.sh
 
       - name: Import Developer ID certificate
-        if: env.CERT_P12 != '' && env.CERT_IDENTITY != ''
+        if: env.HAS_CERT == 'true'
+        env:
+          CERT_P12: ${{ secrets.MACOS_CERT_P12 }}
+          CERT_PASSWORD: ${{ secrets.MACOS_CERT_PASSWORD }}
+          CERT_IDENTITY: ${{ secrets.MACOS_SIGN_IDENTITY }}
         run: |
           keychain="$RUNNER_TEMP/signing.keychain-db"
           password=$(uuidgen)
@@ -65,7 +66,7 @@ jobs:
       - name: Zip
         run: ditto -c -k --keepParent build/AiberTyper.app "$ZIP"
 
-      - uses: actions/setup-go@v6
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6
         with:
           go-version-file: src/windows/go.mod
           cache-dependency-path: src/windows/go.mod
@@ -78,16 +79,16 @@ jobs:
       # the owner approves it; the whole release waits with it, for up to an hour.
       - name: Upload unsigned Windows app
         id: unsigned
-        if: env.SIGNPATH_TOKEN != ''
-        uses: actions/upload-artifact@v7
+        if: env.HAS_SIGNPATH == 'true'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
         with:
           name: AiberTyper-windows-unsigned
           path: build/windows/AiberTyper.exe
           overwrite: true # a re-run uploads it again
 
       - name: Sign Windows app
-        if: env.SIGNPATH_TOKEN != ''
-        uses: signpath/github-action-submit-signing-request@v3
+        if: env.HAS_SIGNPATH == 'true'
+        uses: signpath/github-action-submit-signing-request@f6d04783b4569d051e0c80105fe66e82819d0092 # v3
         with:
           api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
           organization-id: ${{ vars.SIGNPATH_ORGANIZATION_ID }}
@@ -101,12 +102,16 @@ jobs:
 
       - name: Zip Windows app
         run: |
-          [[ -z "$SIGNPATH_TOKEN" ]] || mv build/windows/signed/AiberTyper.exe build/windows/AiberTyper.exe
+          [[ "$HAS_SIGNPATH" != true ]] || mv build/windows/signed/AiberTyper.exe build/windows/AiberTyper.exe
           echo "WINZIP=AiberTyper-$VERSION-windows-x64.zip" >> "$GITHUB_ENV"
           (cd build/windows && zip -q "../../AiberTyper-$VERSION-windows-x64.zip" AiberTyper.exe)
 
       - name: Notarize
-        if: env.SIGN_IDENTITY != '' && env.NOTARY_APPLE_ID != '' && env.NOTARY_TEAM_ID != '' && env.NOTARY_PASSWORD != ''
+        if: env.SIGN_IDENTITY != '' && env.HAS_NOTARY == 'true'
+        env:
+          NOTARY_APPLE_ID: ${{ secrets.NOTARY_APPLE_ID }}
+          NOTARY_TEAM_ID: ${{ secrets.NOTARY_TEAM_ID }}
+          NOTARY_PASSWORD: ${{ secrets.NOTARY_PASSWORD }}
         run: |
           xcrun notarytool submit "$ZIP" --apple-id "$NOTARY_APPLE_ID" --team-id "$NOTARY_TEAM_ID" --password "$NOTARY_PASSWORD" --wait
           # Stapling fails unless Apple accepted the submission, which stops the release.
@@ -134,7 +139,9 @@ jobs:
           fi
 
       - name: Update Homebrew tap
-        if: env.TAP_TOKEN != ''
+        if: env.HAS_TAP == 'true'
+        env:
+          TAP_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
         run: |
           git clone "https://x-access-token:$TAP_TOKEN@github.com/AitorBermeRuiz/homebrew-tap.git" "$RUNNER_TEMP/tap"
           mkdir -p "$RUNNER_TEMP/tap/Casks"

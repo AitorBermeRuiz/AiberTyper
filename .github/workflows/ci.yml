@@ -12,12 +12,12 @@ jobs:
   check:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
         with:
           persist-credentials: false
       - name: Self-check
         run: src/mac/test.sh
-      - uses: actions/setup-go@v6
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6
         with:
           go-version-file: src/windows/go.mod
           cache-dependency-path: src/windows/go.mod
@@ -37,7 +37,7 @@ jobs:
   bench:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
         with:
           persist-credentials: false
       - name: Benchmark (fails over budget)
@@ -48,10 +48,10 @@ jobs:
   windows:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
         with:
           persist-credentials: false
-      - uses: actions/setup-go@v6
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6
         with:
           go-version-file: src/windows/go.mod
           cache-dependency-path: src/windows/go.mod
@@ -103,13 +103,13 @@ jobs:
           ./install/install.ps1 -Uninstall
           $left = "exe=$(Test-Path $exe) link=$(Test-Path $link) running=$([bool](Get-Process AiberTyper -ErrorAction SilentlyContinue))"
           if ($left -ne 'exe=False link=False running=False') { throw "not uninstalled: $left" }
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: always()
         with:
           name: windows-screenshots
           path: build/windows/shots
       # The zip this run built and installed, to try it on a real PC: install.ps1 -Zip <file>.
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: windows-app
           path: build/windows/AiberTyper-0.0.0-windows-x64.zip
