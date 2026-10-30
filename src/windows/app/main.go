@@ -349,7 +349,7 @@ func trayIcon() uintptr {
 	bmp := newBitmap(int(px), int(px), pixelFormat32bppARGB, nil)
 	c := newCanvas(bmp, float32(px)/16)
 	c.clear()
-	logo(c, 0, 0, 16, rgb(gPink, 1), rgb(gNeon, 1))
+	logo(c, 0, 0, 16, gPink, gNeon)
 	var icon uintptr
 	gdip("GdipCreateHICONFromBitmap", bmp, uintptr(unsafe.Pointer(&icon)))
 	c.close()

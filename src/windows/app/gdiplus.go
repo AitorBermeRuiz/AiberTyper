@@ -65,10 +65,8 @@ func gdiplusStartup() {
 // color is 0xAARRGGBB.
 type color uint32
 
-// rgb takes the palette's 0xRRGGBB and an opacity.
-func rgb(hex uint32, opacity float64) color {
-	return color(uint32(opacity*255+0.5)<<24 | hex&0xFFFFFF)
-}
+// opaque is the alpha byte of a palette color: or it with 0xRRGGBB, then scale it with times().
+const opaque color = 0xFF000000
 
 func (c color) times(opacity float64) color {
 	return color(uint32(float64(c>>24)*opacity+0.5)<<24 | uint32(c)&0xFFFFFF)
