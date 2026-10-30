@@ -15,7 +15,7 @@ import (
 type Settings struct {
 	path           string
 	Lang           Lang     `json:"lang,omitempty"`
-	Pack           string   `json:"pack,omitempty"`
+	CollectionID   string   `json:"pack,omitempty"`
 	Favorites      []string `json:"favorites,omitempty"`
 	HotKey         *HotKey  `json:"hotKey,omitempty"`
 	HideImportHelp bool     `json:"hideImportHelp,omitempty"`
@@ -27,7 +27,7 @@ func LoadSettings(path string) *Settings {
 	if data, err := os.ReadFile(path); err == nil && json.Unmarshal(unicodeText(data), &keys) == nil {
 		// Each key on its own, like UserDefaults: a bad value falls back to its default and keeps the others.
 		setting(keys, "lang", &s.Lang)
-		setting(keys, "pack", &s.Pack)
+		setting(keys, "pack", &s.CollectionID)
 		setting(keys, "favorites", &s.Favorites)
 		setting(keys, "hotKey", &s.HotKey)
 		setting(keys, "hideImportHelp", &s.HideImportHelp)
@@ -135,7 +135,7 @@ func (s *Session) ToggleLanguage() {
 func (s *Session) Choose(c Collection) {
 	s.Collection = c
 	s.Picking = false
-	s.settings.Pack = c.ID
+	s.settings.CollectionID = c.ID
 	s.save()
 	s.NewRound()
 }
@@ -150,12 +150,12 @@ func (s *Session) find(id string) (Collection, bool) {
 }
 
 // ReloadCollections rereads Folder. A chosen collection whose file is gone falls back to General in memory only:
-// the saved pack is kept and comes back once its file loads again.
+// the saved collection is kept and comes back once its file loads again.
 func (s *Session) ReloadCollections() {
 	loaded, problems := Load(s.Folder)
 	s.Collections = append(slices.Clone(BuiltIn), loaded...)
 	s.Problems = problems
-	saved := s.settings.Pack
+	saved := s.settings.CollectionID
 	if wanted, ok := s.find(saved); saved != s.Collection.ID && ok {
 		s.Collection = wanted
 		s.NewRound()

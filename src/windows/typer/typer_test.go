@@ -546,11 +546,11 @@ func TestSettingsPerKey(t *testing.T) {
 	path := filepath.Join(t.TempDir(), "settings.json")
 	os.WriteFile(path, []byte(`{"lang": "fr", "pack": "stoic", "favorites": ["books"], "hotKey": 7, "hideImportHelp": true}`), 0o644)
 	s := LoadSettings(path)
-	if s.Lang != "" || s.Pack != "stoic" || !slices.Equal(s.Favorites, []string{"books"}) || s.HotKey != nil || !s.HideImportHelp {
+	if s.Lang != "" || s.CollectionID != "stoic" || !slices.Equal(s.Favorites, []string{"books"}) || s.HotKey != nil || !s.HideImportHelp {
 		t.Errorf("settings %+v", s)
 	}
 	os.WriteFile(path, []byte("not json"), 0o644)
-	if s := LoadSettings(path); s.Pack != "" {
+	if s := LoadSettings(path); s.CollectionID != "" {
 		t.Errorf("corrupt settings %+v", s)
 	}
 }
