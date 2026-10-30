@@ -327,11 +327,15 @@ func hintsWidth(v *view, hints [][2]string, spacing float32) float32 {
 
 func actionHeight() float32 { return ui(12, semibold).height + 10 }
 
+// actionWidth is the width actionButton draws for title and key.
+func (v *view) actionWidth(title, key string) float32 {
+	return 12 + v.width(title, ui(12, semibold)) + 8 + v.width(key, ui(10, semibold)) + 10 + 12
+}
+
 // actionButton is "Otra ronda [Enter]" or "Cerrar [Esc]"; returns its width.
 func (v *view) actionButton(id, title, key string, primary bool, x, y float32, action func()) float32 {
 	f := ui(12, semibold)
-	cap := v.width(key, ui(10, semibold)) + 10
-	w := 12 + v.width(title, f) + 8 + cap + 12
+	w := v.actionWidth(title, key)
 	h := actionHeight()
 	hovered := v.button(id, x, y, w, h, action)
 	fg := muted()
@@ -354,13 +358,9 @@ func (v *view) actionButton(id, title, key string, primary bool, x, y float32, a
 	return w
 }
 
-// roundActions draws "Otra ronda" and "Cerrar" ending at right; returns the row height.
-func (v *view) roundActions(right, y float32) float32 { // returns its width
-	saved := v.dry
-	v.dry = true
-	wClose := v.actionButton("", "Cerrar", "Esc", false, 0, 0, nil)
-	wNew := v.actionButton("", "Otra ronda", "Enter", true, 0, 0, nil)
-	v.dry = saved
+// roundActions draws "Otra ronda" and "Cerrar" ending at right; returns their width, gap included.
+func (v *view) roundActions(right, y float32) float32 {
+	wClose, wNew := v.actionWidth("Cerrar", "Esc"), v.actionWidth("Otra ronda", "Enter")
 	v.actionButton("new", "Otra ronda", "Enter", true, right-wClose-10-wNew, y, func() { v.app.do(v.s.NewRound) })
 	v.actionButton("close", "Cerrar", "Esc", false, right-wClose, y, func() { v.app.hide(true) })
 	return wNew + 10 + wClose
