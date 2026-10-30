@@ -14,13 +14,13 @@ import (
 // The panel's three screens, drawn by hand: the Windows counterpart of TyperView.swift. Sizes are in DIPs and
 // follow the SwiftUI layout (640 wide card, 28 padding, the same spacings and font sizes).
 
-// Aiber Bermejo palette (design/brand/README.md).
+// Aiber Bermejo palette (design/brand/README.md), opaque.
 const (
-	gBg     = 0x1B1113
-	gFg     = 0xF6EEF0
-	gPink   = 0xF497A9
-	gNeon   = 0xE83A59
-	gYellow = 0xF5D547
+	gBg     = opaque | 0x1B1113
+	gFg     = opaque | 0xF6EEF0
+	gPink   = opaque | 0xF497A9
+	gNeon   = opaque | 0xE83A59
+	gYellow = opaque | 0xF5D547
 )
 
 const (
@@ -34,18 +34,18 @@ const (
 // highContrast follows Windows' contrast themes, as the Mac app follows "Increase contrast".
 var highContrast bool
 
-func muted() uint32 {
+func muted() color {
 	if highContrast {
-		return 0xD9CCD0
+		return opaque | 0xD9CCD0
 	}
-	return 0xAA989C
+	return opaque | 0xAA989C
 }
 
-func border() uint32 {
+func border() color {
 	if highContrast {
-		return 0x7C5E66
+		return opaque | 0x7C5E66
 	}
-	return 0x3C262B
+	return opaque | 0x3C262B
 }
 
 // fonts: IosevkaTerm when installed (like the Mac app), else Cascadia Mono or Consolas; Segoe UI for the rest.
@@ -241,18 +241,18 @@ func (v *view) draw() float32 {
 // background draws the shadow and the card: plum fill, the pink glow from the top-left corner and the border.
 func drawBackground(c *canvas, h float32) {
 	x, y, w := float32(shadowMargin), float32(shadowMargin), float32(cardWidth)
-	// A soft drop shadow, a little lower than the card: stacked translucent rounded rectangles whose opacity grows
+	// A soft drop shadow, a little lower than the card: stacked translucent black rounded rectangles whose opacity grows
 	// toward the card, so it fades out smoothly.
 	for i := float32(shadowMargin) - 4; i > 0; i -= 2 {
 		t := 1 - i/(shadowMargin-4)
-		c.fillRound(x-i, y-i+8, w+2*i, h+2*i, cardRadius+i, rgb(0, 0.05*float64(t*t)))
+		c.fillRound(x-i, y-i+8, w+2*i, h+2*i, cardRadius+i, opaque.times(0.05*float64(t*t)))
 	}
-	c.fillRound(x, y, w, h, cardRadius, rgb(gBg, 1))
+	c.fillRound(x, y, w, h, cardRadius, gBg)
 	glow := ellipse(x-420, y-420, 840, 840)
 	var brush uintptr
 	gdip("GdipCreatePathGradientFromPath", glow, uintptr(unsafe.Pointer(&brush)))
-	gdip("GdipSetPathGradientCenterColor", brush, uintptr(rgb(gPink, 0.22)))
-	surround, count := rgb(gPink, 0), int32(1)
+	gdip("GdipSetPathGradientCenterColor", brush, uintptr(gPink.times(0.22)))
+	surround, count := gPink.times(0), int32(1)
 	gdip("GdipSetPathGradientSurroundColorsWithCount", brush, uintptr(unsafe.Pointer(&surround)), uintptr(unsafe.Pointer(&count)))
 	card := roundRect(x, y, w, h, cardRadius)
 	c.clip(card)
@@ -261,7 +261,7 @@ func drawBackground(c *canvas, h float32) {
 	deletePath(card)
 	deletePath(glow)
 	deleteBrush(brush)
-	c.strokeRound(x, y, w, h, cardRadius, 1, rgb(border(), 1))
+	c.strokeRound(x, y, w, h, cardRadius, 1, border())
 }
 
 func ellipse(x, y, w, h float32) uintptr {
@@ -288,9 +288,9 @@ func logo(c *canvas, x, y, s float32, chevronColor, barColor color) {
 
 func (v *view) brand(x, y float32) {
 	if !v.dry {
-		logo(v.c, v.ox+x, v.oy+y, 16, rgb(gPink, 1), rgb(gNeon, 1))
+		logo(v.c, v.ox+x, v.oy+y, 16, gPink, gNeon)
 	}
-	v.text("AIBER TYPER", label(), x+24, y+8-label().height/2, rgb(gPink, 1))
+	v.text("AIBER TYPER", label(), x+24, y+8-label().height/2, gPink)
 }
 
 // keycap is a key name in a small rounded box; returns its width.
@@ -305,9 +305,9 @@ func (v *view) keycap(key string, x, cy float32, col color) float32 {
 
 // keyHint is a keycap followed by what the key does; returns its width.
 func (v *view) keyHint(key, action string, x, cy float32) float32 {
-	w := v.keycap(key, x, cy, rgb(muted(), 1)) + 6
+	w := v.keycap(key, x, cy, muted()) + 6
 	f := ui(12, regular)
-	v.text(action, f, x+w, cy-f.height/2, rgb(muted(), 1))
+	v.text(action, f, x+w, cy-f.height/2, muted())
 	return w + v.width(action, f)
 }
 
@@ -334,20 +334,20 @@ func (v *view) actionButton(id, title, key string, primary bool, x, y float32, a
 	w := 12 + v.width(title, f) + 8 + cap + 12
 	h := actionHeight()
 	hovered := v.button(id, x, y, w, h, action)
-	fg := rgb(muted(), 1)
+	fg := muted()
 	switch {
 	case primary:
-		fg = rgb(gBg, 1)
-		fill := rgb(gPink, 1)
+		fg = gBg
+		fill := gPink
 		if hovered {
-			fill = rgb(gNeon, 1)
+			fill = gNeon
 		}
 		v.fillRound(x, y, w, h, h/2, fill)
 	case hovered:
-		fg = rgb(gPink, 1)
+		fg = gPink
 		v.strokeRound(x, y, w, h, h/2, 1, fg)
 	default:
-		v.strokeRound(x, y, w, h, h/2, 1, rgb(muted(), 0.6))
+		v.strokeRound(x, y, w, h, h/2, 1, muted().times(0.6))
 	}
 	v.text(title, f, x+12, y+5, fg)
 	v.keycap(key, x+12+v.width(title, f)+8, y+h/2, fg)
@@ -384,17 +384,17 @@ func (v *view) pill(id, text string, selected bool, x, cy float32, action func()
 	}
 	w, h := tw+2*pad, f.height+6
 	hovered := v.button(id, x, cy-h/2, w, h, action)
-	fg := rgb(muted(), 1)
+	fg := muted()
 	switch {
 	case selected:
-		fg = rgb(gBg, 1)
-		fill := rgb(gPink, 1)
+		fg = gBg
+		fill := gPink
 		if hovered {
-			fill = rgb(gNeon, 1)
+			fill = gNeon
 		}
 		v.fillRound(x, cy-h/2, w, h, h/2, fill)
 	case hovered:
-		fg = rgb(gFg, 1)
+		fg = gFg
 	}
 	v.text(name, f, x+pad, cy-f.height/2, fg)
 	if arrow {
@@ -438,7 +438,7 @@ func (v *view) typing() float32 {
 	y = v.textLines(pad, y) + gap
 
 	if source, ok := s.Round.Source(); ok {
-		y += v.paragraph("— "+source, ui(12, regular), pad, y, cardWidth-2*pad, rgb(muted(), 1)) + gap
+		y += v.paragraph("— "+source, ui(12, regular), pad, y, cardWidth-2*pad, muted()) + gap
 	}
 
 	live, started := s.Round.Live(now())
@@ -450,13 +450,13 @@ func (v *view) typing() float32 {
 		progress = float32(len(s.Round.Typed())) / float32(len(s.Round.Target))
 	}
 	barW := float32(cardWidth - 2*pad)
-	v.fillRound(pad, y, barW, 4, 2, rgb(border(), 1))
+	v.fillRound(pad, y, barW, 4, 2, border())
 	if progress > 0 && !v.dry {
 		fw := barW * progress
 		for i := float32(6); i >= 1; i-- {
-			v.fillRound(pad-i, y-i, fw+2*i, 4+2*i, 2+i, rgb(gNeon, 0.8*0.035))
+			v.fillRound(pad-i, y-i, fw+2*i, 4+2*i, 2+i, gNeon.times(0.8*0.035))
 		}
-		b := linear(pointF{v.ox + pad - 1, 0}, pointF{v.ox + pad + fw + 1, 0}, rgb(gPink, 1), rgb(gNeon, 1))
+		b := linear(pointF{v.ox + pad - 1, 0}, pointF{v.ox + pad + fw + 1, 0}, gPink, gNeon)
 		v.c.fillRoundBrush(v.ox+pad, v.oy+y, fw, 4, 2, b)
 		deleteBrush(b)
 	}
@@ -543,15 +543,15 @@ func (v *view) line(target, typed []rune, span typer.Span, x, y float32, dimmed 
 		var fg color
 		switch run.Mark {
 		case typer.Correct:
-			fg = rgb(gFg, 1)
+			fg = gFg
 		case typer.Wrong:
-			fg = rgb(gNeon, 1)
-			c.fillRect(rx, oy, rw, f.height, rgb(gNeon, 0.2*opacity))
+			fg = gNeon
+			c.fillRect(rx, oy, rw, f.height, gNeon.times(0.2*opacity))
 		case typer.Cursor:
-			fg = rgb(gBg, 1)
-			c.fillRect(rx, oy, rw, f.height, rgb(gPink, opacity))
+			fg = gBg
+			c.fillRect(rx, oy, rw, f.height, gPink.times(opacity))
 		case typer.Pending:
-			fg = rgb(muted(), map[bool]float64{false: 0.5, true: 0.8}[highContrast])
+			fg = muted().times(map[bool]float64{false: 0.5, true: 0.8}[highContrast])
 		}
 		c.textColor(string(target[run.Span.Lo:run.Span.Hi]), f, rx, oy, fg.times(opacity))
 	}
@@ -573,7 +573,7 @@ func (v *view) line(target, typed []rune, span typer.Span, x, y float32, dimmed 
 func (v *view) cell(value, caption string, size float32, col color, x, y float32) (float32, float32) {
 	vf, cf := mono(size, true), ui(12, regular)
 	v.text(value, vf, x, y, col)
-	v.text(caption, cf, x, y+vf.height+2, rgb(muted(), 1))
+	v.text(caption, cf, x, y+vf.height+2, muted())
 	return max(v.width(value, vf), v.width(caption, cf)), vf.height + 2 + cf.height
 }
 
@@ -583,8 +583,8 @@ func (v *view) liveStats(live typer.Score, started bool, x, y float32) float32 {
 		wpm = fmt.Sprint(int(math.Round(live.WPM)))
 		acc = fmt.Sprintf("%d%%", int(math.Round(live.Accuracy*100)))
 	}
-	w, h := v.cell(wpm, "ppm", 28, rgb(gPink, 1), x, y)
-	v.cell(acc, "precisión", 28, rgb(gPink, 1), x+w+28, y)
+	w, h := v.cell(wpm, "ppm", 28, gPink, x, y)
+	v.cell(acc, "precisión", 28, gPink, x+w+28, y)
 	return y + h
 }
 
@@ -593,20 +593,20 @@ func (v *view) picker() float32 {
 	const pad, gap = 28, 16
 	s := v.s
 	y := float32(pad)
-	v.text("COLECCIÓN", label(), pad, y, rgb(gPink, 1))
+	v.text("COLECCIÓN", label(), pad, y, gPink)
 	y += label().height + gap
 	ff := mono(16, false)
 	if s.Filter == "" {
-		v.text("escribe para filtrar", ff, pad, y, rgb(muted(), 1))
+		v.text("escribe para filtrar", ff, pad, y, muted())
 	} else {
-		v.text(s.Filter, ff, pad, y, rgb(gPink, 1))
+		v.text(s.Filter, ff, pad, y, gPink)
 	}
 	y += ff.height + gap
 
 	matches := s.Matches()
 	if len(matches) == 0 {
 		f := ui(14, regular)
-		v.text("Sin resultados", f, pad, y, rgb(muted(), 1))
+		v.text("Sin resultados", f, pad, y, muted())
 		y += f.height
 	}
 	for i, c := range matches {
@@ -618,13 +618,13 @@ func (v *view) picker() float32 {
 		rowW, rowH := float32(cardWidth-2*pad), f.height+12
 		index := i
 		hovered := v.button(fmt.Sprint("row", i), pad, y, rowW, rowH, func() { v.app.do(func() { s.ChooseMatch(index) }) })
-		fg := rgb(gFg, 1)
+		fg := gFg
 		switch {
 		case selected:
-			v.fillRound(pad, y, rowW, rowH, 6, rgb(gPink, 1))
-			fg = rgb(gBg, 1)
+			v.fillRound(pad, y, rowW, rowH, 6, gPink)
+			fg = gBg
 		case hovered:
-			v.fillRound(pad, y, rowW, rowH, 6, rgb(gPink, 0.15))
+			v.fillRound(pad, y, rowW, rowH, 6, gPink.times(0.15))
 		}
 		x := float32(pad + 12)
 		if s.Favorites[c.ID] {
@@ -633,7 +633,7 @@ func (v *view) picker() float32 {
 		}
 		v.text(c.Name, f, x, y+6, fg)
 		if c.ID == s.Collection.ID {
-			v.text("✓", symbol(15), pad+rowW-12-v.width("✓", symbol(15)), y+6, rgb(gNeon, 1))
+			v.text("✓", symbol(15), pad+rowW-12-v.width("✓", symbol(15)), y+6, gNeon)
 		}
 		y += rowH + 4
 	}
@@ -642,13 +642,13 @@ func (v *view) picker() float32 {
 	}
 	y += gap
 	for _, p := range s.Problems {
-		y += v.paragraph(p, ui(12, regular), pad, y, cardWidth-2*pad, rgb(gNeon, 1)) + gap
+		y += v.paragraph(p, ui(12, regular), pad, y, cardWidth-2*pad, gNeon) + gap
 	}
 	f := ui(13, medium)
 	title := "+ Importar colección…"
-	importColor := rgb(gPink, 1)
+	importColor := gPink
 	if v.button("import", pad, y, v.width(title, f), f.height, v.app.importCollections) {
-		importColor = rgb(gNeon, 1)
+		importColor = gNeon
 	}
 	v.text(title, f, pad, y, importColor)
 	y += f.height + gap
@@ -680,13 +680,13 @@ func (v *view) results(r typer.RoundResult) float32 {
 	topH := max(leftH, rightH)
 
 	ly := y + (topH-leftH)/2
-	v.text("PALABRAS POR MINUTO", label(), pad, ly, rgb(gPink, 1))
+	v.text("PALABRAS POR MINUTO", label(), pad, ly, gPink)
 	ly += label().height + 6
 	if !v.dry {
 		num := fmt.Sprint(wpm)
 		// Tracking -3: drawn digit by digit.
 		top := v.oy + ly - big.height*0.07
-		b := linear(pointF{0, top + big.height*0.2}, pointF{0, top + big.height*0.85}, rgb(gFg, 1), rgb(gPink, 1))
+		b := linear(pointF{0, top + big.height*0.2}, pointF{0, top + big.height*0.85}, gFg, gPink)
 		x := v.ox + pad
 		for _, d := range num {
 			v.c.text(string(d), big, x, top, b)
@@ -699,8 +699,8 @@ func (v *view) results(r typer.RoundResult) float32 {
 	x := float32(pad)
 	if s.IsRecord {
 		tw := v.width("NUEVO RÉCORD", tagF) + 12
-		v.strokeRound(x, ly, tw, tagF.height+4, 3, 1, rgb(gYellow, 0.7))
-		v.text("NUEVO RÉCORD", tagF, x+6, ly+2, rgb(gYellow, 1))
+		v.strokeRound(x, ly, tw, tagF.height+4, 3, 1, gYellow.times(0.7))
+		v.text("NUEVO RÉCORD", tagF, x+6, ly+2, gYellow)
 		x += tw + 8
 	}
 	if s.HasAverage {
@@ -710,20 +710,20 @@ func (v *view) results(r typer.RoundResult) float32 {
 			sign, delta = "−", -delta
 		}
 		f := ui(13, regular)
-		v.text(fmt.Sprintf("%s%d sobre tu media", sign, delta), f, x, ly+(tagF.height+4-f.height)/2, rgb(muted(), 1))
+		v.text(fmt.Sprintf("%s%d sobre tu media", sign, delta), f, x, ly+(tagF.height+4-f.height)/2, muted())
 	}
 
 	// Divider.
-	v.fillRound(pad+half, y+6, 1, topH-12, 0, rgb(border(), 1))
+	v.fillRound(pad+half, y+6, 1, topH-12, 0, border())
 
 	gx, gy := pad+half+1+36, y+(topH-rightH)/2
 	// The grid's first column is as wide as its widest cell.
 	colW := max(v.width(fmt.Sprintf("%d%%", accuracy), mono(30, true)), v.width(fmt.Sprint(s.Round.Correct()), mono(30, true)),
 		v.width("precisión", ui(12, regular)), v.width("correctas", ui(12, regular)))
-	v.cell(fmt.Sprintf("%d%%", accuracy), "precisión", 30, rgb(gPink, 1), gx, gy)
-	v.cell(fmt.Sprintf("%ds", seconds), "tiempo", 30, rgb(gPink, 1), gx+colW+40, gy)
-	v.cell(fmt.Sprint(s.Round.Correct()), "correctas", 30, rgb(gPink, 1), gx, gy+cellH+22)
-	v.cell(fmt.Sprint(s.Round.Errors), "errores", 30, rgb(gNeon, 1), gx+colW+40, gy+cellH+22)
+	v.cell(fmt.Sprintf("%d%%", accuracy), "precisión", 30, gPink, gx, gy)
+	v.cell(fmt.Sprintf("%ds", seconds), "tiempo", 30, gPink, gx+colW+40, gy)
+	v.cell(fmt.Sprint(s.Round.Correct()), "correctas", 30, gPink, gx, gy+cellH+22)
+	v.cell(fmt.Sprint(s.Round.Errors), "errores", 30, gNeon, gx+colW+40, gy+cellH+22)
 	y += topH + gap
 
 	if wpms := s.RecentWPMs(); len(wpms) > 1 {
@@ -740,7 +740,7 @@ func (v *view) results(r typer.RoundResult) float32 {
 		f := ui(12, regular)
 		lines := v.wrap(s.Note, f, contentW-actionsW-8)
 		rowH = max(rowH, float32(len(lines))*f.height)
-		v.paragraph(s.Note, f, pad, y+(rowH-float32(len(lines))*f.height)/2, contentW-actionsW-8, rgb(gNeon, 1))
+		v.paragraph(s.Note, f, pad, y+(rowH-float32(len(lines))*f.height)/2, contentW-actionsW-8, gNeon)
 	}
 	v.roundActions(cardWidth-pad, y+(rowH-actionHeight())/2)
 	return y + rowH + pad
@@ -748,12 +748,12 @@ func (v *view) results(r typer.RoundResult) float32 {
 
 // historyChart draws bars for recent rounds; the last one (this round) is highlighted.
 func (v *view) historyChart(wpms []float64, x, y, w float32) float32 {
-	v.fillRound(x, y, w, 1, 0, rgb(border(), 1))
+	v.fillRound(x, y, w, 1, 0, border())
 	y += 14
-	v.text("HISTORIAL", label(), x, y, rgb(gPink, 1))
+	v.text("HISTORIAL", label(), x, y, gPink)
 	f := ui(12, regular)
 	caption := fmt.Sprintf("últimas %d rondas", len(wpms))
-	v.text(caption, f, x+w-v.width(caption, f), y+(label().height-f.height)/2, rgb(muted(), 1))
+	v.text(caption, f, x+w-v.width(caption, f), y+(label().height-f.height)/2, muted())
 	y += label().height + 10
 	top, low := wpms[0], wpms[0]
 	for _, w := range wpms {
@@ -767,9 +767,9 @@ func (v *view) historyChart(wpms []float64, x, y, w float32) float32 {
 		}
 		bx, by := x+float32(i)*(22+5), y+48-h
 		if i < len(wpms)-1 {
-			v.fillRound(bx, by, 22, h, 3, rgb(gPink, 0.3))
+			v.fillRound(bx, by, 22, h, 3, gPink.times(0.3))
 		} else if !v.dry {
-			b := linear(pointF{0, v.oy + by - 1}, pointF{0, v.oy + by + h + 1}, rgb(gPink, 1), rgb(gNeon, 1))
+			b := linear(pointF{0, v.oy + by - 1}, pointF{0, v.oy + by + h + 1}, gPink, gNeon)
 			v.c.fillRoundBrush(v.ox+bx, v.oy+by, 22, h, 3, b)
 			deleteBrush(b)
 		}
