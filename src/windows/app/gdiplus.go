@@ -282,7 +282,10 @@ func (c *canvas) textColor(s string, f *font, x, y float32, col color) {
 
 // image draws bitmap img (in device pixels) at (x, y) DIPs, one pixel per pixel.
 func (c *canvas) image(img uintptr, x, y float32, w, h int) {
+	// Nearest neighbour: one pixel per pixel, so the bicubic filter would only cost time.
+	gdip("GdipSetInterpolationMode", c.g, 5)
 	gdip("GdipDrawImageRect", c.g, img, f32(x), f32(y), f32(float32(w)/c.scale), f32(float32(h)/c.scale))
+	gdip("GdipSetInterpolationMode", c.g, 7) // back to high-quality bicubic
 }
 
 // blur softens img in place; a no-op where GDI+ 1.1 effects are missing.
