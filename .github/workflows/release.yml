@@ -103,8 +103,10 @@ jobs:
       - name: Zip Windows app
         run: |
           [[ "$HAS_SIGNPATH" != true ]] || mv build/windows/signed/AiberTyper.exe build/windows/AiberTyper.exe
-          echo "WINZIP=AiberTyper-$VERSION-windows-x64.zip" >> "$GITHUB_ENV"
-          (cd build/windows && zip -q "../../AiberTyper-$VERSION-windows-x64.zip" AiberTyper.exe)
+          winzip="$GITHUB_WORKSPACE/AiberTyper-$VERSION-windows-x64.zip"
+          zip -qj "$winzip" build/windows/AiberTyper.exe # -j: the exe sits at the zip root
+          ls -l "$winzip"
+          echo "WINZIP=$winzip" >> "$GITHUB_ENV"
 
       - name: Notarize
         if: env.SIGN_IDENTITY != '' && env.HAS_NOTARY == 'true'
