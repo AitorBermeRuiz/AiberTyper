@@ -456,6 +456,12 @@ func LineWindow(lines []Span, cursor, focus int) Window {
 	return w
 }
 
+// plausible is false for values the app never writes (a hand edit, a synced file: 1e300): Swift's History.load refuses
+// them too, so both ports go read-only instead of sizing the next round from garbage.
+func plausible(r RoundResult) bool {
+	return 0 <= r.WPM && r.WPM <= 10_000 && 0 <= r.Accuracy && r.Accuracy <= 1 && 0 <= r.Seconds && r.Seconds <= 86_400
+}
+
 // History is the saved rounds in history.json. Only a missing file means empty history: any other read or decode
 // error makes it read-only, so the file is kept as is.
 type History struct {
@@ -481,6 +487,11 @@ func (h *History) read() {
 	}
 	if err == nil && rounds == nil {
 		err = errors.New("history.json: null is not a list of rounds") // Swift refuses it too
+	}
+	for i := 0; err == nil && i < len(rounds); i++ {
+		if !plausible(rounds[i]) {
+			err = errors.New("history.json: round with values out of range")
+		}
 	}
 	if err != nil {
 		h.writable = false

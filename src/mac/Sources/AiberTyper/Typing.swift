@@ -209,11 +209,11 @@ struct History {
         self.url = url
         if FileManager.default.fileExists(atPath: url.path) {
             // Any read or decode error makes it read-only: the file is kept as is and add() reports it.
-            do { rounds = try Self.decoder.decode([RoundResult].self, from: Data(contentsOf: url)) } catch { writable = false }
+            do { rounds = try Self.load(url) } catch { writable = false }
         }
         if writable, url.deletingLastPathComponent().lastPathComponent == "AiberTyper" {
             let legacy = url.deletingLastPathComponent().deletingLastPathComponent().appendingPathComponent("AitorTyper/history.json")
-            if let old = try? Self.decoder.decode([RoundResult].self, from: Data(contentsOf: legacy)),
+            if let old = try? Self.load(legacy),
                old.contains(where: { !rounds.contains($0) }) {
                 rounds = (old + rounds.filter { !old.contains($0) }).sorted { $0.date < $1.date }
                 try? FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
@@ -231,12 +231,22 @@ struct History {
         // Another running instance may have saved rounds since this one read the file.
         // A file that turned unreadable since then is kept: the history becomes read-only.
         if writable, FileManager.default.fileExists(atPath: url.path) {
-            do { rounds = try Self.decoder.decode([RoundResult].self, from: Data(contentsOf: url)) } catch { writable = false }
+            do { rounds = try Self.load(url) } catch { writable = false }
         }
         rounds.append(round)
         guard writable else { throw CollectionError("no se pudo leer \(url.lastPathComponent), así que no se sobrescribe") }
         try FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
         try Self.encoder.encode(rounds).write(to: url, options: .atomic)
+    }
+
+    /// The rounds in `url`. Throws on an unreadable or malformed file and on a round with values the app never writes
+    /// (a hand edit, a synced file): sizing the next round from them would trap in Int(). Mirrored by `plausible` in Go.
+    private static func load(_ url: URL) throws -> [RoundResult] {
+        let rounds = try decoder.decode([RoundResult].self, from: Data(contentsOf: url))
+        guard rounds.allSatisfy({ r in (0...10_000).contains(r.wpm) && (0...1).contains(r.accuracy) && (0...86_400).contains(r.seconds) }) else {
+            throw CollectionError("valores fuera de rango")
+        }
+        return rounds
     }
 
     private static let encoder: JSONEncoder = {
