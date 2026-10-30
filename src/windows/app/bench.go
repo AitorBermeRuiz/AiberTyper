@@ -186,7 +186,13 @@ func (b *bench) command(f []string, done chan struct{}) {
 		mem.CB = uint32(unsafe.Sizeof(mem))
 		pGetProcessMemoryInfo.Call(self, uintptr(unsafe.Pointer(&mem)), uintptr(mem.CB))
 		cpu := (*(*uint64)(unsafe.Pointer(&kernel)) + *(*uint64)(unsafe.Pointer(&user))) / 10_000 // 100 ns units to ms
-		reply("stats cpu_ms=%d ws_kb=%d peak_ws_kb=%d private_kb=%d", cpu, mem.WorkingSetSize/1024, mem.PeakWorkingSetSize/1024, mem.PrivateUsage/1024)
+		avg := 0.0
+		if p.renderN > 0 {
+			avg = float64(p.renderSum.Microseconds()) / float64(p.renderN) / 1000
+		}
+		reply("stats cpu_ms=%d ws_kb=%d peak_ws_kb=%d private_kb=%d render_n=%d render_avg_ms=%.2f render_max_ms=%.2f", cpu,
+			mem.WorkingSetSize/1024, mem.PeakWorkingSetSize/1024, mem.PrivateUsage/1024, p.renderN, avg, float64(p.renderMax.Microseconds())/1000)
+		p.renderN, p.renderSum, p.renderMax = 0, 0, 0
 	default:
 		reply("unknown")
 	}

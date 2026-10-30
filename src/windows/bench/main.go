@@ -157,16 +157,19 @@ func (a *app) clickOn(id string) bool {
 	return true
 }
 
-// stat reads one number from the app's "stats" answer.
-func (a *app) stat(name string) float64 {
+// stats reads the numbers in the app's "stats" answer; the app resets its render counters on each read.
+func (a *app) stats() map[string]float64 {
+	m := map[string]float64{}
 	for _, f := range strings.Fields(a.send("stats")) {
-		if v, ok := strings.CutPrefix(f, name+"="); ok {
-			n, _ := strconv.ParseFloat(v, 64)
-			return n
+		if k, v, ok := strings.Cut(f, "="); ok {
+			m[k], _ = strconv.ParseFloat(v, 64)
 		}
 	}
-	return 0
+	return m
 }
+
+// stat reads one number from the app's "stats" answer.
+func (a *app) stat(name string) float64 { return a.stats()[name] }
 
 func fail(format string, args ...any) {
 	fmt.Printf("FAIL: "+format+"\n", args...)
@@ -177,10 +180,11 @@ func fail(format string, args ...any) {
 }
 
 type row struct {
-	phase string
-	cpu   float64
-	limit float64
-	note  string
+	phase  string
+	cpu    float64
+	limit  float64
+	note   string
+	render string // per-frame time, for the phases that draw
 }
 
 func main() {
@@ -219,8 +223,13 @@ func main() {
 	measure := func(phase string, limit float64, during func()) {
 		start, t0 := a.stat("cpu_ms"), time.Now()
 		during()
-		cpu := (a.stat("cpu_ms") - start) / float64(time.Since(t0).Milliseconds()) * 100
-		rows = append(rows, row{phase: phase, cpu: cpu, limit: limit})
+		end := a.stats()
+		cpu := (end["cpu_ms"] - start) / float64(time.Since(t0).Milliseconds()) * 100
+		render := ""
+		if n := end["render_n"]; n > 0 {
+			render = fmt.Sprintf("%.1f ms avg, %.1f ms max, %.0f frames", end["render_avg_ms"], end["render_max_ms"], n)
+		}
+		rows = append(rows, row{phase: phase, cpu: cpu, limit: limit, render: render})
 		check(cpu <= limit, fmt.Sprintf("%s CPU %.2f%% over %.0f%%", phase, cpu, limit))
 	}
 	idle := func(d time.Duration) func() { return func() { time.Sleep(d) } }
@@ -239,7 +248,7 @@ func main() {
 
 	measure("Typing at 80 wpm", typingCPUBudget, func() { a.send("type 80 140") })
 	a.send("shot " + filepath.Join(shots, "typing.png"))
-	measure("Shown, round started (stats tick)", idleCPUBudget*2, idle(5*time.Second))
+	measure("Shown, round started (stats tick)", idleCPUBudget*2, idle(15*time.Second)) // 15 s: CPU time comes in 15.6 ms ticks, too coarse over 5 s
 	typed := a.send("type 80")
 	check(strings.Contains(typed, "finished=true") && strings.Contains(typed, "accuracy=100"), "the round finishes at 100%: "+typed)
 	// The record and the average compare with the rounds read before this one: a second, faster round shows them.
@@ -332,15 +341,15 @@ func main() {
 	_, err := os.Stat(dir)
 	check(os.IsNotExist(err), "the temporary folder is deleted")
 
-	fmt.Println("| Phase | CPU | Budget |")
-	fmt.Println("|---|---:|---:|")
+	fmt.Println("| Phase | CPU | Budget | Render |")
+	fmt.Println("|---|---:|---:|---|")
 	for _, r := range rows {
-		fmt.Printf("| %s | %.2f %% | ≤ %.0f %% |\n", r.phase, r.cpu, r.limit)
+		fmt.Printf("| %s | %.2f %% | ≤ %.0f %% | %s |\n", r.phase, r.cpu, r.limit, r.render)
 	}
-	fmt.Printf("| Memory: private, before any dialog | %.1f MB | |\n", beforeDialogs)
+	fmt.Printf("| Memory: private, before any dialog | %.1f MB | | |\n", beforeDialogs)
 	// The open-file dialog loads Explorer's shell into the process; that memory stays until quit.
-	fmt.Printf("| Memory: private, after the import dialog | %.1f MB | ≤ %.0f MB |\n", private, ramBudgetMB)
-	fmt.Printf("| Memory: peak working set | %.1f MB | |\n", peak)
+	fmt.Printf("| Memory: private, after the import dialog | %.1f MB | ≤ %.0f MB | |\n", private, ramBudgetMB)
+	fmt.Printf("| Memory: peak working set | %.1f MB | | |\n", peak)
 	if failed {
 		os.Exit(1)
 	}
