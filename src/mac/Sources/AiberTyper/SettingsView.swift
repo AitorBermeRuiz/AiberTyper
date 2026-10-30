@@ -8,7 +8,7 @@ final class SettingsTab: ObservableObject {
     @Published var bar: Int?
 }
 
-/// Settings window (design/settings-window/02): Ajustes, Colecciones and Historial tabs.
+/// Settings window: Ajustes, Colecciones and Historial tabs.
 struct SettingsView: View {
     let session: Session
     let hotKey: String
